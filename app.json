@@ -1,0 +1,37 @@
+{
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/php"
+    }
+  ],
+  "description": "gestion de  restaurant",
+  "env": {
+    "APP_DEBUG": {
+      "required": true
+    },
+    "APP_KEY": {
+      "required": true
+    },
+    "DB_DATABASE": {
+      "required": true
+    },
+    "DB_PASSWORD": {
+      "required": true
+    },
+    "DB_USERNAME": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "name": "restaurant",
+  "scripts": {
+  },
+  "stack": "heroku-18"
+}
