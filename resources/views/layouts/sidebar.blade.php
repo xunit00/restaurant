@@ -17,7 +17,7 @@
                 <div class="info">
                     <a href="#" class="d-block">
                         {{Auth::user()->name}} /
-                        {{-- {{$saludo}} --}}
+                        {{Auth::user()->roles->implode('name',', ')}}
                     </a>
                 </div>
             </div>
@@ -31,13 +31,14 @@
                     <li class="nav-item">
                         <a href="{{route('dashboard.index')}}"
                         class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-tachometer-alt blue"></i>
+                            <i class="nav-icon fas fa-tachometer-alt green"></i>
                             <p>Dashboard</p>
                         </a>
                     </li>
 
-                    <li class="nav-item has-treeview {{ request()->is('users*') ? 'menu-open' : 'menu-close' }}">
-                        <a href="#" class="nav-link {{ request()->is('users*') ? 'active' : '' }}">
+                    <li class="nav-item has-treeview {{ request()->is('users*'&&'permissions*') ? 'menu-open' : 'menu-close' }}">
+
+                        <a href="#" class="nav-link {{ request()->is('users*'&&'permissions*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-cog"></i>
                             <p>
                                 Adm. de Usuarios
@@ -45,7 +46,7 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            {{-- @can('read.users') --}}
+                            @can('read.users')
                             <li class="nav-item">
                                 <a href="{{route('users.index')}}"
                                 class="nav-link {{ request()->is('users*') ? 'active' : '' }}">
@@ -53,26 +54,26 @@
                                     <p>Users Page</p>
                                 <a>
                             </li>
-                            {{-- @endcan --}}
+                            @endcan
 
-                            {{-- @can('read.permissions') --}}
+                            @can('read.permissions')
                             <li class="nav-item">
-                                <a href="" class="nav-link">
-                                    <i class="nav-icon fa fa-user-tag green"></i>
+                                <a href="{{route('permissions.index')}}"
+                                class="nav-link {{ request()->is('permissions*') ? 'active' : '' }}">
+                                        <i class="nav-icon fa fa-scroll red"></i>
                                     <p>Permisos</p>
                                 </a>
                             </li>
-                            {{-- @endcan() --}}
+                            @endcan()
 
-                            {{-- @can('read.role') --}}
+                            @can('read.role')
                             <li class="nav-item">
                                 <a href="" class="nav-link">
-                                    <i class="nav-icon fa fa-user green
-                                   "></i>
+                                        <i class="nav-icon fa fa-user-tag green"></i>
                                     <p>Roles</p>
                                 </a>
                             </li>
-                            {{-- @endcan() --}}
+                            @endcan()
                         </ul>
                     </li>
 
