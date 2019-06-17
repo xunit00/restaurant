@@ -48,8 +48,8 @@
                 <td>{{$rol->id}}</td>
                 <td>{{$rol->name}}</td>
                 <td>
-                    @can('update.permissions')
-                    {{-- <a class="btn btn-outline-secondary btn-sm" href="{{route('permissions.edit',$permission->id)}}"> --}}
+                    @can('update.role')
+                    <a class="btn btn-outline-secondary btn-sm" href="{{route('roles.edit',$rol->id)}}">
                         <i class="fa fa-edit"></i>
                     </a>
                     @endcan

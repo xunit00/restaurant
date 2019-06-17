@@ -66,9 +66,10 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Role $role)
     {
-        //
+        $permissions= Permission::role($role)->get()->pluck('name','id');
+        return view('roles.edit',compact('role','permissions'));
     }
 
     /**
