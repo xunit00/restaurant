@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth',
+        'permission:update.users|create.users|delete.users|read.users']);
+    }
+
     /**
      * Display a listing of the resource.
      *
