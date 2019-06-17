@@ -82,9 +82,19 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Role $role)
     {
-        //
+        $request->validate(['name'=>'required']);
+        $role->update(['name'=>$request->name]);
+
+        $permission=$request->permission;
+
+        foreach($permission as $permiso){
+             $role->givePermissionTo($permiso);
+          }
+
+        return redirect()->route('roles.index')
+        ->with('success', 'Rol Actualizado!');
     }
 
     /**

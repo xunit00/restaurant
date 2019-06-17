@@ -31,8 +31,8 @@
 <div class="card" id="app">
     <section class="content">
         <div class="container-fluid mt-3">
-            <form action="" method="POST" enctype="multipart/form-data">
-
+            <form action="{{route('roles.update',$role->id)}}" method="POST" enctype="multipart/form-data">
+                @method('PUT')
                 @csrf
                 <div class="form-group">
                         <div class="row">
@@ -81,7 +81,7 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" class="btn btn-info" value="Save">
+                    <input type="submit" class="btn btn-info" value="Update">
                 </div>
             </form>
         </div>
