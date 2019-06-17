@@ -38,7 +38,15 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rol=Role::create(['name'=>$request['name']]);
+        $permission=$request->permission;
+
+        foreach($permission as $permiso){
+             $rol->givePermissionTo($permiso);
+          }
+
+         return redirect()->route('roles.index')
+         ->with('success', 'Rol Creado!');
     }
 
     /**

@@ -36,9 +36,9 @@
                         </a>
                     </li>
 
-                    <li class="nav-item has-treeview {{ request()->is('users*'&&'permissions*') ? 'menu-open' : 'menu-close' }}">
+                    <li class="nav-item has-treeview {{ request()->is('users*'&&'permissions*'&&'roles*') ? 'menu-open' : 'menu-close' }}">
 
-                        <a href="#" class="nav-link {{ request()->is('users*'&&'permissions*') ? 'active' : '' }}">
+                        <a href="#" class="nav-link {{ request()->is('users*'&&'permissions*'&&'roles*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-cog"></i>
                             <p>
                                 Adm. de Usuarios
@@ -68,7 +68,8 @@
 
                             @can('read.role')
                             <li class="nav-item">
-                                <a href="{{route('roles.index')}}" class="nav-link">
+                                <a href="{{route('roles.index')}}"
+                                class="nav-link {{ request()->is('roles*') ? 'active' : '' }}">
                                         <i class="nav-icon fa fa-user-tag green"></i>
                                     <p>Roles</p>
                                 </a>

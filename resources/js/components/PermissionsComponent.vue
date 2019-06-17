@@ -1,13 +1,5 @@
 <template>
     <div class="container">
-        <div class="form-group">
-            <div class="row">
-                <label for="" class="col-md-2">Nombre</label>
-                <div class="col-md-6"><input type="text" name="name" class="form-control"></div>
-                <div class="clearfix"></div>
-            </div>
-        </div>
-
     <div class="form-group mt-2">
         <div class="row">
             <label class="col-md-2">Permission</label>
@@ -46,9 +38,6 @@ export default {
     methods:{
         loadPermissions(){
             axios.get("/show_permissions").then(({ data }) => (this.Permissions = data));
-            },
-            createRole(){
-
             }
     },
     mounted() {
@@ -56,7 +45,8 @@ export default {
     },
     created() {
         this.loadPermissions();
-    }, computed: {
+    },
+    computed: {
         selectAll: {
             get: function () {
                 return this.Permissions ? this.selected.length == this.Permissions.length : false;
@@ -69,7 +59,6 @@ export default {
                         selected.push(permn.id);
                     });
                 }
-
                 this.selected = selected;
             }
         }

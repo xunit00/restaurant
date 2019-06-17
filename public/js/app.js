@@ -1743,14 +1743,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1766,8 +1758,7 @@ __webpack_require__.r(__webpack_exports__);
         var data = _ref.data;
         return _this.Permissions = data;
       });
-    },
-    createRole: function createRole() {}
+    }
   },
   mounted: function mounted() {
     console.log('Component Permissions mounted.');
@@ -37087,8 +37078,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _vm._m(0),
-    _vm._v(" "),
     _c("div", { staticClass: "form-group mt-2" }, [
       _c("div", { staticClass: "row" }, [
         _c("label", { staticClass: "col-md-2" }, [_vm._v("Permission")]),
@@ -37204,29 +37193,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("label", { staticClass: "col-md-2", attrs: { for: "" } }, [
-          _vm._v("Nombre")
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6" }, [
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { type: "text", name: "name" }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "clearfix" })
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
