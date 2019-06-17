@@ -57,23 +57,28 @@
                                             </div>
                                         </div>
 
-                            <div class="card">
-                                <section class="content">
-                                    <div class="container-fluid">
-                                        @foreach($permissions as $permission=>$value)
-                                            <div class="form-check" >
-                                            <input class="form-check-input" type="checkbox"
-                                             name="permission[]" value="">
-                                            <label class="form-check-label">{{$permission->name}}</label>
-                                            </div>
-                                        @endforeach
+                    <div class="card">
+                        <section class="content">
+                            <div class="container-fluid">
+
+                                @foreach($permissions as $permission=>$all)
+                                    <div class="form-check">
+                                    <input class="form-check-input" type="checkbox"
+                                        name="permission[]" value="{{$all}}"
+                                        @foreach($my_perm as $mp=>$value)
+                                        @if($all==$value) checked @endif
+                                        @endforeach>
+                                        <label class="form-check-label">{{$all}}</label>
                                     </div>
-                                </section>
-                                </div>
-                            <div class="clearfix"></div>
-                            </div>
+                                 @endforeach
 
                             </div>
+                        </section>
+                    </div>
+
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <input type="submit" class="btn btn-info" value="Save">
