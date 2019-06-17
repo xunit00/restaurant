@@ -68,7 +68,7 @@
 
                             @can('read.role')
                             <li class="nav-item">
-                                <a href="" class="nav-link">
+                                <a href="{{route('roles.index')}}" class="nav-link">
                                         <i class="nav-icon fa fa-user-tag green"></i>
                                     <p>Roles</p>
                                 </a>

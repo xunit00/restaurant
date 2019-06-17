@@ -23,4 +23,9 @@ Route::resource('users','UserController');
 
 Route::resource('permissions','PermissionController');
 
+Route::resource('roles','RolesController');
+
 Route::resource('dashboard','DashboardController');
+
+Route::get('/show_permissions','PermissionController@show');
+
