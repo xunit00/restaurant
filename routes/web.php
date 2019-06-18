@@ -31,3 +31,4 @@ Route::get('/show_permissions','PermissionController@show');
 
 Route::put('/manage_permissions/{id}','UserController@manage_permissions')->name('manage_permissions');
 
+Route::resource('categorias','CategoriaController');

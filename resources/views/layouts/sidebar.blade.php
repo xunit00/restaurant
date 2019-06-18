@@ -36,7 +36,7 @@
                         </a>
                     </li>
 
-                    <li class="nav-item has-treeview {{request()->is('users*'||'permissions*'||'roles*') ? 'menu-open' : NULL }} ">
+                    <li class="nav-item has-treeview">
 
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-users"></i>
@@ -75,16 +75,46 @@
                                 </a>
                             </li>
                             @endcan()
+
                         </ul>
                     </li>
 
 
-                    <li class="nav-item">
-                        <a href="" tag="a" class="nav-link">
-                            <i class="nav-icon fa fa-cogs"></i>
-                            <p>Developer</p>
-                        </a>
-                    </li>
+
+
+                    <li class="nav-item has-treeview">
+
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>
+                                    Inventario
+                                    <i class="right fa fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                @can('read.users')
+                                <li class="nav-item">
+                                    <a href="{{route('categorias.index')}}"
+                                    class="nav-link {{ request()->is('categorias*') ? 'active' : '' }}">
+                                        <i class="fas fa-circle-notch nav-icon"></i>
+                                        <p>Categorias</p>
+                                    <a>
+                                </li>
+                                @endcan
+
+                                @can('read.permissions')
+                                <li class="nav-item">
+                                    <a href="{{route('permissions.index')}}"
+                                    class="nav-link {{ request()->is('permissions*') ? 'active' : '' }}">
+                                            <i class="nav-icon fas fa-circle-notch"></i>
+                                        <p>Articulos</p>
+                                    </a>
+                                </li>
+                                @endcan()
+
+                            </ul>
+                        </li>
+
 
 
 

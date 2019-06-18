@@ -24,6 +24,11 @@
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
+    <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
 </div>
 @endif
 
@@ -38,10 +43,7 @@
                     <div class="row">
                         <label for="" class="col-md-3">Nombre</label>
                         <div class="col-md-6"><input type="text" name="name" value="{{$permission->name}}"
-                            class="form-control @error('name') is-invalid @enderror"
-                            @error('name')
-                            placeholder="{{ $message }}"
-                            @enderror></div>
+                                class="form-control @error('name') is-invalid @enderror"></div>
 
                         <div class="clearfix"></div>
                     </div>
