@@ -2,12 +2,12 @@
 @section('blade')
     <div class="container mt-2">
       <a class="btn btn-success" href="{{route('users.create')}}">
-        Add New
+        Agregar Nuevo Usuario
         <i class="fa fa-user-plus"></i>
       </a>
       <div class="card mt-2">
         <div class="card-header">
-          <h3 class="card-title">Lista de Usuarios</h3>
+          <h3 class="card-title">Usuarios</h3>
 
          @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
@@ -39,19 +39,13 @@
           <table class="table table-hover">
             <tbody>
               <tr>
-                {{-- <th>ID</th> --}}
                 <th>Name</th>
-                {{-- <th>Username</th> --}}
-                {{-- <th>E-mail</th> --}}
                 <th>Rol</th>
                 <th>Modyfy</th>
               </tr>
               @foreach($users as $user)
               <tr>
-                {{-- <td>{{$user->id}}</td> --}}
                 <td>{{$user->name}}</td>
-                {{-- <td>{{$user->username}}</td> --}}
-                {{-- <td>{{$user->email}}</td> --}}
                 <td>{{$user->roles->implode('name',', ')}}</td>
                 <td>
                   <form action="{{route('users.destroy',$user->id)}}" method="POST">

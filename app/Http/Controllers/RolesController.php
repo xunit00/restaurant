@@ -50,12 +50,10 @@ class RolesController extends Controller
 
         $permission=$request->permission;
 
-        foreach($permission as $permiso){
-             $rol->givePermissionTo($permiso);
-          }
+        $rol->givePermissionTo($permission);
 
-         return redirect()->route('roles.index')
-         ->with('success', 'Rol Creado!');
+        return redirect()->route('roles.index')
+        ->with('success', 'Rol Creado!');
     }
 
     /**
@@ -99,9 +97,7 @@ class RolesController extends Controller
 
         $permission=$request->permission;
 
-        foreach($permission as $permiso){
-             $role->syncPermissions($permiso);
-          }
+        $role->syncPermissions($permission);
 
         return redirect()->route('roles.index')
         ->with('success', 'Rol Actualizado!');

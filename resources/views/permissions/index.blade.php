@@ -2,12 +2,12 @@
 @section('blade')
     <div class="container mt-2">
       <a class="btn btn-success" href="{{route('permissions.create')}}">
-        Add New
+        Agregar Nuevo Permiso
         <i class="fa fa-user-plus"></i>
       </a>
       <div class="card mt-2">
         <div class="card-header">
-          <h3 class="card-title">Lista de Permisos</h3>
+          <h3 class="card-title">Permisos</h3>
 
          @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">

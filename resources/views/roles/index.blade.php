@@ -2,12 +2,12 @@
 @section('blade')
     <div class="container mt-2">
       <a class="btn btn-success" href="{{route('roles.create')}}">
-        Add New
+        Agregar Nuevo Rol
         <i class="fa fa-user-plus"></i>
       </a>
       <div class="card mt-2">
         <div class="card-header">
-          <h3 class="card-title">Lista de Roles</h3>
+          <h3 class="card-title">Roles</h3>
 
          @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">

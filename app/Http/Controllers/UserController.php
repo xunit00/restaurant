@@ -118,32 +118,11 @@ class UserController extends Controller
     }
     public function manage_permissions(Request $request,$id)
     {
-        $this->validate($request,['permission'=>'required']);
+        // $this->validate($request,['permission'=>'required']);
         $new_permission=$request->permission;
         $user = User::findOrFail($id);
-        $old_permission= $user->getDirectPermissions();
 
-
-        // dd($old_permission);
-        // dd($new_permission);
-
-        foreach($old_permission as $perm_old){
-            foreach($new_permission as $permiso_new){
-
-                if(!$permiso_new==$perm_old){
-                    $user->givePermissionTo($permiso_new);
-                }else{
-                    $user->givePermissionTo($perm_old);
-                }
-            }
-            // if(!$user->hasPermissionTo($permiso)){
-            //     $user->givePermissionTo($permiso);
-            // }elseif($user->hasPermissionTo($permiso)){
-            //     $user->syncPermissions($permiso);
-            // }else{
-            //     $user->revokePermissionTo($permiso);
-            // }
-        }
+        $user->syncPermissions($new_permission);
 
         return redirect()->route('users.index')
         ->with('success','Permisos de Usuario actualizado Correctamente');
