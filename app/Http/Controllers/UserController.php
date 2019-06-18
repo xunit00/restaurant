@@ -6,6 +6,8 @@ use Spatie\Permission\Models\Role;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -66,8 +68,11 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        $my_perm=$user->permissions()->pluck('name','id');//muestra permisos dados directamente
+
+        $permissions=Permission::all()->pluck('name','id');
         $roles= Role::all()->pluck('name','id');
-        return view('users.show',compact('user','roles'));
+        return view('users.show',compact('user','roles','permissions','my_perm'));
     }
 
  /**
@@ -94,8 +99,8 @@ class UserController extends Controller
         $user->syncRoles($request->rol);
         $user->update($request->all());
 
-         return redirect()->route('users.index')
-         ->with('success','Usuario Actualizado Correctamente');
+        return redirect()->route('users.index')
+        ->with('success','Usuario Actualizado Correctamente');
     }
 
     /**
@@ -110,5 +115,37 @@ class UserController extends Controller
         $user->delete();
         return redirect()->route('users.index')
         ->with('success','User Eliminado Correctamente');
+    }
+    public function manage_permissions(Request $request,$id)
+    {
+        $this->validate($request,['permission'=>'required']);
+        $new_permission=$request->permission;
+        $user = User::findOrFail($id);
+        $old_permission= $user->getDirectPermissions();
+
+
+        // dd($old_permission);
+        // dd($new_permission);
+
+        foreach($old_permission as $perm_old){
+            foreach($new_permission as $permiso_new){
+
+                if(!$permiso_new==$perm_old){
+                    $user->givePermissionTo($permiso_new);
+                }else{
+                    $user->givePermissionTo($perm_old);
+                }
+            }
+            // if(!$user->hasPermissionTo($permiso)){
+            //     $user->givePermissionTo($permiso);
+            // }elseif($user->hasPermissionTo($permiso)){
+            //     $user->syncPermissions($permiso);
+            // }else{
+            //     $user->revokePermissionTo($permiso);
+            // }
+        }
+
+        return redirect()->route('users.index')
+        ->with('success','Permisos de Usuario actualizado Correctamente');
     }
 }

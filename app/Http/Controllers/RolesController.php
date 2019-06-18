@@ -100,7 +100,7 @@ class RolesController extends Controller
         $permission=$request->permission;
 
         foreach($permission as $permiso){
-             $role->givePermissionTo($permiso);
+             $role->syncPermissions($permiso);
           }
 
         return redirect()->route('roles.index')

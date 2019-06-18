@@ -29,3 +29,5 @@ Route::resource('dashboard','DashboardController');
 
 Route::get('/show_permissions','PermissionController@show');
 
+Route::put('/manage_permissions/{id}','UserController@manage_permissions')->name('manage_permissions');
+

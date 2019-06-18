@@ -16,8 +16,11 @@
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
 </div>
+<form action="{{route('manage_permissions',$user->id)}}" method="POST" enctype="multipart/form-data">
+    @method('PUT')
+    @csrf
 <div class="card">
-  <section class="content">
+    <section class="content">
         <div class="container-fluid mt-3">
             <div class="form-group">
                 <strong>Name:</strong>
@@ -36,13 +39,47 @@
                 @foreach($roles as $rol=>$value)
                 @if($user->hasRole($value))
                 {{$value}}
-                {{-- @else
-                        Sin rol --}}
                 @endif
                 @endforeach
             </div>
         </div>
-        </div>
     </section>
 </div>
+
+    <div class="form-group mt-2">
+        <div class="row">
+            <label class="col-md-2">Permisos</label>
+            <div class="col-md-6">
+                @error('permission')
+                <label for="error">{{ $message }}</label>
+                @enderror
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox">
+                    <label class="form-check-label">Seleccionar Todo</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <section class="content">
+                <div class="container-fluid">
+
+                    @foreach($permissions as $permission=>$all)
+                    <div class="form-check">
+                        <input class="form-check-input @error('permission') is-invalid @enderror" type="checkbox"
+                            name="permission[]" value="{{$all}}" @foreach($my_perm as $mp=>$value)
+                        @if($all==$value) checked @endif
+                        @endforeach>
+                        <label class="form-check-label">{{$all}}</label>
+                    </div>
+                    @endforeach
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" class="btn btn-info" value="Update">
+    </div>
+</form>
 @endsection
