@@ -45,6 +45,7 @@ class PermissionController extends Controller
     {
         $request->validate(['name'=>'required']);
         Permission::create($request->all());
+
         return redirect()->route('permissions.index')
         ->with('success', 'Permiso Creado!');
     }

@@ -50,6 +50,9 @@
                                 <div class="row">
                                     <label class="col-md-2">Permisos</label>
                                         <div class="col-md-6">
+                                                @error('permission')
+                                                <label for="error">{{ $message }}</label>
+                                                @enderror
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox">
                                                     <label class="form-check-label">Seleccionar Todo</label>
@@ -63,7 +66,7 @@
 
                                 @foreach($permissions as $permission=>$all)
                                     <div class="form-check">
-                                    <input class="form-check-input" type="checkbox"
+                                    <input class="form-check-input @error('permission') is-invalid @enderror" type="checkbox"
                                         name="permission[]" value="{{$all}}"
                                         @foreach($my_perm as $mp=>$value)
                                         @if($all==$value) checked @endif

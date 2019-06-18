@@ -44,7 +44,10 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,['name'=>'required','permission'=>'required']);
+
         $rol=Role::create(['name'=>$request['name']]);
+
         $permission=$request->permission;
 
         foreach($permission as $permiso){
@@ -90,7 +93,8 @@ class RolesController extends Controller
      */
     public function update(Request $request,Role $role)
     {
-        $request->validate(['name'=>'required']);
+        $this->validate($request,['name'=>'required','permission'=>'required']);
+
         $role->update(['name'=>$request->name]);
 
         $permission=$request->permission;
