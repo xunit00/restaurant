@@ -3,7 +3,7 @@
 @section('home')
 
 <body class="hold-transition sidebar-mini">
-    <div class="wrapper" id="app">
+    <div class="wrapper">
 
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand bg-white  navbar-light border-bottom">

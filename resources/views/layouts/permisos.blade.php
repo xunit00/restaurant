@@ -3,15 +3,14 @@
         <label class="col-md-2">Permisos</label>
         <div class="col-md-6">
             <div class="form-check">
-                <input class="form-check-input" type="checkbox"
-                 id="miCheckBox" name="miCheckBox"  onClick="miCheckBox()">
+                <input class="form-check-input" type="checkbox" id="selectall" name="selectall"
+                    onClick="selectAll(this)">
                 <label class="form-check-label">Seleccionar Todo</label>
             </div>
         </div>
     </div>
 
     <div class="card mt-2">
-        <div style="visibility:hidden">cuadro de permisos</div>
         <section class="content">
             <div class="container-fluid">
 
@@ -25,10 +24,13 @@
                 </div>
                 @endforeach
             </div>
-            <div style="visibility:hidden">final:cuadro de permisos</div>
         </section>
     </div>
 </div>
-<script>
-$("#miCheckBox").click(()=>{$("input[type=checkbox]").prop("checked",true)})
+<script lang="javascript">
+    function selectAll(source){
+   	checkboxes = document.getElementsByName('permission[]');
+		for(var i in checkboxes)
+			checkboxes[i].checked = source.checked;
+}
 </script>
