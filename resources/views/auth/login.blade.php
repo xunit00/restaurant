@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('home')
- <!-- iCheck -->
- {{-- <link rel="stylesheet" href="{{asset('admin-lte/plugins/iCheck/square/blue.css')}}"> --}}
+<!-- iCheck -->
+{{-- <link rel="stylesheet" href="{{asset('admin-lte/plugins/iCheck/square/blue.css')}}"> --}}
 
 <body class="hold-transition login-page">
     <div class="login-box">
@@ -17,10 +17,11 @@
                 <form action="{{ route('login') }}" method="post" id="app">
                     @csrf
                     <div class="form-group has-feedback">
-                        <input id="username" name="username" type="text" class="form-control @error('username') is-invalid @enderror"
+                        <input id="username" name="username" type="text"
+                            class="form-control @error('username') is-invalid @enderror"
                             placeholder="{{ __('Username or E-Mail Address') }}" required autocomplete="username"
                             autofocus>
-                            <span class="fa fa-envelope form-control-feedback"></span>
+                        <span class="fa fa-envelope form-control-feedback"></span>
                         @error('username')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -29,9 +30,10 @@
                     </div>
 
                     <div class="form-group has-feedback">
-                        <input id="password" name="password" type="password" class="form-control @error('password') is-invalid @enderror"
+                        <input id="password" name="password" type="password"
+                            class="form-control @error('password') is-invalid @enderror"
                             placeholder="{{ __('Password') }}" required autocomplete="current-password">
-                            <span class="fa fa-lock form-control-feedback"></span>
+                        <span class="fa fa-lock form-control-feedback"></span>
                         @error('password')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -40,12 +42,14 @@
                     </div>
                     <div class="row">
                         <div class="col-8">
-                            <div class="checkbox icheck">
-                                <label>
-                                    <input type="checkbox" name="remember" id="remember"
-                                        {{ old('remember') ? 'checked' : '' }}> {{ __('Remember Me') }}
-                                </label>
-                            </div>
+
+                            <div class="custom-control custom-switch my-1 mr-sm-2">
+                                <input type="checkbox" class="custom-control-input" name="remember"
+                                id="remember"  {{ old('remember') ? 'checked' : '' }}>
+                                <label class="custom-control-label" for="remember">{{ __('Remember Me') }}</label>
+                              </div>
+
+
                         </div>
                         <!-- /.col -->
                         <div class="col-4">
@@ -73,16 +77,16 @@
     <!-- /.login-box -->
 
 
-<!-- Bootstrap 4 -->
-{{-- <script src="{{asset('js/app.js')}}"></script> --}}
-<!-- iCheck -->
-{{-- <script src="{{asset('admin-lte/plugins/iCheck/icheck.min.js')}}"></script> --}}
+    <!-- Bootstrap 4 -->
+    {{-- <script src="{{asset('js/app.js')}}"></script> --}}
+    <!-- iCheck -->
+    {{-- <script src="{{asset('admin-lte/plugins/iCheck/icheck.min.js')}}"></script> --}}
     <script>
-    //         $(function () {
+        //         $(function () {
     //     $('input').iCheck({
     //       checkboxClass: 'icheckbox_square-blue',
     //       increaseArea : '20%' // optional
     //     })
     //   })
-        </script>
-@endsection
+    </script>
+    @endsection
