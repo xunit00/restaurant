@@ -4,12 +4,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Dashboard v3</h1>
+                <h1 class="m-0 text-dark">Dashboard</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard v3</li>
+                <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -57,9 +57,9 @@
                 <!-- small card -->
                 <div class="small-box bg-warning">
                     <div class="inner">
-                        <h3>44</h3>
+                    <h3>3</h3>
 
-                        <p>User Registrations</p>
+                        <p>Usuarios</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-person-add"></i>
@@ -74,14 +74,14 @@
                 <!-- small card -->
                 <div class="small-box bg-danger">
                     <div class="inner">
-                        <h3>65</h3>
+                        <h3>{{$categoryCount}}</h3>
 
-                        <p>Unique Visitors</p>
+                        <p>Categorias</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-pie-graph"></i>
                     </div>
-                    <a href="#" class="small-box-footer">
+                <a href="{{route('categorias.index')}}" class="small-box-footer">
                         More info <i class="fa fa-arrow-circle-right"></i>
                     </a>
                 </div>

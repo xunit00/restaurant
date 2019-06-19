@@ -1,11 +1,28 @@
 @extends('home')
 @section('blade')
-    <div class="container mt-2">
-      <a class="btn btn-success" href="{{route('roles.create')}}">
-        Agregar Nuevo Rol
-        <i class="fa fa-user-plus"></i>
-      </a>
-      <div class="card mt-2">
+<!-- Content Header (Page header) -->
+<div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <a class="btn btn-success" href="{{route('roles.create')}}">
+                        Crear Rol
+                        <i class="fa fa-user-plus"></i>
+                    </a>
+                </div><!-- /.col -->
+
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Lista de Roles</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+
+    <div class="container">
+      <div class="card">
         <div class="card-header">
           <h3 class="card-title">Roles</h3>
 

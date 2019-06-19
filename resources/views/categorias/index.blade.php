@@ -1,13 +1,30 @@
 @extends('home')
 @section('blade')
-<div class="container mt-2">
-    <a class="btn btn-success" href="{{route('categorias.create')}}">
-        Agregar Nueva Categoria
-        <i class="fa fa-user-plus"></i>
-    </a>
-    <div class="card mt-2">
+<!-- Content Header (Page header) -->
+<div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <a class="btn btn-success" href="{{route('categorias.create')}}">
+                        Crear Categorias
+                        <i class="fa fa-user-plus"></i>
+                    </a>
+                </div><!-- /.col -->
+
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Lista de Categorias</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+
+<div class="container">
+    <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Roles</h3>
+            <h3 class="card-title">Categorias</h3>
 
             @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">

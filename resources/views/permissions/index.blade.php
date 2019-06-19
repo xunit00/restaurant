@@ -1,11 +1,28 @@
 @extends('home')
 @section('blade')
-    <div class="container mt-2">
-      <a class="btn btn-success" href="{{route('permissions.create')}}">
-        Agregar Nuevo Permiso
-        <i class="fa fa-user-plus"></i>
-      </a>
-      <div class="card mt-2">
+<!-- Content Header (Page header) -->
+<div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <a class="btn btn-success" href="{{route('permissions.create')}}">
+                        Crear Permiso
+                        <i class="fa fa-user-plus"></i>
+                    </a>
+                </div><!-- /.col -->
+
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Lista de Permisos</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+
+    <div class="container">
+      <div class="card">
         <div class="card-header">
           <h3 class="card-title">Permisos</h3>
 

@@ -16,67 +16,53 @@
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
 </div>
+
+
+@if ($errors->any())
+<div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+    <strong>Whoops!</strong> Error en la actualizacion de datos.<br><br>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
+
 <form action="{{route('manage_permissions',$user->id)}}" method="POST" enctype="multipart/form-data">
     @method('PUT')
     @csrf
-<div class="card">
-    <section class="content">
-        <div class="container-fluid mt-3">
-            <div class="form-group">
-                <strong>Name:</strong>
-                {{ $user->name }}
-            </div>
-            <div class="form-group">
-                <strong>Username:</strong>
-                {{ $user->username }}
-            </div>
-            <div class="form-group">
-                <strong>Name:</strong>
-                {{ $user->email }}
-            </div>
-            <div class="form-group">
-                <strong>Rol:</strong>
-                @foreach($roles as $rol=>$value)
-                @if($user->hasRole($value))
-                {{$value}}
-                @endif
-                @endforeach
-            </div>
-        </div>
-    </section>
-</div>
-
-    <div class="form-group mt-2">
-        <div class="row">
-            <label class="col-md-2">Permisos</label>
-            <div class="col-md-6">
-                @error('permission')
-                <label for="error">{{ $message }}</label>
-                @enderror
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox">
-                    <label class="form-check-label">Seleccionar Todo</label>
+    <div class="card">
+        <section class="content">
+            <div class="container-fluid mt-3">
+                <div class="form-group">
+                    <strong>Name:</strong>
+                    {{ $user->name }}
                 </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <section class="content">
-                <div class="container-fluid">
-
-                    @foreach($permissions as $permission=>$all)
-                    <div class="form-check">
-                        <input class="form-check-input @error('permission') is-invalid @enderror" type="checkbox"
-                            name="permission[]" value="{{$all}}" @foreach($my_perm as $mp=>$value)
-                        @if($all==$value) checked @endif
-                        @endforeach>
-                        <label class="form-check-label">{{$all}}</label>
-                    </div>
+                <div class="form-group">
+                    <strong>Username:</strong>
+                    {{ $user->username }}
+                </div>
+                <div class="form-group">
+                    <strong>Name:</strong>
+                    {{ $user->email }}
+                </div>
+                <div class="form-group">
+                    <strong>Rol:</strong>
+                    @foreach($roles as $rol=>$value)
+                    @if($user->hasRole($value))
+                    {{$value}}
+                    @endif
                     @endforeach
                 </div>
-            </section>
-        </div>
+            </div>
+        </section>
     </div>
+
+    @include('layouts.permisos')
 
     <div class="form-group">
         <input type="submit" class="btn btn-info" value="Update">
