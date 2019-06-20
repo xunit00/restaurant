@@ -104,10 +104,10 @@
 
                                 @can('read.permissions')
                                 <li class="nav-item">
-                                    <a href="{{route('permissions.index')}}"
-                                    class="nav-link {{ request()->is('permissions*') ? 'active' : '' }}">
+                                    <a href="{{route('unidades.index')}}"
+                                    class="nav-link {{ request()->is('unidades*') ? 'active' : '' }}">
                                             <i class="nav-icon fas fa-circle-notch"></i>
-                                        <p>Articulos</p>
+                                        <p>Unidades</p>
                                     </a>
                                 </li>
                                 @endcan()
