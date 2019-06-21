@@ -11,4 +11,10 @@ class Unidad extends Model
     protected $fillable = [
         'nombre_unidad', 'descripcion_unidad','contenido', 'status',
     ];
+
+    public function producto()
+    {
+        return $this->belongsToMany(Producto::class,'productos_vs_unidades');
+    }
+
 }

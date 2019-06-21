@@ -24,7 +24,8 @@ Route::resources(['users'=>'UserController',
     'roles'=>'RolesController',
     'dashboard'=>'DashboardController',
     'categorias'=>'CategoriaController',
-    'unidades'=>'UnidadController'
+    'unidades'=>'UnidadController',
+    'productos'=>'ProductoController'
 ]);
 
 Route::get('/show_permissions','PermissionController@show');

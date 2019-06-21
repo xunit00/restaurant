@@ -112,6 +112,16 @@
                                 </li>
                                 @endcan()
 
+                                @can('read.permissions')
+                                <li class="nav-item">
+                                    <a href="{{route('productos.index')}}"
+                                    class="nav-link {{ request()->is('productos*') ? 'active' : '' }}">
+                                            <i class="nav-icon fas fa-circle-notch"></i>
+                                        <p>Productos</p>
+                                    </a>
+                                </li>
+                                @endcan()
+
                             </ul>
                         </li>
 
