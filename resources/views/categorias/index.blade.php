@@ -7,7 +7,7 @@
                 <div class="col-sm-6">
                     <a class="btn btn-success" href="{{route('categorias.create')}}">
                         Crear Categorias
-                        <i class="fa fa-user-plus"></i>
+                        <i class="fa fa-th-large"></i>
                     </a>
                 </div><!-- /.col -->
 

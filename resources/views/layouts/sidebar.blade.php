@@ -85,7 +85,7 @@
                     <li class="nav-item has-treeview">
 
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-users"></i>
+                                <i class="nav-icon fas fa-boxes"></i>
                                 <p>
                                     Inventario
                                     <i class="right fa fa-angle-left"></i>

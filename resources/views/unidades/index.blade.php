@@ -7,7 +7,7 @@
                 <div class="col-sm-6">
                     <a class="btn btn-success" href="{{route('unidades.create')}}">
                         Crear Unidades
-                        <i class="fa fa-user-plus"></i>
+                        <i class="fa fa-boxes"></i>
                     </a>
                 </div><!-- /.col -->
 
