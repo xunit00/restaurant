@@ -38,7 +38,7 @@ class UnidadRequest extends FormRequest
                 }
             case 'PUT':{
                 return [
-                    'nombre_unidad' => 'required|string|min:4|max:50|unique:unidades,nombre_unidad,'. $this->route('unidad')->id,
+                    'nombre_unidad' => 'required|string|min:4|max:50|unique:unidades,nombre_unidad,'. $this->route('unidades')->id,
                     'descripcion_unidad' => 'nullable|string|min:4|max:191',
                     'contenido'=>'required|integer',
                     'status'=>'required|boolean',

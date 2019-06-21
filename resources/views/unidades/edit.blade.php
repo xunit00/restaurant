@@ -35,7 +35,7 @@
 <div class="card">
     <section class="content">
         <div class="container-fluid mt-3">
-            <form action="" method="POST" enctype="multipart/form-data">
+            <form action="{{route('unidades.update',$unidad->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -60,10 +60,18 @@
 
                 <div class="form-group">
                     <div class="row">
+                        <label for="" class="col-md-3">Contenido</label>
+                        <div class="col-md-6"><input type="text" name="contenido" value="{{$unidad->contenido}}"
+                                class="form-control @error('contenido') is-invalid @enderror"></div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
                         <label for="" class="col-md-3">Status</label>
                         <div class="col-md-6">
                             <select name="status" id="" class="form-control @error('status') is-invalid @enderror">
-                                <option value="">Seleccionar Status</option>
                                 @if($unidad->status==1)
                                 <option value="0">Inactivo</option>
                                 <option value="1" selected>Activo</option>

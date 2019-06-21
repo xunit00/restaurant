@@ -19,18 +19,17 @@ Auth::routes(['verify' => true, 'register' => false]);//no permite registrar
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('users','UserController');
-
-Route::resource('permissions','PermissionController');
-
-Route::resource('roles','RolesController');
-
-Route::resource('dashboard','DashboardController');
+Route::resources(['users'=>'UserController',
+    'permissions'=>'PermissionController',
+    'roles'=>'RolesController',
+    'dashboard'=>'DashboardController',
+    'categorias'=>'CategoriaController',
+    'unidades'=>'UnidadController'
+]);
 
 Route::get('/show_permissions','PermissionController@show');
 
 Route::put('/manage_permissions/{id}','UserController@manage_permissions')->name('manage_permissions');
 
-Route::resource('categorias','CategoriaController');
 
-Route::resource('unidades','UnidadController');
+

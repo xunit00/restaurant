@@ -61,8 +61,9 @@ class UnidadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Unidad $unidad)
+    public function edit($id)
     {
+        $unidad = Unidad::findOrFail($id);
         return view('unidades.edit',compact('unidad'));
     }
 
@@ -75,7 +76,25 @@ class UnidadController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // $unidad->update($request->all());
+        $request->validate([
+            'nombre_unidad'=>'required|string|min:4|max:50|unique:unidades,nombre_unidad,'.$id.'id',
+            'descripcion_unidad'=>'nullable|string|min:4|max:191',
+            'contenido' => 'required|integer',
+            'status'=>'required|boolean'
+          ]);
+
+          $unidad = Unidad::findOrFail($id);
+          $unidad->nombre_unidad = $request->get('nombre_unidad');
+          $unidad->descripcion_unidad = $request->get('descripcion_unidad');
+          $unidad->contenido = $request->get('contenido');
+          $unidad->status = $request->get('status');
+
+          $unidad->save();
+
+
+        return redirect()->route('unidades.index')
+        ->with('success','Unidad Actualizada Correctamente');
     }
 
     /**
@@ -86,6 +105,10 @@ class UnidadController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $unidades = Unidad::findOrFail($id);
+        $unidades->delete();
+
+        return redirect()->route('unidades.index')
+        ->with('success','Unidad Eliminada Correctamente');
     }
 }

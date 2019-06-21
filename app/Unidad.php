@@ -9,6 +9,6 @@ class Unidad extends Model
     protected $table = 'unidades';
 
     protected $fillable = [
-        'nombre', 'descripcion', 'status',
+        'nombre_unidad', 'descripcion_unidad','contenido', 'status',
     ];
 }
