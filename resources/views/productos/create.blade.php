@@ -31,13 +31,13 @@
 <div class="card">
     <section class="content">
         <div class="container-fluid mt-3">
-            <form action="{{route('unidades.store')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('productos.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <div class="row">
                         <label for="" class="col-md-3">Nombre</label>
-                        <div class="col-md-6"><input type="text" name="nombre"
-                                class="form-control @error('nombre') is-invalid @enderror" @error('nombre')
+                        <div class="col-md-6"><input type="text" name="nombre_producto"
+                                class="form-control @error('nombre_producto') is-invalid @enderror" @error('nombre_producto')
                                 placeholder="{{ $message }}" @enderror></div>
 
                         <div class="clearfix"></div>
@@ -47,8 +47,8 @@
                 <div class="form-group">
                     <div class="row">
                         <label for="" class="col-md-3">Descripcion</label>
-                        <div class="col-md-6"><input type="text" name="descripcion"
-                                class="form-control @error('descripcion') is-invalid @enderror" @error('descripcion')
+                        <div class="col-md-6"><input type="text" name="descripcion_producto"
+                                class="form-control @error('descripcion_producto') is-invalid @enderror" @error('descripcion_producto')
                                 placeholder="{{ $message }}" @enderror></div>
                         <div class="clearfix"></div>
                     </div>
@@ -58,8 +58,8 @@
                     <div class="row">
                         <label for="" class="col-md-3">Categoria</label>
                         <div class="col-md-6">
-                            <select name="rol" id=""
-                            class="form-control @error('categoria') is-invalid @enderror">
+                            <select name="id_categoria" id=""
+                            class="form-control @error('id_categoria') is-invalid @enderror">
                                 <option value="">Seleccionar Categoria</option>
                                 @foreach($categorias as $cat=>$value)
                                 <option value="{{$cat}}">{{$value}}</option>
@@ -69,53 +69,6 @@
                         <div class="clearfix"></div>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <div class="row">
-                        <label for="" class="col-md-3">Unidad</label>
-                        <div class="col-md-6">
-                            <select name="rol" id=""
-                            class="form-control @error('unidades') is-invalid @enderror">
-                                <option value="">Seleccionar Unidad</option>
-                                @foreach($unidades as $unid=>$value)
-                                <option value="{{$unid}}">{{$value}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="row">
-                        <label for="" class="col-md-3">Cantidad</label>
-                        <div class="col-md-6"><input type="text" name="cantidad"
-                                class="form-control @error('cantidad') is-invalid @enderror" @error('cantidad')
-                                placeholder="{{ $message }}" @enderror></div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="row">
-                        <label for="" class="col-md-3">Precio de Venta</label>
-                        <div class="col-md-6"><input type="text" name="precio_venta"
-                                class="form-control @error('precio_venta') is-invalid @enderror" @error('precio_venta')
-                                placeholder="{{ $message }}" @enderror></div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="row">
-                        <label for="" class="col-md-3">Costo</label>
-                        <div class="col-md-6"><input type="text" name="costo"
-                                class="form-control @error('costo') is-invalid @enderror" @error('costo')
-                                placeholder="{{ $message }}" @enderror></div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-
 
                 <div class="form-group">
                     <input type="submit" class="btn btn-info" value="Save">

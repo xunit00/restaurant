@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Producto;
 use Illuminate\Http\Request;
-use App\Unidad;
 use App\Categoria;
 
 class ProductoController extends Controller
@@ -27,7 +26,6 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        $unidades=Unidad::all()->pluck('nombre_unidad','id');
         $categorias= Categoria::all()->pluck('nombre','id');
         return view('productos.create',compact('categorias','unidades'));
     }
@@ -40,7 +38,10 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Producto::create($request->all());
+
+        return redirect()->route('productos.index')
+        ->with('success', 'Producto Creado!');
     }
 
     /**
@@ -60,9 +61,9 @@ class ProductoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Producto $producto)
     {
-        //
+        return view('productos.edit',compact('producto'));
     }
 
     /**
