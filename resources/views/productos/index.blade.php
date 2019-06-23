@@ -53,17 +53,18 @@
                 <tbody>
                     <tr>
                         <th>Nombre</th>
+                        <th>Unidad</th>
                         <th>Descripcion</th>
                         <th>Categoria</th>
-                        <th>Unidad</th>
                         <th>Modyfy</th>
                     </tr>
                     @foreach($productos as $prod)
                     <tr>
                         <td>{{$prod->producto->nombre_producto}}</td>
+                        <td>{{$prod->unidad->nombre_unidad}}</td>
                         <td>{{$prod->producto->descripcion_producto}}</td>
                         <td>{{$prod->producto->categoria->nombre}}</td>
-                        <td>{{$prod->unidad->nombre_unidad}}</td>
+
                         <td>
                             {{-- <form action="{{route('productos.destroy',$prod->id)}}" method="POST"> --}}
                                 @can('update.role')
@@ -86,7 +87,7 @@
                     @endforeach
                 </tbody>
             </table>
-            {{-- {{$productos->links()}} --}}
+            {{$productos->links()}}
         </div>
         <!-- /.card-body -->
     </div>
