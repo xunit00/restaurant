@@ -6,6 +6,7 @@ use App\Producto;
 use App\Categoria;
 use App\Producto_Unidad;
 use Illuminate\Http\Request;
+use App\Unidad;
 
 class ProductoController extends Controller
 {
@@ -28,6 +29,7 @@ class ProductoController extends Controller
     public function create()
     {
         $categorias= Categoria::all()->pluck('nombre','id');
+        $unidades=Unidad::all()->pluck('nombre_unidad','id');
         return view('productos.create',compact('categorias','unidades'));
     }
 

@@ -66,12 +66,12 @@
                         <td>{{$prod->producto->categoria->nombre}}</td>
 
                         <td>
-                            {{-- <form action="{{route('productos.destroy',$prod->id)}}" method="POST"> --}}
+                            <form action="{{route('productos.destroy',$prod->unidad_id)}}" method="POST">
                                 @can('update.role')
-                                {{-- <a class="btn btn-outline-secondary btn-sm"
-                                    href="{{route('productos.edit',$prod->id)}}">
+                                <a class="btn btn-outline-secondary btn-sm"
+                                    href="{{route('productos.edit',$prod->unidad_id)}}">
                                     <i class="fa fa-edit"></i>
-                                </a> --}}
+                                </a>
                                 @endcan
 
                                 @csrf
