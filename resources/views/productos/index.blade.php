@@ -63,7 +63,7 @@
                         <td>{{$prod->nombre_producto}}</td>
                         <td>{{$prod->descripcion_producto}}</td>
                         <td>{{$prod->categoria->nombre}}</td>
-                        <td>{{$prod->productos_unidades}}</td>
+                        <td>{{$prod->unidad}}</td>
                         <td>
                             <form action="{{route('productos.destroy',$prod->id)}}" method="POST">
                                 @can('update.role')

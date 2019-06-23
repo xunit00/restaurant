@@ -15,9 +15,14 @@ class Producto extends Model
         return $this->belongsTo(Categoria::class,'id_categoria');
     }
 
-    function productos_unidades()
+    function unidad()
     {
-        return $this->belongsToMany(Producto_Unidad::class, 'productos_unidades', 'producto_id', 'unidad_id');
+        return $this->belongsToMany(Unidad::class,'productos_unidades');
     }
+
+    // function productos_unidades()
+    // {
+    //     return $this->belongsToMany(Producto_Unidad::class, 'productos_unidades', 'producto_id', 'unidad_id');
+    // }
 
 }

@@ -15,7 +15,7 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $productos = Producto::with('categoria','productos_unidades')->paginate(10);
+        $productos = Producto::with('categoria','unidad')->paginate(10);
         return view('productos.index',compact('productos'));
     }
 
