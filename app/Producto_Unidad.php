@@ -9,17 +9,17 @@ class Producto_Unidad extends Model
     protected $table = 'productos_unidades';
 
     protected $fillable = [
-        'id_producto', 'id_unidad','cantidad','precio_venta','costo'
+        'producto_id', 'unidad_id','cantidad','precio_venta','costo'
     ];
 
-    function unidades()
+    function unidad()
     {
-        return $this->belongsToMany(Unidad::class);
+        return $this->belongsTo(Unidad::class,'unidad_id');
     }
 
-    function productos()
+    function producto()
     {
-        return $this->belongsToMany(Producto::class);
+        return $this->belongsTo(Producto::class,'producto_id');
     }
 
 }

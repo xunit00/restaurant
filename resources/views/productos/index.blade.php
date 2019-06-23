@@ -60,17 +60,17 @@
                     </tr>
                     @foreach($productos as $prod)
                     <tr>
-                        <td>{{$prod->nombre_producto}}</td>
-                        <td>{{$prod->descripcion_producto}}</td>
-                        <td>{{$prod->categoria->nombre}}</td>
-                        <td>{{$prod->unidad}}</td>
+                        <td>{{$prod->producto->nombre_producto}}</td>
+                        <td>{{$prod->producto->descripcion_producto}}</td>
+                        <td>{{$prod->producto->categoria->nombre}}</td>
+                        <td>{{$prod->unidad->nombre_unidad}}</td>
                         <td>
-                            <form action="{{route('productos.destroy',$prod->id)}}" method="POST">
+                            {{-- <form action="{{route('productos.destroy',$prod->id)}}" method="POST"> --}}
                                 @can('update.role')
-                                <a class="btn btn-outline-secondary btn-sm"
+                                {{-- <a class="btn btn-outline-secondary btn-sm"
                                     href="{{route('productos.edit',$prod->id)}}">
                                     <i class="fa fa-edit"></i>
-                                </a>
+                                </a> --}}
                                 @endcan
 
                                 @csrf
@@ -86,7 +86,7 @@
                     @endforeach
                 </tbody>
             </table>
-            {{$productos->links()}}
+            {{-- {{$productos->links()}} --}}
         </div>
         <!-- /.card-body -->
     </div>
