@@ -28,8 +28,6 @@ Route::resources(['users'=>'UserController',
     'productos'=>'ProductoController'
 ]);
 
-Route::get('/show_permissions','PermissionController@show');
-
 Route::put('/manage_permissions/{id}','UserController@manage_permissions')->name('manage_permissions');
 
 
