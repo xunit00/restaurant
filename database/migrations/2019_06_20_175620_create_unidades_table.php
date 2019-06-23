@@ -15,7 +15,7 @@ class CreateUnidadesTable extends Migration
     {
         Schema::create('unidades', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nombre_unidad');
+            $table->string('nombre_unidad')->unique();
             $table->integer('contenido');
             $table->string('descripcion_unidad')->nullable();
             $table->boolean('status')->default(1);

@@ -55,6 +55,7 @@
                         <th>Nombre</th>
                         <th>Descripcion</th>
                         <th>Categoria</th>
+                        <th>Unidad</th>
                         <th>Modyfy</th>
                     </tr>
                     @foreach($productos as $prod)
@@ -62,6 +63,7 @@
                         <td>{{$prod->nombre_producto}}</td>
                         <td>{{$prod->descripcion_producto}}</td>
                         <td>{{$prod->categoria->nombre}}</td>
+                        <td>{{$prod->productos_unidades}}</td>
                         <td>
                             <form action="{{route('productos.destroy',$prod->id)}}" method="POST">
                                 @can('update.role')
