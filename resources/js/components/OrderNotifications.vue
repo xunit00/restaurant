@@ -30,7 +30,9 @@
         <strong>See All Alerts</strong>
         <i class="fa fa-angle-right"></i>
       </a>
-      <div v-else>No notifications</div>
+
+      <a v-else href="" class="dropdown-item dropdown-footer"><div class="dropdown-divider"></div>No notifications</a>
+      <!-- <div v-else>No notifications</div> -->
     </div>
   </li>
 </template>

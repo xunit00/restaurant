@@ -1796,6 +1796,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 Vue.use(vue_timeago__WEBPACK_IMPORTED_MODULE_0__["default"], {
   name: "Timeago",
@@ -48724,7 +48726,17 @@ var render = function() {
                 _c("i", { staticClass: "fa fa-angle-right" })
               ]
             )
-          : _c("div", [_vm._v("No notifications")])
+          : _c(
+              "a",
+              {
+                staticClass: "dropdown-item dropdown-footer",
+                attrs: { href: "" }
+              },
+              [
+                _c("div", { staticClass: "dropdown-divider" }),
+                _vm._v("No notifications")
+              ]
+            )
       ],
       2
     )
