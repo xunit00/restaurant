@@ -57,14 +57,14 @@
                 <!-- small card -->
                 <div class="small-box bg-warning">
                     <div class="inner">
-                    <h3>3</h3>
+                    <h3>{{$productCount}}</h3>
 
-                        <p>Usuarios</p>
+                        <p>Productos</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-person-add"></i>
+                        <i class="ion ion-android-create"></i>
                     </div>
-                    <a href="#" class="small-box-footer">
+                    <a href="{{route('productos.index')}}" class="small-box-footer">
                         More info <i class="fa fa-arrow-circle-right"></i>
                     </a>
                 </div>

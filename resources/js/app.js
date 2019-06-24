@@ -21,7 +21,10 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('permissions-component', require('./components/PermissionsComponent.vue').default);
+
+Vue.component('order-progress', require('./components/OrderProgressComponent.vue').default);
+Vue.component('order-alert', require('./components/OrderAlertComponent.vue').default);
+Vue.component('order-notifications', require('./components/OrderNotificationsComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -31,4 +34,10 @@ Vue.component('permissions-component', require('./components/PermissionsComponen
 
 const app = new Vue({
     el: '#app',
+    mounted() {
+        Echo.channel('order-tracker')
+        .listen('OrderStatusChanged', (e) => {
+          console.log('omgggg realtime bro')
+        });
+      }
 });

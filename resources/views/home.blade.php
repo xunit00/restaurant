@@ -3,7 +3,7 @@
 @section('home')
 
 <body class="hold-transition sidebar-mini">
-    <div class="wrapper">
+    <div class="wrapper" id="app">
 
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand bg-white  navbar-light border-bottom">
@@ -27,6 +27,21 @@
                 </li>
                 @endif
                 @else
+
+
+
+                <li><a href="{{ route('user.orders') }}">My Orders/</a></li>
+                <li><a href="{{ route('user.orders.create') }}">Order Pizza/</a></li>
+
+                {{-- Admin Routes --}}
+                <li><a href="{{ route('admin.orders') }}">ADMIN</a></li>
+
+
+
+
+
+
+                {{-- @include('partials.notifications-dropdown') --}}
                 <li class="nav-item dropdown">
 
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -80,7 +95,7 @@
                 Anything you want
             </div>
             <!-- Default to the left -->
-            <strong>Copyright &copy; 2014-2018 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights
+            <strong>Copyright &copy; 2014-2018 <a href="">Jose Cruz</a>.</strong> All rights
             reserved.
         </footer>
     </div>

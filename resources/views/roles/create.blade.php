@@ -44,6 +44,7 @@
                     </div>
                 </div>
 
+                {{-- @include('layouts.permisos') --}}
 
                 <div class="container">
                     <div class="form-group mt-2">
@@ -54,7 +55,7 @@
                                 <label for="error">{{ $message }}</label>
                                 @enderror
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox">
+                                    <input class="form-check-input" type="checkbox" onClick="selectAll(this)">
                                     <label class="form-check-label">Seleccionar Todo</label>
                                 </div>
                             </div>
@@ -77,7 +78,6 @@
                     </div>
 
                 </div>
-                {{-- <permissions-component></permissions-component> --}}
 
                 <div class="form-group">
                     <input type="submit" class="btn btn-info" value="Save">
@@ -86,4 +86,11 @@
         </div>
     </section>
 </div>
+<script lang="javascript">
+    function selectAll(source){
+   	checkboxes = document.getElementsByName('permission[]');
+		for(var i in checkboxes)
+			checkboxes[i].checked = source.checked;
+}
+</script>
 @endsection

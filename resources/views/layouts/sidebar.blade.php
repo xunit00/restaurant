@@ -125,8 +125,21 @@
                             </ul>
                         </li>
 
+                        <li class="nav-item">
+                            <a href="{{ route('user.orders.store') }}"
+                            class="nav-link">
+                                <i class="nav-icon fas fa-file-contract"></i>
+                                <p>Ordenes</p>
+                            </a>
+                        </li>
 
-
+                        <li class="nav-item">
+                            <a href=""
+                            class="nav-link">
+                                <i class="nav-icon fas fa-file-contract"></i>
+                                <p>Mis Ordenes</p>
+                            </a>
+                        </li>
 
                 </ul>
             </nav>

@@ -16,15 +16,6 @@
         <section class="content">
             <div class="container-fluid mt-2">
 
-                {{-- @foreach($permissions as $permission=>$all)
-                <div class="custom-control custom-switch my-1 mr-sm-2">
-                    <input type="checkbox" class="custom-control-input" id="permission[]" @error('permission')
-                        is-invalid @enderror name="permission[]" value="{{$all}}" @foreach($my_perm as $mp=>$value)
-                    @if($all==$value) checked @endif @endforeach>
-                    <label class="custom-control-label" for="permission[]">{{$all}}</label>
-                </div>
-                @endforeach --}}
-
                 @foreach($permissions as $permission=>$all)
                 <div class="form-check my-1 mr-sm-2">
                     <input type="checkbox" class="form-check-input" @error('permission')
