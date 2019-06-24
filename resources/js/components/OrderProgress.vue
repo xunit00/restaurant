@@ -8,7 +8,7 @@
             <strong>Order Status:</strong> {{ statusNew }}
         </div>
 
-        <!-- <img src="/img/delivery.gif" alt="delivery" v-if="progress >= 100"> -->
+        <div v-if="progress >= 100">listo</div>
     </div>
 </template>
 

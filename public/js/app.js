@@ -1793,30 +1793,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 Vue.use(vue_timeago__WEBPACK_IMPORTED_MODULE_0__["default"], {
-  name: 'timeago',
-  locale: 'en-US',
+  name: "Timeago",
+  // Component name, `Timeago` by default
+  locale: "en",
+  // Default locale
+  // We use `date-fns` under the hood
+  // So you can use all locales from it
   locales: {
-    'en-US': ["just now", ["%s second ago", "%s seconds ago"], ["%s minute ago", "%s minutes ago"], ["%s hour ago", "%s hours ago"], ["%s day ago", "%s days ago"], ["%s week ago", "%s weeks ago"], ["%s month ago", "%s months ago"], ["%s year ago", "%s years ago"]]
+    en: __webpack_require__(/*! date-fns/locale/en */ "./node_modules/date-fns/locale/en/index.js"),
+    ja: __webpack_require__(/*! date-fns/locale/en */ "./node_modules/date-fns/locale/en/index.js")
   }
 });
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['user_id'],
+  props: ["user_id", "datetime"],
   data: function data() {
     return {
       notifications: []
     };
   },
+  filters: {
+    timestamp: function timestamp(time) {
+      return Date.parse(time);
+    }
+  },
   mounted: function mounted() {
     var _this = this;
 
-    console.log('notifications mounted');
-    Echo.channel('order-tracker').listen('OrderStatusChanged', function (order) {
+    console.log("notifications mounted");
+    Echo.channel("order-tracker").listen("OrderStatusChanged", function (order) {
       if (_this.user_id == order.user_id) {
         _this.notifications.unshift({
-          description: 'Order ID: ' + order.id + ' updated',
-          url: '/orders/' + order.id,
+          description: "Order ID: " + order.id + " updated",
+          url: "/orders/" + order.id,
           time: new Date()
         });
       }
@@ -48645,78 +48658,73 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("li", { staticClass: "dropdown" }, [
+  return _c("li", { staticClass: "nav-item dropdown" }, [
     _c(
       "a",
       {
-        staticClass: "dropdown-toggle",
-        attrs: {
-          href: "#",
-          "data-toggle": "dropdown",
-          role: "button",
-          "aria-expanded": "false"
-        }
+        staticClass: "nav-link",
+        attrs: { "data-toggle": "dropdown", href: "#" }
       },
       [
         _c("i", { staticClass: "fa fa-bell" }),
         _vm._v(" "),
         _vm.notifications.length > 0
-          ? _c(
-              "span",
-              { staticClass: "notification-count label label-danger" },
-              [_vm._v(_vm._s(_vm.notifications.length))]
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        _c("span", { staticClass: "caret" })
+          ? _c("span", { staticClass: "badge badge-warning navbar-badge" }, [
+              _vm._v(_vm._s(_vm.notifications.length))
+            ])
+          : _vm._e()
       ]
     ),
     _vm._v(" "),
     _c(
-      "ul",
-      {
-        staticClass: "dropdown-menu dropdown-menu-notifications",
-        attrs: { role: "menu" }
-      },
+      "div",
+      { staticClass: "dropdown-menu dropdown-menu-lg dropdown-menu-right" },
       [
+        _c("div", { staticClass: "dropdown-divider" }),
+        _vm._v(" "),
         _vm._l(_vm.notifications, function(notification) {
-          return _c("li", { key: notification }, [
-            _c("a", { attrs: { href: notification.url } }, [
-              _c("div", [
-                _c("i", { staticClass: "fa fa-exclamation-circle fa-fw" }),
-                _vm._v(
-                  " " +
-                    _vm._s(notification.description) +
-                    "\n                    "
-                ),
-                _c(
-                  "span",
-                  { staticClass: "pull-right text-muted small" },
-                  [
-                    _c("timeago", {
-                      attrs: { since: notification.time, "auto-update": 60 }
-                    })
-                  ],
-                  1
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "divider" })
-          ])
+          return _c(
+            "a",
+            {
+              key: notification.url,
+              staticClass: "dropdown-item",
+              attrs: { href: notification.url }
+            },
+            [
+              _c("i", { staticClass: "fa fa-file mr-2" }),
+              _vm._v(
+                "\n      " + _vm._s(notification.description) + "\n      "
+              ),
+              _c(
+                "span",
+                { staticClass: "float-right text-muted text-sm" },
+                [
+                  _c("timeago", {
+                    attrs: { since: notification.time, "auto-update": 60 }
+                  })
+                ],
+                1
+              )
+            ]
+          )
         }),
         _vm._v(" "),
-        _c("li", [
-          _c("div", { staticClass: "text-center see-all-notifications" }, [
-            _vm.notifications.length > 0
-              ? _c("a", { attrs: { href: "notifications.html" } }, [
-                  _c("strong", [_vm._v("See All Alerts")]),
-                  _vm._v(" "),
-                  _c("i", { staticClass: "fa fa-angle-right" })
-                ])
-              : _c("div", [_vm._v("No notifications")])
-          ])
-        ])
+        _c("div", { staticClass: "dropdown-divider" }),
+        _vm._v(" "),
+        _vm.notifications.length > 0
+          ? _c(
+              "a",
+              {
+                staticClass: "dropdown-item dropdown-footer",
+                attrs: { href: "notifications.html" }
+              },
+              [
+                _c("strong", [_vm._v("See All Alerts")]),
+                _vm._v(" "),
+                _c("i", { staticClass: "fa fa-angle-right" })
+              ]
+            )
+          : _c("div", [_vm._v("No notifications")])
       ],
       2
     )
@@ -48755,7 +48763,9 @@ var render = function() {
     _c("div", { staticClass: "order-status" }, [
       _c("strong", [_vm._v("Order Status:")]),
       _vm._v(" " + _vm._s(_vm.statusNew) + "\n    ")
-    ])
+    ]),
+    _vm._v(" "),
+    _vm.progress >= 100 ? _c("div", [_vm._v("listo")]) : _vm._e()
   ])
 }
 var staticRenderFns = []
