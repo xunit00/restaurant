@@ -29,19 +29,9 @@
                 @else
 
 
-
-                <li><a href="{{ route('user.orders') }}">My Orders/</a></li>
-                <li><a href="{{ route('user.orders.create') }}">Order Pizza/</a></li>
-
-                {{-- Admin Routes --}}
-                <li><a href="{{ route('admin.orders') }}">ADMIN</a></li>
+                @include('partials.notifications-dropdown')
 
 
-
-
-
-
-                {{-- @include('partials.notifications-dropdown') --}}
                 <li class="nav-item dropdown">
 
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"

@@ -22,9 +22,9 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 
-Vue.component('order-progress', require('./components/OrderProgressComponent.vue').default);
-Vue.component('order-alert', require('./components/OrderAlertComponent.vue').default);
-Vue.component('order-notifications', require('./components/OrderNotificationsComponent.vue').default);
+Vue.component('order-progress', require('./components/OrderProgress.vue').default);
+Vue.component('order-alert', require('./components/OrderAlert.vue').default);
+Vue.component('order-notifications', require('./components/OrderNotifications.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -37,7 +37,7 @@ const app = new Vue({
     mounted() {
         Echo.channel('order-tracker')
         .listen('OrderStatusChanged', (e) => {
-          console.log('omgggg realtime bro')
+          console.log('Escuchando Evento')
         });
       }
 });

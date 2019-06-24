@@ -125,21 +125,50 @@
                             </ul>
                         </li>
 
-                        <li class="nav-item">
-                            <a href="{{ route('user.orders.store') }}"
-                            class="nav-link">
+
+                        <li class="nav-item has-treeview">
+
+                            <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-file-contract"></i>
-                                <p>Ordenes</p>
+                                <p>
+                                    Ordenes
+                                    <i class="right fa fa-angle-left"></i>
+                                </p>
                             </a>
+                            <ul class="nav nav-treeview">
+                                {{-- @can('read.users') --}}
+                                <li class="nav-item">
+                                    <a href="{{ route('user.orders') }}"
+                                    class="nav-link {{ request()->is('categorias*') ? 'active' : '' }}">
+                                        <i class="fas fa-circle-notch nav-icon"></i>
+                                        <p>Mis Ordenes</p>
+                                    <a>
+                                </li>
+                                {{-- @endcan --}}
+
+                                {{-- @can('read.permissions') --}}
+                                <li class="nav-item">
+                                    <a href="{{route('user.orders.create')}}"
+                                    class="nav-link {{ request()->is('unidades*') ? 'active' : '' }}">
+                                            <i class="nav-icon fas fa-circle-notch"></i>
+                                        <p>Crear Orden</p>
+                                    </a>
+                                </li>
+                                {{-- @endcan() --}}
+
+                                {{-- @can('read.permissions') --}}
+                                <li class="nav-item">
+                                    <a href="{{route('admin.orders')}}"
+                                    class="nav-link {{ request()->is('productos*') ? 'active' : '' }}">
+                                            <i class="nav-icon fas fa-circle-notch"></i>
+                                        <p>Administrar Orden</p>
+                                    </a>
+                                </li>
+                                {{-- @endcan() --}}
+
+                            </ul>
                         </li>
 
-                        <li class="nav-item">
-                            <a href=""
-                            class="nav-link">
-                                <i class="nav-icon fas fa-file-contract"></i>
-                                <p>Mis Ordenes</p>
-                            </a>
-                        </li>
 
                 </ul>
             </nav>
