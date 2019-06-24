@@ -1883,7 +1883,7 @@ __webpack_require__.r(__webpack_exports__);
 
     Echo["private"]('order-tracker.' + this.order_id).listen('OrderStatusChanged', function (order) {
       _this.statusNew = order.status_name;
-      _this.progress = order.status_percent;
+      _this.progress = order.status_percent; // console.log(order)
     });
   }
 });
@@ -48768,7 +48768,16 @@ var render = function() {
     _c(
       "div",
       { staticClass: "progress" },
-      [_c("progressbar", { attrs: { now: _vm.progress, type: "success" } })],
+      [
+        _c("progressbar", {
+          attrs: {
+            now: _vm.progress,
+            type: "warning",
+            striped: "",
+            animated: ""
+          }
+        })
+      ],
       1
     ),
     _vm._v(" "),

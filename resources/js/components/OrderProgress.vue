@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="progress">
-          <progressbar :now="progress" type="success"></progressbar>
+          <progressbar :now="progress" type="warning" striped animated></progressbar>
         </div>
 
         <div class="order-status">
@@ -14,6 +14,7 @@
 
 <script>
     import { progressbar } from 'vue-strap'
+
     export default {
         components: {
             progressbar
@@ -30,6 +31,7 @@
             .listen('OrderStatusChanged', (order) => {
               this.statusNew = order.status_name
               this.progress = order.status_percent
+            // console.log(order)
             });
         }
     }
