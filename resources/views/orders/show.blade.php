@@ -16,8 +16,7 @@
                         </div>
                         @endif
 
-                        <order-progress status="{{$order->status->name}}" initial="{{$order->status->percent}}"
-                            order_id="{{ $order->id }}"></order-progress>
+                        <order-progress status="{{ $order->status->name}}" initial=" {{ $order->status->percent }}" order_id="{{ $order->id }}"></order-progress>
 
                         <order-alert user_id="{{ auth()->user()->id }}"></order-alert>
 

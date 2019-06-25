@@ -4,6 +4,7 @@
           <progressbar :now="progress" type="warning" striped animated></progressbar>
         </div>
 
+
         <div class="order-status">
             <strong>Order Status:</strong> {{ statusNew }}
         </div>
@@ -31,7 +32,6 @@
             .listen('OrderStatusChanged', (order) => {
               this.statusNew = order.status_name
               this.progress = order.status_percent
-            // console.log(order)
             });
         }
     }

@@ -28,9 +28,7 @@
                 @endif
                 @else
 
-
-                @include('partials.notifications-dropdown')
-
+                <order-notifications user_id="{{ auth()->user()->id }}"></order-notifications>
 
                 <li class="nav-item dropdown">
 
@@ -76,8 +74,6 @@
         </div>
         <!-- /.content-wrapper -->
 
-
-
         <!-- Main Footer -->
         <footer class="main-footer">
             <!-- To the right -->
@@ -90,10 +86,5 @@
         </footer>
     </div>
     <!-- ./wrapper -->
-
-{{-- <!-- jQuery -->
-<script src="{{asset('admin-lte/plugins/jquery/jquery.min.js')}}"></script>
- <!-- REQUIRED SCRIPTS -->
- <script src="{{asset('js/app.js')}}"></script> --}}
 </body>
 @endsection

@@ -16,10 +16,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/fire', function () {
-    event(new OrderStatusChanged);
-    return 'Fired';
-});
+// Route::get('/fire', function () {
+//     event(new OrderStatusChanged);
+//     return 'Fired';
+// });
 
 Auth::routes(['verify' => true, 'register' => false]);//no permite registrar
 

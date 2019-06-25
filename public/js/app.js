@@ -1862,6 +1862,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -1879,7 +1880,7 @@ __webpack_require__.r(__webpack_exports__);
 
     Echo["private"]('order-tracker.' + this.order_id).listen('OrderStatusChanged', function (order) {
       _this.statusNew = order.status_name;
-      _this.progress = order.status_percent; // console.log(order)
+      _this.progress = order.status_percent;
     });
   }
 });
