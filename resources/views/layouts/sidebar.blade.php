@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-success elevation-4">
         <!-- Brand Logo -->
         <a href="{{ url('/') }}" class="brand-link">
-            <img src="{{asset('/admin-lte/dist/img/patio.png')}}" alt="Patio Logo"
+            <img src="{{asset('img/patio.png')}}" alt="Patio Logo"
                 class="brand-image img-circle elevation-3" style="opacity: .8">
             <span class="brand-text font-weight-light"> {{ config('app.name', 'Restaurant El Patio') }}</span>
         </a>
