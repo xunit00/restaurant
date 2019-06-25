@@ -29,7 +29,7 @@
                 @else
 
 
-                {{-- @include('partials.notifications-dropdown') --}}
+                @include('partials.notifications-dropdown')
 
 
                 <li class="nav-item dropdown">
