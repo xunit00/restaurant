@@ -1,6 +1,6 @@
-@extends('home')
+@extends('layouts.users-template')
 
-@section('blade')
+@section('content')
 
 <div class="container">
     <div class="card mt-2">

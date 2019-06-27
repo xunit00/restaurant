@@ -64,9 +64,8 @@
             <div class="content">
                 <div class="container-fluid">
 
-                    @yield('blade')
+                    <!--main--> @yield('blade')
 
-                    <!--main-->
                 </div>
                 <!-- /.container-fluid -->
             </div>
