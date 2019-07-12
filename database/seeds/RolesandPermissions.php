@@ -32,6 +32,21 @@ class RolesandPermissions extends Seeder
         Permission::create(['name' => 'create.permissions']);
         Permission::create(['name' => 'read.permissions']);
 
+        Permission::create(['name' => 'update.categorias']);
+        Permission::create(['name' => 'delete.categorias']);
+        Permission::create(['name' => 'create.categorias']);
+        Permission::create(['name' => 'read.categorias']);
+
+        Permission::create(['name' => 'update.unidades']);
+        Permission::create(['name' => 'delete.unidades']);
+        Permission::create(['name' => 'create.unidades']);
+        Permission::create(['name' => 'read.unidades']);
+
+        Permission::create(['name' => 'update.productos']);
+        Permission::create(['name' => 'delete.productos']);
+        Permission::create(['name' => 'create.productos']);
+        Permission::create(['name' => 'read.productos']);
+
         // create roles and assign created permissions
 
         // this can be done as separate statements

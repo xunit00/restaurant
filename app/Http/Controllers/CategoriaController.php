@@ -8,6 +8,12 @@ use App\Http\Requests\CategoriaRequest;
 
 class CategoriaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth',
+        'permission:update.categorias|create.categorias|delete.categorias|read.categorias']);
+    }
+
     /**
      * Display a listing of the resource.
      *

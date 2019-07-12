@@ -7,10 +7,17 @@ use App\Producto;
 use App\Categoria;
 use App\Producto_Unidad;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductoRequest;
 
 
 class ProductoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth',
+        'permission:update.productos|create.productos|delete.productos|read.productos']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -40,9 +47,11 @@ class ProductoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductoRequest $request_prod)
     {
-        Producto::create($request->all());
+        Producto::create($request_prod->all());
+
+        // Producto_Unidad::create();
 
         return redirect()->route('productos.index')
         ->with('success', 'Producto Creado!');

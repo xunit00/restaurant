@@ -30,20 +30,16 @@ class ProductoRequest extends FormRequest
                 }
             case 'POST': {
                     return [
-                        'name' => 'required|string|max:191',
-                        'email' => 'required|string|email|max:191|unique:users',
-                        'username' => 'required|string|min:4|max:10|unique:users',
-                        'password' => 'required|string|min:6',
-                        'rol' => 'required|numeric'
+                        'nombre_producto' => 'required|string|max:191|unique:productos',
+                        'descripcion_producto' => 'nullable|string|max:191',
+                        'id_categoria' => 'required|numeric'
                     ];
                 }
             case 'PUT':{
                 return [
-                    'name' => 'required|string|max:191',
-                    'email' => 'required|string|email|max:191|unique:users,email,' . $this->route('user')->id,
-                    'username' => 'required|string|min:4|max:10|unique:users,username,'. $this->route('user')->id,
-                    'password' => 'sometimes|required|string|min:6',
-                    'rol' => 'required|numeric'
+                    'nombre_producto' => 'required|string|max:191|unique:productos|nombre_productos'. $this->route('productos')->id,
+                    'descripcion_producto' => 'nullable|string|max:191,',
+                    'id_categoria' => 'required|numeric',
                 ];
             }
             case 'PATCH':

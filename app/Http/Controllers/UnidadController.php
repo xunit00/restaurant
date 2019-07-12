@@ -9,6 +9,12 @@ use App\Http\Requests\UnidadRequest;
 
 class UnidadController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth',
+        'permission:update.unidades|create.unidades|delete.unidades|read.unidades']);
+    }
+
     /**
      * Display a listing of the resource.
      *

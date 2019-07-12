@@ -15,12 +15,12 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id')->unsigned();
+            $table->unsignedBigInteger('user_id');
             $table->string('address')->nullable();
             $table->string('size')->nullable();
             $table->string('toppings')->nullable();
             $table->string('instructions')->nullable();
-            $table->integer('status_id')->unsigned()->default(1);
+            $table->unsignedBigInteger('status_id')->default(1);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
@@ -35,6 +35,8 @@ class CreateOrdersTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('orders');
+        Schema::enableForeignKeyConstraints();
     }
 }
