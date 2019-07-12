@@ -1,9 +1,9 @@
 <template>
     <div>
-        <div class="progress">
+        <!-- <div class="progress">
           <progressbar :now="progress" type="warning" striped animated></progressbar>
-        </div>
-
+        </div> -->
+          <b-progress :value="progress" :max="max" class="mb-3"></b-progress>
 
         <div class="order-status">
             <strong>Order Status:</strong> {{ statusNew }}
@@ -14,24 +14,26 @@
 </template>
 
 <script>
-    import { progressbar } from 'vue-strap'
+    // import { progressbar } from 'vue-strap'
 
     export default {
-        components: {
-            progressbar
-        },
+        // components: {
+        //      progressbar
+        // },
         props: ['status', 'initial', 'order_id'],
         data() {
             return {
                 statusNew: this.status,
-                progress: this.initial
+                progress: parseInt( this.initial),
+                max:100
             }
         },
         mounted() {
             Echo.private('order-tracker.' + this.order_id)
             .listen('OrderStatusChanged', (order) => {
-              this.statusNew = order.status_name
-              this.progress = order.status_percent
+            //   this.statusNew = order.status_name
+            //   this.progress = order.status_percent
+                console.log(order);
             });
         }
     }
