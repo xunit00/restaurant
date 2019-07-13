@@ -15,6 +15,7 @@ class Unidad extends Model
     function productos()
     {
         return $this->belongsToMany(Producto::class,'productos_unidades');
+        // ->withPivot('cantidad', 'precio_venta','costo');
     }
 
 }

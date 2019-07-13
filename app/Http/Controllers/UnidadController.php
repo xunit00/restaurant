@@ -80,24 +80,25 @@ class UnidadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Unidad $unidad)
     {
-        // $unidad->update($request->all());
-        $request->validate([
-            'nombre_unidad'=>'required|string|min:4|max:50|unique:unidades,nombre_unidad,'.$id.'id',
-            'descripcion_unidad'=>'nullable|string|min:4|max:191',
-            'contenido' => 'required|integer',
-            'status'=>'required|boolean'
-          ]);
+        $unidad->update($request->all());
 
-          $unidad = Unidad::findOrFail($id);
-          $unidad->nombre_unidad = $request->get('nombre_unidad');
-          $unidad->descripcion_unidad = $request->get('descripcion_unidad');
-          $unidad->contenido = $request->get('contenido');
-          $unidad->status = $request->get('status');
+        // dd();
+        // $request->validate([
+        //     'nombre_unidad'=>'required|string|min:4|max:50|unique:unidades,nombre_unidad,'.$id.'id',
+        //     'descripcion_unidad'=>'nullable|string|min:4|max:191',
+        //     'contenido' => 'required|integer',
+        //     'status'=>'required|boolean'
+        //   ]);
 
-          $unidad->save();
+        //   $unidad = Unidad::findOrFail($id);
+        //   $unidad->nombre_unidad = $request->get('nombre_unidad');
+        //   $unidad->descripcion_unidad = $request->get('descripcion_unidad');
+        //   $unidad->contenido = $request->get('contenido');
+        //   $unidad->status = $request->get('status');
 
+        //   $unidad->save();
 
         return redirect()->route('unidades.index')
         ->with('success','Unidad Actualizada Correctamente');

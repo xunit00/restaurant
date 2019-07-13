@@ -24,15 +24,15 @@
 <div class="card">
     <section class="content">
         <div class="container-fluid mt-3">
-            <form action="{{route('categorias.update',$categoria->id)}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('productos.update',$producto->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
                 <div class="form-group">
                     <div class="row">
                         <label for="" class="col-md-3">Nombre</label>
-                        <div class="col-md-6"><input type="text" name="nombre" value="{{$categoria->nombre}}"
-                                class="form-control @error('nombre') is-invalid @enderror"></div>
+                        <div class="col-md-6"><input type="text" name="nombre_producto" value="{{$producto->nombre_producto}}"
+                                class="form-control @error('nombre_producto') is-invalid @enderror"></div>
 
                         <div class="clearfix"></div>
                     </div>
@@ -41,25 +41,26 @@
                 <div class="form-group">
                     <div class="row">
                         <label for="" class="col-md-3">Descripcion</label>
-                        <div class="col-md-6"><input type="text" name="descripcion" value="{{$categoria->descripcion}}"
-                                class="form-control @error('descripcion') is-invalid @enderror"></div>
+                        <div class="col-md-6"><input type="text" name="descripcion_producto" value="{{$producto->descripcion_producto}}"
+                                class="form-control @error('descripcion_producto') is-invalid @enderror"></div>
                         <div class="clearfix"></div>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="row">
-                        <label for="" class="col-md-3">Status</label>
+                        <label for="" class="col-md-3">Categoria</label>
                         <div class="col-md-6">
-                            <select name="status" id="" class="form-control @error('status') is-invalid @enderror">
-                                {{-- <option value="">Seleccionar Rol</option> --}}
-                                @if($categoria->status==1)
-                                <option value="0">Inactivo</option>
-                                <option value="1" selected>Activo</option>
-                                @else
-                                <option value="0" selected>Inactivo</option>
-                                <option value="1">Activo</option>
-                                @endif
+                            <select name="id_categoria" id=""
+                            class="form-control @error('id_categoria') is-invalid @enderror">
+                                <option value="">Seleccionar Categoria</option>
+                                @foreach($categorias as $cat=>$value)
+                                    @if($producto->id_categoria==$cat)
+                                    <option value="{{$cat}}"selected>{{$value}}</option>
+                                    @else
+                                    <option value="{{$cat}}">{{$value}}</option>
+                                    @endif
+                                @endforeach
                             </select>
                         </div>
                         <div class="clearfix"></div>

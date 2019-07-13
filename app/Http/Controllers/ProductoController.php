@@ -14,8 +14,8 @@ class ProductoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth',
-        'permission:update.productos|create.productos|delete.productos|read.productos']);
+        // $this->middleware(['auth',
+        // 'permission:update.productos|create.productos|delete.productos|read.productos']);
     }
 
     /**
@@ -25,7 +25,8 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $productos=Producto_Unidad::with('unidad','producto')->paginate(10);
+        $productos=Producto::with('unidad','categoria')->paginate(10);
+        // dd($productos);
         return view('productos.index',compact('productos'));
     }
 
@@ -47,10 +48,12 @@ class ProductoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductoRequest $request_prod)
+    public function store(ProductoRequest $request)
     {
-        Producto::create($request_prod->all());
+        Producto::create($request->all());
 
+        //$producto = Producto::find(1);
+        //$producto->producto()->attach(1);
         // Producto_Unidad::create();
 
         return redirect()->route('productos.index')
@@ -76,7 +79,8 @@ class ProductoController extends Controller
      */
     public function edit(Producto $producto)
     {
-        return view('productos.edit',compact('producto'));
+        $categorias= Categoria::all()->pluck('nombre','id');
+        return view('productos.edit',compact('producto','categorias'));
     }
 
     /**
@@ -86,9 +90,11 @@ class ProductoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductoRequest $request, Producto $producto)
     {
-        //
+        $producto->update($request->all());
+        return redirect()->route('productos.index')
+        ->with('success','Producto Actualizado Correctamente');
     }
 
     /**

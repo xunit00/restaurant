@@ -37,7 +37,7 @@ class ProductoRequest extends FormRequest
                 }
             case 'PUT':{
                 return [
-                    'nombre_producto' => 'required|string|max:191|unique:productos|nombre_productos'. $this->route('productos')->id,
+                    'nombre_producto' => 'required|string|max:191|unique:productos,nombre_producto,'. $this->route('producto')->id,
                     'descripcion_producto' => 'nullable|string|max:191,',
                     'id_categoria' => 'required|numeric',
                 ];
