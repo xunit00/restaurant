@@ -41,8 +41,7 @@
                     <div class="row">
                         <label for="" class="col-md-3">Unidad</label>
                         <div class="col-md-6">
-                            <select name="id_categoria" id=""
-                            class="form-control @error('id_categoria') is-invalid @enderror">
+                            <select name="id_unidad" class="form-control @error('id_unidad') is-invalid @enderror">
                                 <option value="">Seleccionar Unidades</option>
                                 @foreach($unidades as $unid=>$value)
                                 <option value="{{$unid}}">{{$value}}</option>

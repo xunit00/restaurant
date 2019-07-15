@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -47,17 +48,26 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
+        DB::beginTransaction();
+        try {
          $user=User::create([
             'name'=>$request['name'],
             'email'=>$request['email'],
             'username'=>$request['username'],
             'password'=>Hash::make($request['password']),
         ]);
-        if($user){
+        DB::commit();
             $user->assignRole($request->rol);
              return redirect()->route('users.index')
              ->with('success', 'User Creado!');
-        }
+            } catch (\Throwable $th) {
+
+                DB::rollBack();
+
+                return redirect()->route('productos.index')
+                    ->with('errors', $th->getMessage());
+            }
+
     }
 
     /**

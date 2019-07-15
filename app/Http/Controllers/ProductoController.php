@@ -5,10 +5,9 @@ namespace App\Http\Controllers;
 use App\Unidad;
 use App\Producto;
 use App\Categoria;
-use App\Producto_Unidad;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\ProductoRequest;
-
+use Carbon\Carbon;
 
 class ProductoController extends Controller
 {
@@ -25,9 +24,9 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $productos=Producto::with('unidad','categoria')->paginate(10);
+        $productos = Producto::with('unidad', 'categoria')->paginate(10);
         // dd($productos);
-        return view('productos.index',compact('productos'));
+        return view('productos.index', compact('productos'));
     }
 
     /**
@@ -37,9 +36,9 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        $categorias= Categoria::all()->pluck('nombre','id');
-        $unidades=Unidad::all()->pluck('nombre_unidad','id');
-        return view('productos.create',compact('categorias','unidades'));
+        $categorias = Categoria::all()->pluck('nombre', 'id');
+        $unidades = Unidad::all()->pluck('nombre_unidad', 'id');
+        return view('productos.create', compact('categorias', 'unidades'));
     }
 
     /**
@@ -50,14 +49,30 @@ class ProductoController extends Controller
      */
     public function store(ProductoRequest $request)
     {
-        Producto::create($request->all());
+        DB::beginTransaction();
+        try {
+            $producto = Producto::create($request->all());
 
-        //$producto = Producto::find(1);
-        //$producto->producto()->attach(1);
-        // Producto_Unidad::create();
+            $producto->unidad()->attach($request->id_unidad, [
+                'cantidad' => $request->cantidad,
+                'precio_venta' => $request->precio_venta,
+                'costo' => $request->costo,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ]);
 
-        return redirect()->route('productos.index')
-        ->with('success', 'Producto Creado!');
+            DB::commit();
+
+            return redirect()->route('productos.index')
+                ->with('success', 'Producto Creado!');
+
+        } catch (\Throwable $th) {
+
+            DB::rollBack();
+
+            return redirect()->route('productos.index')
+                ->with('errors', $th->getMessage());
+        }
     }
 
     /**
@@ -79,8 +94,9 @@ class ProductoController extends Controller
      */
     public function edit(Producto $producto)
     {
-        $categorias= Categoria::all()->pluck('nombre','id');
-        return view('productos.edit',compact('producto','categorias'));
+        $categorias = Categoria::all()->pluck('nombre', 'id');
+        $unidades=Unidad::all()->pluck('nombre_unidad','id');
+        return view('productos.edit', compact('producto', 'categorias','unidades'));
     }
 
     /**
@@ -94,7 +110,7 @@ class ProductoController extends Controller
     {
         $producto->update($request->all());
         return redirect()->route('productos.index')
-        ->with('success','Producto Actualizado Correctamente');
+            ->with('success', 'Producto Actualizado Correctamente');
     }
 
     /**
