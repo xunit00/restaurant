@@ -56,15 +56,16 @@
                         {{-- <th>Unidad</th> --}}
                         <th>Descripcion</th>
                         <th>Categoria</th>
+                        <th>Cantidad</th>
                         <th>Modyfy</th>
                     </tr>
                     @foreach($productos as $prod)
                     <tr>
-                        <td>{{$prod->nombre_producto}}</td>
-                        {{-- <td>{{$prod->nombre_unidad}}</td> --}}
-                        <td>{{$prod->descripcion_producto}}</td>
-                        <td>{{$prod->categoria->nombre}}</td>
-
+                        {{-- <td>{{$prod->pivot->nombre_unidad}}</td> --}}
+                        {{-- <td>{{$prod->unidad->nombre_unidad}}</td> --}}
+                        {{-- <td>{{$prod->descripcion_producto}}</td> --}}
+                        {{-- <td>{{$prod->categoria->nombre}}</td> --}}
+                        {{-- <td>{{$prod->unidad->nombre_unidad}}</td> --}}
                         <td>
                             <form action="{{route('productos.destroy',$prod->id)}}" method="POST">
                                 @can('update.role')

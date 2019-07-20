@@ -24,7 +24,7 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $productos = Producto::with('unidad', 'categoria')->paginate(10);
+        $productos = Unidad::with('productos')->paginate(10);
         // dd($productos);
         return view('productos.index', compact('productos'));
     }
