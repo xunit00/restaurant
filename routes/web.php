@@ -25,18 +25,28 @@ Auth::routes(['verify' => true, 'register' => false]);//no permite registrar
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resources(['users'=>'UserController',
+Route::resources([
+    'users'=>'UserController',
     'permissions'=>'PermissionController',
     'roles'=>'RolesController',
     'dashboard'=>'DashboardController',
     'categorias'=>'CategoriaController',
-    'unidades'=>'UnidadController',
+    // 'unidades'=>'UnidadController',
     'productos'=>'ProductoController',
     // 'orders'=>'OrderController',
     // 'tracker'=>'TrackerController',
 ]);
 
 Route::put('/manage_permissions/{id}','UserController@manage_permissions')->name('manage_permissions');
+
+Route::get('/unidades', 'UnidadController@index')->name('unidades.index');
+Route::get('/unidades/create', 'UnidadController@create')->name('unidades.create');
+Route::post('/unidades', 'UnidadController@store')->name('unidades.store');
+Route::put('/unidades/{unidad}', 'UnidadController@update')->name('unidades.update');
+Route::get('/unidades/{unidad}/edit', 'UnidadController@edit')->name('unidades.edit');
+
+
+
 
 // User Routes
 Route::middleware('auth')->group(function () {

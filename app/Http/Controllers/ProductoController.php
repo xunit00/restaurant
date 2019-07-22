@@ -24,8 +24,7 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $productos = Unidad::with('productos')->paginate(10);
-        // dd($productos);
+        $productos = Producto::latest()->paginate(10);
         return view('productos.index', compact('productos'));
     }
 
@@ -49,9 +48,19 @@ class ProductoController extends Controller
      */
     public function store(ProductoRequest $request)
     {
+        Producto::create($request->all());
+
+        return redirect()->route('productos.index')
+            ->with('success', 'Producto Creado!');
+    }
+
+    public function store_produnid(ProductoRequest $request, $id_producto)
+    {
         DB::beginTransaction();
+
         try {
-            $producto = Producto::create($request->all());
+
+            $producto = Producto::findOrFail($id_producto);
 
             $producto->unidad()->attach($request->id_unidad, [
                 'cantidad' => $request->cantidad,
@@ -64,8 +73,7 @@ class ProductoController extends Controller
             DB::commit();
 
             return redirect()->route('productos.index')
-                ->with('success', 'Producto Creado!');
-
+                ->with('success', 'Producto/Unidad Creado!');
         } catch (\Throwable $th) {
 
             DB::rollBack();
@@ -95,8 +103,8 @@ class ProductoController extends Controller
     public function edit(Producto $producto)
     {
         $categorias = Categoria::all()->pluck('nombre', 'id');
-        $unidades=Unidad::all()->pluck('nombre_unidad','id');
-        return view('productos.edit', compact('producto', 'categorias','unidades'));
+        $unidades = Unidad::all()->pluck('nombre_unidad', 'id');
+        return view('productos.edit', compact('producto', 'categorias', 'unidades'));
     }
 
     /**

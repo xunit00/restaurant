@@ -70,7 +70,7 @@
                         </td>
 
                         <td>
-                            <form action="{{route('unidades.destroy',$unidad->id)}}" method="POST">
+                            {{-- <form action="{{route('unidades.destroy',$unidad->id)}}" method="POST"> --}}
                                 @can('update.role')
                                 <a class="btn btn-outline-secondary btn-sm"
                                     href="{{route('unidades.edit',$unidad->id)}}">
@@ -85,7 +85,7 @@
                                     onclick="return confirm('Quiere Borrar este Registro?')">
                                     <i class="fas fa-trash-alt"></i></button>
                                 @endcan
-                            </form>
+                            {{-- </form> --}}
                         </td>
                     </tr>
                     @endforeach
