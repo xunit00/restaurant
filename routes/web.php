@@ -1,4 +1,5 @@
 <?php
+
 use App\Events\OrderStatusChanged;
 
 /*
@@ -12,39 +13,42 @@ use App\Events\OrderStatusChanged;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 // Route::get('/fire', function () {
 //     event(new OrderStatusChanged);
 //     return 'Fired';
 // });
 
-Auth::routes(['verify' => true, 'register' => false]);//no permite registrar
+Auth::routes(['verify' => true, 'register' => false]); //no permite registrar
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware('auth')->group(function () {
+    Route::resources([
+        'users' => 'UserController',
+        'permissions' => 'PermissionController',
+        'roles' => 'RolesController',
+        'dashboard' => 'DashboardController',
+        'categorias' => 'CategoriaController',
+        'unidades' => 'UnidadController',
+        'productos' => 'ProductoController',
+        // 'orders'=>'OrderController',
+        // 'tracker'=>'TrackerController',
+    ]);
 
-Route::resources([
-    'users'=>'UserController',
-    'permissions'=>'PermissionController',
-    'roles'=>'RolesController',
-    'dashboard'=>'DashboardController',
-    'categorias'=>'CategoriaController',
-    // 'unidades'=>'UnidadController',
-    'productos'=>'ProductoController',
-    // 'orders'=>'OrderController',
-    // 'tracker'=>'TrackerController',
-]);
+    Route::put('/manage_permissions/{id}', 'UserController@manage_permissions')->name('manage_permissions');
 
-Route::put('/manage_permissions/{id}','UserController@manage_permissions')->name('manage_permissions');
+    Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/unidades', 'UnidadController@index')->name('unidades.index');
-Route::get('/unidades/create', 'UnidadController@create')->name('unidades.create');
-Route::post('/unidades', 'UnidadController@store')->name('unidades.store');
-Route::put('/unidades/{unidad}', 'UnidadController@update')->name('unidades.update');
-Route::get('/unidades/{unidad}/edit', 'UnidadController@edit')->name('unidades.edit');
-
+    Route::get('/', function () {
+        return view('welcome');
+    });
+});
+// Route::prefix('unidades')->as('unidades.')->group(function () {
+//     Route::get('/unidades', 'UnidadController@index')->name('index');
+//     Route::post('/unidades', 'UnidadController@store')->name('store');
+//     Route::delete('/unidades', 'UnidadController@destroy')->name('destroy');
+//     Route::get('/unidades/create', 'UnidadController@create')->name('create');
+//     Route::put('/unidades/{unidad}', 'UnidadController@update')->name('update');
+//     Route::get('/unidades/{unidad}/edit', 'UnidadController@edit')->name('edit');
+// });
 
 
 

@@ -58,22 +58,22 @@
                         <th>Status</th>
                         <th>Modyfy</th>
                     </tr>
-                    @foreach($unidades as $unidad)
+                    @foreach($unidades as $unidade)
                     <tr>
-                        <td>{{$unidad->nombre_unidad}}</td>
-                        <td>{{$unidad->descripcion_unidad}}</td>
-                        <td>{{$unidad->contenido}}</td>
+                        <td>{{$unidade->nombre_unidad}}</td>
+                        <td>{{$unidade->descripcion_unidad}}</td>
+                        <td>{{$unidade->contenido}}</td>
                         <td>
-                            @if($unidad->status==1) <span class="badge bg-success">ACTIVO</span>
+                            @if($unidade->status==1) <span class="badge bg-success">ACTIVO</span>
                             @else <span class="badge bg-danger">INACTIVO</span>
                             @endif
                         </td>
 
                         <td>
-                            {{-- <form action="{{route('unidades.destroy',$unidad->id)}}" method="POST"> --}}
+                            <form action="{{route('unidades.destroy',$unidade->id)}}" method="POST">
                                 @can('update.role')
                                 <a class="btn btn-outline-secondary btn-sm"
-                                    href="{{route('unidades.edit',$unidad->id)}}">
+                                    href="{{route('unidades.edit',$unidade->id)}}">
                                     <i class="fa fa-edit"></i>
                                 </a>
                                 @endcan

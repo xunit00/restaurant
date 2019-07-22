@@ -80,25 +80,9 @@ class UnidadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UnidadRequest $request, Unidad $unidad)
+    public function update(UnidadRequest $request, Unidad $unidade)
     {
-        // dd($request);
-        $unidad->update($request->all());
-
-        // $request->validate([
-        //     'nombre_unidad'=>'required|string|min:4|max:50|unique:unidades,nombre_unidad,'.$id.'id',
-        //     'descripcion_unidad'=>'nullable|string|min:4|max:191',
-        //     'contenido' => 'required|integer',
-        //     'status'=>'required|boolean'
-        // ]);
-
-        //   $unidad = Unidad::findOrFail($id);
-        //   $unidad->nombre_unidad = $request->get('nombre_unidad');
-        //   $unidad->descripcion_unidad = $request->get('descripcion_unidad');
-        //   $unidad->contenido = $request->get('contenido');
-        //   $unidad->status = $request->get('status');
-
-        //   $unidad->save();
+        $unidade->update($request->all());
 
         return redirect()->route('unidades.index')
         ->with('success','Unidad Actualizada Correctamente');
