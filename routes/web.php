@@ -41,14 +41,13 @@ Route::middleware('auth')->group(function () {
         return view('welcome');
     });
 });
-// Route::prefix('unidades')->as('unidades.')->group(function () {
-//     Route::get('/unidades', 'UnidadController@index')->name('index');
-//     Route::post('/unidades', 'UnidadController@store')->name('store');
-//     Route::delete('/unidades', 'UnidadController@destroy')->name('destroy');
-//     Route::get('/unidades/create', 'UnidadController@create')->name('create');
-//     Route::put('/unidades/{unidad}', 'UnidadController@update')->name('update');
-//     Route::get('/unidades/{unidad}/edit', 'UnidadController@edit')->name('edit');
-// });
+Route::prefix('productos')->as('productos.')->group(function () {
+    Route::post('/unidad/store_produnid', 'ProductoController@store_produnid')->name('store_produnid');
+    // Route::delete('/productos', 'ProductoController@destroy')->name('destroy');
+    Route::get('/unidad/create_produnid', 'ProductoController@create_produnid')->name('create_produnid');
+    // Route::put('/productos/{unidad}', 'ProductoController@update')->name('update');
+    // Route::get('/productos/{unidad}/edit', 'ProductoController@edit')->name('edit');
+});
 
 
 

@@ -32,22 +32,14 @@ class ProductoRequest extends FormRequest
                     return [
                         'nombre_producto' => 'required|string|max:191|unique:productos',
                         'descripcion_producto' => 'nullable|string|max:191',
-                        'id_categoria' => 'required|numeric',
-                        'id_unidad'=>'required|numeric',
-                        'cantidad'=>'required|numeric',
-                        'precio_venta'=>'required|numeric',
-                        'costo'=>'required|numeric'
+                        'id_categoria' => 'required|numeric'
                     ];
                 }
             case 'PUT':{
                 return [
                     'nombre_producto' => 'required|string|max:191|unique:productos,nombre_producto,'. $this->route('producto')->id,
                     'descripcion_producto' => 'nullable|string|max:191,',
-                    'id_categoria' => 'required|numeric',
-                    'id_unidad'=>'required|numeric',
-                    'cantidad'=>'required|numeric',
-                    'precio_venta'=>'required|numeric',
-                    'costo'=>'required|numeric'
+                    'id_categoria' => 'required|numeric'
                 ];
             }
             case 'PATCH':

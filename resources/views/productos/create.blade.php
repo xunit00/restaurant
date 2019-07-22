@@ -37,20 +37,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <div class="row">
-                        <label for="" class="col-md-3">Unidad</label>
-                        <div class="col-md-6">
-                            <select name="id_unidad" class="form-control @error('id_unidad') is-invalid @enderror">
-                                <option value="">Seleccionar Unidades</option>
-                                @foreach($unidades as $unid=>$value)
-                                <option value="{{$unid}}">{{$value}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
+
 
                 <div class="form-group">
                     <div class="row">
@@ -74,36 +61,6 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="row">
-                        <label for="" class="col-md-3">Cantidad</label>
-                        <div class="col-md-6"><input type="text" name="cantidad"
-                                class="form-control @error('cantidad') is-invalid @enderror" @error('cantidad')
-                                placeholder="{{ $message }}" @enderror></div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="row">
-                        <label for="" class="col-md-3">Precio Venta</label>
-                        <div class="col-md-6"><input type="text" name="precio_venta"
-                                class="form-control @error('precio_venta') is-invalid @enderror" @error('precio_venta')
-                                placeholder="{{ $message }}" @enderror></div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="row">
-                        <label for="" class="col-md-3">Costo</label>
-                        <div class="col-md-6"><input type="text" name="costo"
-                                class="form-control @error('costo') is-invalid @enderror" @error('costo')
-                                placeholder="{{ $message }}" @enderror></div>
                         <div class="clearfix"></div>
                     </div>
                 </div>

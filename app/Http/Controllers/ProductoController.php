@@ -7,6 +7,7 @@ use App\Producto;
 use App\Categoria;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\ProductoRequest;
+use Illuminate\Http\Request;
 use Carbon\Carbon;
 
 class ProductoController extends Controller
@@ -24,8 +25,10 @@ class ProductoController extends Controller
      */
     public function index()
     {
+        $prod_unidad = Unidad::with('productos')->latest()->paginate(10);
+        // dd($prod_unidad);
         $productos = Producto::latest()->paginate(10);
-        return view('productos.index', compact('productos'));
+        return view('productos.index', compact('productos','prod_unidad'));
     }
 
     /**
@@ -36,7 +39,7 @@ class ProductoController extends Controller
     public function create()
     {
         $categorias = Categoria::all()->pluck('nombre', 'id');
-        $unidades = Unidad::all()->pluck('nombre_unidad', 'id');
+        // $unidades = Unidad::all()->pluck('nombre_unidad', 'id');
         return view('productos.create', compact('categorias', 'unidades'));
     }
 
@@ -54,33 +57,27 @@ class ProductoController extends Controller
             ->with('success', 'Producto Creado!');
     }
 
-    public function store_produnid(ProductoRequest $request, $id_producto)
+    public function create_produnid()
     {
-        DB::beginTransaction();
+        $productos = Producto::all()->pluck('nombre_producto', 'id');
+        $unidades = Unidad::all()->pluck('nombre_unidad', 'id');
+        return view('productos.unidad.create', compact('productos', 'unidades'));
+    }
 
-        try {
+    public function store_produnid(Request $request)
+    {
+        $producto = Producto::findOrFail($request->producto_id);
 
-            $producto = Producto::findOrFail($id_producto);
+        $producto->unidad()->attach($request->unidad_id, [
+            'cantidad' => $request->cantidad,
+            'precio_venta' => $request->precio_venta,
+            'costo' => $request->costo,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
 
-            $producto->unidad()->attach($request->id_unidad, [
-                'cantidad' => $request->cantidad,
-                'precio_venta' => $request->precio_venta,
-                'costo' => $request->costo,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ]);
-
-            DB::commit();
-
-            return redirect()->route('productos.index')
-                ->with('success', 'Producto/Unidad Creado!');
-        } catch (\Throwable $th) {
-
-            DB::rollBack();
-
-            return redirect()->route('productos.index')
-                ->with('errors', $th->getMessage());
-        }
+        return redirect()->route('productos.index')
+        ->with('success', 'Producto Unidad Creado!');
     }
 
     /**

@@ -64,7 +64,7 @@ class UserController extends Controller
 
                 DB::rollBack();
 
-                return redirect()->route('productos.index')
+                return redirect()->route('users.create')
                     ->with('errors', $th->getMessage());
             }
 
