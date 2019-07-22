@@ -42,22 +42,26 @@
 
 <div class="row">
 
-    <a class="btn btn-success" href="{{route('productos.create')}}">
+    <div class="col-sm-10 col-xs-9">
+        <a class="btn btn-success" href="{{route('productos.create')}}">
         Crear Producto
         <i class="fa fa-th-large"></i>
-    </a>
+        </a>
+    </div>
+    <div class="col-sm-2 col-xs-3">
+        <div class="card-tools ">
+            <div class="input-group input-group-sm" style="width: 150px;">
+                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
 
-    <div class="card-tools ">
-        <div class="input-group input-group-sm" style="width: 150px;">
-            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-            <div class="input-group-append">
-                <button type="submit" class="btn btn-default">
-                    <i class="fa fa-search"></i>
-                </button>
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-default">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
+
 </div>
 
 
@@ -118,6 +122,6 @@
         <!-- /.tab-content -->
     </div><!-- /.card-body -->
 </div>
-
 <!-- /.card-header -->
+</div>
 @endsection
