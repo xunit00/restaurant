@@ -11,8 +11,8 @@ class UnidadController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware(['auth',
-        // 'permission:update.unidades|create.unidades|delete.unidades|read.unidades']);
+        $this->middleware(['auth',
+        'permission:update.unidades|create.unidades|delete.unidades|read.unidades']);
     }
 
     /**

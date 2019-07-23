@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
             UsersTable::class,
             StatusesTable::class,
             CategoriasTable::class,
-            ProductosTable::class
+            UnidadTable::class
         ]);
     }
 }

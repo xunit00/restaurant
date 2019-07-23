@@ -20,7 +20,12 @@ use App\Events\OrderStatusChanged;
 
 Auth::routes(['verify' => true, 'register' => false]); //no permite registrar
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
 Route::middleware('auth')->group(function () {
+
     Route::resources([
         'users' => 'UserController',
         'permissions' => 'PermissionController',
@@ -33,21 +38,20 @@ Route::middleware('auth')->group(function () {
         // 'tracker'=>'TrackerController',
     ]);
 
-    Route::put('/manage_permissions/{id}', 'UserController@manage_permissions')->name('manage_permissions');
-
     Route::get('/home', 'HomeController@index')->name('home');
 
-    Route::get('/', function () {
-        return view('welcome');
+    Route::put('/manage_permissions/{id}', 'UserController@manage_permissions')->name('manage_permissions');
+
+    //rutas para trabajar con la tabla pivot
+    Route::prefix('productos')->as('productos.')->group(function () {
+        Route::post('/unidad/store_produnid', 'ProductoController@store_produnid')->name('store_produnid');
+        Route::delete('/unidad', 'ProductoController@destroy')->name('destroy_produnid');
+        Route::get('/unidad/create_produnid', 'ProductoController@create_produnid')->name('create_produnid');
+        Route::put('/unidad/{prod_unidad}', 'ProductoController@update_produnid')->name('update_produnid');
+        Route::get('/unidad/{prod_unidad}/edit', 'ProductoController@edit_produnid')->name('edit_produnid');
     });
 });
-Route::prefix('productos')->as('productos.')->group(function () {
-    Route::post('/unidad/store_produnid', 'ProductoController@store_produnid')->name('store_produnid');
-    // Route::delete('/productos', 'ProductoController@destroy')->name('destroy');
-    Route::get('/unidad/create_produnid', 'ProductoController@create_produnid')->name('create_produnid');
-    Route::put('/unidad/{prod_unidad}', 'ProductoController@update_produnid')->name('update_produnid');
-    Route::get('/unidad/{prod_unidad}/edit', 'ProductoController@edit_produnid')->name('edit_produnid');
-});
+
 
 
 

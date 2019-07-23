@@ -5,9 +5,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
+                    @can('create.categorias')
                     <a class="btn btn-success" href="{{route('categorias.create')}}">
                         Crear Categorias
                         <i class="fa fa-th-large"></i>
+                    @endcan
                     </a>
                 </div><!-- /.col -->
 
@@ -26,14 +28,7 @@
         <div class="card-header">
             <h3 class="card-title">Categorias</h3>
 
-            @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
-                <p>{{ session('success') }}</p>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            @endif
+            @include('partials.success-alert')<!--mensaje de exito proceso-->
 
             <div class="card-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
@@ -69,7 +64,7 @@
 
                         <td>
                             <form action="{{route('categorias.destroy',$cat->id)}}" method="POST">
-                                @can('update.role')
+                                @can('update.categorias')
                                 <a class="btn btn-outline-secondary btn-sm"
                                     href="{{route('categorias.edit',$cat->id)}}">
                                     <i class="fa fa-edit"></i>
@@ -78,7 +73,7 @@
 
                                 @csrf
                                 @method('DELETE')
-                                @can('delete.users')
+                                @can('delete.categorias')
                                 <button type="submit" class="btn btn-outline-danger btn-sm"
                                     onclick="return confirm('Quiere Borrar este Registro?')">
                                     <i class="fas fa-trash-alt"></i></button>

@@ -24,14 +24,14 @@
 <div class="card">
     <section class="content">
         <div class="container-fluid mt-3">
-            <form action="{{route('productos.store_produnid')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('productos.update_produnid',$prod_unidad->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
-
+                @method('PUT')
                 <div class="form-group">
                         <div class="row">
                             <label for="" class="col-md-3">Producto</label>
                             <div class="col-md-6">
-                                <select name="producto_id" id=""
+                                <select name="producto_id"
                                 class="form-control @error('producto_id') is-invalid @enderror">
                                     <option value="">Seleccionar Producto</option>
                                     @foreach($productos as $prod=>$value)

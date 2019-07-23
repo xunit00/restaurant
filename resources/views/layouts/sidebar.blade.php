@@ -92,7 +92,7 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                @can('read.users')
+                                @can('read.categorias')
                                 <li class="nav-item">
                                     <a href="{{route('categorias.index')}}"
                                     class="nav-link {{ request()->is('categorias*') ? 'active' : '' }}">
@@ -102,7 +102,7 @@
                                 </li>
                                 @endcan
 
-                                @can('read.permissions')
+                                @can('read.unidades')
                                 <li class="nav-item">
                                     <a href="{{route('unidades.index')}}"
                                     class="nav-link {{ request()->is('unidades*') ? 'active' : '' }}">
@@ -112,7 +112,7 @@
                                 </li>
                                 @endcan()
 
-                                @can('read.permissions')
+                                @can('read.productos')
                                 <li class="nav-item">
                                     <a href="{{route('productos.index')}}"
                                     class="nav-link {{ request()->is('productos*') ? 'active' : '' }}">

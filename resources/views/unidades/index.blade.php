@@ -5,10 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
+                    @can('create.unidades')
                     <a class="btn btn-success" href="{{route('unidades.create')}}">
                         Crear Unidades
                         <i class="fa fa-boxes"></i>
                     </a>
+                    @endcan
                 </div><!-- /.col -->
 
                 <div class="col-sm-6">
@@ -26,14 +28,7 @@
         <div class="card-header">
             <h3 class="card-title">Unidades</h3>
 
-            @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
-                <p>{{ session('success') }}</p>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            @endif
+            @include('partials.success-alert')<!--mensaje de exito proceso-->
 
             <div class="card-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
@@ -71,7 +66,7 @@
 
                         <td>
                             <form action="{{route('unidades.destroy',$unidade->id)}}" method="POST">
-                                @can('update.role')
+                                @can('update.unidades')
                                 <a class="btn btn-outline-secondary btn-sm"
                                     href="{{route('unidades.edit',$unidade->id)}}">
                                     <i class="fa fa-edit"></i>
@@ -80,7 +75,7 @@
 
                                 @csrf
                                 @method('DELETE')
-                                @can('delete.users')
+                                @can('delete.unidades')
                                 <button type="submit" class="btn btn-outline-danger btn-sm"
                                     onclick="return confirm('Quiere Borrar este Registro?')">
                                     <i class="fas fa-trash-alt"></i></button>

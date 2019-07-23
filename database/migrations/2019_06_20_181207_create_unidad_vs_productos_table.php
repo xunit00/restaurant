@@ -21,6 +21,7 @@ class CreateUnidadVsProductosTable extends Migration
             $table->decimal('costo',8,2);
             $table->timestamps();
 
+            $table->primary(['producto_id','unidad_id']);
             $table->foreign('producto_id')->references('id')->on('productos');
             $table->foreign('unidad_id')->references('id')->on('unidades');
         });

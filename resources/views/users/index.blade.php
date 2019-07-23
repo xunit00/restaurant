@@ -6,10 +6,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
+                @can('create.users')
                 <a class="btn btn-success" href="{{route('users.create')}}">
                     Lista de Usuario
                     <i class="fa fa-user-plus"></i>
                 </a>
+                @endcan
             </div><!-- /.col -->
 
             <div class="col-sm-6">
@@ -27,14 +29,7 @@
         <div class="card-header">
             <h3 class="card-title">Usuarios</h3>
 
-            @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
-                <p>{{ session('success') }}</p>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            @endif
+            @include('partials.success-alert')<!--mensaje de exito proceso-->
 
             <div class="card-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">

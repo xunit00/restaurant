@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Unidad;
 use App\Producto;
 use App\Categoria;
-use Illuminate\Support\Facades\DB;
+use App\Http\Requests\ProductoUnidadRequest;
 use App\Http\Requests\ProductoRequest;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -14,8 +14,8 @@ class ProductoController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware(['auth',
-        // 'permission:update.productos|create.productos|delete.productos|read.productos']);
+        $this->middleware(['auth',
+        'permission:update.productos|create.productos|delete.productos|read.productos']);
     }
 
     /**
@@ -74,7 +74,7 @@ class ProductoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store_produnid(Request $request)
+    public function store_produnid(ProductoUnidadRequest $request)
     {
         $producto = Producto::findOrFail($request->producto_id);
 
@@ -137,7 +137,6 @@ class ProductoController extends Controller
     public function edit_produnid($prod_unidad)
     {
         $prod_unidad=Unidad::with('productos')->find($prod_unidad);
-        // dd($prod_unidad);
         $productos = Producto::all()->pluck('nombre_producto','id');
         $unidades = Unidad::all()->pluck('nombre_unidad','id');
         return view('productos.unidad.edit', compact('productos','unidades','prod_unidad'));
@@ -150,11 +149,19 @@ class ProductoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update_produnid(Request $request, Unidad $prod_unidad)
+    public function update_produnid(ProductoUnidadRequest $request)
     {
-        // $producto->update($request->all());
-        // return redirect()->route('productos.index')
-        //     ->with('success', 'Producto Actualizado Correctamente');
+        $producto = Producto::findOrFail($request->producto_id);
+
+        $producto->unidad()->updateExistingPivot($request->unidad_id, [
+            'cantidad' => $request->cantidad,
+            'precio_venta' => $request->precio_venta,
+            'costo' => $request->costo,
+            'updated_at' => Carbon::now()
+        ]);
+
+        return redirect()->route('productos.index')
+            ->with('success', 'Producto Actualizado Correctamente');
     }
     /**
      * Remove the specified resource from storage.
