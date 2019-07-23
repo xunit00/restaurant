@@ -106,13 +106,10 @@
             </div>
             <!-- /.tab-pane -->
             <div class="tab-pane active show" id="tab_2">
-
-
                 <a class="btn btn-success" href="{{route('productos.create_produnid')}}">
                     Crear Unidad/Producto
                     <i class="fa fa-th-large"></i>
                 </a>
-
                 <div class="card-body table-responsive p-0 mt-3">
                     <table class="table table-hover">
                         <tbody>
@@ -125,39 +122,38 @@
                                 <th>Modyfy</th>
                             </tr>
                             @foreach($prod_unidad as $p_unid)
-                                @foreach($p_unid->productos as $p_u)
-                                    <tr>
-                                        {{-- <td>{{$p_u}}</td> --}}
-                                        <td>{{$p_u->nombre_producto}}</td>
-                                        <td>{{$p_unid->nombre_unidad}}</td>
-                                        <td>{{$p_u->pivot->cantidad}}</td>
-                                        <td>{{$p_u->pivot->precio_venta}}</td>
-                                        <td>{{$p_u->pivot->costo}}</td>
-                                        <td>
-                                            <form action="{{route('productos.destroy',$prod->id)}}" method="POST">
-                                                @can('update.role')
-                                                <a class="btn btn-outline-secondary btn-sm"
-                                                    href="{{route('productos.edit',$prod->id)}}">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                                @endcan
+                            @foreach($p_unid->productos as $p_u)
+                            <tr>
+                                {{-- <td>{{$p_u}}</td> --}}
+                                <td>{{$p_u->nombre_producto}}</td>
+                                <td>{{$p_unid->nombre_unidad}}</td>
+                                <td>{{$p_u->pivot->cantidad}}</td>
+                                <td>{{$p_u->pivot->precio_venta}}</td>
+                                <td>{{$p_u->pivot->costo}}</td>
+                                <td>
+                                    <form action="{{route('productos.destroy',$p_unid->id)}}" method="POST">
+                                        @can('update.role')
+                                        <a class="btn btn-outline-secondary btn-sm"
+                                            href="{{route('productos.edit_produnid',$p_unid->id)}}">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        @endcan
 
-                                                @csrf
-                                                @method('DELETE')
-                                                @can('delete.users')
-                                                <button type="submit" class="btn btn-outline-danger btn-sm"
-                                                    onclick="return confirm('Quiere Borrar este Registro?')">
-                                                    <i class="fas fa-trash-alt"></i></button>
-                                                @endcan
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                        @csrf
+                                        @method('DELETE')
+                                        @can('delete.users')
+                                        <button type="submit" class="btn btn-outline-danger btn-sm"
+                                            onclick="return confirm('Quiere Borrar este Registro?')">
+                                            <i class="fas fa-trash-alt"></i></button>
+                                        @endcan
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
                             @endforeach
                         </tbody>
                     </table>
                     {{$prod_unidad->links()}}
-
                 </div>
             </div>
             <!-- /.tab-content -->

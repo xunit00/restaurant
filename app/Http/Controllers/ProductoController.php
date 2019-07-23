@@ -26,7 +26,6 @@ class ProductoController extends Controller
     public function index()
     {
         $prod_unidad = Unidad::with('productos')->latest()->paginate(10);
-        // dd($prod_unidad);
         $productos = Producto::latest()->paginate(10);
         return view('productos.index', compact('productos','prod_unidad'));
     }
@@ -57,6 +56,11 @@ class ProductoController extends Controller
             ->with('success', 'Producto Creado!');
     }
 
+    /**
+     * muestra form para crear unnuevo recurso de producto y unidad
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create_produnid()
     {
         $productos = Producto::all()->pluck('nombre_producto', 'id');
@@ -64,6 +68,12 @@ class ProductoController extends Controller
         return view('productos.unidad.create', compact('productos', 'unidades'));
     }
 
+    /**
+     * guarda en store el nuevo recurso de prod unidad
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store_produnid(Request $request)
     {
         $producto = Producto::findOrFail($request->producto_id);
@@ -118,6 +128,32 @@ class ProductoController extends Controller
             ->with('success', 'Producto Actualizado Correctamente');
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit_produnid(Unidad $prod_unidad)
+    {
+        $productos = Producto::all()->pluck('nombre_producto', 'id');
+        $unidades = Unidad::all()->pluck('nombre_unidad', 'id');
+        return view('productos.unidad.edit', compact('productos','unidades','prod_unidad'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update_produnid(Request $request, Unidad $prod_unidad)
+    {
+        // $producto->update($request->all());
+        // return redirect()->route('productos.index')
+        //     ->with('success', 'Producto Actualizado Correctamente');
+    }
     /**
      * Remove the specified resource from storage.
      *

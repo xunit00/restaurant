@@ -45,8 +45,8 @@ Route::prefix('productos')->as('productos.')->group(function () {
     Route::post('/unidad/store_produnid', 'ProductoController@store_produnid')->name('store_produnid');
     // Route::delete('/productos', 'ProductoController@destroy')->name('destroy');
     Route::get('/unidad/create_produnid', 'ProductoController@create_produnid')->name('create_produnid');
-    // Route::put('/productos/{unidad}', 'ProductoController@update')->name('update');
-    // Route::get('/productos/{unidad}/edit', 'ProductoController@edit')->name('edit');
+    Route::put('/unidad/{prod_unidad}', 'ProductoController@update_produnid')->name('update_produnid');
+    Route::get('/unidad/{prod_unidad}/edit', 'ProductoController@edit_produnid')->name('edit_produnid');
 });
 
 
