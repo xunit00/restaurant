@@ -134,10 +134,12 @@ class ProductoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit_produnid(Unidad $prod_unidad)
+    public function edit_produnid($prod_unidad)
     {
-        $productos = Producto::all()->pluck('nombre_producto', 'id');
-        $unidades = Unidad::all()->pluck('nombre_unidad', 'id');
+        $prod_unidad=Unidad::with('productos')->find($prod_unidad);
+        // dd($prod_unidad);
+        $productos = Producto::all()->pluck('nombre_producto','id');
+        $unidades = Unidad::all()->pluck('nombre_unidad','id');
         return view('productos.unidad.edit', compact('productos','unidades','prod_unidad'));
     }
 
