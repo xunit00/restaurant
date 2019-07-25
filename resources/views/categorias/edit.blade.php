@@ -48,26 +48,6 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="row">
-                        <label for="" class="col-md-3">Status</label>
-                        <div class="col-md-6">
-                            <select name="status" id="" class="form-control @error('status') is-invalid @enderror">
-                                {{-- <option value="">Seleccionar Rol</option> --}}
-                                @if($categoria->status==1)
-                                <option value="0">Inactivo</option>
-                                <option value="1" selected>Activo</option>
-                                @else
-                                <option value="0" selected>Inactivo</option>
-                                <option value="1">Activo</option>
-                                @endif
-                            </select>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-
-
-                <div class="form-group">
                     <input type="submit" class="btn btn-info" value="Save">
                 </div>
             </form>

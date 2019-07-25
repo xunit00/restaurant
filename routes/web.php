@@ -40,12 +40,19 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/home', 'HomeController@index')->name('home');
 
-    Route::put('/manage_permissions/{id}', 'UserController@manage_permissions')->name('manage_permissions');
+    //actualiza el status de categoria solamente
+    Route::put('/status_cat/{categoria}', 'CategoriaController@update_status')->name('categoria_status');
+
+    //actualiza status de unidad solamente
+    Route::put('/status_unid/{unidade}', 'UnidadController@update_status')->name('unidad_status');
+
+
+    Route::put('/manage_permissions/{id}', 'UserController@update_status')->name('manage_permissions');
 
     //rutas para trabajar con la tabla pivot
     Route::prefix('productos')->as('productos.')->group(function () {
         Route::post('/unidad/store_produnid', 'ProductoController@store_produnid')->name('store_produnid');
-        Route::delete('/unidad', 'ProductoController@destroy')->name('destroy_produnid');
+        Route::delete('/unidad/{prod_unidad}', 'ProductoController@destroy_produnid')->name('destroy_produnid');
         Route::get('/unidad/create_produnid', 'ProductoController@create_produnid')->name('create_produnid');
         Route::put('/unidad/{prod_unidad}', 'ProductoController@update_produnid')->name('update_produnid');
         Route::get('/unidad/{prod_unidad}/edit', 'ProductoController@edit_produnid')->name('edit_produnid');

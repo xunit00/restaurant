@@ -38,7 +38,6 @@ class CategoriaRequest extends FormRequest
                 return [
                     'nombre' => 'required|string|min:4|max:50|unique:categorias,nombre,'. $this->route('categoria')->id,
                     'descripcion' => 'nullable|string|min:4|max:191',
-                    'status'=>'required|boolean',
                 ];
             }
             case 'PATCH':

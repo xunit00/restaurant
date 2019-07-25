@@ -57,11 +57,18 @@
                         <td>{{$cat->nombre}}</td>
                         <td>{{$cat->descripcion}}</td>
                         <td>
-                            @if($cat->status==1) <span class="badge bg-success">ACTIVO</span>
-                            @else <span class="badge bg-danger">INACTIVO</span>
-                            @endif
+                            <form action="{{route('categoria_status',$cat->id)}}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                @if($cat->status==1)
+                                <button type="submit" class="btn btn-outline-success btn-sm"
+                                onclick="return confirm('Quiere Actualizar este Registro?')">ACTIVO</button>
+                                @else
+                                <button type="submit" class="btn btn-outline-danger btn-sm"
+                                onclick="return confirm('Quiere Actualizar este Registro?')">INACTIVO</button>
+                                @endif
+                            </form>
                         </td>
-
                         <td>
                             <form action="{{route('categorias.destroy',$cat->id)}}" method="POST">
                                 @can('update.categorias')

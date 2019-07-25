@@ -59,9 +59,17 @@
                         <td>{{$unidade->descripcion_unidad}}</td>
                         <td>{{$unidade->contenido}}</td>
                         <td>
-                            @if($unidade->status==1) <span class="badge bg-success">ACTIVO</span>
-                            @else <span class="badge bg-danger">INACTIVO</span>
-                            @endif
+                            <form action="{{route('unidad_status',$unidade->id)}}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                @if($unidade->status==1)
+                                <button type="submit" class="btn btn-outline-success btn-sm"
+                                onclick="return confirm('Quiere Actualizar este Registro?')">ACTIVO</button>
+                                @else
+                                <button type="submit" class="btn btn-outline-danger btn-sm"
+                                onclick="return confirm('Quiere Actualizar este Registro?')">INACTIVO</button>
+                                @endif
+                            </form>
                         </td>
 
                         <td>

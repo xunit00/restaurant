@@ -41,7 +41,6 @@ class UnidadRequest extends FormRequest
                     'nombre_unidad' => 'required|string|min:4|max:50|unique:unidades,nombre_unidad,'. $this->route('unidade')->id,
                     'descripcion_unidad' => 'nullable|string|min:4|max:191',
                     'contenido'=>'required|integer',
-                    'status'=>'required|boolean',
                 ];
             }
             case 'PATCH':

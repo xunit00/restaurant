@@ -86,6 +86,24 @@ class CategoriaController extends Controller
         ->with('success','Categoria Actualizada Correctamente');
     }
 
+     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Categoria  $categoria
+     * @return \Illuminate\Http\Response
+     */
+    public function update_status(Categoria $categoria)
+    {
+        if($categoria->status==1)
+            $categoria->update(['status'=>0]);
+        elseif($categoria->status==0) {
+            $categoria->update(['status'=>1]);
+        }
+
+        return redirect()->route('categorias.index')
+        ->with('success','Categoria Actualizada Correctamente');
+    }
+
     /**
      * Remove the specified resource from storage.
      *

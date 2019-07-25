@@ -26,7 +26,9 @@ class ProductoController extends Controller
     public function index()
     {
         $prod_unidad = Unidad::with('productos')->latest()->paginate(10);
+
         $productos = Producto::latest()->paginate(10);
+
         return view('productos.index', compact('productos','prod_unidad'));
     }
 
@@ -37,8 +39,8 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        $categorias = Categoria::all()->pluck('nombre', 'id');
-        // $unidades = Unidad::all()->pluck('nombre_unidad', 'id');
+        $categorias = Categoria::whereStatus(1)->pluck('nombre', 'id');
+
         return view('productos.create', compact('categorias', 'unidades'));
     }
 
@@ -64,7 +66,9 @@ class ProductoController extends Controller
     public function create_produnid()
     {
         $productos = Producto::all()->pluck('nombre_producto', 'id');
-        $unidades = Unidad::all()->pluck('nombre_unidad', 'id');
+
+        $unidades = Unidad::whereStatus(1)->pluck('nombre_unidad', 'id');
+
         return view('productos.unidad.create', compact('productos', 'unidades'));
     }
 
@@ -104,13 +108,15 @@ class ProductoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  object  $producto
      * @return \Illuminate\Http\Response
      */
     public function edit(Producto $producto)
     {
-        $categorias = Categoria::all()->pluck('nombre', 'id');
-        $unidades = Unidad::all()->pluck('nombre_unidad', 'id');
+        $categorias = Categoria::whereStatus(1)->pluck('nombre', 'id');
+
+        $unidades = Unidad::whereStatus(1)->pluck('nombre_unidad', 'id');
+
         return view('productos.edit', compact('producto', 'categorias', 'unidades'));
     }
 
@@ -118,12 +124,13 @@ class ProductoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  object  $producto
      * @return \Illuminate\Http\Response
      */
     public function update(ProductoRequest $request, Producto $producto)
     {
         $producto->update($request->all());
+
         return redirect()->route('productos.index')
             ->with('success', 'Producto Actualizado Correctamente');
     }
@@ -131,14 +138,17 @@ class ProductoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  array  $prod_unidad
      * @return \Illuminate\Http\Response
      */
     public function edit_produnid($prod_unidad)
     {
         $prod_unidad=Unidad::with('productos')->find($prod_unidad);
+
         $productos = Producto::all()->pluck('nombre_producto','id');
-        $unidades = Unidad::all()->pluck('nombre_unidad','id');
+
+        $unidades = Unidad::whereStatus(1)->pluck('nombre_unidad','id')->get();
+
         return view('productos.unidad.edit', compact('productos','unidades','prod_unidad'));
     }
 
@@ -146,7 +156,6 @@ class ProductoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update_produnid(ProductoUnidadRequest $request)
@@ -163,6 +172,7 @@ class ProductoController extends Controller
         return redirect()->route('productos.index')
             ->with('success', 'Producto Actualizado Correctamente');
     }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -171,6 +181,29 @@ class ProductoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $producto= Producto::findOrFail($id);
+
+        $producto->unidad()->detach();
+
+        $producto->delete();
+
+        return redirect()->route('productos.index')
+        ->with('success','Producto Eliminada Correctamente');
+    }
+
+     /**
+     * Remove the specified resource from storage.
+     *
+     * @param  array  $prod_unidad
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy_produnid($prod_unidad)
+    {
+        $unidad=Unidad::with('productos')->findOrFail($prod_unidad);
+
+        $unidad->productos()->detach($unidad->productos);
+
+        return redirect()->route('productos.index')
+        ->with('success','Producto Eliminado Correctamente');
     }
 }

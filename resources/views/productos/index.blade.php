@@ -104,7 +104,7 @@
                 @can('create.productos')
                 <a class="btn btn-success" href="{{route('productos.create_produnid')}}">
                     Crear Unidad/Producto
-                    <i class="fa fa-th-large"></i>
+                <i class="fa fa-th-large"></i>
                 </a>
                 @endcan
                 <div class="card-body table-responsive p-0 mt-3">

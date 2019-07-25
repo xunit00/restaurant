@@ -89,6 +89,24 @@ class UnidadController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Unidad  $categoria
+     * @return \Illuminate\Http\Response
+     */
+    public function update_status(Unidad $unidade)
+    {
+        if($unidade->status==1)
+            $unidade->update(['status'=>0]);
+        elseif($unidade->status==0) {
+            $unidade->update(['status'=>1]);
+        }
+
+        return redirect()->route('unidades.index')
+        ->with('success','Unidad Actualizada Correctamente');
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
