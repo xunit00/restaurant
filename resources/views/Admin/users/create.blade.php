@@ -6,32 +6,31 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Editar Permiso</h1>
+                <h1 class="m-0 text-dark">Agregar Usuario</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{route('permissions.index')}}">Lista Permiso</a></li>
-                    <li class="breadcrumb-item active">Editar Permiso</li>
+                    <li class="breadcrumb-item"><a href="{{route('users.index')}}">Lista Usuario</a></li>
+                    <li class="breadcrumb-item active">Agregar Usuario</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
 </div>
 
-@include('partials.errors-update')
+@include('partials.errors-create')
 
 <!-- /.content-header -->
 <div class="card">
     <section class="content">
         <div class="container-fluid mt-3">
-            <form action="{{route('permissions.update',$permission->id)}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('users.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
-                @method('PUT')
 
-                @include('permissions.form')
+                @include('admin.users.form')
 
                 <div class="form-group">
-                    <input type="submit" class="btn btn-info" value="Update">
+                    <input type="submit" class="btn btn-info" value="Save">
                 </div>
             </form>
         </div>

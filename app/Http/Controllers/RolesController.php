@@ -22,7 +22,7 @@ class RolesController extends Controller
     public function index()
     {
         $roles= Role:: orderBy('id','ASC')->paginate(10);
-        return view('roles.index', compact('roles'));
+        return view('admin.roles.index', compact('roles'));
     }
 
     /**
@@ -34,7 +34,7 @@ class RolesController extends Controller
     {
         $my_perm= Permission::role($role)->get()->pluck('name','id');
         $permissions=Permission::all()->pluck('name','id');
-        return view('roles.create',compact('permissions','my_perm'));
+        return view('admin.roles.create',compact('permissions','my_perm'));
     }
 
     /**
@@ -80,7 +80,7 @@ class RolesController extends Controller
 
         $permissions=Permission::all()->pluck('name','id');
 
-        return view('roles.edit',compact('role','permissions','my_perm'));
+        return view('admin.roles.edit',compact('role','permissions','my_perm'));
     }
 
     /**

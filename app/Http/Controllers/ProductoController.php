@@ -29,7 +29,7 @@ class ProductoController extends Controller
 
         $productos = Producto::latest()->paginate(10);
 
-        return view('productos.index', compact('productos','prod_unidad'));
+        return view('inventario.productos.index', compact('productos','prod_unidad'));
     }
 
     /**
@@ -37,11 +37,11 @@ class ProductoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Producto $producto)
     {
         $categorias = Categoria::whereStatus(1)->pluck('nombre', 'id');
 
-        return view('productos.create', compact('categorias', 'unidades'));
+        return view('inventario.productos.create', compact('categorias', 'unidades','producto'));
     }
 
     /**
@@ -65,11 +65,13 @@ class ProductoController extends Controller
      */
     public function create_produnid()
     {
+        $prod_unidad=Unidad::with('productos')->get();
+
         $productos = Producto::all()->pluck('nombre_producto', 'id');
 
         $unidades = Unidad::whereStatus(1)->pluck('nombre_unidad', 'id');
 
-        return view('productos.unidad.create', compact('productos', 'unidades'));
+        return view('inventario.productos.unidad.create', compact('productos', 'unidades','prod_unidad'));
     }
 
     /**
@@ -117,7 +119,7 @@ class ProductoController extends Controller
 
         $unidades = Unidad::whereStatus(1)->pluck('nombre_unidad', 'id');
 
-        return view('productos.edit', compact('producto', 'categorias', 'unidades'));
+        return view('inventario.productos.edit', compact('producto', 'categorias', 'unidades'));
     }
 
     /**
@@ -149,7 +151,7 @@ class ProductoController extends Controller
 
         $unidades = Unidad::whereStatus(1)->pluck('nombre_unidad','id')->get();
 
-        return view('productos.unidad.edit', compact('productos','unidades','prod_unidad'));
+        return view('inventario.productos.unidad.edit', compact('productos','unidades','prod_unidad'));
     }
 
     /**

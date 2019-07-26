@@ -26,7 +26,7 @@ class UserController extends Controller
     public function index()
     {
         $users= User::with('roles')->latest()->paginate(10);
-        return view('users.index',compact('users'));
+        return view('admin.users.index',compact('users'));
     }
 
      /**
@@ -34,10 +34,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(User $user)
     {
         $roles= Role::all()->pluck('name','id');
-        return view('users.create',compact('roles','permissions','my_perm'));
+        return view('admin.users.create',compact('roles','permissions','my_perm','user'));
     }
 
     /**
@@ -71,18 +71,18 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra permisos dados directamente
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
     {
-        $my_perm=$user->permissions()->pluck('name','id');//muestra permisos dados directamente
+        $my_perm=$user->permissions()->pluck('name','id');
 
         $permissions=Permission::all()->pluck('name','id');
         $roles= Role::all()->pluck('name','id');
-        return view('users.show',compact('user','roles','permissions','my_perm'));
+        return view('admin.users.show',compact('user','roles','permissions','my_perm'));
     }
 
  /**
@@ -94,7 +94,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $roles= Role::all()->pluck('name','id');
-        return view('users.edit',compact('user','roles'));
+        return view('admin.users.edit',compact('user','roles'));
     }
 
     /**
@@ -126,9 +126,15 @@ class UserController extends Controller
         return redirect()->route('users.index')
         ->with('success','User Eliminado Correctamente');
     }
+
+    /**
+     * Agrega permiso al usuario
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function manage_permissions(Request $request,$id)
     {
-        // $this->validate($request,['permission'=>'required']);
         $new_permission=$request->permission;
         $user = User::findOrFail($id);
 

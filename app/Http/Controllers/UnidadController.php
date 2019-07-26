@@ -23,7 +23,7 @@ class UnidadController extends Controller
     public function index()
     {
         $unidades= Unidad::latest()->paginate(10);
-        return view('unidades.index',compact('unidades'));
+        return view('inventario.unidades.index',compact('unidades'));
     }
 
     /**
@@ -33,7 +33,7 @@ class UnidadController extends Controller
      */
     public function create(Unidad $unidad)
     {
-        return view('unidades.create',compact('unidad'));
+        return view('inventario.unidades.create',compact('unidad'));
     }
 
     /**
@@ -70,7 +70,7 @@ class UnidadController extends Controller
     public function edit($id)
     {
         $unidad = Unidad::findOrFail($id);
-        return view('unidades.edit',compact('unidad'));
+        return view('inventario.unidades.edit',compact('unidad'));
     }
 
     /**

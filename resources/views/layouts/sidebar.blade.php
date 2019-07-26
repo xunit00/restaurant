@@ -36,14 +36,12 @@
                         </a>
                     </li>
 
+                    @can(['read.users','read.permissions','read.role'])
                     <li class="nav-item has-treeview">
 
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-users"></i>
-                            <p>
-                                Administracion
-                                <i class="right fa fa-angle-left"></i>
-                            </p>
+                            <p>Administracion<i class="right fa fa-angle-left"></i></p>
                         </a>
                         <ul class="nav nav-treeview">
                             @can('read.users')
@@ -78,63 +76,58 @@
 
                         </ul>
                     </li>
+                    @endcan
 
 
+                    @can(['read.categorias','read.unidades','read.productos'])
+                    <li class="nav-item has-treeview">
+
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-boxes"></i>
+                            <p>Inventario
+                                <i class="right fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @can('read.categorias')
+                            <li class="nav-item">
+                                <a href="{{route('categorias.index')}}"
+                                class="nav-link {{ request()->is('categorias*') ? 'active' : '' }}">
+                                <i class="fas fa-circle-notch nav-icon"></i>
+                                    <p>Categorias</p>
+                                <a>
+                            </li>
+                            @endcan
+
+                            @can('read.unidades')
+                            <li class="nav-item">
+                                <a href="{{route('unidades.index')}}"
+                                class="nav-link {{ request()->is('unidades*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-circle-notch"></i>
+                                    <p>Unidades</p>
+                                </a>
+                            </li>
+                            @endcan()
+
+                            @can('read.productos')
+                            <li class="nav-item">
+                                <a href="{{route('productos.index')}}"
+                                class="nav-link {{ request()->is('productos*') ? 'active' : '' }}">
+                                        <i class="nav-icon fas fa-circle-notch"></i>
+                                    <p>Productos</p>
+                                </a>
+                            </li>
+                            @endcan()
+                            </ul>
+                    </li>
+                    @endcan
 
 
                     <li class="nav-item has-treeview">
-
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-boxes"></i>
-                                <p>
-                                    Inventario
-                                    <i class="right fa fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                @can('read.categorias')
-                                <li class="nav-item">
-                                    <a href="{{route('categorias.index')}}"
-                                    class="nav-link {{ request()->is('categorias*') ? 'active' : '' }}">
-                                        <i class="fas fa-circle-notch nav-icon"></i>
-                                        <p>Categorias</p>
-                                    <a>
-                                </li>
-                                @endcan
-
-                                @can('read.unidades')
-                                <li class="nav-item">
-                                    <a href="{{route('unidades.index')}}"
-                                    class="nav-link {{ request()->is('unidades*') ? 'active' : '' }}">
-                                            <i class="nav-icon fas fa-circle-notch"></i>
-                                        <p>Unidades</p>
-                                    </a>
-                                </li>
-                                @endcan()
-
-                                @can('read.productos')
-                                <li class="nav-item">
-                                    <a href="{{route('productos.index')}}"
-                                    class="nav-link {{ request()->is('productos*') ? 'active' : '' }}">
-                                            <i class="nav-icon fas fa-circle-notch"></i>
-                                        <p>Productos</p>
-                                    </a>
-                                </li>
-                                @endcan()
-
-                            </ul>
-                        </li>
-
-
-                        <li class="nav-item has-treeview">
-
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-file-contract"></i>
-                                <p>
-                                    Ordenes
-                                    <i class="right fa fa-angle-left"></i>
-                                </p>
-                            </a>
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-file-contract"></i>
+                            <p>Clientes<i class="right fa fa-angle-left"></i></p>
+                        </a>
                             <ul class="nav nav-treeview">
                                 {{-- @can('read.users') --}}
                                 <li class="nav-item">
@@ -167,7 +160,7 @@
                                 {{-- @endcan() --}}
 
                             </ul>
-                        </li>
+                </li>
 
 
                 </ul>

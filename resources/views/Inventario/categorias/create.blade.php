@@ -6,34 +6,31 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Actualizar Rol</h1>
+                <h1 class="m-0 text-dark">Agregar Categoria</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{route('roles.index')}}">Lista Roles</a></li>
-                    <li class="breadcrumb-item active">Actualizar Rol</li>
+                    <li class="breadcrumb-item"><a href="{{route('categorias.index')}}">Lista Categoria</a></li>
+                    <li class="breadcrumb-item active">Agregar Categoria</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
 </div>
 
-@include('partials.errors-update')
+@include('partials.errors-create')
 
 <!-- /.content-header -->
-<div class="card" id="app">
+<div class="card">
     <section class="content">
         <div class="container-fluid mt-3">
-            <form action="{{route('roles.update',$role->id)}}" method="POST" enctype="multipart/form-data">
-                @method('PUT')
+            <form action="{{route('categorias.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
 
-                @include('roles.form')
-
-                @include('layouts.permisos')
+                @include('inventario.categorias.form')
 
                 <div class="form-group">
-                    <input type="submit" class="btn btn-info" value="Update">
+                    <input type="submit" class="btn btn-info" value="Save">
                 </div>
             </form>
         </div>
