@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    @can('create.roles')
+                    @can('create.role')
                     <a class="btn btn-success" href="{{route('roles.create')}}">
                         Crear Rol
                         <i class="fa fa-user-plus"></i>

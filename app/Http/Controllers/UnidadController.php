@@ -31,9 +31,9 @@ class UnidadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Unidad $unidad)
     {
-        return view('unidades.create');
+        return view('unidades.create',compact('unidad'));
     }
 
     /**

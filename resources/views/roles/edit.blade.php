@@ -27,15 +27,8 @@
             <form action="{{route('roles.update',$role->id)}}" method="POST" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
-                <div class="form-group">
-                    <div class="row">
-                        <label for="" class="col-md-2">Nombre</label>
-                        <div class="col-md-6">
-                            <input type="text" name="name" class="form-control" value="{{$role->name}}">
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
+
+                @include('roles.form')
 
                 @include('layouts.permisos')
 

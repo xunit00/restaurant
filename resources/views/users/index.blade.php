@@ -8,7 +8,7 @@
             <div class="col-sm-6">
                 @can('create.users')
                 <a class="btn btn-success" href="{{route('users.create')}}">
-                    Lista de Usuario
+                    Crear Usuario
                     <i class="fa fa-user-plus"></i>
                 </a>
                 @endcan

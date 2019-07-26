@@ -30,10 +30,11 @@ class RolesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Role $role)
     {
-        $permissions = Permission::all();
-        return view('roles.create',compact('permissions'));
+        $my_perm= Permission::role($role)->get()->pluck('name','id');
+        $permissions=Permission::all()->pluck('name','id');
+        return view('roles.create',compact('permissions','my_perm'));
     }
 
     /**

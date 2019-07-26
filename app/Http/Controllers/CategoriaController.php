@@ -30,9 +30,9 @@ class CategoriaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Categoria $categoria)
     {
-        return view('categorias.create');
+        return view('categorias.create',compact('categoria'));
     }
 
     /**

@@ -20,7 +20,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $permissions= Permission:: orderBy('id','ASC')->paginate(10);
+        $permissions= Permission::latest()->paginate(10);
         return view('permissions.index',compact('permissions'));
     }
 
@@ -29,9 +29,9 @@ class PermissionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Permission $permission)
     {
-        return view('permissions.create');
+        return view('permissions.create',compact('permission'));
     }
 
     /**

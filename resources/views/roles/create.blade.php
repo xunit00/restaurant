@@ -27,50 +27,10 @@
             <form action="{{route('roles.store')}}" method="POST" enctype="multipart/form-data">
 
                 @csrf
-                <div class="form-group">
-                    <div class="row">
-                        <label for="" class="col-md-2">Nombre</label>
-                        <div class="col-md-6"><input type="text" name="name"
-                                class="form-control @error('name') is-invalid @enderror" @error('name')
-                                placeholder="{{ $message }}" @enderror></div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
 
-                {{-- @include('layouts.permisos') --}}
+                @include('roles.form')
 
-                <div class="container">
-                    <div class="form-group mt-2">
-                        <div class="row">
-                            <label class="col-md-2">Permisos</label>
-                            <div class="col-md-6">
-                                @error('permission')
-                                <label for="error">{{ $message }}</label>
-                                @enderror
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" onClick="selectAll(this)">
-                                    <label class="form-check-label">Seleccionar Todo</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <section class="content">
-                                <div class="container-fluid">
-                                    @foreach($permissions as $permission)
-                                    <div class="form-check">
-                                        <input class="form-check-input @error('permission') is-invalid @enderror"
-                                            type="checkbox" name="permission[]" value="{{$permission->name}}">
-                                        <label class="form-check-label">{{$permission->name}}</label>
-                                    </div>
-                                    @endforeach
-                                </div>
-                            </section>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-
-                </div>
+                @include('layouts.permisos')
 
                 <div class="form-group">
                     <input type="submit" class="btn btn-info" value="Save">
@@ -79,11 +39,4 @@
         </div>
     </section>
 </div>
-<script lang="javascript">
-    function selectAll(source){
-   	checkboxes = document.getElementsByName('permission[]');
-		for(var i in checkboxes)
-			checkboxes[i].checked = source.checked;
-}
-</script>
 @endsection

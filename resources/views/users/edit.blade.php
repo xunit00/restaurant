@@ -27,7 +27,7 @@
             <form action="{{route('users.update',$user->id)}}" method="POST" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <div class="row">
                         <label for="" class="col-md-3">Nombre</label>
                         <div class="col-md-6"><input type="text" name="name" value="{{$user->name}}"
@@ -80,7 +80,7 @@
                         </div>
                         <div class="clearfix"></div>
                     </div>
-                </div>
+                </div> --}}
 
 
                 <div class="form-group">
