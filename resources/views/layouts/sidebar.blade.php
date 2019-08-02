@@ -123,41 +123,26 @@
                     @endcan
 
 
-                    <li class="nav-item has-treeview">
+
+
+
+                <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-file-contract"></i>
-                            <p>Clientes<i class="right fa fa-angle-left"></i></p>
+                            <p>Comprobantes<i class="right fa fa-angle-left"></i></p>
                         </a>
                             <ul class="nav nav-treeview">
                                 {{-- @can('read.users') --}}
                                 <li class="nav-item">
-                                    <a href="{{ route('user.orders') }}"
+                                    <a href="{{ route('comprobantes.index') }}"
                                     class="nav-link {{ request()->is('categorias*') ? 'active' : '' }}">
                                         <i class="fas fa-circle-notch nav-icon"></i>
-                                        <p>Mis Ordenes</p>
+                                        <p>Tipo</p>
                                     <a>
                                 </li>
                                 {{-- @endcan --}}
 
-                                {{-- @can('read.permissions') --}}
-                                <li class="nav-item">
-                                    <a href="{{route('user.orders.create')}}"
-                                    class="nav-link {{ request()->is('unidades*') ? 'active' : '' }}">
-                                            <i class="nav-icon fas fa-circle-notch"></i>
-                                        <p>Crear Orden</p>
-                                    </a>
-                                </li>
-                                {{-- @endcan() --}}
 
-                                {{-- @can('read.permissions') --}}
-                                <li class="nav-item">
-                                    <a href="{{route('admin.orders')}}"
-                                    class="nav-link {{ request()->is('productos*') ? 'active' : '' }}">
-                                            <i class="nav-icon fas fa-circle-notch"></i>
-                                        <p>Administrar Orden</p>
-                                    </a>
-                                </li>
-                                {{-- @endcan() --}}
 
                             </ul>
                 </li>

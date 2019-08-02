@@ -27,8 +27,8 @@
             <form action="{{route('productos.store_produnid')}}" method="POST" enctype="multipart/form-data">
                 @csrf
 
-                @include('inventario.productos.unidad.form')
-                {{-- <div class="form-group">
+                {{-- @include('inventario.productos.unidad.form') --}}
+                <div class="form-group">
                         <div class="row">
                             <label for="" class="col-md-3">Producto</label>
                             <div class="col-md-6">
@@ -92,7 +92,7 @@
                                 placeholder="{{ $message }}" @enderror></div>
                         <div class="clearfix"></div>
                     </div>
-                </div> --}}
+                </div>
 
                 <div class="form-group">
                     <input type="submit" class="btn btn-info" value="Save">

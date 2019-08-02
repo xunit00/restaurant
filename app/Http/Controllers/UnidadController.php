@@ -96,9 +96,10 @@ class UnidadController extends Controller
      */
     public function update_status(Unidad $unidade)
     {
-        if($unidade->status==1)
+        if($unidade->status==1){
             $unidade->update(['status'=>0]);
-        elseif($unidade->status==0) {
+        }
+        else{
             $unidade->update(['status'=>1]);
         }
 

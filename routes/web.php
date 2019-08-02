@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
         'categorias' => 'CategoriaController',
         'unidades' => 'UnidadController',
         'productos' => 'ProductoController',
+        'comprobantes' => 'ComprobanteTipoController',
         // 'orders'=>'OrderController',
         // 'tracker'=>'TrackerController',
     ]);

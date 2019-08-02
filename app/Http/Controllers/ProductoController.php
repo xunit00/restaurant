@@ -149,7 +149,7 @@ class ProductoController extends Controller
 
         $productos = Producto::all()->pluck('nombre_producto','id');
 
-        $unidades = Unidad::whereStatus(1)->pluck('nombre_unidad','id')->get();
+        $unidades = Unidad::whereStatus(1)->pluck('nombre_unidad','id');
 
         return view('inventario.productos.unidad.edit', compact('productos','unidades','prod_unidad'));
     }

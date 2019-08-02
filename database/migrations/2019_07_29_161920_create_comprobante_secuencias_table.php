@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductos extends Migration
+class CreateComprobanteSecuenciasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateProductos extends Migration
      */
     public function up()
     {
-        Schema::create('productos', function (Blueprint $table) {
+        Schema::create('comprobante_secuencias', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nombre_producto')->unique();
-            $table->string('descripcion_producto')->nullable();
-            $table->unsignedBigInteger('id_categoria');
+            $table->string('secuencia')->unique();
+            $table->unsignedBigInteger('tipo_id');
+            $table->boolean('status')->default(1);
             $table->timestamps();
 
-            $table->foreign('id_categoria')->references('id')->on('categorias');
+            $table->foreign('tipo_id')->references('id')->on('comprobante_tipos');
         });
     }
 
@@ -32,7 +32,7 @@ class CreateProductos extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('productos');
+        Schema::dropIfExists('comprobante_secuencias');
         Schema::enableForeignKeyConstraints();
     }
 }

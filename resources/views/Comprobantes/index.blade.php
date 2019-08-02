@@ -7,17 +7,17 @@
             <div class="col-sm-6">
 
                 <ul class="nav nav-pills ml-auto p-2">
-                    <li class="nav-item"><a class="nav-link " href="#tab_1" data-toggle="tab">Productos</a>
+                    <li class="nav-item"><a class="nav-link " href="#tab_1" data-toggle="tab">Secuencia</a>
                     </li>
-                    <li class="nav-item"><a class="nav-link active show" href="#tab_2" data-toggle="tab">Unidad
-                            Productos</a></li>
+                    <li class="nav-item"><a class="nav-link active show" href="#tab_2" data-toggle="tab">Serie
+                            Tipo</a></li>
                 </ul>
             </div><!-- /.col -->
 
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Dashboard</a></li>
-                    <li class="breadcrumb-item active">Lista de Producto</li>
+                    <li class="breadcrumb-item active">Lista de Comprobantes</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -28,11 +28,10 @@
 <div class="card">
     <div class="card-header">
         <div class="row">
-            <div class="col-md-2">
-                <h3 class="card-title">Productos</h3>
-            </div>
-            <div class="col-md-8">
-                @include('partials.success-alert')<!--mensaje de exito proceso-->
+            <div class="col-md-10">
+
+            @include('partials.success-alert')<!--mensaje de exito proceso-->
+
             </div>
             <div class="col-md-2">
                 <div class="card-tools ">
@@ -55,7 +54,7 @@
             <div class="tab-pane" id="tab_1">
                 @can('create.productos')
                 <a class="btn btn-success" href="{{route('productos.create')}}">
-                    Crear Producto
+                    Crear Serie Tipo
                     <i class="fa fa-th-large"></i>
                 </a>
                 @endcan
@@ -63,21 +62,19 @@
                     <table class="table table-hover">
                         <tbody>
                             <tr>
-                                <th>Nombre</th>
-                                <th>Descripcion</th>
-                                <th>Categoria</th>
+                                <th>Serie/Tipo</th>
+                                <th>Status</th>
                                 <th>Modyfy</th>
                             </tr>
-                            @foreach($productos as $prod)
+                            @foreach($comprobantes as $comp)
                             <tr>
-                                <td>{{$prod->nombre_producto}}</td>
-                                <td>{{$prod->descripcion_producto}}</td>
-                                <td>{{$prod->categoria->nombre}}</td>
+                                <td>{{$comp->serie_tipo}}</td>
+                                <td>{{$comp->status}}</td>
                                 <td>
-                                    <form action="{{route('productos.destroy',$prod->id)}}" method="POST">
+                                    <form action="{{route('productos.destroy',$comp->id)}}" method="POST">
                                         @can('update.productos')
                                         <a class="btn btn-outline-secondary btn-sm"
-                                            href="{{route('productos.edit',$prod->id)}}">
+                                            href="{{route('productos.edit',$comp->id)}}">
                                             <i class="fa fa-edit"></i>
                                         </a>
                                         @endcan
@@ -95,7 +92,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{$productos->links()}}
+                    {{$comprobantes->links()}}
                 </div>
                 <!-- /.card-body -->
 
@@ -104,7 +101,7 @@
             <div class="tab-pane active show" id="tab_2">
                 @can('create.productos')
                 <a class="btn btn-success" href="{{route('productos.create_produnid')}}">
-                    Crear Unidad/Producto
+                    Crear Secuencia
                 <i class="fa fa-th-large"></i>
                 </a>
                 @endcan
@@ -112,14 +109,12 @@
                     <table class="table table-hover">
                         <tbody>
                             <tr>
-                                <th>Producto</th>
-                                <th>Unidad</th>
-                                <th>Cantidad</th>
-                                <th>Precio Venta</th>
-                                <th>Costo</th>
+                                <th>Tipo/Serie</th>
+                                <th>Secuencia</th>
+                                <th>Status</th>
                                 <th>Modyfy</th>
                             </tr>
-                            @foreach($prod_unidad as $p_unid)
+                            {{-- @foreach($prod_unidad as $p_unid)
                                 @foreach($p_unid->productos as $p_u)
                                 <tr>
                                     <td>{{$p_u->nombre_producto}}</td>
@@ -147,10 +142,10 @@
                                     </td>
                                 </tr>
                                 @endforeach
-                            @endforeach
+                            @endforeach --}}
                         </tbody>
                     </table>
-                    {{$prod_unidad->links()}}
+                    {{-- {{$prod_unidad->links()}} --}}
                 </div>
             </div>
             <!-- /.tab-content -->

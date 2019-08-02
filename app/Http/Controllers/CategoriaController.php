@@ -94,9 +94,10 @@ class CategoriaController extends Controller
      */
     public function update_status(Categoria $categoria)
     {
-        if($categoria->status==1)
+        if($categoria->status==1){
             $categoria->update(['status'=>0]);
-        elseif($categoria->status==0) {
+        }
+        else{
             $categoria->update(['status'=>1]);
         }
 
