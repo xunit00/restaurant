@@ -34,8 +34,8 @@ Route::middleware('auth')->group(function () {
         'categorias' => 'CategoriaController',
         'unidades' => 'UnidadController',
         'productos' => 'ProductoController',
-        'comprobantes' => 'ComprobanteTipoController',
-        // 'orders'=>'OrderController',
+        'comprobanteTipo' => 'ComprobanteTipoController',
+        'comprobanteSecuencia'=>'ComprobanteSecuenciaController',
         // 'tracker'=>'TrackerController',
     ]);
 
@@ -47,10 +47,12 @@ Route::middleware('auth')->group(function () {
     //actualiza status de unidad solamente
     Route::put('/status_unid/{unidade}', 'UnidadController@update_status')->name('unidad_status');
 
+    //actualiza status de comprobante tipo solamente
+    Route::put('/status_comprobante/{comprobanteTipo}', 'ComprobanteTipoController@update_status')->name('comprobante_status');
+//vista de permisos por usuarios
+    Route::put('/manage_permissions/{id}', 'UserController@managePermissions')->name('manage_permissions');
 
-    Route::put('/manage_permissions/{id}', 'UserController@update_status')->name('manage_permissions');
-
-    //rutas para trabajar con la tabla pivot
+    //rutas para trabajar con la tabla pivot productos-unidades
     Route::prefix('productos')->as('productos.')->group(function () {
         Route::post('/unidad/store_produnid', 'ProductoController@store_produnid')->name('store_produnid');
         Route::delete('/unidad/{prod_unidad}', 'ProductoController@destroy_produnid')->name('destroy_produnid');
@@ -61,8 +63,6 @@ Route::middleware('auth')->group(function () {
 });
 
 
-
-
 // User Routes
 Route::middleware('auth')->group(function () {
     Route::get('/orders', 'UserOrdersController@index')->name('user.orders');
@@ -70,6 +70,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/orders', 'UserOrdersController@store')->name('user.orders.store');
     Route::get('/orders/{order}', 'UserOrdersController@show')->name('user.orders.show');
 });
+
 // Admin Routes - Make sure you implement an auth layer here
 Route::prefix('admin')->group(function () {
     Route::get('/orders', 'AdminOrdersController@index')->name('admin.orders');

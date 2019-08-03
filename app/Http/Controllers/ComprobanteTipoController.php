@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ComprobanteTipo;
-use App\ComprobanteSecuencia;
-use Illuminate\Http\Request;
+use App\Http\Requests\ComprobanteRequest;
 
 class ComprobanteTipoController extends Controller
 {
@@ -15,8 +14,8 @@ class ComprobanteTipoController extends Controller
      */
     public function index()
     {
-        $comprobantes= ComprobanteTipo::latest()->paginate(10);
-        return view('comprobantes.index',compact('comprobantes'));
+        $comprobanteTipo= ComprobanteTipo::latest()->paginate(10);
+        return view('comprobantes.serietipo.index',compact('comprobanteTipo'));
     }
 
     /**
@@ -24,9 +23,9 @@ class ComprobanteTipoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(ComprobanteTipo $comprobanteTipo)
     {
-        //
+        return view('comprobantes.serietipo.create',compact('comprobanteTipo'));
     }
 
     /**
@@ -35,9 +34,25 @@ class ComprobanteTipoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ComprobanteRequest $request)
     {
-        //
+        ComprobanteTipo::create($request->all());
+
+        return redirect()->route('comprobanteTipo.index')
+        ->with('success', 'Comprobante Creado!');
+    }
+
+    public function update_status(ComprobanteTipo $comprobanteTipo)
+    {
+        if($comprobanteTipo->status==1){
+            $comprobanteTipo->update(['status'=>0]);
+        }
+        else{
+            $comprobanteTipo->update(['status'=>1]);
+        }
+
+        return redirect()->route('comprobanteTipo.index')
+        ->with('success','Comprobante Actualizado Correctamente');
     }
 
     /**
@@ -59,7 +74,7 @@ class ComprobanteTipoController extends Controller
      */
     public function edit(ComprobanteTipo $comprobanteTipo)
     {
-        //
+        return view('comprobantes.serietipo.edit',compact('comprobanteTipo'));
     }
 
     /**
@@ -69,9 +84,12 @@ class ComprobanteTipoController extends Controller
      * @param  \App\ComprobanteTipo  $comprobanteTipo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ComprobanteTipo $comprobanteTipo)
+    public function update(ComprobanteRequest $request, ComprobanteTipo $comprobanteTipo)
     {
-        //
+        $comprobanteTipo->update($request->all());
+
+        return redirect()->route('comprobanteTipo.index')
+        ->with('success','Comprobante Actualizado Correctamente');
     }
 
     /**
@@ -82,6 +100,9 @@ class ComprobanteTipoController extends Controller
      */
     public function destroy(ComprobanteTipo $comprobanteTipo)
     {
-        //
+        $comprobanteTipo->delete();
+
+        return redirect()->route('comprobanteTipo.index')
+        ->with('success','Comprobante Eliminado Correctamente');
     }
 }

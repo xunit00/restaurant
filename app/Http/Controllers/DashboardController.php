@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Categoria;
 use App\Producto;
+use App\Unidad;
+
 
 class DashboardController extends Controller
 {
@@ -12,6 +14,7 @@ class DashboardController extends Controller
     {
         $this->middleware(['auth']);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -21,6 +24,8 @@ class DashboardController extends Controller
     {
         $categoryCount = Categoria::count();
         $productCount=Producto::count();
-        return view('dashboard',compact('categoryCount','productCount'));
+        $unidadCount=Unidad::count();
+
+        return view('dashboard',compact('categoryCount','productCount','unidadCount'));
     }
 }

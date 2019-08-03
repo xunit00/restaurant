@@ -133,9 +133,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function manage_permissions(Request $request,$id)
+    public function managePermissions(Request $request,$id)
     {
         $new_permission=$request->permission;
+
         $user = User::findOrFail($id);
 
         $user->syncPermissions($new_permission);

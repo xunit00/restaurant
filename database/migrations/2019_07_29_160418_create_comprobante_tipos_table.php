@@ -16,6 +16,7 @@ class CreateComprobanteTiposTable extends Migration
         Schema::create('comprobante_tipos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('serie_tipo')->unique();
+            $table->string('descripcion')->nullable();
             $table->boolean('status')->default(1);
             $table->timestamps();
         });
