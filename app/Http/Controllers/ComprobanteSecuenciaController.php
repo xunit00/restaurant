@@ -26,8 +26,13 @@ class ComprobanteSecuenciaController extends Controller
      */
     public function create(ComprobanteSecuencia $comprobanteSecuencia)
     {
-        $comprobanteTipo=ComprobanteTipo::whereStatus(1)->pluck('serie_tipo');
+        $comprobanteTipo=ComprobanteTipo::whereStatus(1)->pluck('descripcion');
         return view('comprobantes.secuencia.create',compact('comprobanteTipo','comprobanteSecuencia'));
+    }
+
+    public function createSecuencia($secuencia_inicial,$secuencia_final,$fecha_expiracion)
+    {
+
     }
 
     /**

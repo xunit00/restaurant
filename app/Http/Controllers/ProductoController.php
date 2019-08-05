@@ -25,11 +25,21 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $prod_unidad = Unidad::with('productos')->latest()->paginate(10);
-
         $productos = Producto::latest()->paginate(10);
 
         return view('inventario.productos.index', compact('productos','prod_unidad'));
+    }
+
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexUnidad()
+    {
+        $prod_unidad = Unidad::with('productos')->latest()->paginate(10);
+
+        return view('inventario.productos.unidad.index', compact('prod_unidad'));
     }
 
     /**
@@ -92,7 +102,7 @@ class ProductoController extends Controller
             'updated_at' => Carbon::now()
         ]);
 
-        return redirect()->route('productos.index')
+        return redirect()->route('productos.indexUnidad')
         ->with('success', 'Producto Unidad Creado!');
     }
 
@@ -171,7 +181,7 @@ class ProductoController extends Controller
             'updated_at' => Carbon::now()
         ]);
 
-        return redirect()->route('productos.index')
+        return redirect()->route('productos.indexUnidad')
             ->with('success', 'Producto Actualizado Correctamente');
     }
 
@@ -205,7 +215,7 @@ class ProductoController extends Controller
 
         $unidad->productos()->detach($unidad->productos);
 
-        return redirect()->route('productos.index')
+        return redirect()->route('productos.indexUnidad')
         ->with('success','Producto Eliminado Correctamente');
     }
 }

@@ -49,11 +49,12 @@ Route::middleware('auth')->group(function () {
 
     //actualiza status de comprobante tipo solamente
     Route::put('/status_comprobante/{comprobanteTipo}', 'ComprobanteTipoController@update_status')->name('comprobante_status');
-//vista de permisos por usuarios
+    //vista de permisos por usuarios
     Route::put('/manage_permissions/{id}', 'UserController@managePermissions')->name('manage_permissions');
 
     //rutas para trabajar con la tabla pivot productos-unidades
     Route::prefix('productos')->as('productos.')->group(function () {
+        Route::get('/unidad/list', 'ProductoController@indexUnidad')->name('indexUnidad');
         Route::post('/unidad/store_produnid', 'ProductoController@store_produnid')->name('store_produnid');
         Route::delete('/unidad/{prod_unidad}', 'ProductoController@destroy_produnid')->name('destroy_produnid');
         Route::get('/unidad/create_produnid', 'ProductoController@create_produnid')->name('create_produnid');

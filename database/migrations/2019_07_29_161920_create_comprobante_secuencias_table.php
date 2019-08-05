@@ -18,6 +18,7 @@ class CreateComprobanteSecuenciasTable extends Migration
             $table->string('secuencia')->unique();
             $table->unsignedBigInteger('tipo_id');
             $table->boolean('status')->default(1);
+            $table->time('fecha_vencimiento')->nullable();
             $table->timestamps();
 
             $table->foreign('tipo_id')->references('id')->on('comprobante_tipos');

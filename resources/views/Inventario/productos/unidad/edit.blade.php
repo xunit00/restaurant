@@ -10,7 +10,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{route('productos.index')}}">Lista Productos</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('productos.indexUnidad')}}">Lista Productos</a></li>
                     <li class="breadcrumb-item active">Editar Unidad Productos</li>
                 </ol>
             </div><!-- /.col -->

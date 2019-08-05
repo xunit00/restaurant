@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Unidad;
 
-class UnidadTable extends Seeder
+class UnidadesSeed extends Seeder
 {
     /**
      * Run the database seeds.

@@ -30,13 +30,13 @@ class ComprobanteRequest extends FormRequest
                 }
             case 'POST': {
                     return [
-                        'serie_tipo' => 'required|string|min:3|max:3|unique:comprobante_tipos',
+                        'serie_tipo' => 'required|string|size:3|unique:comprobante_tipos',
                         'descripcion' => 'nullable|string|min:4|max:191',
                     ];
                 }
             case 'PUT':{
                 return [
-                    'serie_tipo' => 'required|string|min:3|max:3|unique:comprobante_tipos,serie_tipo,'. $this->route('comprobanteTipo')->id,
+                    'serie_tipo' => 'required|string|size:3|unique:comprobante_tipos,serie_tipo,'. $this->route('comprobanteTipo')->id,
                     'descripcion' => 'nullable|string|min:4|max:191',
                 ];
             }
