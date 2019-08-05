@@ -43,8 +43,9 @@
         <label for="" class="col-md-3">Imagen</label>
         <div class="col-md-6">
             <div class="custom-file">
-                <input type="file" class="custom-file-input" id="validatedCustomFile">
-                <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+                <input type="file" class="custom-file-input
+                @error('imagen') is-invalid @enderror" name="imagen">
+                <label class="custom-file-label" for="imagen">Choose file...</label>
                 <div class="invalid-feedback">Example invalid custom file feedback</div>
             </div>
             <div class="clearfix"></div>

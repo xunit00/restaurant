@@ -7,7 +7,6 @@ use App\Producto;
 use App\Categoria;
 use App\Http\Requests\ProductoUnidadRequest;
 use App\Http\Requests\ProductoRequest;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
 
 class ProductoController extends Controller
@@ -62,7 +61,16 @@ class ProductoController extends Controller
      */
     public function store(ProductoRequest $request)
     {
-        Producto::create($request->all());
+        $producto= new Producto;
+
+        if ($request->has('imagen'))
+        {
+            $imageName = $request->nombre_producto.'_'.time();
+            // Image::make($request->imagen)->save(public_path('/storage/img/productos/') . $imageName);
+            // $request->merge(['imagen' => $imageName]);
+        }
+
+        $producto->create($request->all());
 
         return redirect()->route('productos.index')
             ->with('success', 'Producto Creado!');

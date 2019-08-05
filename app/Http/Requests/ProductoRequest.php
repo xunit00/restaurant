@@ -32,14 +32,16 @@ class ProductoRequest extends FormRequest
                     return [
                         'nombre_producto' => 'required|string|max:191|unique:productos',
                         'descripcion_producto' => 'nullable|string|max:191',
-                        'id_categoria' => 'required|numeric'
+                        'id_categoria' => 'required|numeric',
+                        'imagen'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
                     ];
                 }
             case 'PUT':{
                 return [
                     'nombre_producto' => 'required|string|max:191|unique:productos,nombre_producto,'. $this->route('producto')->id,
                     'descripcion_producto' => 'nullable|string|max:191,',
-                    'id_categoria' => 'required|numeric'
+                    'id_categoria' => 'required|numeric',
+                    'imagen'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
                 ];
             }
             case 'PATCH':

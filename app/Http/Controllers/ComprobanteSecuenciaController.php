@@ -30,11 +30,6 @@ class ComprobanteSecuenciaController extends Controller
         return view('comprobantes.secuencia.create',compact('comprobanteTipo','comprobanteSecuencia'));
     }
 
-    public function createSecuencia($secuencia_inicial,$secuencia_final,$fecha_expiracion)
-    {
-
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -43,7 +38,7 @@ class ComprobanteSecuenciaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**

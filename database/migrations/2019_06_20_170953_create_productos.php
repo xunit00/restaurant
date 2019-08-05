@@ -17,6 +17,7 @@ class CreateProductos extends Migration
             $table->bigIncrements('id');
             $table->string('nombre_producto')->unique();
             $table->string('descripcion_producto')->nullable();
+            $table->string('imagen')->nullable();
             $table->unsignedBigInteger('id_categoria');
             $table->timestamps();
 
