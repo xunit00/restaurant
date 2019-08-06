@@ -38,24 +38,25 @@ class ComprobanteSecuenciaController extends Controller
      */
     public function store(Request $request)
     {
-        // $validatedData = $request->validate([
-        //     'secuencia_inicial' => 'required|numeric|lt:'.$request->secuencia_final,
-        //     'secuencia_final' => 'required|numeric|gt:'.$request->secuencia_inicial,
-        //     'comprobante_id'=>'required|numeric',
-        //     'fecha_expiracion'=>'sometimes|date'
-        // ]);
+        $validatedData = $request->validate([
+            'secuencia_inicial' => 'required|numeric|lt:'.$request->secuencia_final,
+            'secuencia_final' => 'required|numeric|gt:'.$request->secuencia_inicial,
+            'comprobante_id'=>'required|numeric',
+            'fecha_expiracion'=>'sometimes|date'
+        ]);
 
         $valorinicial=$request->secuencia_inicial;
         $valorfinal=$request->secuencia_final;
-       
-        // for($v=$valorinicial; $v<=$valorfinal; $v++){
-        //     $compSecuencia = new ComprobanteSecuencia([
-        //         'secuencia'=>$v,
-        //         'tipo_id'=>$request->comprobante_id,
-        //         'fecha_vencimiento'=>$request->fecha_vencimiento
-        //     ]);
-        //     $compSecuencia->save();
-        // }
+
+        for($v=$valorinicial; $v<=$valorfinal; $v++){
+            $secuencia=str_pad($v,6,"0",STR_PAD_LEFT);
+            $compSecuencia = new ComprobanteSecuencia([
+                'secuencia'=>$secuencia,
+                'tipo_id'=>$request->comprobante_id,
+                'fecha_vencimiento'=>$request->fecha_vencimiento
+            ]);
+            $compSecuencia->save();
+        }
 
         return redirect()->route('comprobanteSecuencia.index')
         ->with('success', 'Comprobante Creado!');
@@ -103,6 +104,10 @@ class ComprobanteSecuenciaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $secuencia = ComprobanteSecuencia::findOrFail($id);
+        $secuencia->delete();
+
+        return redirect()->route('comprobanteSecuencia.index')
+        ->with('success','Comprobante Eliminado Correctamente');
     }
 }

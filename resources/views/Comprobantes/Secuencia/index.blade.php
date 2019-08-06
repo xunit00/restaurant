@@ -82,10 +82,10 @@
                         </td>
 
                         <td>
-                            <form action="{{route('comprobanteTipo.destroy',$compr->id)}}" method="POST">
+                            <form action="{{route('comprobanteSecuencia.destroy',$compr->id)}}" method="POST">
                                 @can('update.unidades')
                                 <a class="btn btn-outline-secondary btn-sm"
-                                    href="{{route('comprobanteTipo.edit',$compr->id)}}">
+                                    href="{{route('comprobanteSecuencia.edit',$compr->id)}}">
                                     <i class="fa fa-edit"></i>
                                 </a>
                                 @endcan
