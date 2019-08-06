@@ -232,7 +232,7 @@ class ProductoController extends Controller
     {
         $producto = Producto::findOrFail($id);
 
-        if( $producto->imagen){
+        if($producto->imagen){
             Storage::delete('public/productos/' . $producto->imagen);
         }
 
