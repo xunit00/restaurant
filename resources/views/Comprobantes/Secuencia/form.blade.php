@@ -2,10 +2,10 @@
     <div class="row">
         <label for="" class="col-md-3">Serie/Tipo</label>
         <div class="col-md-6">
-            <select name="producto_id" id="" class="form-control @error('producto_id') is-invalid @enderror">
+            <select name="comprobante_id" class="form-control @error('comprobante_id') is-invalid @enderror">
                 <option value="">Seleccionar Serie/Tipo</option>
-                @foreach($comprobanteTipo as $tipo=>$value)
-                <option value="{{$tipo}}">{{$value}}</option>
+                @foreach($comprobanteTipo as $tipo)
+                <option value="{{$tipo->id}}">{{$tipo->descripcion}}</option>
                 @endforeach
             </select>
         </div>

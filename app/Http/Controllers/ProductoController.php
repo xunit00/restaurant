@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Unidad;
 use App\Producto;
 use App\Categoria;
-use App\Http\Requests\ProductoUnidadRequest;
-use App\Http\Requests\ProductoRequest;
 use Carbon\Carbon;
+use App\Http\Requests\ProductoRequest;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\ProductoUnidadRequest;
 
 class ProductoController extends Controller
 {
