@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class ComprobanteSecuencia extends Model
 {
     protected $fillable = [
-        'secuencia','tipo_id','status'
+        'secuencia','tipo_id','status','fecha_vencimiento'
     ];
 
-    public function tipoComprobanteSecuencia()
+    public function tipoComprobante()
     {
-        return $this->belongsTo(ComprobanteSecuencia::class,'tipo_id');
+        return $this->belongsTo(ComprobanteTipo::class,'tipo_id');
     }
 }

@@ -15,10 +15,10 @@ class CreateComprobanteSecuenciasTable extends Migration
     {
         Schema::create('comprobante_secuencias', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('secuencia')->unique();
+            $table->string('secuencia');
             $table->unsignedBigInteger('tipo_id');
             $table->boolean('status')->default(1);
-            $table->time('fecha_vencimiento')->nullable();
+            $table->date('fecha_vencimiento')->nullable();
             $table->timestamps();
 
             $table->foreign('tipo_id')->references('id')->on('comprobante_tipos');

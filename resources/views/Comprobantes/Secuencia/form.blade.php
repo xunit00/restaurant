@@ -34,7 +34,7 @@
 <div class="form-group">
     <div class="row">
         <label for="" class="col-md-3">Fecha de Expiracion</label>
-        <div class="col-md-6"><input type="date" name="fecha_expiracion" max="3000-12-31" min="1000-01-01"
+        <div class="col-md-6"><input type="date" name="fecha_vencimiento" max="3000-12-31" min="1000-01-01"
                 class="form-control"></div>
         <div class="clearfix"></div>
     </div>

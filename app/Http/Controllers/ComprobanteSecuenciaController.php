@@ -15,7 +15,7 @@ class ComprobanteSecuenciaController extends Controller
      */
     public function index()
     {
-        $comprobanteSecuencia= ComprobanteSecuencia::latest()->paginate(10);
+        $comprobanteSecuencia= ComprobanteSecuencia::with('tipoComprobante')->latest()->paginate(10);
         return view('comprobantes.secuencia.index',compact('comprobanteSecuencia'));
     }
 
@@ -39,10 +39,10 @@ class ComprobanteSecuenciaController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'secuencia_inicial' => 'required|numeric|lt:'.$request->secuencia_final,
-            'secuencia_final' => 'required|numeric|gt:'.$request->secuencia_inicial,
+            'secuencia_inicial' => 'required|numeric|lt:'.$request->secuencia_final.'|unique:comprobante_secuencias,secuencia,'.$request->comprobante_id,
+            'secuencia_final' => 'required|numeric|gt:'.$request->secuencia_inicial.'|unique:comprobante_secuencias,secuencia,'.$request->comprobante_id,
             'comprobante_id'=>'required|numeric',
-            'fecha_expiracion'=>'sometimes|date'
+            'fecha_vencimiento'=>'sometimes|date'
         ]);
 
         $valorinicial=$request->secuencia_inicial;
@@ -55,7 +55,7 @@ class ComprobanteSecuenciaController extends Controller
                 'tipo_id'=>$request->comprobante_id,
                 'fecha_vencimiento'=>$request->fecha_vencimiento
             ]);
-            $compSecuencia->save();
+            $compSecuencia->save( $validatedData);
         }
 
         return redirect()->route('comprobanteSecuencia.index')

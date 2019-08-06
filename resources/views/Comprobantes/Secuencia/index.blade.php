@@ -64,9 +64,9 @@
                     </tr>
                     @foreach($comprobanteSecuencia as $compr)
                     <tr>
-                        <td>{{$compr->tipo_id}}</td>
+                        <td>{{$compr->tipoComprobante->descripcion}}</td>
                         <td>{{$compr->secuencia}}</td>
-                        <td>{{$compr->created_at}}</td>
+                        <td>{{$compr->fecha_vencimiento}}</td>
                         <td>
                             <form action="{{route('comprobante_status',$compr->id)}}" method="POST">
                                 @csrf
