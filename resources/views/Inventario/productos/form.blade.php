@@ -44,7 +44,8 @@
         <div class="col-md-6">
             <div class="custom-file">
                 <input type="file" class="custom-file-input
-                @error('imagen') is-invalid @enderror" name="imagen">
+                @error('imagen') is-invalid @enderror" name="imagen"
+                value="{{$producto->imagen}}">
                 <label class="custom-file-label" for="imagen">Choose file...</label>
                 <div class="invalid-feedback">Example invalid custom file feedback</div>
             </div>
@@ -52,3 +53,4 @@
         </div>
     </div>
 </div>
+

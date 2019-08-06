@@ -66,6 +66,11 @@
                                 </a>
                                 @endcan
 
+                                <a class="btn btn-outline-secondary btn-sm"
+                                href="{{route('productos.show',$prod->id)}}">
+                                <i class="fas fa-info-circle"></i>
+                                </a>
+
                                 @csrf
                                 @method('DELETE')
                                 @can('delete.productos')

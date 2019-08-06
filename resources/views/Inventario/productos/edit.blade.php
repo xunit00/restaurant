@@ -31,6 +31,20 @@
                 @include('inventario.productos.form')
 
                 <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6">
+                            @if($producto->imagen==null)
+                            <h3>Sin Imagen</h3>
+                            @else
+                            <img src="{{ asset('storage/productos/'.$producto->imagen)}}" width="100" height="100">
+                            @endif
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <input type="submit" class="btn btn-info" value="Save">
                 </div>
             </form>

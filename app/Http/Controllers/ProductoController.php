@@ -8,13 +8,16 @@ use App\Categoria;
 use App\Http\Requests\ProductoUnidadRequest;
 use App\Http\Requests\ProductoRequest;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class ProductoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth',
-        'permission:update.productos|create.productos|delete.productos|read.productos']);
+        $this->middleware([
+            'auth',
+            'permission:update.productos|create.productos|delete.productos|read.productos'
+        ]);
     }
 
     /**
@@ -26,10 +29,10 @@ class ProductoController extends Controller
     {
         $productos = Producto::latest()->paginate(10);
 
-        return view('inventario.productos.index', compact('productos','prod_unidad'));
+        return view('inventario.productos.index', compact('productos', 'prod_unidad'));
     }
 
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -50,7 +53,7 @@ class ProductoController extends Controller
     {
         $categorias = Categoria::whereStatus(1)->pluck('nombre', 'id');
 
-        return view('inventario.productos.create', compact('categorias', 'unidades','producto'));
+        return view('inventario.productos.create', compact('categorias', 'unidades', 'producto'));
     }
 
     /**
@@ -61,16 +64,22 @@ class ProductoController extends Controller
      */
     public function store(ProductoRequest $request)
     {
-        $producto= new Producto;
+        $producto = new Producto;
 
-        if ($request->has('imagen'))
-        {
-            $imageName = $request->nombre_producto.'_'.time();
-            // Image::make($request->imagen)->save(public_path('/storage/img/productos/') . $imageName);
-            // $request->merge(['imagen' => $imageName]);
+        if ($request->has('imagen')) {
+            $fileExt = $request->imagen->getClientOriginalExtension();
+            $imageName = $request->nombre_producto . '_' . time() . '.' . $fileExt;
+            $request->imagen->storeAs('public/productos', $imageName);
+            $producto->imagen = $imageName;
         }
 
-        $producto->create($request->all());
+        $producto->fill([
+            'nombre_producto' => $request->nombre_producto,
+            'descripcion_producto' => $request->descripcion_producto,
+            'id_categoria' => $request->id_categoria
+        ]);
+
+        $producto->save();
 
         return redirect()->route('productos.index')
             ->with('success', 'Producto Creado!');
@@ -83,13 +92,13 @@ class ProductoController extends Controller
      */
     public function create_produnid()
     {
-        $prod_unidad=Unidad::with('productos')->get();
+        $prod_unidad = Unidad::with('productos')->get();
 
         $productos = Producto::all()->pluck('nombre_producto', 'id');
 
         $unidades = Unidad::whereStatus(1)->pluck('nombre_unidad', 'id');
 
-        return view('inventario.productos.unidad.create', compact('productos', 'unidades','prod_unidad'));
+        return view('inventario.productos.unidad.create', compact('productos', 'unidades', 'prod_unidad'));
     }
 
     /**
@@ -111,7 +120,7 @@ class ProductoController extends Controller
         ]);
 
         return redirect()->route('productos.indexUnidad')
-        ->with('success', 'Producto Unidad Creado!');
+            ->with('success', 'Producto Unidad Creado!');
     }
 
     /**
@@ -120,9 +129,9 @@ class ProductoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Producto $producto)
     {
-        //
+        return view('inventario.productos.show', compact('producto'));
     }
 
     /**
@@ -149,7 +158,27 @@ class ProductoController extends Controller
      */
     public function update(ProductoRequest $request, Producto $producto)
     {
-        $producto->update($request->all());
+        if ($request->has('imagen')) {
+
+            $oldImage = $producto->imagen;
+            if ($request->imagen != $oldImage) {
+                $fileExt = $request->imagen->getClientOriginalExtension();
+                $imageName = $request->nombre_producto . '_' . time() . '.' . $fileExt;
+
+                Storage::delete('public/productos/' . $oldImage);
+
+                $request->imagen->storeAs('public/productos', $imageName);
+                $producto->imagen = $imageName;
+            }
+        }
+
+        $producto->fill([
+            'nombre_producto' => $request->nombre_producto,
+            'descripcion_producto' => $request->descripcion_producto,
+            'id_categoria' => $request->id_categoria
+        ]);
+
+        $producto->update();
 
         return redirect()->route('productos.index')
             ->with('success', 'Producto Actualizado Correctamente');
@@ -163,13 +192,13 @@ class ProductoController extends Controller
      */
     public function edit_produnid($prod_unidad)
     {
-        $prod_unidad=Unidad::with('productos')->find($prod_unidad);
+        $prod_unidad = Unidad::with('productos')->find($prod_unidad);
 
-        $productos = Producto::all()->pluck('nombre_producto','id');
+        $productos = Producto::all()->pluck('nombre_producto', 'id');
 
-        $unidades = Unidad::whereStatus(1)->pluck('nombre_unidad','id');
+        $unidades = Unidad::whereStatus(1)->pluck('nombre_unidad', 'id');
 
-        return view('inventario.productos.unidad.edit', compact('productos','unidades','prod_unidad'));
+        return view('inventario.productos.unidad.edit', compact('productos', 'unidades', 'prod_unidad'));
     }
 
     /**
@@ -201,17 +230,21 @@ class ProductoController extends Controller
      */
     public function destroy($id)
     {
-        $producto= Producto::findOrFail($id);
+        $producto = Producto::findOrFail($id);
+
+        if( $producto->imagen){
+            Storage::delete('public/productos/' . $producto->imagen);
+        }
 
         $producto->unidad()->detach();
 
         $producto->delete();
 
         return redirect()->route('productos.index')
-        ->with('success','Producto Eliminada Correctamente');
+            ->with('success', 'Producto Eliminada Correctamente');
     }
 
-     /**
+    /**
      * Remove the specified resource from storage.
      *
      * @param  array  $prod_unidad
@@ -219,11 +252,11 @@ class ProductoController extends Controller
      */
     public function destroy_produnid($prod_unidad)
     {
-        $unidad=Unidad::with('productos')->findOrFail($prod_unidad);
+        $unidad = Unidad::with('productos')->findOrFail($prod_unidad);
 
         $unidad->productos()->detach($unidad->productos);
 
         return redirect()->route('productos.indexUnidad')
-        ->with('success','Producto Eliminado Correctamente');
+            ->with('success', 'Producto Eliminado Correctamente');
     }
 }
