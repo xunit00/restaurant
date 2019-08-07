@@ -14,4 +14,9 @@ class Categoria extends Model
     {
         return $this->hasMany(Producto::class);
     }
+
+    public function platos()
+    {
+        return $this->hasMany(Plato::class);
+    }
 }

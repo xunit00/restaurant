@@ -184,8 +184,8 @@
 
                         {{-- @can('read.users') --}}
                         <li class="nav-item">
-                            <a href="{{ route('comprobanteSecuencia.index') }}"
-                            class="nav-link {{ request()->is('comprobanteSecuencia*') ? 'active' : '' }}">
+                            <a href="{{ route('platos.index') }}"
+                            class="nav-link {{ request()->is('platos*') ? 'active' : '' }}">
                             <i class="fas fa-circle-notch nav-icon"></i>
                             <p>Platos</p>
                             <a>

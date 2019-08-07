@@ -37,12 +37,16 @@ Route::middleware('auth')->group(function () {
         'comprobanteTipo' => 'ComprobanteTipoController',
         'comprobanteSecuencia'=>'ComprobanteSecuenciaController',
         'recetas'=>'RecetaController',
+        'platos'=>'PlatoController',
     ]);
 
     Route::get('/home', 'HomeController@index')->name('home');
 
     //actualiza el status de categoria solamente
     Route::put('/status_cat/{categoria}', 'CategoriaController@update_status')->name('categoria_status');
+
+    //actualiza el status de platos solamente
+    Route::put('/status_plato/{categoria}', 'PlatoController@update_status')->name('plato_status');
 
     //actualiza status de unidad solamente
     Route::put('/status_unid/{unidade}', 'UnidadController@update_status')->name('unidad_status');

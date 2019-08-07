@@ -105,6 +105,9 @@ class RecetaController extends Controller
      */
     public function destroy(Receta $receta)
     {
-        //
+        $receta->delete();
+
+        return redirect()->route('recetas.index')
+        ->with('success','Receta Eliminada Correctamente');
     }
 }
