@@ -6,8 +6,8 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     @can('create.productos')
-                    <a class="btn btn-success" href="{{route('productos.create')}}">
-                        Crear Productos
+                    <a class="btn btn-success" href="{{route('recetas.create')}}">
+                        Crear Receta
                         <i class="fa fa-th-large"></i>
                     @endcan
                     </a>
@@ -16,7 +16,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Lista de Productos</li>
+                        <li class="breadcrumb-item active">Lista de Recetas</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -26,7 +26,7 @@
 <div class="container">
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Productos</h3>
+            <h3 class="card-title">Recetas</h3>
 
             @include('partials.success-alert')<!--mensaje de exito proceso-->
 
@@ -49,25 +49,37 @@
                     <tr>
                         <th>Nombre</th>
                         <th>Descripcion</th>
-                        <th>Categoria</th>
+                        <th>Status</th>
                         <th>Modyfy</th>
                     </tr>
-                    @foreach($productos as $prod)
+                    @foreach($recetas as $rct)
                     <tr>
-                        <td>{{$prod->nombre_producto}}</td>
-                        <td>{{$prod->descripcion_producto}}</td>
-                        <td>{{$prod->categoria->nombre}}</td>
+                        <td>{{$rct->nombre}}</td>
+                        <td>{{$rct->descripcion}}</td>
                         <td>
-                            <form action="{{route('productos.destroy',$prod->id)}}" method="POST">
+                            <form action="{{route('receta_status',$rct->id)}}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                @if($rct->status==1)
+                                <button type="submit" class="btn btn-outline-success btn-sm"
+                                onclick="return confirm('Quiere Actualizar este Registro?')">ACTIVO</button>
+                                @else
+                                <button type="submit" class="btn btn-outline-danger btn-sm"
+                                onclick="return confirm('Quiere Actualizar este Registro?')">INACTIVO</button>
+                                @endif
+                            </form>
+                        </td>
+                        <td>
+                            <form action="{{route('recetas.destroy',$rct->id)}}" method="POST">
                                 @can('update.productos')
                                 <a class="btn btn-outline-primary btn-sm"
-                                    href="{{route('productos.edit',$prod->id)}}">
+                                    href="{{route('recetas.edit',$rct->id)}}">
                                     <i class="fa fa-edit"></i>
                                 </a>
                                 @endcan
 
                                 <a class="btn btn-outline-secondary btn-sm"
-                                href="{{route('productos.show',$prod->id)}}">
+                                href="{{route('recetas.show',$rct->id)}}">
                                 <i class="fas fa-info-circle"></i>
                                 </a>
 
@@ -84,7 +96,7 @@
                     @endforeach
                 </tbody>
             </table>
-            {{$productos->links()}}
+            {{$recetas->links()}}
         </div>
         <!-- /.card-body -->
     </div>

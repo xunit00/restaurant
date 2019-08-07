@@ -29,7 +29,7 @@ class ProductoController extends Controller
     {
         $productos = Producto::latest()->paginate(10);
 
-        return view('inventario.productos.index', compact('productos', 'prod_unidad'));
+        return view('inventario.productos.index', compact('productos'));
     }
 
     /**

@@ -141,29 +141,57 @@
                         <i class="nav-icon fas fa-file-contract"></i>
                         <p>Comprobantes<i class="right fa fa-angle-left"></i></p>
                     </a>
-                        <ul class="nav nav-treeview">
-                            {{-- @can('read.users') --}}
-                            <li class="nav-item">
-                                <a href="{{ route('comprobanteTipo.index') }}"
-                                class="nav-link {{ request()->is('comprobanteTipo*') ? 'active' : '' }}">
-                                <i class="fas fa-circle-notch nav-icon"></i>
-                                <p>Serie/Tipo</p>
-                                <a>
-                            </li>
-                            {{-- @endcan --}}
+                    <ul class="nav nav-treeview">
+                        {{-- @can('read.users') --}}
+                        <li class="nav-item">
+                            <a href="{{ route('comprobanteTipo.index') }}"
+                            class="nav-link {{ request()->is('comprobanteTipo*') ? 'active' : '' }}">
+                            <i class="fas fa-circle-notch nav-icon"></i>
+                            <p>Serie/Tipo</p>
+                            <a>
+                        </li>
+                        {{-- @endcan --}}
 
-                            {{-- @can('read.users') --}}
-                            <li class="nav-item">
-                                <a href="{{ route('comprobanteSecuencia.index') }}"
-                                class="nav-link {{ request()->is('comprobanteSecuencia*') ? 'active' : '' }}">
-                                <i class="fas fa-circle-notch nav-icon"></i>
-                                <p>Secuencia</p>
-                                <a>
-                            </li>
-                            {{-- @endcan --}}
+                        {{-- @can('read.users') --}}
+                        <li class="nav-item">
+                            <a href="{{ route('comprobanteSecuencia.index') }}"
+                            class="nav-link {{ request()->is('comprobanteSecuencia*') ? 'active' : '' }}">
+                            <i class="fas fa-circle-notch nav-icon"></i>
+                            <p>Secuencia</p>
+                            <a>
+                        </li>
+                        {{-- @endcan --}}
+                    </ul>
+                </li>
 
 
-                            </ul>
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-cogs"></i>
+                        <p>Configuracion<i class="right fa fa-angle-left"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        {{-- @can('read.users') --}}
+                        <li class="nav-item">
+                            <a href="{{ route('recetas.index') }}"
+                            class="nav-link {{ request()->is('recetas*') ? 'active' : '' }}">
+                            <i class="fas fa-circle-notch nav-icon"></i>
+                            <p>Recetas</p>
+                            <a>
+                        </li>
+                        {{-- @endcan --}}
+
+                        {{-- @can('read.users') --}}
+                        <li class="nav-item">
+                            <a href="{{ route('comprobanteSecuencia.index') }}"
+                            class="nav-link {{ request()->is('comprobanteSecuencia*') ? 'active' : '' }}">
+                            <i class="fas fa-circle-notch nav-icon"></i>
+                            <p>Platos</p>
+                            <a>
+                        </li>
+                        {{-- @endcan --}}
+                    </ul>
                 </li>
 
 

@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
         'productos' => 'ProductoController',
         'comprobanteTipo' => 'ComprobanteTipoController',
         'comprobanteSecuencia'=>'ComprobanteSecuenciaController',
-        // 'tracker'=>'TrackerController',
+        'recetas'=>'RecetaController',
     ]);
 
     Route::get('/home', 'HomeController@index')->name('home');
@@ -49,8 +49,12 @@ Route::middleware('auth')->group(function () {
 
     //actualiza status de comprobante tipo solamente
     Route::put('/status_comprobante/{comprobanteTipo}', 'ComprobanteTipoController@update_status')->name('comprobante_status');
+
     //vista de permisos por usuarios
     Route::put('/manage_permissions/{id}', 'UserController@managePermissions')->name('manage_permissions');
+
+    //actualiza el status de receta solamente
+    Route::put('/status_receta/{receta}', 'RecetaController@update_status')->name('receta_status');
 
     //rutas para trabajar con la tabla pivot productos-unidades
     Route::prefix('productos')->as('productos.')->group(function () {
