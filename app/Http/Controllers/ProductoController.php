@@ -7,11 +7,14 @@ use App\Producto;
 use App\Categoria;
 use Carbon\Carbon;
 use App\Http\Requests\ProductoRequest;
-use Illuminate\Support\Facades\Storage;
+// use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\ProductoUnidadRequest;
+use App\Traits\StoreImageTrait;
 
 class ProductoController extends Controller
 {
+    use StoreImageTrait;
+
     public function __construct()
     {
         $this->middleware([
@@ -64,22 +67,31 @@ class ProductoController extends Controller
      */
     public function store(ProductoRequest $request)
     {
-        $producto = new Producto;
+        $formInput = $request->all();
 
-        if ($request->has('imagen')) {
-            $fileExt = $request->imagen->getClientOriginalExtension();
-            $imageName = $request->nombre_producto . '_' . time() . '.' . $fileExt;
-            $request->imagen->storeAs('public/productos', $imageName);
-            $producto->imagen = $imageName;
-        }
+        $formInput['imagen'] = $this->verifyAndStoreImage($request, 'imagen', 'producto');
 
-        $producto->fill([
-            'nombre_producto' => $request->nombre_producto,
-            'descripcion_producto' => $request->descripcion_producto,
-            'id_categoria' => $request->id_categoria
-        ]);
-
-        $producto->save();
+        Producto::create($formInput);
+        /**
+         * otra forma
+         * $producto = new Producto;
+         *
+         * if ($request->has('imagen')) {
+         *   $fileExt = $request->imagen->getClientOriginalExtension();
+         *   $imageName = $request->nombre_producto . '_' . time() . '.' . $fileExt;
+         *   $request->imagen->storeAs('public/productos', $imageName);
+         *   $producto->imagen = $imageName;
+         * }
+         *
+         * $producto->fill([
+         *    'nombre_producto' => $request->nombre_producto,
+         *    'descripcion_producto' => $request->descripcion_producto,
+         *    'id_categoria' => $request->id_categoria
+         * ]);
+         *
+         * $producto->save();
+         *
+         */
 
         return redirect()->route('productos.index')
             ->with('success', 'Producto Creado!');
@@ -158,27 +170,35 @@ class ProductoController extends Controller
      */
     public function update(ProductoRequest $request, Producto $producto)
     {
-        if ($request->has('imagen')) {
+        $formInput = $request->all();
 
-            $oldImage = $producto->imagen;
-            if ($request->imagen != $oldImage) {
-                $fileExt = $request->imagen->getClientOriginalExtension();
-                $imageName = $request->nombre_producto . '_' . time() . '.' . $fileExt;
+        $oldImage=$producto->imagen;
 
-                Storage::delete('public/productos/' . $oldImage);
+        $formInput['imagen'] = $this->verifyAndUpdateImage($request, 'imagen', 'producto',$oldImage);
 
-                $request->imagen->storeAs('public/productos', $imageName);
-                $producto->imagen = $imageName;
-            }
-        }
+        $producto->update($formInput);
 
-        $producto->fill([
-            'nombre_producto' => $request->nombre_producto,
-            'descripcion_producto' => $request->descripcion_producto,
-            'id_categoria' => $request->id_categoria
-        ]);
+        // if ($request->has('imagen')) {
 
-        $producto->update();
+        //     $oldImage = $producto->imagen;
+        //     if ($request->imagen != $oldImage) {
+        //         $fileExt = $request->imagen->getClientOriginalExtension();
+        //         $imageName = $request->nombre_producto . '_' . time() . '.' . $fileExt;
+
+        //         Storage::delete('public/productos/' . $oldImage);
+
+        //         $request->imagen->storeAs('public/productos', $imageName);
+        //         $producto->imagen = $imageName;
+        //     }
+        // }
+
+        // $producto->fill([
+        //     'nombre_producto' => $request->nombre_producto,
+        //     'descripcion_producto' => $request->descripcion_producto,
+        //     'id_categoria' => $request->id_categoria
+        // ]);
+
+        // $producto->update();
 
         return redirect()->route('productos.index')
             ->with('success', 'Producto Actualizado Correctamente');
