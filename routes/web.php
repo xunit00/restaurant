@@ -69,6 +69,16 @@ Route::middleware('auth')->group(function () {
         Route::put('/unidad/{prod_unidad}', 'ProductoController@update_produnid')->name('update_produnid');
         Route::get('/unidad/{prod_unidad}/edit', 'ProductoController@edit_produnid')->name('edit_produnid');
     });
+
+    //rutas para trabajar con search
+    Route::prefix('search')->as('search.')->group(function () {
+        Route::get('/search', 'CategoriaController@search')->name('categorias');
+        // Route::post('/unidad/store_produnid', 'ProductoController@store_produnid')->name('store_produnid');
+        // Route::delete('/unidad/{prod_unidad}', 'ProductoController@destroy_produnid')->name('destroy_produnid');
+        // Route::get('/unidad/create_produnid', 'ProductoController@create_produnid')->name('create_produnid');
+        // Route::put('/unidad/{prod_unidad}', 'ProductoController@update_produnid')->name('update_produnid');
+        // Route::get('/unidad/{prod_unidad}/edit', 'ProductoController@edit_produnid')->name('edit_produnid');
+    });
 });
 
 

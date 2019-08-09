@@ -119,5 +119,12 @@ class CategoriaController extends Controller
         ->with('success','Categoria Eliminada Correctamente');
     }
 
+    public function search(Request $request)
+    {
+        dd($request);
+        $categorias=Categoria::search('nombre',request('search'))->get();
+
+        return view('inventario.categorias.index',compact('categorias'));
+    }
 
 }
