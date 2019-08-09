@@ -22,6 +22,7 @@ class RolesController extends Controller
     public function index()
     {
         $roles= Role:: orderBy('id','ASC')->paginate(10);
+
         return view('admin.roles.index', compact('roles'));
     }
 
@@ -113,5 +114,18 @@ class RolesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Search an item.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $roles=Role::search($request->value)->paginate(10);
+
+        return view('admin.roles.index', compact('roles'));
     }
 }

@@ -42,23 +42,18 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/home', 'HomeController@index')->name('home');
 
-    //actualiza el status de categoria solamente
-    Route::put('/status_cat/{categoria}', 'CategoriaController@update_status')->name('categoria_status');
-
-    //actualiza el status de platos solamente
-    Route::put('/status_plato/{categoria}', 'PlatoController@update_status')->name('plato_status');
-
-    //actualiza status de unidad solamente
-    Route::put('/status_unid/{unidade}', 'UnidadController@update_status')->name('unidad_status');
-
-    //actualiza status de comprobante tipo solamente
-    Route::put('/status_comprobante/{comprobanteTipo}', 'ComprobanteTipoController@update_status')->name('comprobante_status');
+    //rutas para actualizar status
+    Route::prefix('status')->as('status.')->group(function () {
+        Route::put('/categoria/{categoria}', 'CategoriaController@update_status')->name('categoria');
+        Route::put('/plato/{plato}', 'PlatoController@update_status')->name('plato');
+        Route::put('/unidad/{unidade}', 'UnidadController@update_status')->name('unidad');
+        Route::put('/comprobanteTipo/{comprobanteTipo}', 'ComprobanteTipoController@update_status')->name('comprobanteTipo');
+        Route::put('/comprobanteSecuencia/{comprobanteSecuencia}', 'ComprobanteSecuenciaController@update_status')->name('comprobanteSecuencia');
+        Route::put('/receta/{receta}', 'RecetaController@update_status')->name('receta');
+    });
 
     //vista de permisos por usuarios
     Route::put('/manage_permissions/{id}', 'UserController@managePermissions')->name('manage_permissions');
-
-    //actualiza el status de receta solamente
-    Route::put('/status_receta/{receta}', 'RecetaController@update_status')->name('receta_status');
 
     //rutas para trabajar con la tabla pivot productos-unidades
     Route::prefix('productos')->as('productos.')->group(function () {
@@ -72,12 +67,16 @@ Route::middleware('auth')->group(function () {
 
     //rutas para trabajar con search
     Route::prefix('search')->as('search.')->group(function () {
-        Route::get('/search', 'CategoriaController@search')->name('categorias');
-        // Route::post('/unidad/store_produnid', 'ProductoController@store_produnid')->name('store_produnid');
-        // Route::delete('/unidad/{prod_unidad}', 'ProductoController@destroy_produnid')->name('destroy_produnid');
-        // Route::get('/unidad/create_produnid', 'ProductoController@create_produnid')->name('create_produnid');
-        // Route::put('/unidad/{prod_unidad}', 'ProductoController@update_produnid')->name('update_produnid');
-        // Route::get('/unidad/{prod_unidad}/edit', 'ProductoController@edit_produnid')->name('edit_produnid');
+        Route::get('/categoria', 'CategoriaController@search')->name('categorias');
+        Route::get('/user', 'UserController@search')->name('users');
+        Route::get('/unidad', 'UnidadController@search')->name('unidades');
+        Route::get('/producto', 'ProductoController@search')->name('productos');
+        Route::get('/rol', 'RolesController@search')->name('roles');
+        Route::get('/permission', 'PermissionController@search')->name('permissions');
+        Route::get('/comprobanteTipo', 'ComprobanteTipoController@search')->name('comprobanteTipos');
+        Route::get('/comprobanteSecuencia', 'ComprobanteSecuenciaController@search')->name('comprobanteSecuencias');
+        Route::get('/plato', 'PlatoController@search')->name('platos');
+        Route::get('/receta', 'RecetaController@search')->name('recetas');
     });
 });
 

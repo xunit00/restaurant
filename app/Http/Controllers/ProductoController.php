@@ -6,10 +6,12 @@ use App\Unidad;
 use App\Producto;
 use App\Categoria;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use App\Traits\StoreImageTrait;
 use App\Http\Requests\ProductoRequest;
 // use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\ProductoUnidadRequest;
-use App\Traits\StoreImageTrait;
+
 
 class ProductoController extends Controller
 {
@@ -278,5 +280,18 @@ class ProductoController extends Controller
 
         return redirect()->route('productos.indexUnidad')
             ->with('success', 'Producto Eliminado Correctamente');
+    }
+
+    /**
+     * Search an item.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $productos=Producto::search($request->value)->paginate(10);
+
+        return view('inventario.productos.index',compact('productos'));
     }
 }

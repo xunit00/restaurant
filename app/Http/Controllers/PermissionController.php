@@ -98,4 +98,17 @@ class PermissionController extends Controller
     {
         //
     }
+
+    /**
+     * Search an item.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $permissions=Permission::search($request->value)->paginate(10);
+
+        return view('admin.permissions.index', compact('permissions'));
+    }
 }

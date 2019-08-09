@@ -118,4 +118,17 @@ class PlatoController extends Controller
         return redirect()->route('platos.index')
         ->with('success','Plato Eliminado Correctamente');
     }
+
+     /**
+     * Search an item.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $platos=Plato::search($request->value)->paginate(10);
+
+        return view('configuracion.platos.index', compact('platos'));
+    }
 }

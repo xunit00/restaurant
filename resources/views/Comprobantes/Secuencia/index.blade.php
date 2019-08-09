@@ -38,8 +38,9 @@
 
             <div class="col-md-2">
                 <div class="card-tools ">
+                    <form action="{{route('search.comprobanteSecuencias')}}">
                     <div class="input-group input-group-sm" style="width: 125px;">
-                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                        <input type="text" name="value" class="form-control float-right" placeholder="Search">
 
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-default">
@@ -47,6 +48,7 @@
                             </button>
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -68,7 +70,7 @@
                         <td>{{$compr->secuencia}}</td>
                         <td>{{$compr->fecha_vencimiento}}</td>
                         <td>
-                            <form action="{{route('comprobante_status',$compr->id)}}" method="POST">
+                            <form action="{{route('status.comprobanteSecuencia',$compr->id)}}" method="POST">
                                 @csrf
                                 @method('PUT')
                                 @if($compr->status==1)

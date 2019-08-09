@@ -35,8 +35,9 @@
                 </div>
                 <div class="col-md-2">
                     <div class="card-tools">
+                        <form action="{{route('search.unidades')}}">
                         <div class="input-group input-group-sm" style="width: 150px;">
-                            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                            <input type="text" name="value" class="form-control float-right" placeholder="Search">
 
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-default">
@@ -44,6 +45,7 @@
                                 </button>
                             </div>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -65,7 +67,7 @@
                         <td>{{$unidade->descripcion_unidad}}</td>
                         <td>{{$unidade->contenido}}</td>
                         <td>
-                            <form action="{{route('unidad_status',$unidade->id)}}" method="POST">
+                            <form action="{{route('status.unidad',$unidade->id)}}" method="POST">
                                 @csrf
                                 @method('PUT')
                                 @if($unidade->status==1)

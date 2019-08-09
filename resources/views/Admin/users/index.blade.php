@@ -32,8 +32,9 @@
             @include('partials.success-alert')<!--mensaje de exito proceso-->
 
             <div class="card-tools">
+                    <form action="{{route('search.users')}}">
                 <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                    <input type="text" name="value" class="form-control float-right" placeholder="Search">
 
                     <div class="input-group-append">
                         <button type="submit" class="btn btn-default">
@@ -41,6 +42,7 @@
                         </button>
                     </div>
                 </div>
+                    </form>
             </div>
         </div>
         <!-- /.card-header -->

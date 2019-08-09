@@ -30,16 +30,19 @@
 
             @include('partials.success-alert')<!--mensaje de exito proceso-->
 
+
             <div class="card-tools">
+            <form action="{{route('search.categorias')}}">
                 <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="search" class="form-control float-right" placeholder="Search">
+                    <input type="text" name="value" class="form-control float-right" placeholder="Search">
 
                     <div class="input-group-append">
-                        <a type="submit" href="{{route('search.categorias')}}" class="btn btn-default">
+                        <button type="submit" class="btn btn-default">
                             <i class="fa fa-search"></i>
-                        </a>
+                        </button>
                     </div>
                 </div>
+            </form>
             </div>
         </div>
         <!-- /.card-header -->
@@ -57,7 +60,7 @@
                         <td>{{$cat->nombre}}</td>
                         <td>{{$cat->descripcion}}</td>
                         <td>
-                            <form action="{{route('categoria_status',$cat->id)}}" method="POST">
+                            <form action="{{route('status.categoria',$cat->id)}}" method="POST">
                                 @csrf
                                 @method('PUT')
                                 @if($cat->status==1)

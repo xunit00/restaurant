@@ -120,4 +120,17 @@ class UnidadController extends Controller
         return redirect()->route('unidades.index')
         ->with('success','Unidad Eliminada Correctamente');
     }
+
+    /**
+     * Search an item.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $unidades=Unidad::search($request->value)->paginate(10);
+
+        return view('inventario.unidades.index',compact('unidades'));
+    }
 }

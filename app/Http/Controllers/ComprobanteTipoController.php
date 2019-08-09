@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ComprobanteTipo;
+use Illuminate\Http\Request;
 use App\Http\Requests\ComprobanteRequest;
 
 class ComprobanteTipoController extends Controller
@@ -104,5 +105,18 @@ class ComprobanteTipoController extends Controller
 
         return redirect()->route('comprobanteTipo.index')
         ->with('success','Comprobante Eliminado Correctamente');
+    }
+
+    /**
+     * Search an item.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $comprobanteTipo=ComprobanteTipo::search($request->value)->paginate(10);
+
+        return view('comprobantes.serietipo.index',compact('comprobanteTipo'));
     }
 }

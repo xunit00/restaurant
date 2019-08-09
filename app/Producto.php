@@ -2,10 +2,13 @@
 
 namespace App;
 
+use App\Traits\SearchTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Producto extends Model
 {
+    use SearchTrait;
+
     protected $fillable = [
         'nombre_producto', 'descripcion_producto','id_categoria','imagen'
     ];

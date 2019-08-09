@@ -144,4 +144,18 @@ class UserController extends Controller
         return redirect()->route('users.index')
         ->with('success','Permisos de Usuario actualizado Correctamente');
     }
+
+    /**
+     * Search an item.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $users=User::with('roles')->search($request->value)->paginate(10);
+
+        return view('admin.users.index',compact('users'));
+    }
+
 }

@@ -119,10 +119,15 @@ class CategoriaController extends Controller
         ->with('success','Categoria Eliminada Correctamente');
     }
 
+    /**
+     * Search an item.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function search(Request $request)
     {
-        dd($request);
-        $categorias=Categoria::search('nombre',request('search'))->get();
+        $categorias=Categoria::search($request->value)->paginate(10);
 
         return view('inventario.categorias.index',compact('categorias'));
     }

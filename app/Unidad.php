@@ -2,10 +2,13 @@
 
 namespace App;
 
+use App\Traits\SearchTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Unidad extends Model
 {
+    use SearchTrait;
+
     protected $table = 'unidades';
 
     protected $fillable = [

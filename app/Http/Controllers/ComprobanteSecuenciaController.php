@@ -16,6 +16,7 @@ class ComprobanteSecuenciaController extends Controller
     public function index()
     {
         $comprobanteSecuencia= ComprobanteSecuencia::with('tipoComprobante')->latest()->paginate(10);
+
         return view('comprobantes.secuencia.index',compact('comprobanteSecuencia'));
     }
 
@@ -109,5 +110,40 @@ class ComprobanteSecuenciaController extends Controller
 
         return redirect()->route('comprobanteSecuencia.index')
         ->with('success','Comprobante Eliminado Correctamente');
+    }
+
+
+
+     /**
+     * Search an item.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $comprobanteTipo=ComprobanteSecuencia::with('tipoComprobante')->search($request->value)->paginate(10);
+
+        return view('comprobantes.serietipo.index',compact('comprobanteTipo'));
+    }
+
+    /**
+     * Update the status in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  ComprobanteSecuencia  $comprobanteSecuencia
+     * @return \Illuminate\Http\Response
+     */
+    public function update_status(ComprobanteSecuencia $comprobanteSecuencia)
+    {
+        if($comprobanteSecuencia->status==1){
+            $comprobanteSecuencia->update(['status'=>0]);
+        }
+        else{
+            $comprobanteSecuencia->update(['status'=>1]);
+        }
+
+        return redirect()->route('comprobanteSecuencia.index')
+        ->with('success','Comprobante Actualizado Correctamente');
     }
 }
