@@ -38,6 +38,8 @@ Route::middleware('auth')->group(function () {
         'comprobanteSecuencia'=>'ComprobanteSecuenciaController',
         'recetas'=>'RecetaController',
         'platos'=>'PlatoController',
+        'areas'=>'AreaController',
+        'mesas'=>'MesaController',
     ]);
 
     Route::get('/home', 'HomeController@index')->name('home');
@@ -50,6 +52,8 @@ Route::middleware('auth')->group(function () {
         Route::put('/comprobanteTipo/{comprobanteTipo}', 'ComprobanteTipoController@update_status')->name('comprobanteTipo');
         Route::put('/comprobanteSecuencia/{comprobanteSecuencia}', 'ComprobanteSecuenciaController@update_status')->name('comprobanteSecuencia');
         Route::put('/receta/{receta}', 'RecetaController@update_status')->name('receta');
+        Route::put('/area/{area}', 'AreaController@update_status')->name('area');
+        Route::put('/mesa/{mesa}', 'MesaController@update_status')->name('mesa');
     });
 
     //vista de permisos por usuarios
@@ -77,6 +81,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/comprobanteSecuencia', 'ComprobanteSecuenciaController@search')->name('comprobanteSecuencias');
         Route::get('/plato', 'PlatoController@search')->name('platos');
         Route::get('/receta', 'RecetaController@search')->name('recetas');
+        Route::get('/area', 'AreaController@search')->name('areas');
+        Route::get('/mesa', 'MesaController@search')->name('mesas');
     });
 });
 

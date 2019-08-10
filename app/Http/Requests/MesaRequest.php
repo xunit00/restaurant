@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProductoRequest extends FormRequest
+class MesaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,18 +30,16 @@ class ProductoRequest extends FormRequest
                 }
             case 'POST': {
                     return [
-                        'nombre_producto' => 'required|string|min:4|max:191|unique:productos',
-                        'descripcion_producto' => 'nullable|string|min:4|max:191',
-                        'id_categoria' => 'required|numeric',
-                        'imagen'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+                        'nombre' => 'required|string|max:191|unique:mesas',
+                        'cubiertos' => 'required|numeric',
+                        'area_id' => 'required|numeric'
                     ];
                 }
             case 'PUT':{
                 return [
-                    'nombre_producto' => 'required|string|min:4|max:191|unique:productos,nombre_producto,'. $this->route('producto')->id,
-                    'descripcion_producto' => 'nullable|string|min:4|max:191,',
-                    'id_categoria' => 'required|numeric',
-                    'imagen'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+                    'nombre' => 'required|string|max:191|unique:mesas,nombre,'. $this->route('mesa')->id,
+                    'cubiertos' => 'required|numeric',
+                    'area_id' => 'required|numeric'
                 ];
             }
             case 'PATCH':

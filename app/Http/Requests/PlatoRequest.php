@@ -30,16 +30,16 @@ class PlatoRequest extends FormRequest
                 }
             case 'POST': {
                     return [
-                        'nombre' => 'required|string|max:191|unique:platos',
-                        'descripcion' => 'nullable|string|max:191',
+                        'nombre' => 'required|string|min:4|max:50|unique:platos',
+                        'descripcion' => 'nullable|string|min:4|max:191',
                         'id_categoria' => 'required|numeric',
                         'precio'=>'required|numeric'
                     ];
                 }
             case 'PUT':{
                 return [
-                    'nombre' => 'required|string|max:191|unique:platos,nombre,'. $this->route('plato')->id,
-                    'descripcion' => 'nullable|string|max:191,',
+                    'nombre' => 'required|string|min:4|max:50|unique:platos,nombre,'. $this->route('plato')->id,
+                    'descripcion' => 'nullable|string|min:4|max:191,',
                     'id_categoria' => 'required|numeric',
                     'precio'=>'nullable|numeric'
                 ];

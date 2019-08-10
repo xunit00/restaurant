@@ -191,6 +191,26 @@
                             <a>
                         </li>
                         {{-- @endcan --}}
+
+                        {{-- @can('read.users') --}}
+                        <li class="nav-item">
+                                <a href="{{ route('areas.index') }}"
+                                class="nav-link {{ request()->is('areas*') ? 'active' : '' }}">
+                                <i class="fas fa-circle-notch nav-icon"></i>
+                                <p>Areas</p>
+                                <a>
+                            </li>
+                            {{-- @endcan --}}
+
+                            {{-- @can('read.users') --}}
+                        <li class="nav-item">
+                                <a href="{{ route('mesas.index') }}"
+                                class="nav-link {{ request()->is('mesas*') ? 'active' : '' }}">
+                                <i class="fas fa-circle-notch nav-icon"></i>
+                                <p>Mesas</p>
+                                <a>
+                            </li>
+                            {{-- @endcan --}}
                     </ul>
                 </li>
 

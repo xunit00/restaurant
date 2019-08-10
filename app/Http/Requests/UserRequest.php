@@ -30,7 +30,7 @@ class UserRequest extends FormRequest
                 }
             case 'POST': {
                     return [
-                        'name' => 'required|string|max:191',
+                        'name' => 'required|string|min:4|max:191',
                         'email' => 'required|string|email|max:191|unique:users',
                         'username' => 'required|string|min:4|max:10|unique:users',
                         'password' => 'required|string|min:6',
@@ -39,7 +39,7 @@ class UserRequest extends FormRequest
                 }
             case 'PUT':{
                 return [
-                    'name' => 'required|string|max:191',
+                    'name' => 'required|string|min:4|max:191',
                     'email' => 'required|string|email|max:191|unique:users,email,' . $this->route('user')->id,
                     'username' => 'required|string|min:4|max:10|unique:users,username,'. $this->route('user')->id,
                     'password' => 'sometimes|required|string|min:6',

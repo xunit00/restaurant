@@ -7,15 +7,14 @@ use App\Producto;
 use App\Categoria;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Traits\StoreImageTrait;
+use App\Traits\ImageTrait;
 use App\Http\Requests\ProductoRequest;
-// use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\ProductoUnidadRequest;
 
 
 class ProductoController extends Controller
 {
-    use StoreImageTrait;
+    use ImageTrait;
 
     public function __construct()
     {
@@ -71,29 +70,9 @@ class ProductoController extends Controller
     {
         $formInput = $request->all();
 
-        $formInput['imagen'] = $this->verifyAndStoreImage($request, 'imagen', 'producto');
+        $formInput['imagen'] = $this->verifyAndStoreImage($request, 'imagen','producto');
 
         Producto::create($formInput);
-        /**
-         * otra forma
-         * $producto = new Producto;
-         *
-         * if ($request->has('imagen')) {
-         *   $fileExt = $request->imagen->getClientOriginalExtension();
-         *   $imageName = $request->nombre_producto . '_' . time() . '.' . $fileExt;
-         *   $request->imagen->storeAs('public/productos', $imageName);
-         *   $producto->imagen = $imageName;
-         * }
-         *
-         * $producto->fill([
-         *    'nombre_producto' => $request->nombre_producto,
-         *    'descripcion_producto' => $request->descripcion_producto,
-         *    'id_categoria' => $request->id_categoria
-         * ]);
-         *
-         * $producto->save();
-         *
-         */
 
         return redirect()->route('productos.index')
             ->with('success', 'Producto Creado!');
@@ -174,33 +153,16 @@ class ProductoController extends Controller
     {
         $formInput = $request->all();
 
-        $oldImage=$producto->imagen;
+        $formInput['imagen'] = $this->verifyAndStoreImage($request, 'imagen','producto');
 
-        $formInput['imagen'] = $this->verifyAndUpdateImage($request, 'imagen', 'producto',$oldImage);
+        if( $formInput['imagen'] && $producto->imagen !== null){
+            // dd($request->imagen.'-'.$producto->imagen);
+            $this->deleteImage($formInput['imagen']);
 
-        $producto->update($formInput);
+            $producto->update($formInput);
+        }
 
-        // if ($request->has('imagen')) {
-
-        //     $oldImage = $producto->imagen;
-        //     if ($request->imagen != $oldImage) {
-        //         $fileExt = $request->imagen->getClientOriginalExtension();
-        //         $imageName = $request->nombre_producto . '_' . time() . '.' . $fileExt;
-
-        //         Storage::delete('public/productos/' . $oldImage);
-
-        //         $request->imagen->storeAs('public/productos', $imageName);
-        //         $producto->imagen = $imageName;
-        //     }
-        // }
-
-        // $producto->fill([
-        //     'nombre_producto' => $request->nombre_producto,
-        //     'descripcion_producto' => $request->descripcion_producto,
-        //     'id_categoria' => $request->id_categoria
-        // ]);
-
-        // $producto->update();
+        $producto->update($request->all());
 
         return redirect()->route('productos.index')
             ->with('success', 'Producto Actualizado Correctamente');
@@ -254,16 +216,14 @@ class ProductoController extends Controller
     {
         $producto = Producto::findOrFail($id);
 
-        if($producto->imagen){
-            Storage::delete('public/productos/' . $producto->imagen);
-        }
+        $this->deleteImage($producto->imagen);
 
         $producto->unidad()->detach();
 
         $producto->delete();
 
         return redirect()->route('productos.index')
-            ->with('success', 'Producto Eliminada Correctamente');
+            ->with('success', 'Producto Eliminado Correctamente');
     }
 
     /**
