@@ -19,9 +19,10 @@ class CreateMesasTable extends Migration
             $table->integer('cubiertos');
             $table->unsignedBigInteger('area_id');
             $table->boolean('status')->default(1);
+            $table->softDeletes();
             $table->timestamps();
 
-            $table->foreign('area_id')->references('id')->on('areas');
+            $table->foreign('area_id')->references('id')->on('areas')->onDelete('cascade');
         });
     }
 

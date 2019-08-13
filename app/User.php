@@ -42,4 +42,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isAdmin()
+    {
+        if(auth()->user()->getRoleNames()=='Super-Admin')
+        {
+            return true;
+        }
+
+        return false;
+    }
 }

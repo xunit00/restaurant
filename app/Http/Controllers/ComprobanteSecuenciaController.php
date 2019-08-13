@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class ComprobanteSecuenciaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth',
+        'permission:update.comprobantes|create.comprobantes|delete.comprobantes|read.comprobantes']);
+    }
+
     /**
      * Display a listing of the resource.
      *

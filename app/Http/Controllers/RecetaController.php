@@ -8,6 +8,11 @@ use App\DetalleReceta;
 
 class RecetaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth',
+        'permission:update.recetas|create.recetas|delete.recetas|read.recetas']);
+    }
     /**
      * Display a listing of the resource.
      *

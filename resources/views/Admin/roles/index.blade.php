@@ -58,11 +58,21 @@
                 <td>{{$rol->id}}</td>
                 <td>{{$rol->name}}</td>
                 <td>
+                    <form action="{{route('roles.destroy',$rol->id)}}" method="POST">
                     @can('update.role')
                     <a class="btn btn-outline-secondary btn-sm" href="{{route('roles.edit',$rol->id)}}">
                         <i class="fa fa-edit"></i>
                     </a>
                     @endcan
+
+                    @csrf
+                    @method('DELETE')
+                    @can('delete.role')
+                    <button type="submit" class="btn btn-outline-danger btn-sm"
+                        onclick="return confirm('Quiere Borrar este Registro?')">
+                        <i class="fas fa-trash-alt"></i></button>
+                    @endcan
+                </form>
                 </td>
               </tr>
               @endforeach

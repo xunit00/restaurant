@@ -9,6 +9,12 @@ use App\Http\Requests\PlatoRequest;
 
 class PlatoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth',
+        'permission:update.platos|create.platos|delete.platos|read.platos']);
+    }
+
     /**
      * Display a listing of the resource.
      *

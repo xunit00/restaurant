@@ -18,6 +18,7 @@ class CreateAreasTable extends Migration
             $table->string('nombre',50)->unique();
             $table->string('descripcion')->nullable();
             $table->boolean('status')->default(1);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -35,7 +35,7 @@ class RolesController extends Controller
     {
         $my_perm= Permission::role($role)->get()->pluck('name','id');
         $permissions=Permission::all()->pluck('name','id');
-        return view('admin.roles.create',compact('permissions','my_perm'));
+        return view('admin.roles.create',compact('permissions','my_perm','role'));
     }
 
     /**
@@ -108,12 +108,17 @@ class RolesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Role $role)
     {
-        //
+        $permissions=Permission::all();
+
+        $role->revokePermissionTo($permissions)->delete();
+
+        return redirect()->route('roles.index')
+        ->with('success','Rol Eliminado Correctamente');
     }
 
     /**

@@ -12,6 +12,12 @@ class MesaController extends Controller
 {
     use SearchTrait;
 
+    public function __construct()
+    {
+        $this->middleware(['auth',
+        'permission:update.mesas|create.mesas|delete.mesas|read.mesas']);
+    }
+
     /**
      * Display a listing of the resource.
      *

@@ -12,31 +12,44 @@ class UsersSeed extends Seeder
      */
     public function run()
     {
-        //usuario editor
-        $editor=User::create([
-            'name'=>'editor 1',
-            'email'=>'editor_1@test.com',
-            'username'=>'editor1',
+        $gerente=User::create([
+            'name'=>'gerente 1',
+            'email'=>'gerente1@test.com',
+            'username'=>'gerente1',
             'password'=>bcrypt('12345678')
         ]);
-        $editor->assignRole('editor');
+        $gerente->assignRole('Gerente');
 
-        //usuario editor
-        $moderador=User::create([
-            'name'=>'moderador 1',
-            'email'=>'moderador_1@test.com',
-            'username'=>'moderador1',
+        $cajero=User::create([
+            'name'=>'cajero 1',
+            'email'=>'cajero1@test.com',
+            'username'=>'cajero1',
             'password'=>bcrypt('12345678')
         ]);
-        $moderador->assignRole('moderador');
+        $cajero->assignRole('Cajero');
 
-        //usuario
+        $mesero=User::create([
+            'name'=>'mesero 1',
+            'email'=>'mesero1@test.com',
+            'username'=>'mesero1',
+            'password'=>bcrypt('12345678')
+        ]);
+        $mesero->assignRole('Mesero');
+
+        $cocinero=User::create([
+            'name'=>'cocinero 1',
+            'email'=>'cocinero1@test.com',
+            'username'=>'cocinero1',
+            'password'=>bcrypt('12345678')
+        ]);
+        $cocinero->assignRole('Cocinero');
+
         $admin=User::create([
             'name'=>'admin 1',
             'email'=>'admin@test.com',
             'username'=>'admin',
             'password'=>bcrypt('12345678')
         ]);
-        $admin->assignRole('super-admin');
+        $admin->assignRole('Super-Admin');
     }
 }

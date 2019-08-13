@@ -47,17 +47,56 @@ class RolesandPermissionsSeed extends Seeder
         Permission::create(['name' => 'create.productos']);
         Permission::create(['name' => 'read.productos']);
 
+        Permission::create(['name' => 'update.comprobantes']);
+        Permission::create(['name' => 'delete.comprobantes']);
+        Permission::create(['name' => 'create.comprobantes']);
+        Permission::create(['name' => 'read.comprobantes']);
+
+        Permission::create(['name' => 'update.areas']);
+        Permission::create(['name' => 'delete.areas']);
+        Permission::create(['name' => 'create.areas']);
+        Permission::create(['name' => 'read.areas']);
+
+        Permission::create(['name' => 'update.mesas']);
+        Permission::create(['name' => 'delete.mesas']);
+        Permission::create(['name' => 'create.mesas']);
+        Permission::create(['name' => 'read.mesas']);
+
+        Permission::create(['name' => 'update.platos']);
+        Permission::create(['name' => 'delete.platos']);
+        Permission::create(['name' => 'create.platos']);
+        Permission::create(['name' => 'read.platos']);
+
+        Permission::create(['name' => 'update.recetas']);
+        Permission::create(['name' => 'delete.recetas']);
+        Permission::create(['name' => 'create.recetas']);
+        Permission::create(['name' => 'read.recetas']);
+
         // create roles and assign created permissions
 
-        // this can be done as separate statements
-        $role = Role::create(['name' => 'editor']);
-        $role->givePermissionTo('read.users');
+        $role = Role::create(['name' => 'Cajero'])
+        ->givePermissionTo(['read.users',
+        'create.comprobantes', 'read.comprobantes', 'update.comprobantes', 'delete.comprobantes']);
 
-        // or may be done by chaining
-        $role = Role::create(['name' => 'moderador'])
-            ->givePermissionTo(['create.users', 'read.users']);
+        $role = Role::create(['name' => 'Mesero'])
+        ->givePermissionTo(['create.users', 'read.users']);
 
-        $role = Role::create(['name' => 'super-admin']);
-        $role->givePermissionTo(Permission::all());
+        $role = Role::create(['name' => 'Gerente'])
+        ->givePermissionTo(['create.users', 'read.users','update.users','delete.users',
+        'create.categorias', 'read.categorias', 'update.categorias', 'delete.categorias',
+        'create.unidades', 'read.unidades', 'update.unidades', 'delete.unidades',
+        'create.productos', 'read.productos', 'update.productos', 'delete.productos',
+        'create.comprobantes', 'read.comprobantes', 'update.comprobantes', 'delete.comprobantes',
+        'create.areas', 'read.areas', 'update.areas', 'delete.areas',
+        'create.mesas', 'read.mesas', 'update.mesas', 'delete.mesas',
+        'create.platos', 'read.platos', 'update.platos', 'delete.platos',
+        'create.recetas', 'read.recetas', 'update.recetas', 'delete.recetas']);
+
+        $role = Role::create(['name' => 'Cocinero'])
+        ->givePermissionTo(['create.platos', 'read.platos', 'update.platos', 'delete.platos',
+        'create.recetas', 'read.recetas', 'update.recetas', 'delete.recetas']);
+
+        $role = Role::create(['name' => 'Super-Admin'])
+        ->givePermissionTo(Permission::all());
     }
 }

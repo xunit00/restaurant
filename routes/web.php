@@ -57,7 +57,7 @@ Route::middleware('auth')->group(function () {
     });
 
     //vista de permisos por usuarios
-    Route::put('/manage_permissions/{id}', 'UserController@managePermissions')->name('manage_permissions');
+    Route::put('/managePermissions/{id}', 'UserController@managePermissions')->name('managePermissions');
 
     //rutas para trabajar con la tabla pivot productos-unidades
     Route::prefix('productos')->as('productos.')->group(function () {

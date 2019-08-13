@@ -36,7 +36,7 @@
                         </a>
                     </li>
 
-                    @can(['read.users','read.permissions','read.role'])
+                     @canany(['read.users','read.permissions','read.role'])
                     <li class="nav-item has-treeview">
 
                         <a href="#" class="nav-link">
@@ -76,10 +76,10 @@
 
                         </ul>
                     </li>
-                    @endcan
+                    @endcanany
 
 
-                    @can(['read.categorias','read.unidades','read.productos'])
+                    @canany(['read.categorias','read.unidades','read.productos'])
                     <li class="nav-item has-treeview">
 
                         <a href="#" class="nav-link">
@@ -130,19 +130,19 @@
                             @endcan()
                             </ul>
                     </li>
-                    @endcan
+                    @endcanany
 
 
 
 
-
+                    @can(['read.comprobantes'])
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-file-contract"></i>
                         <p>Comprobantes<i class="right fa fa-angle-left"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
-                        {{-- @can('read.users') --}}
+                        @can('read.comprobantes')
                         <li class="nav-item">
                             <a href="{{ route('comprobanteTipo.index') }}"
                             class="nav-link {{ request()->is('comprobanteTipo*') ? 'active' : '' }}">
@@ -150,9 +150,9 @@
                             <p>Serie/Tipo</p>
                             <a>
                         </li>
-                        {{-- @endcan --}}
+                        @endcan
 
-                        {{-- @can('read.users') --}}
+                        @can('read.comprobantes')
                         <li class="nav-item">
                             <a href="{{ route('comprobanteSecuencia.index') }}"
                             class="nav-link {{ request()->is('comprobanteSecuencia*') ? 'active' : '' }}">
@@ -160,19 +160,20 @@
                             <p>Secuencia</p>
                             <a>
                         </li>
-                        {{-- @endcan --}}
+                        @endcan
                     </ul>
                 </li>
+                @endcan
 
 
-
+                @canany(['read.recetas','read.areas','read.platos','read.mesas'])
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-cogs"></i>
                         <p>Configuracion<i class="right fa fa-angle-left"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
-                        {{-- @can('read.users') --}}
+                        @can('read.recetas')
                         <li class="nav-item">
                             <a href="{{ route('recetas.index') }}"
                             class="nav-link {{ request()->is('recetas*') ? 'active' : '' }}">
@@ -180,9 +181,9 @@
                             <p>Recetas</p>
                             <a>
                         </li>
-                        {{-- @endcan --}}
+                        @endcan
 
-                        {{-- @can('read.users') --}}
+                        @can('read.platos')
                         <li class="nav-item">
                             <a href="{{ route('platos.index') }}"
                             class="nav-link {{ request()->is('platos*') ? 'active' : '' }}">
@@ -190,9 +191,9 @@
                             <p>Platos</p>
                             <a>
                         </li>
-                        {{-- @endcan --}}
+                        @endcan
 
-                        {{-- @can('read.users') --}}
+                        @can('read.areas')
                         <li class="nav-item">
                                 <a href="{{ route('areas.index') }}"
                                 class="nav-link {{ request()->is('areas*') ? 'active' : '' }}">
@@ -200,9 +201,9 @@
                                 <p>Areas</p>
                                 <a>
                             </li>
-                            {{-- @endcan --}}
+                            @endcan
 
-                            {{-- @can('read.users') --}}
+                            @can('read.mesas')
                         <li class="nav-item">
                                 <a href="{{ route('mesas.index') }}"
                                 class="nav-link {{ request()->is('mesas*') ? 'active' : '' }}">
@@ -210,9 +211,10 @@
                                 <p>Mesas</p>
                                 <a>
                             </li>
-                            {{-- @endcan --}}
+                            @endcan
                     </ul>
                 </li>
+                @endcanany
 
 
                 </ul>
