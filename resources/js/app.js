@@ -23,9 +23,10 @@ Vue.use(BootstrapVue)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 
-Vue.component('order-progress', require('./components/OrderProgress.vue').default);
-Vue.component('order-alert', require('./components/OrderAlert.vue').default);
+// Vue.component('order-progress', require('./components/OrderProgress.vue').default);
+// Vue.component('order-alert', require('./components/OrderAlert.vue').default);
 Vue.component('order-notifications', require('./components/OrderNotifications.vue').default);
+Vue.component('create-receta', require('./components/CreateReceta.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

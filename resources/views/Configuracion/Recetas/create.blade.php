@@ -18,7 +18,9 @@
     </div><!-- /.container-fluid -->
 </div>
 
-@include('partials.errors-create')
+<create-receta></create-receta>
+
+{{-- @include('partials.errors-create')
 
 <!-- /.content-header -->
 <div class="card">
@@ -35,5 +37,5 @@
             </form>
         </div>
     </section>
-</div>
+</div> --}}
 @endsection
