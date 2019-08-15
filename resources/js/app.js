@@ -11,6 +11,43 @@ window.Vue = require('vue');
 import BootstrapVue from 'bootstrap-vue'
 Vue.use(BootstrapVue)
 
+
+//validaciones
+import { Form, HasError, AlertError } from 'vform';
+window.Form = Form;
+Vue.component(HasError.name, HasError)
+Vue.component(AlertError.name, AlertError)
+
+//popup alert
+import swal from 'sweetalert2'
+window.swal = swal;
+
+//alertas
+const toast = swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 5000
+});
+window.toast = toast;
+
+//progress bar
+import VueProgressBar from 'vue-progressbar'
+Vue.use(VueProgressBar, options)
+const options = {
+    color: '#bffaf3',
+    failedColor: '#874b4b',
+    thickness: '10px',
+    transition: {
+        speed: '0.5s',
+        opacity: '0.6s',
+        termination: 300
+    },
+    autoRevert: true,
+    location: 'left',
+    inverse: false
+}
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
