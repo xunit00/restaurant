@@ -9,7 +9,7 @@
         <div class="row">
             <label for="" class="col-md-2">Nombre</label>
             <div class="col-md-6"><input type="text" name="nombre"
-            v-model="nombre"
+            v-model="form.nombre"
                 placeholder=""
                 class="form-control"></div>
             <div class="clearfix"></div>
@@ -20,7 +20,7 @@
         <div class="row">
             <label for="" class="col-md-2">Descripcion</label>
             <div class="col-md-6"><input type="text" name="descripcion"
-            v-model="descripcion"
+            v-model="form.descripcion"
                 placeholder=""
             class="form-control"></div>
             <div class="clearfix"></div>
@@ -31,7 +31,7 @@
         <div class="row">
             <label for="" class="col-md-2">Porciones</label>
             <div class="col-md-6"><input type="text" name="porciones"
-            v-model="porciones"
+            v-model="form.porciones"
                 placeholder=""
             class="form-control"></div>
             <div class="clearfix"></div>
@@ -51,15 +51,16 @@
     </div>
 
       <div class="form-group">
-        <div class="row" v-for="(detalle,index) in detalles" v-bind:key="index">
+        <div class="row" v-for="(detalle,index) in form.detalles" v-bind:key="index">
             <label for="" class="col-md-2">Producto ({{index}})</label>
 
             <div class="col-md-3">
                 <select name="producto"
                 v-model="detalle.producto"
                 class="form-control">
-                    <option value="">Seleccionar Producto</option>
-                    <option value=""></option>
+                    <option value="0" disabled>Seleccionar Producto</option>
+                    <option v-for="unidad in productos" :key="unidad.id"
+                    >{{producto}}</option>
                 </select>
             </div>
 
@@ -93,28 +94,36 @@
 export default {
     data(){
         return{
-            nombre:'',
-            descripcion:'',
-            porciones:'',
-            detalles:[{
-                producto:'',
-                cantidad:''
-            }]
+            recetas:{},
+            form: new Form({
+                nombre:'',
+                descripcion:'',
+                porciones:'',
+                detalles:[{
+                    producto:'',
+                    cantidad:''
+                }]
+            }),
+            arrayProd:[]
         };
     },
+    props: ['productos'],
     methods:{
         addNewProduct(){
-            this.detalles.push({
+            this.form.detalles.push({
                 producto:'',
                 cantidad:''
             })
         },
         removeProduct(index){
-            this.detalles.splice(index,1)
+            this.form.detalles.splice(index,1)
         }
     },
     mounted(){
         console.log("Create Receta Mounted");
+    },
+    created(){
+
     }
 };
 </script>

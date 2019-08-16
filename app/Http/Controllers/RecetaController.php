@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Receta;
+use App\Unidad;
 use Illuminate\Http\Request;
 use App\DetalleReceta;
 
@@ -32,7 +33,8 @@ class RecetaController extends Controller
      */
     public function create(Receta $receta)
     {
-        return view('configuracion.recetas.create',compact('receta'));
+        $productos=Unidad::with('productos')->get();
+        return view('configuracion.recetas.create',compact('receta','productos'));
     }
 
     /**

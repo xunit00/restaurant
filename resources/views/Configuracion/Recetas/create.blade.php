@@ -18,9 +18,9 @@
     </div><!-- /.container-fluid -->
 </div>
 
-<create-receta></create-receta>
+{{-- <create-receta productos="{{ $productos}}"></create-receta> --}}
 
-{{-- @include('partials.errors-create')
+@include('partials.errors-create')
 
 <!-- /.content-header -->
 <div class="card">
@@ -37,5 +37,44 @@
             </form>
         </div>
     </section>
-</div> --}}
+</div>
+
+<script>
+    $(document).ready(function(){
+            var count=1;
+
+            dynamic_field(count);
+
+            function dynamic_field(number)
+            {
+                 var html='<tr>';
+                    html+='<td> imput</td>';
+                    html+='<td><input type="text" name="cantidad[]" class="form-control"></td>';
+                    if(number>1)
+                    {
+                        html+='<td><button type="button" name="remove" id="remove" class="btn btn-danger">Remove</button></td></tr>';
+                        $('tbody').append(html);
+                    }
+                    else
+                    {
+                        html+='<td><button type="button" name="add" id="add" class="btn btn-success">Add</button></td></tr>';
+                        $('tbody').html(html);
+                    }
+            }
+            $('#add').click(function(){
+                count++;
+                dynamic_field(count);
+            });
+            $(document).on('click','#remove',function(){
+                count--;
+                dynamic_field(count);
+            });
+            $('#dynamic_form').on('submit',function(event){
+                event.preventDefault();
+                $.ajax({
+                    url:'{{ route("")}}'
+                })
+            });
+        });
+</script>
 @endsection
