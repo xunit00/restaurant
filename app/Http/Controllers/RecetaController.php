@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Receta;
 use Illuminate\Http\Request;
 use App\DetalleReceta;
+use App\Producto;
 
 class RecetaController extends Controller
 {
@@ -32,7 +33,8 @@ class RecetaController extends Controller
      */
     public function create(Receta $receta)
     {
-        return view('configuracion.recetas.create',compact('receta'));
+        $productos=Producto::all();
+        return view('configuracion.recetas.create',compact('receta','productos'));
     }
 
     /**
@@ -43,10 +45,11 @@ class RecetaController extends Controller
      */
     public function store(Request $request)
     {
-        Receta::create($request->all());
+        return ['message'=>'data'];
+        // Receta::create($request->all());
 
-        return redirect()->route('recetas.index')
-        ->with('success', 'Receta Creada!');
+        // return redirect()->route('recetas.index')
+        // ->with('success', 'Receta Creada!');
     }
 
     /**

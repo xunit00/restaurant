@@ -18,7 +18,7 @@
     </div><!-- /.container-fluid -->
 </div>
 
-<create-receta></create-receta>
+<create-receta :productos="{{$productos}}"></create-receta>
 
 {{-- @include('partials.errors-create')
 

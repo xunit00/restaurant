@@ -3,13 +3,13 @@
 <div class="card">
     <section class="content">
         <div class="container-fluid mt-3">
-            <form action="" method="POST" enctype="multipart/form-data">
+            <form @submit.prevent="createReceta()">
 
              <div class="form-group">
         <div class="row">
             <label for="" class="col-md-2">Nombre</label>
             <div class="col-md-6"><input type="text" name="nombre"
-            v-model="nombre"
+            v-model="form.nombre"
                 placeholder=""
                 class="form-control"></div>
             <div class="clearfix"></div>
@@ -20,7 +20,7 @@
         <div class="row">
             <label for="" class="col-md-2">Descripcion</label>
             <div class="col-md-6"><input type="text" name="descripcion"
-            v-model="descripcion"
+            v-model="form.descripcion"
                 placeholder=""
             class="form-control"></div>
             <div class="clearfix"></div>
@@ -31,7 +31,7 @@
         <div class="row">
             <label for="" class="col-md-2">Porciones</label>
             <div class="col-md-6"><input type="text" name="porciones"
-            v-model="porciones"
+            v-model="form.porciones"
                 placeholder=""
             class="form-control"></div>
             <div class="clearfix"></div>
@@ -51,15 +51,14 @@
     </div>
 
       <div class="form-group">
-        <div class="row" v-for="(detalle,index) in detalles" v-bind:key="index">
-            <label for="" class="col-md-2">Producto ({{index}})</label>
+        <div class="row" v-for="(detalle,index) in form.detalles" v-bind:key="index">
+            <label for="" class="col-md-2">Producto ({{index+1}})</label>
 
             <div class="col-md-3">
-                <select name="producto"
-                v-model="detalle.producto"
-                class="form-control">
-                    <option value="">Seleccionar Producto</option>
-                    <option value=""></option>
+                <select class="form-control" v-model="detalle.producto">
+                    <option>Seleccionar Producto</option>
+                    <option v-for="prod in productos" v-bind:key="prod.id"
+                    v-bind:value="prod.id">{{prod.nombre_producto}}</option>
                 </select>
             </div>
 
@@ -91,26 +90,33 @@
 </template>
 <script>
 export default {
+    props: ['productos'],
     data(){
         return{
-            nombre:'',
-            descripcion:'',
-            porciones:'',
-            detalles:[{
-                producto:'',
-                cantidad:''
-            }]
+            recetas: {}, //object
+            form: new Form({
+                nombre:'',
+                descripcion:'',
+                porciones:'',
+                detalles:[{
+                    producto:'',
+                    cantidad:''
+                }]
+            })
         };
     },
     methods:{
         addNewProduct(){
-            this.detalles.push({
+            this.form.detalles.push({
                 producto:'',
                 cantidad:''
             })
         },
         removeProduct(index){
-            this.detalles.splice(index,1)
+            this.form.detalles.splice(index,1)
+        },
+        createReceta() {
+            this.form.post('/recetas');
         }
     },
     mounted(){
