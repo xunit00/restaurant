@@ -99,9 +99,9 @@
 <div class="form-group">
     <div class="row">
         <label for="" class="col-md-3">Precio Compra</label>
-        <div class="col-md-6"><input type="text" name="precio_compra" value="{{$producto->precio_compra}}"
-                class="form-control @error('precio_compra') is-invalid @enderror"
-                @error('precio_compra')placeholder="{{ $message }}" @enderror></div>
+        <div class="col-md-6"><input type="text" name="costo" value="{{$producto->costo}}"
+                class="form-control @error('costo') is-invalid @enderror"
+                @error('costo')placeholder="{{ $message }}" @enderror></div>
         <div class="clearfix"></div>
     </div>
 </div>

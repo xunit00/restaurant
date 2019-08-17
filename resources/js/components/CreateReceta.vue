@@ -9,13 +9,14 @@
         <div class="row">
             <label for="" class="col-md-2">Plato</label>
             <div class="col-md-6">
-                 <select class="form-control" v-model="form.plato">
+                 <select class="form-control" v-model="form.plato"
+                  :class="{ 'is-invalid': form.errors.has('plato') }">
                     <option disabled value="">Seleccionar Plato</option>
                     <option v-for="plato in platos" v-bind:key="plato.id"
                     v-bind:value="plato.id">{{plato.nombre}}</option>
                 </select>
             </div>
-                    <has-error :form="nombre" field="nombre"></has-error>
+                    <has-error :form="form" field="plato"></has-error>
             <div class="clearfix"></div>
         </div>
     </div>
@@ -25,9 +26,9 @@
             <label for="" class="col-md-2">Descripcion</label>
             <div class="col-md-6"><input type="text" name="descripcion"
             v-model="form.descripcion"
-                placeholder=""
+            placeholder=""  :class="{ 'is-invalid': form.errors.has('descripcion') }"
             class="form-control"></div>
-                    <has-error :form="descripcion" field="descripcion"></has-error>
+                    <has-error :form="form" field="descripcion"></has-error>
             <div class="clearfix"></div>
         </div>
     </div>
@@ -37,9 +38,9 @@
             <label for="" class="col-md-2">Porciones</label>
             <div class="col-md-6"><input type="text" name="porciones"
             v-model="form.porciones"
-                placeholder=""
+            placeholder="" :class="{ 'is-invalid': form.errors.has('porciones') }"
             class="form-control"></div>
-                    <has-error :form="porciones" field="porciones"></has-error>
+                    <has-error :form="form" field="porciones"></has-error>
             <div class="clearfix"></div>
         </div>
     </div>
@@ -64,7 +65,7 @@
                 <select class="form-control" v-model="detalle.producto">
                     <option disabled value="">Seleccionar Producto</option>
                     <option v-for="prod in productos" v-bind:key="prod.id"
-                    v-bind:value="prod.id">{{prod.nombre_producto}}</option>
+                    v-bind:value="prod.id">{{prod.nombre}}</option>
                 </select>
             </div>
 
@@ -122,7 +123,19 @@ export default {
             this.form.detalles.splice(index,1)
         },
         createReceta() {
-            this.form.post('/recetas');
+            this.$Progress.start();
+            this.form.post('/recetas')
+            .then(() => {
+            toast.fire({
+                type: "success",
+                title: "Receta Creada Exitosamente"
+            });
+               router.go('/dashboard')
+          this.$Progress.finish();
+        })
+        .catch(() => {
+          this.$Progress.fail();
+        });
         }
     },
     mounted(){

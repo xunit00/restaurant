@@ -19,11 +19,11 @@ class CreateProductos extends Migration
             $table->unsignedBigInteger('unidad_id');
             $table->string('nombre')->unique();
             $table->string('descripcion')->nullable();
-            $table->decimal('existencia');
-            $table->decimal('maximo');
-            $table->decimal('reorden');
-            $table->decimal('minimo');
-            $table->decimal('precio_venta',8,2);
+            $table->decimal('existencia',8,2);
+            $table->decimal('maximo',8,2)->nullable();
+            $table->decimal('reorden',8,2)->nullable();
+            $table->decimal('minimo',8,2)->nullable();
+            $table->decimal('precio_venta',8,2)->nullable();
             $table->decimal('costo',8,2);
             $table->string('imagen')->nullable();
             $table->timestamps();

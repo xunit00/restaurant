@@ -9,6 +9,8 @@ class DetalleReceta extends Model
 {
     use SoftDeletes;
 
+    protected $table = 'receta_detalles';
+
     protected $dates=['deleted_at'];
 
     protected $fillable = [

@@ -26,15 +26,45 @@
                 <div class="col">
                     <div class="form-group">
                         <strong>Nombre Producto:</strong>
-                        {{ $producto->nombre_producto }}
+                        {{ $producto->nombre }}
+                    </div>
+                    <div class="form-group">
+                        <strong>Unidad:</strong>
+                        {{$producto->unidad->nombre}}
                     </div>
                     <div class="form-group">
                         <strong>Descripcion:</strong>
-                        {{ $producto->descripcion_producto }}
+                        {{ $producto->descripcion }}
                     </div>
                     <div class="form-group">
                         <strong>Categoria:</strong>
                         {{$producto->categoria->nombre}}
+                    </div>
+                    <div class="form-group">
+                        <strong>Costo:</strong>
+                        {{$producto->costo}}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <strong>Stock Producto:</strong>
+                        {{ $producto->existencia }}
+                    </div>
+                    <div class="form-group">
+                        <strong>Stock Maximo:</strong>
+                        {{$producto->maximo}}
+                    </div>
+                    <div class="form-group">
+                        <strong>Stock Reorden:</strong>
+                        {{ $producto->reorden }}
+                    </div>
+                    <div class="form-group">
+                        <strong>Stock Minimo:</strong>
+                        {{$producto->minimo}}
+                    </div>
+                    <div class="form-group">
+                        <strong>Precio Venta:</strong>
+                        {{$producto->precio_venta}}
                     </div>
                 </div>
                 <div class="col">

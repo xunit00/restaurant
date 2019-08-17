@@ -5,11 +5,9 @@ namespace App\Http\Controllers;
 use App\Unidad;
 use App\Producto;
 use App\Categoria;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Traits\ImageTrait;
 use App\Http\Requests\ProductoRequest;
-use App\Http\Requests\ProductoUnidadRequest;
 
 
 class ProductoController extends Controller
@@ -37,18 +35,6 @@ class ProductoController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function indexUnidad()
-    {
-        $prod_unidad = Unidad::with('productos')->latest()->paginate(10);
-
-        return view('inventario.productos.unidad.index', compact('prod_unidad'));
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -70,7 +56,6 @@ class ProductoController extends Controller
      */
     public function store(ProductoRequest $request)
     {
-        // dd($request);
         $formInput = $request->all();
 
         $formInput['imagen'] = $this->verifyAndStoreImage($request, 'imagen','producto');
@@ -79,44 +64,6 @@ class ProductoController extends Controller
 
         return redirect()->route('productos.index')
             ->with('success', 'Producto Creado!');
-    }
-
-    /**
-     * muestra form para crear unnuevo recurso de producto y unidad
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create_produnid()
-    {
-        $prod_unidad = Unidad::with('productos')->get();
-
-        $productos = Producto::all()->pluck('nombre_producto', 'id');
-
-        $unidades = Unidad::whereStatus(1)->pluck('nombre_unidad', 'id');
-
-        return view('inventario.productos.unidad.create', compact('productos', 'unidades', 'prod_unidad'));
-    }
-
-    /**
-     * guarda en store el nuevo recurso de prod unidad
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store_produnid(ProductoUnidadRequest $request)
-    {
-        $producto = Producto::findOrFail($request->producto_id);
-
-        $producto->unidad()->attach($request->unidad_id, [
-            'cantidad' => $request->cantidad,
-            'precio_venta' => $request->precio_venta,
-            'costo' => $request->costo,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
-        ]);
-
-        return redirect()->route('productos.indexUnidad')
-            ->with('success', 'Producto Unidad Creado!');
     }
 
     /**
@@ -172,44 +119,6 @@ class ProductoController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  array  $prod_unidad
-     * @return \Illuminate\Http\Response
-     */
-    public function edit_produnid($prod_unidad)
-    {
-        $prod_unidad = Unidad::with('productos')->find($prod_unidad);
-
-        $productos = Producto::all()->pluck('nombre_producto', 'id');
-
-        $unidades = Unidad::whereStatus(1)->pluck('nombre_unidad', 'id');
-
-        return view('inventario.productos.unidad.edit', compact('productos', 'unidades', 'prod_unidad'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function update_produnid(ProductoUnidadRequest $request)
-    {
-        $producto = Producto::findOrFail($request->producto_id);
-
-        $producto->unidad()->updateExistingPivot($request->unidad_id, [
-            'cantidad' => $request->cantidad,
-            'precio_venta' => $request->precio_venta,
-            'costo' => $request->costo,
-            'updated_at' => Carbon::now()
-        ]);
-
-        return redirect()->route('productos.indexUnidad')
-            ->with('success', 'Producto Actualizado Correctamente');
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -226,22 +135,6 @@ class ProductoController extends Controller
         $producto->delete();
 
         return redirect()->route('productos.index')
-            ->with('success', 'Producto Eliminado Correctamente');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  array  $prod_unidad
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy_produnid($prod_unidad)
-    {
-        $unidad = Unidad::with('productos')->findOrFail($prod_unidad);
-
-        $unidad->productos()->detach($unidad->productos);
-
-        return redirect()->route('productos.indexUnidad')
             ->with('success', 'Producto Eliminado Correctamente');
     }
 

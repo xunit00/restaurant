@@ -1810,6 +1810,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['productos', 'platos'],
   data: function data() {
@@ -1838,7 +1839,20 @@ __webpack_require__.r(__webpack_exports__);
       this.form.detalles.splice(index, 1);
     },
     createReceta: function createReceta() {
-      this.form.post('/recetas');
+      var _this = this;
+
+      this.$Progress.start();
+      this.form.post('/recetas').then(function () {
+        toast.fire({
+          type: "success",
+          title: "Receta Creada Exitosamente"
+        });
+        router.go('/dashboard');
+
+        _this.$Progress.finish();
+      })["catch"](function () {
+        _this.$Progress.fail();
+      });
     }
   },
   mounted: function mounted() {
@@ -80069,6 +80083,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
+                        class: { "is-invalid": _vm.form.errors.has("plato") },
                         on: {
                           change: function($event) {
                             var $$selectedVal = Array.prototype.filter
@@ -80107,7 +80122,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("has-error", {
-                    attrs: { form: _vm.nombre, field: "nombre" }
+                    attrs: { form: _vm.form, field: "plato" }
                   }),
                   _vm._v(" "),
                   _c("div", { staticClass: "clearfix" })
@@ -80136,6 +80151,9 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control",
+                      class: {
+                        "is-invalid": _vm.form.errors.has("descripcion")
+                      },
                       attrs: {
                         type: "text",
                         name: "descripcion",
@@ -80154,7 +80172,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("has-error", {
-                    attrs: { form: _vm.descripcion, field: "descripcion" }
+                    attrs: { form: _vm.form, field: "descripcion" }
                   }),
                   _vm._v(" "),
                   _c("div", { staticClass: "clearfix" })
@@ -80183,6 +80201,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control",
+                      class: { "is-invalid": _vm.form.errors.has("porciones") },
                       attrs: {
                         type: "text",
                         name: "porciones",
@@ -80201,7 +80220,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("has-error", {
-                    attrs: { form: _vm.porciones, field: "porciones" }
+                    attrs: { form: _vm.form, field: "porciones" }
                   }),
                   _vm._v(" "),
                   _c("div", { staticClass: "clearfix" })
@@ -80282,7 +80301,7 @@ var render = function() {
                           return _c(
                             "option",
                             { key: prod.id, domProps: { value: prod.id } },
-                            [_vm._v(_vm._s(prod.nombre_producto))]
+                            [_vm._v(_vm._s(prod.nombre))]
                           )
                         })
                       ],

@@ -6,6 +6,7 @@ use App\Receta;
 use App\Producto;
 use App\DetalleReceta;
 use App\Plato;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -49,20 +50,33 @@ class RecetaController extends Controller
      */
     public function store(Request $request)
     {
-        // $receta_id= DB::table('recetas')->insertGetId(
-        //     array('nombre' => $request->nombre, 'descripcion' => $request->nombre)
-        // );
-        // return ['message'=>$receta_id];
-        // Receta::create($request->all());
+        $receta_id= DB::table('recetas')->insertGetId(
+            array('plato_id' => $request->plato,
+            'descripcion' => $request->nombre,
+            'porciones'=> $request->porciones,
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now())
+        );
 
-        // return redirect()->route('recetas.index')
-        // ->with('success', 'Receta Creada!');
+        $productos=$request->detalles;
 
-        return Receta::create([
-            'nombre'=>$request['nombre'],
-            'descripcion'=>$request['descripcion'],
-            'porciones'=>$request['porciones']
-        ]);
+        foreach($productos as $prod)
+        {
+            DetalleReceta::create([
+                'receta_id'=>$receta_id,
+                'producto_id'=>$prod['producto'],
+                'cantidad'=>$prod['cantidad']
+            ]);
+        }
+
+        return ['message'=> 'Receta Creada'];
+
+        // return [
+        //     'plato'->$request->plato,
+        //     'nombre'->$request->nombre,
+        //     'porciones'->$request->porciones,
+        //     'productos'->$productos,
+        // ];
     }
 
     /**

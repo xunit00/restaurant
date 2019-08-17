@@ -15,7 +15,7 @@ class CreateRecetasTable extends Migration
     {
         Schema::create('recetas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('plato_id');
+            $table->unsignedBigInteger('plato_id')->unique();
             $table->string('descripcion')->nullable();
             $table->decimal('porciones');
             $table->boolean('status')->default(1);

@@ -118,16 +118,6 @@
                                 </a>
                             </li>
                             @endcan()
-
-                            @can('read.productos')
-                            <li class="nav-item">
-                                <a href="{{route('productos.indexUnidad')}}"
-                                class="nav-link {{ request()->is('productos/unidad/list*') ? 'active' : '' }}">
-                                        <i class="nav-icon fas fa-circle-notch"></i>
-                                    <p>Productos/Unidades</p>
-                                </a>
-                            </li>
-                            @endcan()
                             </ul>
                     </li>
                     @endcanany
