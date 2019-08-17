@@ -50,15 +50,17 @@
                 <tbody>
                     <tr>
                         <th>Nombre</th>
-                        <th>Descripcion</th>
+                        <th>Unidad</th>
                         <th>Categoria</th>
+                        <th>Existencia</th>
                         <th>Modyfy</th>
                     </tr>
                     @foreach($productos as $prod)
                     <tr>
-                        <td>{{$prod->nombre_producto}}</td>
-                        <td>{{$prod->descripcion_producto}}</td>
+                        <td>{{$prod->nombre}}</td>
+                        <td>{{$prod->unidad->nombre}}</td>
                         <td>{{$prod->categoria->nombre}}</td>
+                        <td>{{$prod->existencia}}</td>
                         <td>
                             <form action="{{route('productos.destroy',$prod->id)}}" method="POST">
                                 @can('update.productos')

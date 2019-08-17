@@ -4,10 +4,13 @@ namespace App;
 
 use App\Traits\SearchTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ComprobanteSecuencia extends Model
 {
     use SearchTrait;
+
+    use SoftDeletes;
 
     protected $fillable = [
         'secuencia','tipo_id','status','fecha_vencimiento'

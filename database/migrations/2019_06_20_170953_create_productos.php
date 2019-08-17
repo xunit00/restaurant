@@ -15,13 +15,22 @@ class CreateProductos extends Migration
     {
         Schema::create('productos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nombre_producto')->unique();
-            $table->string('descripcion_producto')->nullable();
+            $table->unsignedBigInteger('categoria_id');
+            $table->unsignedBigInteger('unidad_id');
+            $table->string('nombre')->unique();
+            $table->string('descripcion')->nullable();
+            $table->decimal('existencia');
+            $table->decimal('maximo');
+            $table->decimal('reorden');
+            $table->decimal('minimo');
+            $table->decimal('precio_venta',8,2);
+            $table->decimal('costo',8,2);
             $table->string('imagen')->nullable();
-            $table->unsignedBigInteger('id_categoria');
             $table->timestamps();
+            $table->softDeletes();
 
-            $table->foreign('id_categoria')->references('id')->on('categorias');
+            $table->foreign('categoria_id')->references('id')->on('categorias');
+            $table->foreign('unidad_id')->references('id')->on('unidades');
         });
     }
 

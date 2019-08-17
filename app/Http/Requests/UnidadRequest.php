@@ -31,15 +31,14 @@ class UnidadRequest extends FormRequest
                 }
             case 'POST': {
                     return [
-                        'nombre_unidad' => 'required|string|min:4|max:50|unique:unidades',
-                        'descripcion_unidad' => 'nullable|string|min:4|max:191',
-                        'contenido'=>'required|integer'
+                        'nombre' => 'required|string|min:4|max:50|unique:unidades',
+                        'descripcion' => 'nullable|string|min:4|max:191',
                     ];
                 }
             case 'PUT':{
                 return [
-                    'nombre_unidad' => 'required|string|min:4|max:50|unique:unidades,nombre_unidad,'. $this->route('unidade')->id,
-                    'descripcion_unidad' => 'nullable|string|min:4|max:191',
+                    'nombre' => 'required|string|min:4|max:50|unique:unidades,nombre,'. $this->route('unidade')->id,
+                    'descripcion' => 'nullable|string|min:4|max:191',
                     'contenido'=>'required|integer',
                 ];
             }

@@ -30,17 +30,31 @@ class ProductoRequest extends FormRequest
                 }
             case 'POST': {
                     return [
-                        'nombre_producto' => 'required|string|min:4|max:191|unique:productos',
-                        'descripcion_producto' => 'nullable|string|min:4|max:191',
-                        'id_categoria' => 'required|numeric',
+                        'nombre' => 'required|string|min:4|max:191|unique:productos',
+                        'descripcion' => 'nullable|string|min:4|max:191',
+                        'categoria_id' => 'required|numeric',
+                        'unidad_id' => 'required|numeric',
+                        'existencia' => 'required|numeric',
+                        'maximo' => 'required|numeric',
+                        'reorden' => 'required|numeric',
+                        'minimo' => 'required|numeric',
+                        'precio_venta' => 'required|numeric',
+                        'costo' => 'required|numeric',
                         'imagen'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
                     ];
                 }
             case 'PUT':{
                 return [
-                    'nombre_producto' => 'required|string|min:4|max:191|unique:productos,nombre_producto,'. $this->route('producto')->id,
-                    'descripcion_producto' => 'nullable|string|min:4|max:191,',
-                    'id_categoria' => 'required|numeric',
+                    'nombre' => 'required|string|min:4|max:191|unique:productos,nombre,'. $this->route('producto')->id,
+                    'descripcion' => 'nullable|string|min:4|max:191,',
+                    'categoria_id' => 'required|numeric',
+                    'unidad_id' => 'required|numeric',
+                    'existencia' => 'required|numeric',
+                    'maximo' => 'required|numeric',
+                    'reorden' => 'required|numeric',
+                    'minimo' => 'required|numeric',
+                    'precio_venta' => 'required|numeric',
+                    'costo' => 'required|numeric',
                     'imagen'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
                 ];
             }

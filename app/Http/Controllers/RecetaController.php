@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Receta;
-use Illuminate\Http\Request;
-use App\DetalleReceta;
 use App\Producto;
+use App\DetalleReceta;
+use App\Plato;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+
 
 class RecetaController extends Controller
 {
@@ -33,8 +36,9 @@ class RecetaController extends Controller
      */
     public function create(Receta $receta)
     {
+        $platos=Plato::all();
         $productos=Producto::all();
-        return view('configuracion.recetas.create',compact('receta','productos'));
+        return view('configuracion.recetas.create',compact('receta','productos','platos'));
     }
 
     /**
@@ -45,11 +49,20 @@ class RecetaController extends Controller
      */
     public function store(Request $request)
     {
-        return ['message'=>'data'];
+        // $receta_id= DB::table('recetas')->insertGetId(
+        //     array('nombre' => $request->nombre, 'descripcion' => $request->nombre)
+        // );
+        // return ['message'=>$receta_id];
         // Receta::create($request->all());
 
         // return redirect()->route('recetas.index')
         // ->with('success', 'Receta Creada!');
+
+        return Receta::create([
+            'nombre'=>$request['nombre'],
+            'descripcion'=>$request['descripcion'],
+            'porciones'=>$request['porciones']
+        ]);
     }
 
     /**

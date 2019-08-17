@@ -3,9 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class DetalleReceta extends Model
 {
+    use SoftDeletes;
+
+    protected $dates=['deleted_at'];
+
     protected $fillable = [
         'receta_id', 'producto_id','unidad_id','cantidad'
     ];

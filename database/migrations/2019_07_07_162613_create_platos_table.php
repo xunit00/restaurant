@@ -21,6 +21,7 @@ class CreatePlatosTable extends Migration
             $table->unsignedBigInteger('id_categoria');
             $table->boolean('status')->default(1);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('id_categoria')->references('id')->on('categorias');
         });

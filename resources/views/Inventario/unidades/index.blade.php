@@ -57,15 +57,13 @@
                     <tr>
                         <th>Nombre</th>
                         <th>Descripcion</th>
-                        <th>Contenido</th>
                         <th>Status</th>
                         <th>Modyfy</th>
                     </tr>
                     @foreach($unidades as $unidade)
                     <tr>
-                        <td>{{$unidade->nombre_unidad}}</td>
-                        <td>{{$unidade->descripcion_unidad}}</td>
-                        <td>{{$unidade->contenido}}</td>
+                        <td>{{$unidade->nombre}}</td>
+                        <td>{{$unidade->descripcion}}</td>
                         <td>
                             <form action="{{route('status.unidad',$unidade->id)}}" method="POST">
                                 @csrf

@@ -17,14 +17,12 @@ class CreateRecetaDetallesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('receta_id');
             $table->unsignedBigInteger('producto_id');
-            $table->unsignedBigInteger('unidad_id');
             $table->decimal('cantidad');
             $table->timestamps();
+            $table->softDeletes();
 
-            // $table->primary(['receta_id','producto_id','unidad_id']);
             $table->foreign('receta_id')->references('id')->on('recetas');
-            $table->foreign('producto_id')->references('producto_id')->on('productos_unidades');
-            $table->foreign('unidad_id')->references('unidad_id')->on('productos_unidades');
+            $table->foreign('producto_id')->references('id')->on('productos');
         });
     }
 

@@ -20,6 +20,7 @@ class CreateComprobanteSecuenciasTable extends Migration
             $table->boolean('status')->default(1);
             $table->date('fecha_vencimiento')->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('tipo_id')->references('id')->on('comprobante_tipos');
         });

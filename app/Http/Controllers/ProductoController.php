@@ -57,6 +57,8 @@ class ProductoController extends Controller
     {
         $categorias = Categoria::whereStatus(1)->pluck('nombre', 'id');
 
+        $unidades = Unidad::whereStatus(1)->pluck('nombre', 'id');
+
         return view('inventario.productos.create', compact('categorias', 'unidades', 'producto'));
     }
 
@@ -68,6 +70,7 @@ class ProductoController extends Controller
      */
     public function store(ProductoRequest $request)
     {
+        // dd($request);
         $formInput = $request->all();
 
         $formInput['imagen'] = $this->verifyAndStoreImage($request, 'imagen','producto');
@@ -137,7 +140,7 @@ class ProductoController extends Controller
     {
         $categorias = Categoria::whereStatus(1)->pluck('nombre', 'id');
 
-        $unidades = Unidad::whereStatus(1)->pluck('nombre_unidad', 'id');
+        $unidades = Unidad::whereStatus(1)->pluck('nombre', 'id');
 
         return view('inventario.productos.edit', compact('producto', 'categorias', 'unidades'));
     }
@@ -218,7 +221,7 @@ class ProductoController extends Controller
 
         $this->deleteImage($producto->imagen);
 
-        $producto->unidad()->detach();
+        // $producto->unidad()->detach();
 
         $producto->delete();
 

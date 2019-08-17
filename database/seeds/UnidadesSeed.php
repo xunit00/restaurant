@@ -13,21 +13,18 @@ class UnidadesSeed extends Seeder
     public function run()
     {
         Unidad::create([
-            'nombre_unidad'=>'Unidad',
-            'contenido'=>'1',
-            'descripcion_unidad'=>'valor unitario'
+            'nombre'=>'Unidad',
+            'descripcion'=>'valor unitario'
         ]);
 
         Unidad::create([
-            'nombre_unidad'=>'Pares',
-            'contenido'=>'2',
-            'descripcion_unidad'=>'paquete de 2 unidades'
+            'nombre'=>'Pares',
+            'descripcion'=>'paquete de 2 unidades'
         ]);
 
         Unidad::create([
-            'nombre_unidad'=>'Libra',
-            'contenido'=>'1',
-            'descripcion_unidad'=>'peso de producto'
+            'nombre'=>'Libra',
+            'descripcion'=>'peso de producto'
         ]);
     }
 }

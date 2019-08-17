@@ -15,11 +15,14 @@ class CreateRecetasTable extends Migration
     {
         Schema::create('recetas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nombre',50)->unique();
+            $table->unsignedBigInteger('plato_id');
             $table->string('descripcion')->nullable();
             $table->decimal('porciones');
             $table->boolean('status')->default(1);
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('plato_id')->references('id')->on('platos');
         });
     }
 
@@ -30,6 +33,8 @@ class CreateRecetasTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('recetas');
+        Schema::enableForeignKeyConstraints();
     }
 }

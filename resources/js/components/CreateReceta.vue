@@ -7,11 +7,15 @@
 
              <div class="form-group">
         <div class="row">
-            <label for="" class="col-md-2">Nombre</label>
-            <div class="col-md-6"><input type="text" name="nombre"
-            v-model="form.nombre"
-                placeholder=""
-                class="form-control"></div>
+            <label for="" class="col-md-2">Plato</label>
+            <div class="col-md-6">
+                 <select class="form-control" v-model="form.plato">
+                    <option disabled value="">Seleccionar Plato</option>
+                    <option v-for="plato in platos" v-bind:key="plato.id"
+                    v-bind:value="plato.id">{{plato.nombre}}</option>
+                </select>
+            </div>
+                    <has-error :form="nombre" field="nombre"></has-error>
             <div class="clearfix"></div>
         </div>
     </div>
@@ -23,6 +27,7 @@
             v-model="form.descripcion"
                 placeholder=""
             class="form-control"></div>
+                    <has-error :form="descripcion" field="descripcion"></has-error>
             <div class="clearfix"></div>
         </div>
     </div>
@@ -34,6 +39,7 @@
             v-model="form.porciones"
                 placeholder=""
             class="form-control"></div>
+                    <has-error :form="porciones" field="porciones"></has-error>
             <div class="clearfix"></div>
         </div>
     </div>
@@ -56,7 +62,7 @@
 
             <div class="col-md-3">
                 <select class="form-control" v-model="detalle.producto">
-                    <option>Seleccionar Producto</option>
+                    <option disabled value="">Seleccionar Producto</option>
                     <option v-for="prod in productos" v-bind:key="prod.id"
                     v-bind:value="prod.id">{{prod.nombre_producto}}</option>
                 </select>
@@ -90,12 +96,12 @@
 </template>
 <script>
 export default {
-    props: ['productos'],
+    props: ['productos','platos'],
     data(){
         return{
             recetas: {}, //object
             form: new Form({
-                nombre:'',
+                plato:'',
                 descripcion:'',
                 porciones:'',
                 detalles:[{
