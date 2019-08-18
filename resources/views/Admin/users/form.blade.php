@@ -12,7 +12,7 @@
             <div class="row">
                 <label for="" class="col-md-3">Dni</label>
                 <div class="col-md-6"><input type="text" name="dni" value="{{$user->dni}}"
-                        class="form-control @error('dni') is-invalid @enderror"
+                    placeholder="Ej: 03600123012" class="form-control @error('dni') is-invalid @enderror"
                         @error('dni') placeholder="{{ $message }}"@enderror></div>
                 <div class="clearfix"></div>
             </div>
@@ -22,7 +22,7 @@
                 <div class="row">
                     <label for="" class="col-md-3">Telefono</label>
                     <div class="col-md-6"><input type="text" name="telefono" value="{{$user->telefono}}"
-                            class="form-control @error('telefono') is-invalid @enderror"
+                        placeholder="Ej: 8091231234" class="form-control @error('telefono') is-invalid @enderror"
                             @error('telefono') placeholder="{{ $message }}"@enderror></div>
                     <div class="clearfix"></div>
                 </div>
@@ -54,7 +54,7 @@
         <div class="row">
             <label for="" class="col-md-3">Correo</label>
             <div class="col-md-6"><input type="text" name="email" value="{{$user->email}}"
-                    class="form-control @error('email') is-invalid @enderror"
+                placeholder="test@mail.com" class="form-control @error('email') is-invalid @enderror"
                     @error('email') placeholder="{{ $message }}"@enderror></div>
             <div class="clearfix"></div>
         </div>

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\User;
 use Spatie\Permission\Models\Role;
 use App\Http\Requests\UserRequest;

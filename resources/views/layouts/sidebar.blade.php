@@ -215,10 +215,21 @@
                     <ul class="nav nav-treeview">
                         @can('read.comprobantes')
                         <li class="nav-item">
-                            <router-link to="/notaventas" tag="a" class="nav-link">
+                            <a href="{{ route('clientes.index') }}"
+                            class="nav-link {{ request()->is('clientes*') ? 'active' : '' }}">
                             <i class="fas fa-circle-notch nav-icon"></i>
-                            <p>Nota Venta</p>
-                            </router-link>
+                            <p>Cliente</p>
+                            <a>
+                        </li>
+                        @endcan
+
+                        @can('read.comprobantes')
+                        <li class="nav-item">
+                            <a href="{{ route('mesas.index') }}"
+                            class="nav-link {{ request()->is('notaventas*') ? 'active' : '' }}">
+                            <i class="fas fa-circle-notch nav-icon"></i>
+                            <p>Nota de Venta</p>
+                            <a>
                         </li>
                         @endcan
 

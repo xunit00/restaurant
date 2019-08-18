@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRequest extends FormRequest
+class ClienteRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,10 +31,7 @@ class UserRequest extends FormRequest
             case 'POST': {
                     return [
                         'name' => 'required|string|min:4|max:191',
-                        'email' => 'required|string|email|max:191|unique:users',
                         'username' => 'required|string|min:4|max:10|unique:users',
-                        'password' => 'required|string|min:6',
-                        'rol' => 'required|numeric',
                         'dni' => 'nullable|string|size:11|unique:users',
                         'telefono' => 'nullable|string|size:10',
                         'direccion' => 'nullable|string',
@@ -43,12 +40,9 @@ class UserRequest extends FormRequest
             case 'PUT':{
                 return [
                     'name' => 'required|string|min:4|max:191',
-                    'email' => 'required|string|email|max:191|unique:users,email,' . $this->route('user')->id,
-                    'username' => 'required|string|min:4|max:10|unique:users,username,'. $this->route('user')->id,
-                    'password' => 'sometimes|required|string|min:6',
-                    'rol' => 'required|numeric',
-                    'dni' => 'nullable|string|size:10|unique:users,dni,' . $this->route('user')->id,
-                    'telefono' => 'nullable|size:10|string',
+                    'username' => 'required|string|min:4|max:10|unique:users,username,'. $this->route('cliente')->id,
+                    'dni' => 'nullable|string|size:11|unique:users,dni,' . $this->route('cliente')->id,
+                    'telefono' => 'nullable|string|size:10',
                     'direccion' => 'nullable|string',
                 ];
             }

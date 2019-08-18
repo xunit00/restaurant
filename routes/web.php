@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
         'platos'=>'PlatoController',
         'areas'=>'AreaController',
         'mesas'=>'MesaController',
+        'clientes'=>'ClienteController',
     ]);
 
     Route::get('/home', 'HomeController@index')->name('home');
@@ -73,6 +74,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/receta', 'RecetaController@search')->name('recetas');
         Route::get('/area', 'AreaController@search')->name('areas');
         Route::get('/mesa', 'MesaController@search')->name('mesas');
+        Route::get('/cliente', 'ClienteController@search')->name('clientes');
     });
 });
 
