@@ -5,6 +5,8 @@ namespace App;
 use App\Traits\SearchTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
+
 
 class Producto extends Model
 {
@@ -12,7 +14,11 @@ class Producto extends Model
 
     use SoftDeletes;
 
+    use SoftCascadeTrait;
+
     protected $dates=['deleted_at'];
+
+    protected $softCascade=['receta'];
 
     protected $fillable = [
         'nombre', 'descripcion','categoria_id',
@@ -30,4 +36,8 @@ class Producto extends Model
         return $this->belongsTo(Unidad::class,'unidad_id');
     }
 
+    function receta()
+    {
+        return $this->hasMany(DetalleReceta::class,'producto_id');
+    }
 }

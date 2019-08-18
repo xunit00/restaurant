@@ -9,6 +9,38 @@
     </div>
 
     <div class="form-group">
+            <div class="row">
+                <label for="" class="col-md-3">Dni</label>
+                <div class="col-md-6"><input type="text" name="dni" value="{{$user->dni}}"
+                        class="form-control @error('dni') is-invalid @enderror"
+                        @error('dni') placeholder="{{ $message }}"@enderror></div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+                <div class="row">
+                    <label for="" class="col-md-3">Telefono</label>
+                    <div class="col-md-6"><input type="text" name="telefono" value="{{$user->telefono}}"
+                            class="form-control @error('telefono') is-invalid @enderror"
+                            @error('telefono') placeholder="{{ $message }}"@enderror></div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+
+        <div class="form-group">
+                <div class="row">
+                    <label for="" class="col-md-3">Direccion</label>
+                    <div class="col-md-6"><input type="text" name="direccion" value="{{$user->direccion}}"
+                            class="form-control @error('direccion') is-invalid @enderror"
+                            @error('direccion') placeholder="{{ $message }}"@enderror></div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+
+    <div class="form-group">
         <div class="row">
             <label for="" class="col-md-3">Usuario</label>
             <div class="col-md-6"><input type="text" name="username" value="{{$user->username}}"

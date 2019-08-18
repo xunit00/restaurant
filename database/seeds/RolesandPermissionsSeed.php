@@ -74,6 +74,8 @@ class RolesandPermissionsSeed extends Seeder
 
         // create roles and assign created permissions
 
+        $role = Role::create(['name' => 'Cliente']);
+
         $role = Role::create(['name' => 'Cajero'])
         ->givePermissionTo(['read.users',
         'create.comprobantes', 'read.comprobantes', 'update.comprobantes', 'delete.comprobantes']);

@@ -55,6 +55,9 @@ class UserController extends Controller
             'email'=>$request['email'],
             'username'=>$request['username'],
             'password'=>Hash::make($request['password']),
+            'dni'=>$request['dni'],
+            'direccion'=>$request['direccion'],
+            'telefono'=>$request['telefono'],
         ]);
         DB::commit();
             $user->assignRole($request->rol);

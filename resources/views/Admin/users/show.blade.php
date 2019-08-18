@@ -26,8 +26,20 @@
         <section class="content">
             <div class="container-fluid mt-3">
                 <div class="form-group">
-                    <strong>Name:</strong>
+                    <strong>Nombre:</strong>
                     {{ $user->name }}
+                </div>
+                <div class="form-group">
+                        <strong>Dni:</strong>
+                        {{ $user->dni }}
+                    </div>
+                <div class="form-group">
+                        <strong>Telefono:</strong>
+                        {{ $user->telefono }}
+                    </div>
+                <div class="form-group">
+                        <strong>Direccion:</strong>
+                        {{ $user->direccion }}
                 </div>
                 <div class="form-group">
                     <strong>Username:</strong>

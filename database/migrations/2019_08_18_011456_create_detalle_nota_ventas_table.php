@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRecetaDetallesTable extends Migration
+class CreateDetalleNotaVentasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,17 @@ class CreateRecetaDetallesTable extends Migration
      */
     public function up()
     {
-        Schema::create('receta_detalles', function (Blueprint $table) {
+        Schema::create('detalle_nota_ventas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('receta_id');
+            $table->unsignedBigInteger('nota_venta_id');
             $table->unsignedBigInteger('producto_id');
             $table->decimal('cantidad');
+            $table->decimal('precio');
+            $table->decimal('descuento')->default(0);
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('receta_id')->references('id')->on('recetas')->onDelete('cascade');
+            $table->foreign('nota_venta_id')->references('id')->on('nota_ventas')->onDelete('cascade');
             $table->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade');
         });
     }
@@ -34,7 +36,7 @@ class CreateRecetaDetallesTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('receta_detalles');
+        Schema::dropIfExists('detalle_nota_ventas');
         Schema::enableForeignKeyConstraints();
     }
 }

@@ -24,7 +24,7 @@ class DetalleReceta extends Model
 
     public function producto()
     {
-        return $this->belongsTo(Producto::class,'producto_id');
+        return $this->hasMany(Producto::class,'producto_id');
     }
 
     public function unidad()

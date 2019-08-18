@@ -34,7 +34,10 @@ class UserRequest extends FormRequest
                         'email' => 'required|string|email|max:191|unique:users',
                         'username' => 'required|string|min:4|max:10|unique:users',
                         'password' => 'required|string|min:6',
-                        'rol' => 'required|numeric'
+                        'rol' => 'required|numeric',
+                        'dni' => 'nullable|string|unique:users',
+                        'telefono' => 'nullable|string',
+                        'direccion' => 'nullable|string',
                     ];
                 }
             case 'PUT':{
@@ -43,7 +46,10 @@ class UserRequest extends FormRequest
                     'email' => 'required|string|email|max:191|unique:users,email,' . $this->route('user')->id,
                     'username' => 'required|string|min:4|max:10|unique:users,username,'. $this->route('user')->id,
                     'password' => 'sometimes|required|string|min:6',
-                    'rol' => 'required|numeric'
+                    'rol' => 'required|numeric',
+                    'dni' => 'nullable|string|unique:users,dni,' . $this->route('user')->id,
+                    'telefono' => 'nullable|string',
+                    'direccion' => 'nullable|string',
                 ];
             }
             case 'PATCH':

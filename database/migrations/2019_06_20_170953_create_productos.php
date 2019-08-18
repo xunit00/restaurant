@@ -29,8 +29,8 @@ class CreateProductos extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('categoria_id')->references('id')->on('categorias');
-            $table->foreign('unidad_id')->references('id')->on('unidades');
+            $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('cascade');
+            $table->foreign('unidad_id')->references('id')->on('unidades')->onDelete('cascade');
         });
     }
 

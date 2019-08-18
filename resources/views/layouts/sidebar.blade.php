@@ -206,6 +206,35 @@
                 </li>
                 @endcanany
 
+                @canany(['read.comprobantes'])
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-shopping-cart"></i>
+                        <p>Ventas<i class="right fa fa-angle-left"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        @can('read.comprobantes')
+                        <li class="nav-item">
+                            <router-link to="/notaventas" tag="a" class="nav-link">
+                            <i class="fas fa-circle-notch nav-icon"></i>
+                            <p>Nota Venta</p>
+                            </router-link>
+                        </li>
+                        @endcan
+
+                        @can('read.comprobantes')
+                        <li class="nav-item">
+                            <a href="{{ route('comprobanteSecuencia.index') }}"
+                            class="nav-link {{ request()->is('comprobanteSecuencia*') ? 'active' : '' }}">
+                            <i class="fas fa-circle-notch nav-icon"></i>
+                            <p>Facturacion C.F</p>
+                            <a>
+                        </li>
+                        @endcan
+                    </ul>
+                </li>
+                @endcanany
+
 
                 </ul>
             </nav>

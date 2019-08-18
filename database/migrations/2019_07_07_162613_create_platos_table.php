@@ -18,12 +18,12 @@ class CreatePlatosTable extends Migration
             $table->string('nombre',50)->unique();
             $table->string('descripcion')->nullable();
             $table->decimal('precio');
-            $table->unsignedBigInteger('id_categoria');
+            $table->unsignedBigInteger('categoria_id');
             $table->boolean('status')->default(1);
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('id_categoria')->references('id')->on('categorias');
+            $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('cascade');
         });
     }
 

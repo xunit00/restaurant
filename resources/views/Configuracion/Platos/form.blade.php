@@ -24,10 +24,10 @@
         <div class="row">
             <label for="" class="col-md-3">Categoria</label>
             <div class="col-md-6">
-                <select name="id_categoria" class="form-control @error('id_categoria') is-invalid @enderror">
+                <select name="categoria_id" class="form-control @error('categoria_id') is-invalid @enderror">
                     <option value="">Seleccionar Categoria</option>
                     @foreach($categorias as $cat=>$value)
-                    @if($plato->id_categoria==$cat)
+                    @if($plato->categoria_id==$cat)
                     <option value="{{$cat}}" selected>{{$value}}</option>
                     @else
                     <option value="{{$cat}}">{{$value}}</option>

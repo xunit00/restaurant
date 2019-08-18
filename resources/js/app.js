@@ -53,8 +53,12 @@ const options = {
 //rutas
 const router = new VueRouter({
     mode: 'history',
-    // routes // short for `routes: routes`
+    routes // short for `routes: routes`
 })
+
+let routes = [
+    { path: '/notaventas', component: require('./components/NotaVenta.vue').default },
+]
 
 /**
  * The following block of code may be used to automatically register your

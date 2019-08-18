@@ -65,8 +65,9 @@
                 <div class="container-fluid">
 
                     <vue-progress-bar></vue-progress-bar>
-
-                    <!--main--> @yield('blade')
+                    <router-view></router-view>
+                    <!--main-->
+                    @yield('blade')
 
                 </div>
                 <!-- /.container-fluid -->

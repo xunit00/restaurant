@@ -32,7 +32,7 @@ class PlatoRequest extends FormRequest
                     return [
                         'nombre' => 'required|string|min:4|max:50|unique:platos',
                         'descripcion' => 'nullable|string|min:4|max:191',
-                        'id_categoria' => 'required|numeric',
+                        'categoria_id' => 'required|numeric',
                         'precio'=>'required|numeric'
                     ];
                 }
@@ -40,7 +40,7 @@ class PlatoRequest extends FormRequest
                 return [
                     'nombre' => 'required|string|min:4|max:50|unique:platos,nombre,'. $this->route('plato')->id,
                     'descripcion' => 'nullable|string|min:4|max:191,',
-                    'id_categoria' => 'required|numeric',
+                    'categoria_id' => 'required|numeric',
                     'precio'=>'nullable|numeric'
                 ];
             }

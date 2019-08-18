@@ -22,7 +22,7 @@ class CreateComprobanteSecuenciasTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('tipo_id')->references('id')->on('comprobante_tipos');
+            $table->foreign('tipo_id')->references('id')->on('comprobante_tipos')->onDelete('cascade');
         });
     }
 
