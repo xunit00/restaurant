@@ -11,6 +11,8 @@ window.Vue = require('vue');
 import BootstrapVue from 'bootstrap-vue'
 Vue.use(BootstrapVue)
 
+import VueRouter from 'vue-router'
+Vue.use(VueRouter)
 
 //validaciones
 import { Form, HasError, AlertError } from 'vform';
@@ -27,7 +29,7 @@ const toast = swal.mixin({
     toast: true,
     position: 'top-end',
     showConfirmButton: false,
-    timer: 5000
+    timer: 1000//5k
 });
 window.toast = toast;
 
@@ -47,6 +49,12 @@ const options = {
     location: 'left',
     inverse: false
 }
+
+//rutas
+const router = new VueRouter({
+    mode: 'history',
+    // routes // short for `routes: routes`
+})
 
 /**
  * The following block of code may be used to automatically register your
@@ -73,6 +81,7 @@ Vue.component('create-receta', require('./components/CreateReceta.vue').default)
 
 const app = new Vue({
     el: '#app',
+    router,
     mounted() {
         Echo.channel('order-tracker')
         .listen('OrderStatusChanged', (e) => {

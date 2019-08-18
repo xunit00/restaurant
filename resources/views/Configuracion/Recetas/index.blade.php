@@ -49,14 +49,14 @@
             <table class="table table-hover">
                 <tbody>
                     <tr>
-                        <th>Nombre</th>
+                        <th>Plato</th>
                         <th>Descripcion</th>
                         <th>Status</th>
                         <th>Modyfy</th>
                     </tr>
                     @foreach($recetas as $rct)
                     <tr>
-                        <td>{{$rct->nombre}}</td>
+                        <td>{{$rct->plato->nombre}}</td>
                         <td>{{$rct->descripcion}}</td>
                         <td>
                             <form action="{{route('status.receta',$rct->id)}}" method="POST">

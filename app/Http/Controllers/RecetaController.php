@@ -9,7 +9,7 @@ use App\Plato;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-
+use App\Http\Requests\RecetaRequest;
 
 class RecetaController extends Controller
 {
@@ -25,7 +25,7 @@ class RecetaController extends Controller
      */
     public function index()
     {
-        $recetas = Receta::latest()->paginate(10);
+        $recetas = Receta::with('plato')->latest()->paginate(10);
 
         return view('configuracion.recetas.index', compact('recetas'));
     }
@@ -48,35 +48,32 @@ class RecetaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RecetaRequest $request)
     {
-        $receta_id= DB::table('recetas')->insertGetId(
-            array('plato_id' => $request->plato,
-            'descripcion' => $request->nombre,
-            'porciones'=> $request->porciones,
-            'created_at'=>Carbon::now(),
-            'updated_at'=>Carbon::now())
-        );
 
-        $productos=$request->detalles;
+            $receta_id= DB::table('recetas')->insertGetId(
+                array('plato_id' => $request->plato,
+                'descripcion' => $request->descripcion,
+                'porciones'=> $request->porciones,
+                'created_at'=>Carbon::now(),
+                'updated_at'=>Carbon::now())
+            );
 
-        foreach($productos as $prod)
-        {
-            DetalleReceta::create([
-                'receta_id'=>$receta_id,
-                'producto_id'=>$prod['producto'],
-                'cantidad'=>$prod['cantidad']
-            ]);
-        }
+            $productos=$request->detalles;
 
-        return ['message'=> 'Receta Creada'];
+            foreach($productos as $prod)
+            {
+                DetalleReceta::create([
+                    'receta_id'=>$receta_id,
+                    'producto_id'=>$prod['producto'],
+                    'cantidad'=>$prod['cantidad']
+                ]);
+            }
 
-        // return [
-        //     'plato'->$request->plato,
-        //     'nombre'->$request->nombre,
-        //     'porciones'->$request->porciones,
-        //     'productos'->$productos,
-        // ];
+
+
+            return ['message'=> 'Receta Creada'];
+
     }
 
     /**

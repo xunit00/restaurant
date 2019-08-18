@@ -9,7 +9,7 @@
         <div class="row">
             <label for="" class="col-md-2">Plato</label>
             <div class="col-md-6">
-                 <select class="form-control" v-model="form.plato"
+                 <select class="form-control" v-model="form.plato" required
                   :class="{ 'is-invalid': form.errors.has('plato') }">
                     <option disabled value="">Seleccionar Plato</option>
                     <option v-for="plato in platos" v-bind:key="plato.id"
@@ -39,7 +39,7 @@
             <div class="col-md-6"><input type="text" name="porciones"
             v-model="form.porciones"
             placeholder="" :class="{ 'is-invalid': form.errors.has('porciones') }"
-            class="form-control"></div>
+            class="form-control" required></div>
                     <has-error :form="form" field="porciones"></has-error>
             <div class="clearfix"></div>
         </div>
@@ -62,17 +62,18 @@
             <label for="" class="col-md-2">Producto ({{index+1}})</label>
 
             <div class="col-md-3">
-                <select class="form-control" v-model="detalle.producto">
+                <select class="form-control" v-model="detalle.producto" required>
                     <option disabled value="">Seleccionar Producto</option>
                     <option v-for="prod in productos" v-bind:key="prod.id"
                     v-bind:value="prod.id">{{prod.nombre}}</option>
                 </select>
+                 <has-error :form="form" field="producto"></has-error>
             </div>
 
             <div class="col-md-3">
             <input type="text" name="cantidad"
-            v-model="detalle.cantidad"
-            placeholder="cantidad" class="form-control">
+            v-model="detalle.cantidad" placeholder="cantidad" class="form-control" required>
+                <has-error :form="form" field="cantidad"></has-error>
             </div>
 
              <div class="col-md-2">
@@ -130,12 +131,21 @@ export default {
                 type: "success",
                 title: "Receta Creada Exitosamente"
             });
-               router.go('/dashboard')
-          this.$Progress.finish();
+            this.$Progress.finish();
+                this.goBack();
         })
         .catch(() => {
           this.$Progress.fail();
+          toast.fire({
+                type: "error",
+                title: "Error en Insercion de Datos"
+            });
         });
+        },
+        goBack(){
+             window.history.length > 1
+        ? this.$router.go(-1)
+        : this.$router.push('/recetas')
         }
     },
     mounted(){

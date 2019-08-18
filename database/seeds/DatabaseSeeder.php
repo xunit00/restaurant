@@ -16,7 +16,9 @@ class DatabaseSeeder extends Seeder
             UsersSeed::class,
             StatusesTable::class,
             CategoriasSeed::class,
-            UnidadesSeed::class
+            UnidadesSeed::class,
+            AreasSeed::class,
+            MesasSeed::class
         ]);
     }
 }
