@@ -28,7 +28,7 @@ class NotaVentaController extends Controller
     public function index()
     {
         $clientes= User::role('Cliente')->get();
-        $categorias=Categoria::with('platos')->get();
+        $categorias=Categoria::with('platos')->whereStatus(1)->get();
         return view('ventas.notaventa.index',compact('clientes','categorias'));
     }
 

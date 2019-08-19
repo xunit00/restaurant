@@ -1951,19 +1951,76 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["clientes", "categorias"],
   data: function data() {
     return {
-      ventas: {},
-      //object
+      disabled: true,
+      platoIdSelected: "",
+      platoSelected: "",
+      precioSelected: "",
       platoByCat: {},
       form: new Form({
         cliente: "",
         detalles: [{
-          platos: "",
+          id: "",
+          plato: "",
           cantidad: "",
-          precion: "",
+          precio: "",
           descuento: ""
         }]
       })
@@ -1973,12 +2030,17 @@ __webpack_require__.r(__webpack_exports__);
     selectPlato: function selectPlato(catId) {
       var _this = this;
 
-      axios.get('/notaVentas/' + catId).then(function (response) {
+      axios.get("/notaVentas/" + catId).then(function (response) {
         _this.platoByCat = response.data;
       });
     },
-    loadPlatoByCat: function loadPlatoByCat() {}
+    loadPlato: function loadPlato(plat) {
+      this.platoSelected = plat.nombre;
+      this.precioSelected = plat.precio;
+    },
+    unlockDesc: function unlockDesc() {}
   },
+  computed: {},
   mounted: function mounted() {
     console.log("Create Nota Venta Mounted");
   }
@@ -80553,9 +80615,7 @@ var render = function() {
         _c("div", { staticClass: "col-md-6" }, [
           _c("div", { staticClass: "form-group" }, [
             _c("div", { staticClass: "row" }, [
-              _c("label", { staticClass: "col-md-3", attrs: { for: "" } }, [
-                _vm._v("Cliente:")
-              ]),
+              _c("label", { staticClass: "col-md-3" }, [_vm._v("Cliente:")]),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-6" }, [
                 _c(
@@ -80652,34 +80712,162 @@ var render = function() {
         ]),
         _vm._v(" "),
         this.platoByCat.length > 0
-          ? _c("div", { staticClass: "container mt-3" }, [
-              _c("div", { staticClass: "card" }, [
-                _c("div", { staticClass: "table-responsive" }, [
-                  _c("table", { staticClass: "table table-borderless" }, [
-                    _c("tbody", [
+          ? _c(
+              "div",
+              { staticClass: "container mt-3", attrs: { id: "platos" } },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("div", { staticClass: "card" }, [
+                  _c("div", { staticClass: "table-responsive" }, [
+                    _c("table", { staticClass: "table table-borderless" }, [
+                      _c("tbody", [
+                        _c(
+                          "tr",
+                          _vm._l(_vm.platoByCat, function(plt) {
+                            return _c(
+                              "td",
+                              { key: plt.id, attrs: { value: plt.id } },
+                              [
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "btn btn-outline-primary mt-2",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.loadPlato(plt)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(plt.nombre))]
+                                )
+                              ]
+                            )
+                          }),
+                          0
+                        )
+                      ])
+                    ])
+                  ])
+                ])
+              ]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _c("div", { staticClass: "container mt-3" }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "table-responsive" }, [
+              _c("table", { staticClass: "table table-border" }, [
+                _c("thead", [
+                  _c("tr", [
+                    _c("td", [_vm._v("Producto")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("Precio")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("Cantidad")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("Descuento")]),
+                    _vm._v(" "),
+                    _c("td", [
                       _c(
-                        "tr",
-                        _vm._l(_vm.platoByCat, function(plt) {
-                          return _c(
-                            "td",
-                            { key: plt.id, attrs: { value: plt.id } },
-                            [
-                              _c(
-                                "a",
-                                { staticClass: "btn btn-outline-primary mt-2" },
-                                [_vm._v(_vm._s(plt.nombre))]
-                              )
-                            ]
-                          )
-                        }),
-                        0
+                        "a",
+                        {
+                          staticClass: "btn btn-outline-warning",
+                          on: {
+                            click: function($event) {
+                              _vm.disabled = !_vm.disabled
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fas fa-lock" })]
                       )
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("tbody", [
+                  _c("tr", [
+                    _c("td", [
+                      _c("input", {
+                        staticClass: "form-control",
+                        attrs: { type: "text", name: "plato", disabled: "" },
+                        domProps: { value: _vm.platoSelected }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        staticClass: "form-control",
+                        attrs: { type: "text", name: "plato", disabled: "" },
+                        domProps: { value: _vm.precioSelected }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.detalles.cantidad,
+                            expression: "form.detalles.cantidad"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", name: "cantidad", required: "" },
+                        domProps: { value: _vm.form.detalles.cantidad },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.form.detalles,
+                              "cantidad",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.detalles.descuento,
+                            expression: "form.detalles.descuento"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          name: "descuento",
+                          disabled: _vm.disabled
+                        },
+                        domProps: { value: _vm.form.detalles.descuento },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.form.detalles,
+                              "descuento",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
                     ])
                   ])
                 ])
               ])
             ])
-          : _vm._e()
+          ])
+        ])
       ])
     ])
   ])
@@ -80692,9 +80880,19 @@ var staticRenderFns = [
     return _c("div", { staticClass: "col-md-6" }, [
       _c("div", { staticClass: "form-group" }, [
         _c("div", { staticClass: "row" }, [
-          _c("label", { staticClass: "col-md-3", attrs: { for: "" } }, [
-            _vm._v("Categorias:")
-          ])
+          _c("label", { staticClass: "col-md-3" }, [_vm._v("Categorias:")])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-6" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("label", { staticClass: "col-md-3" }, [_vm._v("Platos:")])
         ])
       ])
     ])
