@@ -86,10 +86,13 @@
                     <td>Producto</td>
                     <td>Precio</td>
                     <td>Cantidad</td>
-                    <td>Descuento</td>
-                    <td>
-                        <a class="btn btn-outline-warning" @click="disabled = !disabled">
+                    <td>Descuento  <a class="btn btn-outline-warning" @click="disabled = !disabled">
                         <i class="fas fa-lock"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-success" @click="addPlato">
+                        <i class="fas fa-arrow-down"></i>
                         </a>
                     </td>
                   </tr>
@@ -97,10 +100,12 @@
                 <tbody>
                    <tr>
                     <td>
-                        <input type="text" :value="platoSelected" name="plato" class="form-control" disabled>
+                        <input type="text" :value="platoSelected" v-bind="form.plato"
+                        name="plato" class="form-control" disabled>
                     </td>
                     <td>
-                        <input type="text" :value="precioSelected" name="plato" class="form-control" disabled>
+                        <input type="text" :value="precioSelected" v-bind="form.precio"
+                        name="precio" class="form-control" disabled>
                     </td>
                     <td>
                         <input type="text" name="cantidad"
@@ -153,12 +158,19 @@ export default {
       });
     },
     loadPlato(plat) {
+        this.platoIdSelected=plat.id;
         this.platoSelected=plat.nombre;
         this.precioSelected=plat.precio;
     },
-    unlockDesc()
+    addPlato()
     {
-
+        this.form.detalles.push({
+            id:this.platoIdSelected,
+            plato:this.platoSelected,
+            cantidad:this.form.detalles.cantidad,
+            precio:this.precioSelected,
+            descuento:this.form.detalles.descuento
+        })
     }
   },
   computed:{

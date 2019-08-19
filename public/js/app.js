@@ -2005,6 +2005,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["clientes", "categorias"],
   data: function data() {
@@ -2035,10 +2040,19 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     loadPlato: function loadPlato(plat) {
+      this.platoIdSelected = plat.id;
       this.platoSelected = plat.nombre;
       this.precioSelected = plat.precio;
     },
-    unlockDesc: function unlockDesc() {}
+    addPlato: function addPlato() {
+      this.form.detalles.push({
+        id: this.platoIdSelected,
+        plato: this.platoSelected,
+        cantidad: this.form.detalles.cantidad,
+        precio: this.precioSelected,
+        descuento: this.form.detalles.descuento
+      });
+    }
   },
   computed: {},
   mounted: function mounted() {
@@ -80766,9 +80780,8 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", [_vm._v("Cantidad")]),
                     _vm._v(" "),
-                    _c("td", [_vm._v("Descuento")]),
-                    _vm._v(" "),
                     _c("td", [
+                      _vm._v("Descuento  "),
                       _c(
                         "a",
                         {
@@ -80781,6 +80794,17 @@ var render = function() {
                         },
                         [_c("i", { staticClass: "fas fa-lock" })]
                       )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "btn btn-outline-success",
+                          on: { click: _vm.addPlato }
+                        },
+                        [_c("i", { staticClass: "fas fa-arrow-down" })]
+                      )
                     ])
                   ])
                 ]),
@@ -80788,19 +80812,43 @@ var render = function() {
                 _c("tbody", [
                   _c("tr", [
                     _c("td", [
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: { type: "text", name: "plato", disabled: "" },
-                        domProps: { value: _vm.platoSelected }
-                      })
+                      _c(
+                        "input",
+                        _vm._b(
+                          {
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              name: "plato",
+                              disabled: ""
+                            },
+                            domProps: { value: _vm.platoSelected }
+                          },
+                          "input",
+                          _vm.form.plato,
+                          false
+                        )
+                      )
                     ]),
                     _vm._v(" "),
                     _c("td", [
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: { type: "text", name: "plato", disabled: "" },
-                        domProps: { value: _vm.precioSelected }
-                      })
+                      _c(
+                        "input",
+                        _vm._b(
+                          {
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              name: "precio",
+                              disabled: ""
+                            },
+                            domProps: { value: _vm.precioSelected }
+                          },
+                          "input",
+                          _vm.form.precio,
+                          false
+                        )
+                      )
                     ]),
                     _vm._v(" "),
                     _c("td", [
