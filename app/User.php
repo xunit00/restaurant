@@ -43,13 +43,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function isAdmin()
+    function venta()
     {
-        if(auth()->user()->getRoleNames()=='Super-Admin')
-        {
-            return true;
-        }
+        return $this->hasMany(NotaVenta::class);
+    }
 
-        return false;
+    function compras()
+    {
+        return $this->hasMany(NotaVenta::class);
     }
 }

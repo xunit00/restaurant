@@ -72,27 +72,31 @@ class RolesandPermissionsSeed extends Seeder
         Permission::create(['name' => 'create.recetas']);
         Permission::create(['name' => 'read.recetas']);
 
+        Permission::create(['name' => 'update.clientes']);
+        Permission::create(['name' => 'delete.clientes']);
+        Permission::create(['name' => 'create.clientes']);
+        Permission::create(['name' => 'read.clientes']);
+
+        Permission::create(['name' => 'update.notaVenta']);
+        Permission::create(['name' => 'delete.notaVenta']);
+        Permission::create(['name' => 'create.notaVenta']);
+        Permission::create(['name' => 'read.notaVenta']);
+
         // create roles and assign created permissions
 
         $role = Role::create(['name' => 'Cliente']);
 
         $role = Role::create(['name' => 'Cajero'])
-        ->givePermissionTo(['read.users',
+        ->givePermissionTo(['read.clientes','create.clientes','update.clientes',
         'create.comprobantes', 'read.comprobantes', 'update.comprobantes', 'delete.comprobantes']);
 
         $role = Role::create(['name' => 'Mesero'])
         ->givePermissionTo(['create.users', 'read.users']);
 
         $role = Role::create(['name' => 'Gerente'])
-        ->givePermissionTo(['create.users', 'read.users','update.users','delete.users',
-        'create.categorias', 'read.categorias', 'update.categorias', 'delete.categorias',
-        'create.unidades', 'read.unidades', 'update.unidades', 'delete.unidades',
-        'create.productos', 'read.productos', 'update.productos', 'delete.productos',
-        'create.comprobantes', 'read.comprobantes', 'update.comprobantes', 'delete.comprobantes',
-        'create.areas', 'read.areas', 'update.areas', 'delete.areas',
-        'create.mesas', 'read.mesas', 'update.mesas', 'delete.mesas',
-        'create.platos', 'read.platos', 'update.platos', 'delete.platos',
-        'create.recetas', 'read.recetas', 'update.recetas', 'delete.recetas']);
+        ->givePermissionTo(Permission::all())
+        ->revokePermissionTo(['read.role','update.role','delete.role','create.role',
+        'read.permissions','update.permissions','delete.permissions','create.permissions']);
 
         $role = Role::create(['name' => 'Cocinero'])
         ->givePermissionTo(['create.platos', 'read.platos', 'update.platos', 'delete.platos',

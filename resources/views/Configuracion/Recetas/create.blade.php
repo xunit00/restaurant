@@ -20,22 +20,4 @@
 
 <create-receta :productos="{{$productos}}" :platos="{{$platos}}"></create-receta>
 
-{{-- @include('partials.errors-create')
-
-<!-- /.content-header -->
-<div class="card">
-    <section class="content">
-        <div class="container-fluid mt-3">
-            <form action="{{route('recetas.store')}}" method="POST" enctype="multipart/form-data">
-                @csrf
-
-                @include('configuracion.recetas.form')
-
-                <div class="form-group">
-                    <input type="submit" class="btn btn-info" value="Save">
-                </div>
-            </form>
-        </div>
-    </section>
-</div> --}}
 @endsection

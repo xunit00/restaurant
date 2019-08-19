@@ -2,11 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Categoria;
+use App\User;
+use App\Plato;
 use App\NotaVenta;
+use App\Traits\SearchTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class NotaVentaController extends Controller
 {
+    use SearchTrait;
+
+    public function __construct()
+    {
+        $this->middleware(['auth',
+        'permission:update.notaVenta|create.notaVenta|delete.notaVenta|read.notaVenta']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +27,9 @@ class NotaVentaController extends Controller
      */
     public function index()
     {
-        //
+        $clientes= User::role('Cliente')->get();
+        $categorias=Categoria::with('platos')->get();
+        return view('ventas.notaventa.index',compact('clientes','categorias'));
     }
 
     /**
@@ -35,7 +50,7 @@ class NotaVentaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $vendedor= Auth::id();
     }
 
     /**
@@ -44,9 +59,9 @@ class NotaVentaController extends Controller
      * @param  \App\NotaVenta  $notaVenta
      * @return \Illuminate\Http\Response
      */
-    public function show(NotaVenta $notaVenta)
+    public function show($categoria)
     {
-        //
+        return Plato::whereCategoria_id($categoria)->get();
     }
 
     /**

@@ -11,11 +11,11 @@ use App\Http\Requests\ClienteRequest;
 
 class ClienteController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware(['auth',
-    //     'permission:update.users|create.users|delete.users|read.users']);
-    // }
+    public function __construct()
+    {
+        $this->middleware(['auth',
+        'permission:update.clientes|create.clientes|delete.clientes|read.clientes']);
+    }
 
     /**
      * Display a listing of the resource.

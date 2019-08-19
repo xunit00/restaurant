@@ -36,7 +36,7 @@
                         </a>
                     </li>
 
-                     @canany(['read.users','read.permissions','read.role'])
+                     @role('Super-Admin')
                     <li class="nav-item has-treeview">
 
                         <a href="#" class="nav-link">
@@ -76,7 +76,7 @@
 
                         </ul>
                     </li>
-                    @endcanany
+                    @endrole
 
 
                     @canany(['read.categorias','read.unidades','read.productos'])
@@ -206,14 +206,14 @@
                 </li>
                 @endcanany
 
-                @canany(['read.comprobantes'])
+                @canany(['read.clientes','read.notaVenta'])
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-shopping-cart"></i>
                         <p>Ventas<i class="right fa fa-angle-left"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
-                        @can('read.comprobantes')
+                        @can('read.clientes')
                         <li class="nav-item">
                             <a href="{{ route('clientes.index') }}"
                             class="nav-link {{ request()->is('clientes*') ? 'active' : '' }}">
@@ -225,7 +225,7 @@
 
                         @can('read.comprobantes')
                         <li class="nav-item">
-                            <a href="{{ route('mesas.index') }}"
+                            <a href="{{ route('notaVentas.index') }}"
                             class="nav-link {{ request()->is('notaventas*') ? 'active' : '' }}">
                             <i class="fas fa-circle-notch nav-icon"></i>
                             <p>Nota de Venta</p>
@@ -233,7 +233,7 @@
                         </li>
                         @endcan
 
-                        @can('read.comprobantes')
+                        @can('read.notaVenta')
                         <li class="nav-item">
                             <a href="{{ route('comprobanteSecuencia.index') }}"
                             class="nav-link {{ request()->is('comprobanteSecuencia*') ? 'active' : '' }}">

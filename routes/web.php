@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
         'areas'=>'AreaController',
         'mesas'=>'MesaController',
         'clientes'=>'ClienteController',
+        'notaVentas'=>'NotaVentaController',
     ]);
 
     Route::get('/home', 'HomeController@index')->name('home');

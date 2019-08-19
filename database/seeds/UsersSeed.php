@@ -23,6 +23,17 @@ class UsersSeed extends Seeder
         ]);
         $gerente->assignRole('Gerente');
 
+        $cliente=User::create([
+            'name'=>'cliente generico',
+            'dni'=>'000-0000000-0',
+            'telefono'=>'000-000-0000',
+            'direccion'=>'casa',
+            'email'=>'cliente1@test.com',
+            'username'=>'cliente',
+            'password'=>bcrypt('12345678')
+        ]);
+        $cliente->assignRole('Cliente');
+
         $cajero=User::create([
             'name'=>'cajero 1',
             'dni'=>'198-0987506-3',
