@@ -64,10 +64,7 @@
                 <tbody>
                   <tr>
                     <td v-for="plt in platoByCat" v-bind:key="plt.id" v-bind:value="plt.id">
-                      <a
-                        class="btn btn-outline-primary mt-2"
-                        @click="loadPlato(plt)"
-                      >{{plt.nombre}}</a>
+                      <a class="btn btn-outline-primary mt-2" @click="loadPlato(plt)">{{plt.nombre}}</a>
                     </td>
                   </tr>
                 </tbody>
@@ -83,7 +80,8 @@
               <table class="table table-border">
                 <thead>
                   <tr>
-                    <td>Producto</td>
+                    <td>Opcion</td>
+                    <td>Nombre</td>
                     <td>Precio</td>
                     <td>Cantidad</td>
                     <td>Descuento  <a class="btn btn-outline-warning" @click="disabled = !disabled">
@@ -96,24 +94,43 @@
                         </a>
                     </td>
                   </tr>
+                    <tr>
+                    <td>
+                        <h3>Plato:</h3>
+                    </td>
+                    <td>
+                        <input type="text" name="plato" class="form-control" v-model="plato" disabled>
+                    </td>
+                    <td>
+                        <input type="text" name="precio" class="form-control" v-model="precio" disabled>
+                    </td>
+                    <td>
+                        <input type="text" name="cantidad" class="form-control" v-model="cantidad" required>
+                    </td>
+                    <td>
+                        <input type="text" name="descuento" class="form-control" v-model="descuento"  :disabled="disabled">
+                    </td>
+                    <td></td>
+                  </tr>
                 </thead>
                 <tbody>
-                   <tr>
+                   <tr v-for="(detalle,index) in arrayDetalle" v-bind:key="detalle.id">
                     <td>
-                        <input type="text" :value="platoSelected" v-bind="form.plato"
-                        name="plato" class="form-control" disabled>
+                        <button @click="eliminarDetalle(index)" type="button" class="btn btn-outline-danger btn-sm">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                    <td v-text="detalle.plato">
+
                     </td>
                     <td>
-                        <input type="text" :value="precioSelected" v-bind="form.precio"
-                        name="precio" class="form-control" disabled>
+                        <input v-model="detalle.precio" type="number" value="3" class="form-control">
                     </td>
                     <td>
-                        <input type="text" name="cantidad"
-                        v-model="form.detalles.cantidad" class="form-control" required>
+                        <input v-model="detalle.cantidad" type="number" value="3" class="form-control">
                     </td>
                     <td>
-                        <input type="text" name="descuento"
-                        v-model="form.detalles.descuento" class="form-control" :disabled="disabled">
+                        {{detalle.precio * detalle.cantidad}}
                     </td>
                   </tr>
                 </tbody>
@@ -133,21 +150,22 @@ export default {
   data() {
     return {
         disabled: true,
-        platoIdSelected:"",
-        platoSelected: "",
-        precioSelected:"",
         platoByCat: {},
+        id:'',
+        plato: '',
+        cantidad: '',
+        precio: '',
+        descuento: '',
+        arrayDetalle:[],
         form: new Form({
-            cliente: "",
-            detalles: [
-            {
-                id:"",
-                plato: "",
-                cantidad: "",
-                precio: "",
-                descuento: ""
-            }
-            ]
+            cliente: '',
+            detalles: [{
+                id:'',
+                plato: '',
+                cantidad: '',
+                precio: '',
+                descuento: ''
+            }]
         })
     };
 },
@@ -158,19 +176,25 @@ export default {
       });
     },
     loadPlato(plat) {
-        this.platoIdSelected=plat.id;
-        this.platoSelected=plat.nombre;
-        this.precioSelected=plat.precio;
+        this.id=plat.id;
+        this.plato=plat.nombre;
+        this.precio=plat.precio;
     },
     addPlato()
     {
-        this.form.detalles.push({
-            id:this.platoIdSelected,
-            plato:this.platoSelected,
-            cantidad:this.form.detalles.cantidad,
-            precio:this.precioSelected,
-            descuento:this.form.detalles.descuento
-        })
+        let me=this;
+        me.arrayDetalle.push({
+            id: me.id,
+            plato: me.plato,
+            cantidad: me.cantidad,
+            precio: me.precio,
+            descuento: me.descuento
+    })
+
+    },
+    eliminarDetalle(index){
+        let me=this;
+        me.arrayDetalle.splice(index,1)
     }
   },
   computed:{
