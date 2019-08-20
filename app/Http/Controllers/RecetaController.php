@@ -15,8 +15,10 @@ class RecetaController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth',
-        'permission:update.recetas|create.recetas|delete.recetas|read.recetas']);
+        $this->middleware([
+            'auth',
+            'permission:update.recetas|create.recetas|delete.recetas|read.recetas'
+        ]);
     }
     /**
      * Display a listing of the resource.
@@ -37,9 +39,9 @@ class RecetaController extends Controller
      */
     public function create(Receta $receta)
     {
-        $platos=Plato::all();
-        $productos=Producto::all();
-        return view('configuracion.recetas.create',compact('receta','productos','platos'));
+        $platos = Plato::all();
+        $productos = Producto::all();
+        return view('configuracion.recetas.create', compact('receta', 'productos', 'platos'));
     }
 
     /**
@@ -50,30 +52,34 @@ class RecetaController extends Controller
      */
     public function store(RecetaRequest $request)
     {
-
-            $receta_id= DB::table('recetas')->insertGetId(
-                array('plato_id' => $request->plato,
-                'descripcion' => $request->descripcion,
-                'porciones'=> $request->porciones,
-                'created_at'=>Carbon::now(),
-                'updated_at'=>Carbon::now())
+        DB::beginTransaction();
+        try {
+            $receta_id = DB::table('recetas')->insertGetId(
+                array(
+                    'plato_id' => $request->plato,
+                    'descripcion' => $request->descripcion,
+                    'porciones' => $request->porciones,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                )
             );
 
-            $productos=$request->detalles;
+            $productos = $request->detalles;
 
-            foreach($productos as $prod)
-            {
+            foreach ($productos as $prod) {
                 DetalleReceta::create([
-                    'receta_id'=>$receta_id,
-                    'producto_id'=>$prod['producto'],
-                    'cantidad'=>$prod['cantidad']
+                    'receta_id' => $receta_id,
+                    'producto_id' => $prod['producto'],
+                    'cantidad' => $prod['cantidad']
                 ]);
             }
+            DB::commit();
 
+            return ['message' => 'Receta Creada'];
 
-
-            return ['message'=> 'Receta Creada'];
-
+        } catch (\Throwable $th) {
+            DB::rollBack();
+        }
     }
 
     /**
@@ -95,7 +101,7 @@ class RecetaController extends Controller
      */
     public function edit(Receta $receta)
     {
-        return view('configuracion.recetas.create',compact('receta'));
+        return view('configuracion.recetas.create', compact('receta'));
     }
 
     /**
@@ -106,15 +112,14 @@ class RecetaController extends Controller
      */
     public function update_status(Receta $receta)
     {
-        if($receta->status==1){
-            $receta->update(['status'=>0]);
-        }
-        else{
-            $receta->update(['status'=>1]);
+        if ($receta->status == 1) {
+            $receta->update(['status' => 0]);
+        } else {
+            $receta->update(['status' => 1]);
         }
 
         return redirect()->route('recetas.index')
-        ->with('success','Receta Actualizada Correctamente');
+            ->with('success', 'Receta Actualizada Correctamente');
     }
 
     /**
@@ -140,6 +145,6 @@ class RecetaController extends Controller
         $receta->delete();
 
         return redirect()->route('recetas.index')
-        ->with('success','Receta Eliminada Correctamente');
+            ->with('success', 'Receta Eliminada Correctamente');
     }
 }
