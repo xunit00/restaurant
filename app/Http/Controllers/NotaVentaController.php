@@ -50,7 +50,8 @@ class NotaVentaController extends Controller
      */
     public function store(Request $request)
     {
-        $vendedor= Auth::id();
+        return ['message'=>'controller'];
+        // $vendedor= Auth::id();
     }
 
     /**

@@ -2027,26 +2027,86 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["clientes", "categorias"],
   data: function data() {
     return {
       disabled: true,
       platoByCat: {},
-      id: '',
-      plato: '',
-      cantidad: '',
-      precio: '',
-      descuento: '',
-      arrayDetalle: [],
+      id: "",
+      plato: "",
+      cantidad: "",
+      precio: "",
+      descuento: "",
       form: new Form({
-        cliente: '',
+        cliente: "",
+        total: "",
         detalles: [{
-          id: '',
-          plato: '',
-          cantidad: '',
-          precio: '',
-          descuento: ''
+          id: "",
+          plato: "",
+          cantidad: "",
+          precio: "",
+          descuento: ""
         }]
       })
     };
@@ -2066,21 +2126,80 @@ __webpack_require__.r(__webpack_exports__);
     },
     addPlato: function addPlato() {
       var me = this;
-      me.arrayDetalle.push({
-        id: me.id,
-        plato: me.plato,
-        cantidad: me.cantidad,
-        precio: me.precio,
-        descuento: me.descuento
-      });
+
+      if (me.id == 0 || me.cantidad == 0 || me.precio == 0) {
+        toast.fire({
+          type: "warning",
+          title: "Debe introducir el Articulo y la Cantidad"
+        });
+      } else {
+        if (me.findArtRepetido(me.id)) {
+          toast.fire({
+            type: "warning",
+            title: "Receta Creada Exitosamente"
+          });
+        } else {
+          me.form.detalles.push({
+            id: me.id,
+            plato: me.plato,
+            cantidad: me.cantidad,
+            precio: me.precio,
+            descuento: me.descuento
+          });
+          me.id = 0, me.plato = "", me.cantidad = 0, me.precio = 0, me.descuento = 0;
+        }
+      }
     },
     eliminarDetalle: function eliminarDetalle(index) {
       var me = this;
-      me.arrayDetalle.splice(index, 1);
+      me.form.detalles.splice(index, 1);
+    },
+    findArtRepetido: function findArtRepetido(id) {
+      var sw = 0;
+
+      for (var i = 0; i < this.form.detalles.length; i++) {
+        if (this.form.detalles[i].id == id) {
+          sw = true;
+        }
+      }
+
+      return false;
+    },
+    calcularTotal: function calcularTotal() {
+      var resultado = 0.0;
+
+      for (var i = 0; i < this.form.detalles.length; i++) {
+        resultado = resultado + this.form.detalles[i].precio * this.form.detalles[i].cantidad;
+      }
+
+      return resultado;
+    },
+    facturar: function facturar() {
+      var _this2 = this;
+
+      if (this.form.cliente == 0) {
+        toast.fire({
+          type: "warning",
+          title: "Debe introducir un Articulo y/o Cliente"
+        });
+      } else {
+        this.$Progress.start();
+        this.form.post("/notaVentas").then(function () {
+          toast.fire({
+            type: "success",
+            title: "Nota de VentaRegistrada!"
+          });
+
+          _this2.$Progress.finish();
+        })["catch"](function () {
+          _this2.$Progress.fail();
+        });
+      }
     }
   },
   computed: {},
   mounted: function mounted() {
+    this.eliminarDetalle(0);
     console.log("Create Nota Venta Mounted");
   }
 });
@@ -80808,7 +80927,9 @@ var render = function() {
                     _c("td", [_vm._v("Cantidad")]),
                     _vm._v(" "),
                     _c("td", [
-                      _vm._v("Descuento  "),
+                      _vm._v(
+                        "\n                    Descuento\n                    "
+                      ),
                       _c(
                         "a",
                         {
@@ -80938,93 +81059,183 @@ var render = function() {
                       })
                     ]),
                     _vm._v(" "),
-                    _c("td")
+                    _vm._m(3)
                   ])
                 ]),
                 _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(_vm.arrayDetalle, function(detalle, index) {
-                    return _c("tr", { key: detalle.id }, [
-                      _c("td", [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-outline-danger btn-sm",
-                            attrs: { type: "button" },
-                            on: {
-                              click: function($event) {
-                                return _vm.eliminarDetalle(index)
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-trash" })]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", {
-                        domProps: { textContent: _vm._s(detalle.plato) }
-                      }),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: detalle.precio,
-                              expression: "detalle.precio"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "number", value: "3" },
-                          domProps: { value: detalle.precio },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(detalle, "precio", $event.target.value)
-                            }
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: detalle.cantidad,
-                              expression: "detalle.cantidad"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "number", value: "3" },
-                          domProps: { value: detalle.cantidad },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(detalle, "cantidad", $event.target.value)
-                            }
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          "\n                      " +
-                            _vm._s(detalle.precio * detalle.cantidad) +
-                            "\n                  "
-                        )
-                      ])
-                    ])
-                  }),
-                  0
-                )
+                _vm.form.detalles.length
+                  ? _c(
+                      "tbody",
+                      [
+                        _vm._l(_vm.form.detalles, function(detalle, index) {
+                          return _c("tr", { key: detalle.id }, [
+                            _c("td", [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-outline-danger btn-sm",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.eliminarDetalle(index)
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-trash" })]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: { textContent: _vm._s(detalle.plato) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: detalle.precio,
+                                    expression: "detalle.precio"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "number",
+                                  value: "3",
+                                  disabled: ""
+                                },
+                                domProps: { value: detalle.precio },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      detalle,
+                                      "precio",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: detalle.cantidad,
+                                    expression: "detalle.cantidad"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "number",
+                                  value: "3",
+                                  disabled: ""
+                                },
+                                domProps: { value: detalle.cantidad },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      detalle,
+                                      "cantidad",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: detalle.descuento,
+                                    expression: "detalle.descuento"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "number",
+                                  value: "3",
+                                  disabled: ""
+                                },
+                                domProps: { value: detalle.descuento },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      detalle,
+                                      "descuento",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(
+                                  detalle.precio * detalle.cantidad -
+                                    detalle.descuento
+                                )
+                              )
+                            ])
+                          ])
+                        }),
+                        _vm._v(" "),
+                        _c("tr", { staticClass: "table-warning" }, [
+                          _vm._m(4),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(
+                              "$ " + _vm._s((this.total = _vm.calcularTotal()))
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("tr", [
+                          _c(
+                            "td",
+                            { attrs: { colspan: "5", align: "right" } },
+                            [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-outline-success",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.facturar()
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v("\n                      Facturar"),
+                                  _c("i", {
+                                    staticClass: "fas fa-shopping-cart"
+                                  })
+                                ]
+                              )
+                            ]
+                          )
+                        ])
+                      ],
+                      2
+                    )
+                  : _c("tbody", [_vm._m(5)])
               ])
             ])
           ])
@@ -81063,6 +81274,30 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("td", [_c("h3", [_vm._v("Plato:")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [_c("h3", [_vm._v("Sub-Total")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { attrs: { colspan: "5", align: "right" } }, [
+      _c("strong", [_vm._v("Total Neto:")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", { attrs: { colspan: "5" } }, [
+        _vm._v("NO hay artículos agregados")
+      ])
+    ])
   }
 ]
 render._withStripped = true
@@ -96406,7 +96641,7 @@ var toast = sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.mixin({
   toast: true,
   position: 'top-end',
   showConfirmButton: false,
-  timer: 1000 //5k
+  timer: 5000 //5k
 
 });
 window.toast = toast; //progress bar
