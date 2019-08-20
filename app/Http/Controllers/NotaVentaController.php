@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Categoria;
 use App\User;
 use App\Plato;
 use App\NotaVenta;
+use Carbon\Carbon;
+use App\Categoria;
+use App\DetalleNotaVenta;
 use App\Traits\SearchTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class NotaVentaController extends Controller
@@ -16,8 +19,10 @@ class NotaVentaController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['auth',
-        'permission:update.notaVenta|create.notaVenta|delete.notaVenta|read.notaVenta']);
+        $this->middleware([
+            'auth',
+            'permission:update.notaVenta|create.notaVenta|delete.notaVenta|read.notaVenta'
+        ]);
     }
 
     /**
@@ -27,9 +32,9 @@ class NotaVentaController extends Controller
      */
     public function index()
     {
-        $clientes= User::role('Cliente')->get();
-        $categorias=Categoria::with('platos')->whereStatus(1)->get();
-        return view('ventas.notaventa.index',compact('clientes','categorias'));
+        $clientes = User::role('Cliente')->get();
+        $categorias = Categoria::with('platos')->whereStatus(1)->get();
+        return view('ventas.notaventa.index', compact('clientes', 'categorias'));
     }
 
     /**
@@ -50,8 +55,38 @@ class NotaVentaController extends Controller
      */
     public function store(Request $request)
     {
-        return ['message'=>'controller'];
-        // $vendedor= Auth::id();
+        try {
+            DB::beginTransaction();
+
+            $notaVenta_id = DB::table('nota_ventas')->insertGetId(
+                array(
+                    'cliente_id' => $request->cliente,
+                    'usuario_id' => Auth::id(),
+                    'fecha' => Carbon::now(),
+                    'total' => $request->total,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                )
+            );
+
+            $productos = $request->detalles;
+
+            foreach ($productos as $prod) {
+                $detalle = new DetalleNotaVenta();
+                $detalle->nota_venta_id = $notaVenta_id;
+                $detalle->producto_id = $prod['id'];
+                $detalle->cantidad = $prod['cantidad'];
+                $detalle->precio = $prod['precio'];
+                $detalle->descuento = $prod['descuento'];
+                $detalle->save();
+            }
+            DB::commit();
+
+            return ['Mensaje'=>'Nota de Venta Insertada'];
+
+        } catch (Exception $e) {
+            DB::rollBack();
+        }
     }
 
     /**

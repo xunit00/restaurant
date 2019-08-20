@@ -19,12 +19,12 @@ class CreateDetalleNotaVentasTable extends Migration
             $table->unsignedBigInteger('producto_id');
             $table->decimal('cantidad');
             $table->decimal('precio');
-            $table->decimal('descuento')->default(0);
+            $table->decimal('descuento')->default(0.0);
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('nota_venta_id')->references('id')->on('nota_ventas')->onDelete('cascade');
-            $table->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade');
+            $table->foreign('producto_id')->references('id')->on('platos')->onDelete('cascade');
         });
     }
 

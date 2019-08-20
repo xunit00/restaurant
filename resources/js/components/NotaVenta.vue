@@ -179,7 +179,7 @@
                   </tr>
                   <tr class="table-warning">
                     <td colspan="5" align="right"><strong>Total Neto:</strong></td>
-                    <td >$ {{this.total=calcularTotal()}}</td>
+                    <td >$ {{this.form.total=calcularTotal()}}</td>
                   </tr>
                   <tr>
                     <td colspan="5" align="right">
@@ -211,21 +211,21 @@ export default {
     return {
       disabled: true,
       platoByCat: {},
-      id: "",
+      id: 0,
       plato: "",
-      cantidad: "",
-      precio: "",
-      descuento: "",
+      cantidad: 0,
+      precio: 0.0,
+      descuento: 0.0,
       form: new Form({
-        cliente: "",
-        total:"",
+        cliente: 0,
+        total:0.0,
         detalles: [
           {
-            id: "",
+            id: 0,
             plato: "",
-            cantidad: "",
-            precio: "",
-            descuento: ""
+            cantidad: 0,
+            precio: 0.0,
+            descuento: 0.0
           }
         ]
       })
@@ -287,20 +287,29 @@ export default {
     },
     facturar(){
         if (this.form.cliente == 0) {
-        toast.fire({ type: "warning", title: "Debe introducir un Articulo y/o Cliente" });
+        toast.fire({ type: "warning", title: "Debe introducir un Cliente" });
       }else{
         this.$Progress.start();
         this.form
         .post("/notaVentas")
+        // axios.post('/notaVentas',{
+        //     'cliente': this.form.cliente,
+        //     'total': this.form.total,
+        //     'detalles' : this.form.detalles,
+        // })
         .then(() => {
           toast.fire({
             type: "success",
-            title: "Nota de VentaRegistrada!"
+            title: "Nota de Venta Registrada!"
           });
-          this.$Progress.finish();
+        //   this.$Progress.finish();
         })
         .catch(() => {
-          this.$Progress.fail();
+             toast.fire({
+            type: "error",
+            title: "Error al Registrar Venta!"
+          });
+        //   this.$Progress.fail();
         });
 
       }

@@ -32,4 +32,9 @@ class Plato extends Model
     {
         return $this->hasOne(Receta::class);
     }
+
+    function detalleNotaVenta()
+    {
+        return $this->hasMany(DetalleNotaVenta::class);
+    }
 }

@@ -40,9 +40,4 @@ class Producto extends Model
     {
         return $this->hasMany(DetalleReceta::class,'producto_id');
     }
-
-    function detalleNotaVenta()
-    {
-        return $this->hasMany(DetalleNotaVenta::class);
-    }
 }

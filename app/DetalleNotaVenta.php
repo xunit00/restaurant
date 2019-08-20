@@ -22,6 +22,6 @@ class DetalleNotaVenta extends Model
 
     function productos()
     {
-        return $this->belongsTo(Producto::class,'producto_id');
+        return $this->belongsTo(Plato::class,'producto_id');
     }
 }

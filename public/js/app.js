@@ -2093,20 +2093,20 @@ __webpack_require__.r(__webpack_exports__);
     return {
       disabled: true,
       platoByCat: {},
-      id: "",
+      id: 0,
       plato: "",
-      cantidad: "",
-      precio: "",
-      descuento: "",
+      cantidad: 0,
+      precio: 0.0,
+      descuento: 0.0,
       form: new Form({
-        cliente: "",
-        total: "",
+        cliente: 0,
+        total: 0.0,
         detalles: [{
-          id: "",
+          id: 0,
           plato: "",
-          cantidad: "",
-          precio: "",
-          descuento: ""
+          cantidad: 0,
+          precio: 0.0,
+          descuento: 0.0
         }]
       })
     };
@@ -2175,24 +2175,28 @@ __webpack_require__.r(__webpack_exports__);
       return resultado;
     },
     facturar: function facturar() {
-      var _this2 = this;
-
       if (this.form.cliente == 0) {
         toast.fire({
           type: "warning",
-          title: "Debe introducir un Articulo y/o Cliente"
+          title: "Debe introducir un Cliente"
         });
       } else {
         this.$Progress.start();
-        this.form.post("/notaVentas").then(function () {
+        this.form.post("/notaVentas") // axios.post('/notaVentas',{
+        //     'cliente': this.form.cliente,
+        //     'total': this.form.total,
+        //     'detalles' : this.form.detalles,
+        // })
+        .then(function () {
           toast.fire({
             type: "success",
-            title: "Nota de VentaRegistrada!"
-          });
-
-          _this2.$Progress.finish();
+            title: "Nota de Venta Registrada!"
+          }); //   this.$Progress.finish();
         })["catch"](function () {
-          _this2.$Progress.fail();
+          toast.fire({
+            type: "error",
+            title: "Error al Registrar Venta!"
+          }); //   this.$Progress.fail();
         });
       }
     }
@@ -81201,7 +81205,8 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", [
                             _vm._v(
-                              "$ " + _vm._s((this.total = _vm.calcularTotal()))
+                              "$ " +
+                                _vm._s((this.form.total = _vm.calcularTotal()))
                             )
                           ])
                         ]),
