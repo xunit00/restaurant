@@ -22,7 +22,7 @@
         </div>
       </div>
 
-      <div class="card-body box-profile table-responsive p-0">
+      <div class="card-body box-profile table-responsive p-0" v-if="form.cliente >0">
         <div class="container mt-3">
           <div class="col-md-6">
             <div class="form-group">
@@ -72,7 +72,10 @@
             </div>
           </div>
         </div>
-        <!--.container-->
+        <div class="container mt-3" v-else>
+          <h3>Seleccione Una Categoria Valida</h3>
+        </div>
+        <!--.container donde se muestran los platos segun categoria-->
 
         <div class="container mt-3">
           <div class="card">
@@ -178,13 +181,16 @@
                     <td>{{(detalle.precio * detalle.cantidad)-detalle.descuento}}</td>
                   </tr>
                   <tr class="table-warning">
-                    <td colspan="5" align="right"><strong>Total Neto:</strong></td>
-                    <td >$ {{this.form.total=calcularTotal()}}</td>
+                    <td colspan="5" align="right">
+                      <strong>Total Neto:</strong>
+                    </td>
+                    <td>$ {{this.form.total=calcularTotal()}}</td>
                   </tr>
                   <tr>
                     <td colspan="5" align="right">
-                        <button @click="facturar()" type="button" class="btn btn-outline-success">
-                        Facturar<i class="fas fa-shopping-cart"></i>
+                      <button @click="facturar()" type="button" class="btn btn-outline-success">
+                        Facturar
+                        <i class="fas fa-shopping-cart"></i>
                       </button>
                     </td>
                   </tr>
@@ -198,9 +204,20 @@
             </div>
           </div>
         </div>
-        <!--.container-->
+        <!--.container donde esta la tabla de detalles de venta-->
       </div>
-      <!--.card-body-->
+      <!--.card-body donde esta las categorias y platos-->
+      <div class="card-body box-profile table-responsive p-0" v-else>
+        <div class="container mt-3">
+          <div class="col-md-12">
+            <div class="form-group">
+              <div class="row">
+                <label class="col-md-3">Seleccione un Cliente</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -218,7 +235,7 @@ export default {
       descuento: 0.0,
       form: new Form({
         cliente: 0,
-        total:0.0,
+        total: 0.0,
         detalles: [
           {
             id: 0,
@@ -245,7 +262,10 @@ export default {
     addPlato() {
       let me = this;
       if (me.id == 0 || me.cantidad == 0 || me.precio == 0) {
-        toast.fire({ type: "warning", title: "Debe introducir el Articulo y la Cantidad" });
+        toast.fire({
+          type: "warning",
+          title: "Debe introducir el Articulo y la Cantidad"
+        });
       } else {
         if (me.findArtRepetido(me.id)) {
           toast.fire({ type: "warning", title: "Receta Creada Exitosamente" });
@@ -278,41 +298,71 @@ export default {
       }
       return false;
     },
-    calcularTotal(){
-        var resultado=0.0;
-        for(var i=0;i<this.form.detalles.length;i++){
-            resultado=resultado+(this.form.detalles[i].precio*this.form.detalles[i].cantidad)
-        }
-            return resultado;
+    calcularTotal() {
+      var resultado = 0.0;
+      for (var i = 0; i < this.form.detalles.length; i++) {
+        resultado =
+          resultado +
+          this.form.detalles[i].precio * this.form.detalles[i].cantidad;
+      }
+      return resultado;
     },
-    facturar(){
-        if (this.form.cliente == 0) {
+    facturar() {
+      if (this.form.cliente == 0) {
+        //valida que se tenga un cliente seleccionado
         toast.fire({ type: "warning", title: "Debe introducir un Cliente" });
-      }else{
+      } else {
         this.$Progress.start();
         this.form
-        .post("/notaVentas")
-        // axios.post('/notaVentas',{
-        //     'cliente': this.form.cliente,
-        //     'total': this.form.total,
-        //     'detalles' : this.form.detalles,
-        // })
-        .then(() => {
-          toast.fire({
-            type: "success",
-            title: "Nota de Venta Registrada!"
+          .post("/notaVentas")
+          .then(() => {
+            toast.fire({
+              type: "success",
+              title: "Nota de Venta Registrada!"
+            });
+            this.$Progress.finish();
+            this.nuevaVenta();//clear form
+            //pregunta si  se imprime una factura
+            swal
+              .fire({
+                title: "Accion Requerida",
+                text: "Desea Imprimir una Factura para esta Compra?",
+                type: "info",
+                showCancelButton: true,
+                cancelButtonText: "No",
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Si, Imprimir!"
+              })
+              .then(result => {
+                if (result.value) {
+                  //se imprime
+                  toast.fire({
+                    type: "success",
+                    title: "Imprimiendo!"
+                  });
+                } else if (result.dismiss === swal.DismissReason.cancel) {
+                  //no se imprime
+                  toast.fire({
+                    type: "warning",
+                    title: "Cancelado!"
+                  });
+                }
+              });
+          })
+          .catch(() => {
+            toast.fire({
+              type: "error",
+              title: "Error al Registrar Venta!"
+            });
+            this.$Progress.fail();
           });
-        //   this.$Progress.finish();
-        })
-        .catch(() => {
-             toast.fire({
-            type: "error",
-            title: "Error al Registrar Venta!"
-          });
-        //   this.$Progress.fail();
-        });
-
       }
+    },
+    nuevaVenta() {
+      this.form.cliente= 0,
+        this.form.total= 0.0,
+        this.form.detalles.length = 0;
     }
   },
   computed: {},

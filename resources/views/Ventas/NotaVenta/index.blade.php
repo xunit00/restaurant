@@ -19,6 +19,8 @@
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
+    <vue-progress-bar></vue-progress-bar>
+
 <nota-venta :clientes="{{$clientes}}" :categorias="{{$categorias}}"></nota-venta>
 </div>
 @endsection

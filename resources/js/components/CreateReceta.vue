@@ -132,7 +132,7 @@ export default {
                 title: "Receta Creada Exitosamente"
             });
             this.$Progress.finish();
-                this.goBack();
+                this.clearForm();
         })
         .catch(() => {
           this.$Progress.fail();
@@ -142,10 +142,11 @@ export default {
             });
         });
         },
-        goBack(){
-             window.history.length > 1
-        ? this.$router.go(-1)
-        : this.$router.push('/recetas')
+        clearForm(){
+            this.form.plato='',
+               this.form. descripcion='',
+               this.form. porciones='',
+               this.form. detalles.length=0;
         }
     },
     mounted(){

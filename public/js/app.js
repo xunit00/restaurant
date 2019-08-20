@@ -1851,7 +1851,7 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.$Progress.finish();
 
-        _this.goBack();
+        _this.clearForm();
       })["catch"](function () {
         _this.$Progress.fail();
 
@@ -1861,8 +1861,8 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     },
-    goBack: function goBack() {
-      window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/recetas');
+    clearForm: function clearForm() {
+      this.form.plato = '', this.form.descripcion = '', this.form.porciones = '', this.form.detalles.length = 0;
     }
   },
   mounted: function mounted() {
@@ -1881,6 +1881,23 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2175,30 +2192,64 @@ __webpack_require__.r(__webpack_exports__);
       return resultado;
     },
     facturar: function facturar() {
+      var _this2 = this;
+
       if (this.form.cliente == 0) {
+        //valida que se tenga un cliente seleccionado
         toast.fire({
           type: "warning",
           title: "Debe introducir un Cliente"
         });
       } else {
         this.$Progress.start();
-        this.form.post("/notaVentas") // axios.post('/notaVentas',{
-        //     'cliente': this.form.cliente,
-        //     'total': this.form.total,
-        //     'detalles' : this.form.detalles,
-        // })
-        .then(function () {
+        this.form.post("/notaVentas").then(function () {
           toast.fire({
             type: "success",
             title: "Nota de Venta Registrada!"
-          }); //   this.$Progress.finish();
+          });
+
+          _this2.$Progress.finish();
+
+          _this2.nuevaVenta(); //clear form
+          //pregunta si  se imprime una factura
+
+
+          swal.fire({
+            title: "Accion Requerida",
+            text: "Desea Imprimir una Factura para esta Compra?",
+            type: "info",
+            showCancelButton: true,
+            cancelButtonText: "No",
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Si, Imprimir!"
+          }).then(function (result) {
+            if (result.value) {
+              //se imprime
+              toast.fire({
+                type: "success",
+                title: "Imprimiendo!"
+              });
+            } else if (result.dismiss === swal.DismissReason.cancel) {
+              //no se imprime
+              toast.fire({
+                type: "warning",
+                title: "Cancelado!"
+              });
+            }
+          });
         })["catch"](function () {
           toast.fire({
             type: "error",
             title: "Error al Registrar Venta!"
-          }); //   this.$Progress.fail();
+          });
+
+          _this2.$Progress.fail();
         });
       }
+    },
+    nuevaVenta: function nuevaVenta() {
+      this.form.cliente = 0, this.form.total = 0.0, this.form.detalles.length = 0;
     }
   },
   computed: {},
@@ -80835,50 +80886,13 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "card-body box-profile table-responsive p-0" }, [
-        _c("div", { staticClass: "container mt-3" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "table-responsive" }, [
-              _c("table", { staticClass: "table table-borderless" }, [
-                _c("tbody", [
-                  _c(
-                    "tr",
-                    _vm._l(_vm.categorias, function(cat) {
-                      return _c(
-                        "td",
-                        { key: cat.id, attrs: { value: cat.id } },
-                        [
-                          _c(
-                            "a",
-                            {
-                              staticClass: "btn btn-outline-primary mt-2",
-                              on: {
-                                click: function($event) {
-                                  return _vm.selectPlato(cat.id)
-                                }
-                              }
-                            },
-                            [_vm._v(_vm._s(cat.nombre))]
-                          )
-                        ]
-                      )
-                    }),
-                    0
-                  )
-                ])
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        this.platoByCat.length > 0
-          ? _c(
-              "div",
-              { staticClass: "container mt-3", attrs: { id: "platos" } },
-              [
-                _vm._m(1),
+      _vm.form.cliente > 0
+        ? _c(
+            "div",
+            { staticClass: "card-body box-profile table-responsive p-0" },
+            [
+              _c("div", { staticClass: "container mt-3" }, [
+                _vm._m(0),
                 _vm._v(" "),
                 _c("div", { staticClass: "card" }, [
                   _c("div", { staticClass: "table-responsive" }, [
@@ -80886,10 +80900,10 @@ var render = function() {
                       _c("tbody", [
                         _c(
                           "tr",
-                          _vm._l(_vm.platoByCat, function(plt) {
+                          _vm._l(_vm.categorias, function(cat) {
                             return _c(
                               "td",
-                              { key: plt.id, attrs: { value: plt.id } },
+                              { key: cat.id, attrs: { value: cat.id } },
                               [
                                 _c(
                                   "a",
@@ -80897,11 +80911,11 @@ var render = function() {
                                     staticClass: "btn btn-outline-primary mt-2",
                                     on: {
                                       click: function($event) {
-                                        return _vm.loadPlato(plt)
+                                        return _vm.selectPlato(cat.id)
                                       }
                                     }
                                   },
-                                  [_vm._v(_vm._s(plt.nombre))]
+                                  [_vm._v(_vm._s(cat.nombre))]
                                 )
                               ]
                             )
@@ -80912,340 +80926,416 @@ var render = function() {
                     ])
                   ])
                 ])
-              ]
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        _c("div", { staticClass: "container mt-3" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "table-responsive" }, [
-              _c("table", { staticClass: "table table-border" }, [
-                _c("thead", [
-                  _c("tr", [
-                    _c("td", [_vm._v("Opcion")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Nombre")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Precio")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Cantidad")]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v(
-                        "\n                    Descuento\n                    "
-                      ),
-                      _c(
-                        "a",
-                        {
-                          staticClass: "btn btn-outline-warning",
-                          on: {
-                            click: function($event) {
-                              _vm.disabled = !_vm.disabled
-                            }
-                          }
-                        },
-                        [_c("i", { staticClass: "fas fa-lock" })]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "a",
-                        {
-                          staticClass: "btn btn-outline-success",
-                          on: { click: _vm.addPlato }
-                        },
-                        [_c("i", { staticClass: "fas fa-arrow-down" })]
-                      )
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _vm._m(2),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.plato,
-                            expression: "plato"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", name: "plato", disabled: "" },
-                        domProps: { value: _vm.plato },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.plato = $event.target.value
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.precio,
-                            expression: "precio"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", name: "precio", disabled: "" },
-                        domProps: { value: _vm.precio },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.precio = $event.target.value
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.cantidad,
-                            expression: "cantidad"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", name: "cantidad", required: "" },
-                        domProps: { value: _vm.cantidad },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.cantidad = $event.target.value
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.descuento,
-                            expression: "descuento"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          name: "descuento",
-                          disabled: _vm.disabled
-                        },
-                        domProps: { value: _vm.descuento },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.descuento = $event.target.value
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _vm._m(3)
-                  ])
-                ]),
-                _vm._v(" "),
-                _vm.form.detalles.length
-                  ? _c(
-                      "tbody",
-                      [
-                        _vm._l(_vm.form.detalles, function(detalle, index) {
-                          return _c("tr", { key: detalle.id }, [
-                            _c("td", [
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-outline-danger btn-sm",
-                                  attrs: { type: "button" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.eliminarDetalle(index)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "fas fa-trash" })]
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", {
-                              domProps: { textContent: _vm._s(detalle.plato) }
-                            }),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: detalle.precio,
-                                    expression: "detalle.precio"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "number",
-                                  value: "3",
-                                  disabled: ""
-                                },
-                                domProps: { value: detalle.precio },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      detalle,
-                                      "precio",
-                                      $event.target.value
+              ]),
+              _vm._v(" "),
+              this.platoByCat.length > 0
+                ? _c(
+                    "div",
+                    { staticClass: "container mt-3", attrs: { id: "platos" } },
+                    [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "card" }, [
+                        _c("div", { staticClass: "table-responsive" }, [
+                          _c(
+                            "table",
+                            { staticClass: "table table-borderless" },
+                            [
+                              _c("tbody", [
+                                _c(
+                                  "tr",
+                                  _vm._l(_vm.platoByCat, function(plt) {
+                                    return _c(
+                                      "td",
+                                      { key: plt.id, attrs: { value: plt.id } },
+                                      [
+                                        _c(
+                                          "a",
+                                          {
+                                            staticClass:
+                                              "btn btn-outline-primary mt-2",
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.loadPlato(plt)
+                                              }
+                                            }
+                                          },
+                                          [_vm._v(_vm._s(plt.nombre))]
+                                        )
+                                      ]
                                     )
-                                  }
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: detalle.cantidad,
-                                    expression: "detalle.cantidad"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "number",
-                                  value: "3",
-                                  disabled: ""
-                                },
-                                domProps: { value: detalle.cantidad },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      detalle,
-                                      "cantidad",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: detalle.descuento,
-                                    expression: "detalle.descuento"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "number",
-                                  value: "3",
-                                  disabled: ""
-                                },
-                                domProps: { value: detalle.descuento },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      detalle,
-                                      "descuento",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(
-                                _vm._s(
-                                  detalle.precio * detalle.cantidad -
-                                    detalle.descuento
+                                  }),
+                                  0
                                 )
-                              )
-                            ])
-                          ])
-                        }),
-                        _vm._v(" "),
-                        _c("tr", { staticClass: "table-warning" }, [
-                          _vm._m(4),
+                              ])
+                            ]
+                          )
+                        ])
+                      ])
+                    ]
+                  )
+                : _c("div", { staticClass: "container mt-3" }, [
+                    _c("h3", [_vm._v("Seleccione Una Categoria Valida")])
+                  ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "container mt-3" }, [
+                _c("div", { staticClass: "card" }, [
+                  _c("div", { staticClass: "table-responsive" }, [
+                    _c("table", { staticClass: "table table-border" }, [
+                      _c("thead", [
+                        _c("tr", [
+                          _c("td", [_vm._v("Opcion")]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v("Nombre")]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v("Precio")]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v("Cantidad")]),
                           _vm._v(" "),
                           _c("td", [
                             _vm._v(
-                              "$ " +
-                                _vm._s((this.form.total = _vm.calcularTotal()))
+                              "\n                    Descuento\n                    "
+                            ),
+                            _c(
+                              "a",
+                              {
+                                staticClass: "btn btn-outline-warning",
+                                on: {
+                                  click: function($event) {
+                                    _vm.disabled = !_vm.disabled
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fas fa-lock" })]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "btn btn-outline-success",
+                                on: { click: _vm.addPlato }
+                              },
+                              [_c("i", { staticClass: "fas fa-arrow-down" })]
                             )
                           ])
                         ]),
                         _vm._v(" "),
                         _c("tr", [
-                          _c(
-                            "td",
-                            { attrs: { colspan: "5", align: "right" } },
-                            [
-                              _c(
-                                "button",
+                          _vm._m(2),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c("input", {
+                              directives: [
                                 {
-                                  staticClass: "btn btn-outline-success",
-                                  attrs: { type: "button" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.facturar()
-                                    }
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.plato,
+                                  expression: "plato"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "plato",
+                                disabled: ""
+                              },
+                              domProps: { value: _vm.plato },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
                                   }
-                                },
-                                [
-                                  _vm._v("\n                      Facturar"),
-                                  _c("i", {
-                                    staticClass: "fas fa-shopping-cart"
-                                  })
-                                ]
-                              )
-                            ]
-                          )
+                                  _vm.plato = $event.target.value
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.precio,
+                                  expression: "precio"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "precio",
+                                disabled: ""
+                              },
+                              domProps: { value: _vm.precio },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.precio = $event.target.value
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.cantidad,
+                                  expression: "cantidad"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "cantidad",
+                                required: ""
+                              },
+                              domProps: { value: _vm.cantidad },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.cantidad = $event.target.value
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.descuento,
+                                  expression: "descuento"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "descuento",
+                                disabled: _vm.disabled
+                              },
+                              domProps: { value: _vm.descuento },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.descuento = $event.target.value
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _vm._m(3)
                         ])
-                      ],
-                      2
-                    )
-                  : _c("tbody", [_vm._m(5)])
+                      ]),
+                      _vm._v(" "),
+                      _vm.form.detalles.length
+                        ? _c(
+                            "tbody",
+                            [
+                              _vm._l(_vm.form.detalles, function(
+                                detalle,
+                                index
+                              ) {
+                                return _c("tr", { key: detalle.id }, [
+                                  _c("td", [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-outline-danger btn-sm",
+                                        attrs: { type: "button" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.eliminarDetalle(index)
+                                          }
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fas fa-trash" })]
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", {
+                                    domProps: {
+                                      textContent: _vm._s(detalle.plato)
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: detalle.precio,
+                                          expression: "detalle.precio"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        type: "number",
+                                        value: "3",
+                                        disabled: ""
+                                      },
+                                      domProps: { value: detalle.precio },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            detalle,
+                                            "precio",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    })
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: detalle.cantidad,
+                                          expression: "detalle.cantidad"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        type: "number",
+                                        value: "3",
+                                        disabled: ""
+                                      },
+                                      domProps: { value: detalle.cantidad },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            detalle,
+                                            "cantidad",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    })
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: detalle.descuento,
+                                          expression: "detalle.descuento"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        type: "number",
+                                        value: "3",
+                                        disabled: ""
+                                      },
+                                      domProps: { value: detalle.descuento },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            detalle,
+                                            "descuento",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    })
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      _vm._s(
+                                        detalle.precio * detalle.cantidad -
+                                          detalle.descuento
+                                      )
+                                    )
+                                  ])
+                                ])
+                              }),
+                              _vm._v(" "),
+                              _c("tr", { staticClass: "table-warning" }, [
+                                _vm._m(4),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(
+                                    "$ " +
+                                      _vm._s(
+                                        (this.form.total = _vm.calcularTotal())
+                                      )
+                                  )
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c("tr", [
+                                _c(
+                                  "td",
+                                  { attrs: { colspan: "5", align: "right" } },
+                                  [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-outline-success",
+                                        attrs: { type: "button" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.facturar()
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                      Facturar\n                      "
+                                        ),
+                                        _c("i", {
+                                          staticClass: "fas fa-shopping-cart"
+                                        })
+                                      ]
+                                    )
+                                  ]
+                                )
+                              ])
+                            ],
+                            2
+                          )
+                        : _c("tbody", [_vm._m(5)])
+                    ])
+                  ])
+                ])
               ])
-            ])
-          ])
-        ])
-      ])
+            ]
+          )
+        : _c(
+            "div",
+            { staticClass: "card-body box-profile table-responsive p-0" },
+            [_vm._m(6)]
+          )
     ])
   ])
 }
@@ -81301,6 +81391,22 @@ var staticRenderFns = [
     return _c("tr", [
       _c("td", { attrs: { colspan: "5" } }, [
         _vm._v("NO hay artículos agregados")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container mt-3" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("label", { staticClass: "col-md-3" }, [
+              _vm._v("Seleccione un Cliente")
+            ])
+          ])
+        ])
       ])
     ])
   }
