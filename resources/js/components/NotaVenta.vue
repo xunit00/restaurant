@@ -363,6 +363,9 @@ export default {
       this.form.cliente= 0,
         this.form.total= 0.0,
         this.form.detalles.length = 0;
+    },
+    loadPDF(){
+        window.open('');
     }
   },
   computed: {},

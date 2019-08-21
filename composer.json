@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.1.3",
         "askedio/laravel-soft-cascade": "^5.8",
+        "barryvdh/laravel-dompdf": "^0.8.4",
         "csanquer/pdo-service-provider": "~1.1dev",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.8.*",

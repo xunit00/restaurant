@@ -100,6 +100,26 @@ class NotaVentaController extends Controller
         return Plato::whereCategoria_id($categoria)->get();
     }
 
+     /**
+     * Display the specified pdf report.
+     *
+     *
+     *
+     */
+    public function reportPDF()
+    {
+        $venta=NotaVenta::all();
+
+        $cont=NotaVenta::count();
+
+        $detalle=DetalleNotaVenta::all();
+
+        $pdf=\PDF::loadView('pdf.notaVentaPDF',['venta'=>$venta,'cont'=>$cont]);
+
+        return $pdf->download('notaVenta.pdf');
+
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

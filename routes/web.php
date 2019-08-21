@@ -44,6 +44,9 @@ Route::middleware('auth')->group(function () {
         'notaVentas'=>'NotaVentaController',
     ]);
 
+    //reportes
+    Route::get('/notaVentas/reportPDF', 'NotaVentaController@reportPDF')->name('notaVentaPDF');
+
     Route::get('/home', 'HomeController@index')->name('home');
 
     //rutas para actualizar status
