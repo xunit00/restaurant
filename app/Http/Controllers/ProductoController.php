@@ -126,9 +126,7 @@ class ProductoController extends Controller
     {
         $producto = Producto::findOrFail($id);
 
-        $this->deleteImage($producto->imagen);
-
-        // $producto->unidad()->detach();
+        // $this->deleteImage('/storage/imagenes/producto/'.$producto->imagen);
 
         $producto->delete();
 
