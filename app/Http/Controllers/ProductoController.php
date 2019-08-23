@@ -58,7 +58,7 @@ class ProductoController extends Controller
     {
         $formInput = $request->all();
 
-        $formInput['imagen'] = $this->verifyAndStoreImage($request, 'imagen', 'producto');
+        $formInput['imagen'] = $this->storeImage($request, 'imagen', 'producto');
 
         Producto::create($formInput);
 
@@ -107,18 +107,7 @@ class ProductoController extends Controller
 
             $currentImage = $producto->imagen;
 
-            $formInput['imagen'] = $this->verifyAndStoreImage($request, 'imagen', 'producto');
-
-            // $request->merge(['imagen' => $newImage]);
-
-            $oldImgPath = public_path('/storage/imagenes/producto/') . $currentImage;
-
-
-            if (file_exists($oldImgPath)) {
-
-               @unlink($oldImgPath);
-
-            }
+            $formInput['imagen'] = $this->updateImage($request, 'imagen', 'producto', $currentImage,'/storage/imagenes/producto/');
         }
 
         $producto->update( $formInput);

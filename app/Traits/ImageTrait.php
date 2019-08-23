@@ -3,17 +3,71 @@
 namespace App\Traits;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 trait ImageTrait {
 
    /**
-     * Does very basic image validity checking and stores it. Redirects back if somethings wrong.
+     * valida y crea imagen, redirecciona si hay problemas
+     *
      *
      * @param Request $request
      * @return $this|false|string
      */
-    public function verifyAndStoreImage( Request $request, $fieldname = 'image', $directory = 'unknown') {
+    public function storeImage( Request $request, $fieldname = 'image', $directory = 'unknown') {
+
+        $file=$this->getVerifyImage( $request, $fieldname);
+
+        if($file!=null){
+
+            $filename = 'file-' . time() . '.' .$file->getClientOriginalExtension();
+
+            $file->storeAs('imagenes/'.$directory , $filename);
+
+            return $filename;
+
+        }
+
+        return null;
+    }
+
+     /**
+     * valida y actualiza imagen, redirecciona si hay problemas
+     *
+     * @param Request $request
+     * @return $this|false|string
+     */
+    public function updateImage( Request $request, $fieldname = 'image', $directoryStore = 'unknown', $currentImage='image',$filepath='unknown') {
+
+        $file=$this->getVerifyImage( $request, $fieldname);
+
+        if($file!=null){
+
+            $filename = 'file-' . time() . '.' .$file->getClientOriginalExtension();
+
+            $file->storeAs('imagenes/'.$directoryStore , $filename);
+
+            $oldImgPath = public_path($filepath) . $currentImage;
+
+            if (file_exists($oldImgPath)) {
+
+               @unlink($oldImgPath);
+
+            }
+
+            return $filename;
+
+        }
+
+        return null;
+    }
+
+    /**
+     * valida la imagen y redireciona si hay problema.
+     *
+     * @param Request $request
+     * @return $this|false|string
+     */
+    public function getVerifyImage(Request $request, $fieldname = 'image'){
 
         if( $request->hasFile( $fieldname ) ) {
 
@@ -26,16 +80,11 @@ trait ImageTrait {
                 return redirect()->back()->withInput();
             }
 
-            $filename = 'file-' . time() . '.' .$file->getClientOriginalExtension();
-
-            $file->storeAs('imagenes/'.$directory , $filename);
-
-            return $filename;
-
-            // return $file->storeAs($directory,$filename);
+            return $file;
         }
 
         return null;
+
     }
 
 }

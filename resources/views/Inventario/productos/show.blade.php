@@ -72,7 +72,7 @@
                         @if($producto->imagen==null)
                         <h3>Sin Imagen</h3>
                         @else
-                        <img src="{{ asset('storage/'.$producto->imagen)}}" width="150" height="150">
+                        <img src="{{ asset('storage/imagenes/producto/'.$producto->imagen)}}" width="150" height="150">
                         @endif
                     </div>
                 </div>

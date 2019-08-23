@@ -19,6 +19,7 @@ class CreatePlatosTable extends Migration
             $table->string('descripcion')->nullable();
             $table->decimal('precio');
             $table->unsignedBigInteger('categoria_id');
+            $table->string('imagen')->nullable();
             $table->boolean('status')->default(1);
             $table->timestamps();
             $table->softDeletes();
