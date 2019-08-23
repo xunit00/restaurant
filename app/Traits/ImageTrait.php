@@ -17,27 +17,25 @@ trait ImageTrait {
 
         if( $request->hasFile( $fieldname ) ) {
 
-            if (!$request->file($fieldname)->isValid()) {
+            $file=$request->file($fieldname);
+
+            if (!$file->isValid()) {
 
                 flash('Invalid Image!')->error()->important();
 
                 return redirect()->back()->withInput();
             }
 
-            return $request->file($fieldname)->store('imagenes/'. $directory, 'public');
+            $filename = 'file-' . time() . '.' .$file->getClientOriginalExtension();
+
+            $file->storeAs('imagenes/'.$directory , $filename);
+
+            return $filename;
+
+            // return $file->storeAs($directory,$filename);
         }
 
         return null;
     }
 
-    /**
-     * Borra la imagen del storage
-     *
-     * @param String $filename
-     *
-     */
-    public function deleteImage($filename = null)
-    {
-        Storage::delete('storage/'.$filename);
-    }
 }

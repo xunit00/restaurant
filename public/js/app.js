@@ -2112,7 +2112,7 @@ __webpack_require__.r(__webpack_exports__);
       platoByCat: {},
       id: 0,
       plato: "",
-      cantidad: 0,
+      cantidad: "",
       precio: 0.0,
       descuento: 0.0,
       form: new Form({
@@ -2121,7 +2121,7 @@ __webpack_require__.r(__webpack_exports__);
         detalles: [{
           id: 0,
           plato: "",
-          cantidad: 0,
+          cantidad: "",
           precio: 0.0,
           descuento: 0.0
         }]
@@ -2230,6 +2230,8 @@ __webpack_require__.r(__webpack_exports__);
                 type: "success",
                 title: "Imprimiendo!"
               });
+
+              _this2.loadPDF();
             } else if (result.dismiss === swal.DismissReason.cancel) {
               //no se imprime
               toast.fire({
@@ -2250,6 +2252,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     nuevaVenta: function nuevaVenta() {
       this.form.cliente = 0, this.form.total = 0.0, this.form.detalles.length = 0;
+    },
+    loadPDF: function loadPDF() {
+      window.open('http://restaurant.test/notaVentas/reportPDF', '_blank');
     }
   },
   computed: {},

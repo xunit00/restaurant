@@ -58,7 +58,7 @@ class ProductoController extends Controller
     {
         $formInput = $request->all();
 
-        $formInput['imagen'] = $this->verifyAndStoreImage($request, 'imagen','producto');
+        $formInput['imagen'] = $this->verifyAndStoreImage($request, 'imagen', 'producto');
 
         Producto::create($formInput);
 
@@ -103,16 +103,25 @@ class ProductoController extends Controller
     {
         $formInput = $request->all();
 
-        $formInput['imagen'] = $this->verifyAndStoreImage($request, 'imagen','producto');
+        if ($request->hasFile('imagen')) {
 
-        if( $formInput['imagen'] && $producto->imagen !== null){
-            // dd($request->imagen.'-'.$producto->imagen);
-            $this->deleteImage($formInput['imagen']);
+            $currentImage = $producto->imagen;
 
-            $producto->update($formInput);
+            $formInput['imagen'] = $this->verifyAndStoreImage($request, 'imagen', 'producto');
+
+            // $request->merge(['imagen' => $newImage]);
+
+            $oldImgPath = public_path('/storage/imagenes/producto/') . $currentImage;
+
+
+            if (file_exists($oldImgPath)) {
+
+               @unlink($oldImgPath);
+
+            }
         }
 
-        $producto->update($request->all());
+        $producto->update( $formInput);
 
         return redirect()->route('productos.index')
             ->with('success', 'Producto Actualizado Correctamente');
@@ -146,8 +155,8 @@ class ProductoController extends Controller
      */
     public function search(Request $request)
     {
-        $productos=Producto::search($request->value)->paginate(10);
+        $productos = Producto::search($request->value)->paginate(10);
 
-        return view('inventario.productos.index',compact('productos'));
+        return view('inventario.productos.index', compact('productos'));
     }
 }

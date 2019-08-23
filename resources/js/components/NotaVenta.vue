@@ -230,7 +230,7 @@ export default {
       platoByCat: {},
       id: 0,
       plato: "",
-      cantidad: 0,
+      cantidad: "",
       precio: 0.0,
       descuento: 0.0,
       form: new Form({
@@ -240,7 +240,7 @@ export default {
           {
             id: 0,
             plato: "",
-            cantidad: 0,
+            cantidad: "",
             precio: 0.0,
             descuento: 0.0
           }
@@ -341,6 +341,7 @@ export default {
                     type: "success",
                     title: "Imprimiendo!"
                   });
+                  this.loadPDF();
                 } else if (result.dismiss === swal.DismissReason.cancel) {
                   //no se imprime
                   toast.fire({
@@ -365,7 +366,7 @@ export default {
         this.form.detalles.length = 0;
     },
     loadPDF(){
-        window.open('');
+        window.open('http://restaurant.test/notaVentas/reportPDF','_blank');
     }
   },
   computed: {},

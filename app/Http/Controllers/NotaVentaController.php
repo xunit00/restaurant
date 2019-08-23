@@ -114,7 +114,7 @@ class NotaVentaController extends Controller
 
         $detalle=DetalleNotaVenta::all();
 
-        $pdf=\PDF::loadView('pdf.notaVentaPDF',['venta'=>$venta,'cont'=>$cont]);
+        $pdf=\PDF::loadView('PDF.notaVentaPDF',['venta'=>$venta,'cont'=>$cont]);
 
         return $pdf->download('notaVenta.pdf');
 
