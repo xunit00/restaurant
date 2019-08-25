@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
             RolesandPermissionsSeed::class,
             UsersSeed::class,
             StatusesTable::class,
-            CategoriasSeed::class,
+            CategoriasInsumoSeed::class,
             UnidadesSeed::class,
             AreasSeed::class,
             MesasSeed::class

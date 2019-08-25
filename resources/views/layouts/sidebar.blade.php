@@ -40,7 +40,7 @@
                     <li class="nav-item has-treeview">
 
                         <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-users"></i>
+                            <i class="nav-icon fas fa-list-alt"></i>
                             <p>Administracion<i class="right fa fa-angle-left"></i></p>
                         </a>
                         <ul class="nav nav-treeview">
@@ -48,9 +48,9 @@
                             <li class="nav-item">
                                 <a href="{{route('users.index')}}"
                                 class="nav-link {{ request()->is('users*') ? 'active' : '' }}">
-                                    <i class="fas fa-circle-notch nav-icon"></i>
-                                    <p>Usuarios</p>
-                                <a>
+                                        <i class="nav-icon fas fa-circle-notch"></i>
+                                    <p>Users</p>
+                                </a>
                             </li>
                             @endcan
 
@@ -72,14 +72,14 @@
                                     <p>Roles</p>
                                 </a>
                             </li>
-                            @endcan()
+                            @endcan
 
                         </ul>
                     </li>
                     @endrole
 
 
-                    @canany(['read.categorias','read.unidades','read.productos'])
+                    {{-- @canany(['read.categorias','read.unidades','read.productos'])
                     <li class="nav-item has-treeview">
 
                         <a href="#" class="nav-link">
@@ -120,12 +120,12 @@
                             @endcan()
                             </ul>
                     </li>
-                    @endcanany
+                    @endcanany --}}
 
 
 
 
-                    @can(['read.comprobantes'])
+                    {{-- @can(['read.comprobantes'])
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-file-contract"></i>
@@ -153,10 +153,10 @@
                         @endcan
                     </ul>
                 </li>
-                @endcan
+                @endcan --}}
 
 
-                @canany(['read.recetas','read.areas','read.platos','read.mesas'])
+                {{-- @canany(['read.recetas','read.areas','read.platos','read.mesas'])
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-cogs"></i>
@@ -204,9 +204,9 @@
                             @endcan
                     </ul>
                 </li>
-                @endcanany
+                @endcanany --}}
 
-                @canany(['read.clientes','read.notaVenta'])
+                {{-- @canany(['read.clientes','read.notaVenta'])
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-shopping-cart"></i>
@@ -244,7 +244,7 @@
                         @endcan
                     </ul>
                 </li>
-                @endcanany
+                @endcanany --}}
 
 
                 </ul>

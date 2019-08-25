@@ -2,46 +2,47 @@
 @section('blade')
 <!-- Content Header (Page header) -->
 <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    @can('create.productos')
-                    <a class="btn btn-success" href="{{route('areas.create')}}">
-                        Crear Area
-                        <i class="fa fa-th-large"></i>
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                @can('create.productos')
+                <a class="btn btn-success" href="{{route('areas.create')}}">
+                    Crear Area
+                    <i class="fa fa-th-large"></i>
                     @endcan
-                    </a>
-                </div><!-- /.col -->
+                </a>
+            </div><!-- /.col -->
 
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Lista de Areas</li>
-                    </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Lista de Areas</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
 
 <div class="container">
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Areas</h3>
 
-            @include('partials.success-alert')<!--mensaje de exito proceso-->
+            @include('partials.success-alert')
+            <!--mensaje de exito proceso-->
 
             <div class="card-tools">
                 <form action="{{route('search.areas')}}">
-                <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="value" class="form-control float-right" placeholder="Search">
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                        <input type="text" name="value" class="form-control float-right" placeholder="Search">
 
-                    <div class="input-group-append">
-                        <button type="submit" class="btn btn-default">
-                            <i class="fa fa-search"></i>
-                        </button>
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-default">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
             </div>
         </div>
         <!-- /.card-header -->
@@ -64,18 +65,17 @@
                                 @method('PUT')
                                 @if($area->status==1)
                                 <button type="submit" class="btn btn-outline-success btn-sm"
-                                onclick="return confirm('Quiere Actualizar este Registro?')">ACTIVO</button>
+                                    onclick="return confirm('Quiere Actualizar este Registro?')">ACTIVO</button>
                                 @else
                                 <button type="submit" class="btn btn-outline-danger btn-sm"
-                                onclick="return confirm('Quiere Actualizar este Registro?')">INACTIVO</button>
+                                    onclick="return confirm('Quiere Actualizar este Registro?')">INACTIVO</button>
                                 @endif
                             </form>
                         </td>
                         <td>
                             <form action="{{route('areas.destroy',$area->id)}}" method="POST">
                                 @can('update.productos')
-                                <a class="btn btn-outline-primary btn-sm"
-                                    href="{{route('areas.edit',$area->id)}}">
+                                <a class="btn btn-outline-primary btn-sm" href="{{route('areas.edit',$area->id)}}">
                                     <i class="fa fa-edit"></i>
                                 </a>
                                 @endcan
@@ -98,9 +98,11 @@
                     @endforeach
                 </tbody>
             </table>
-            {{$areas->links()}}
         </div>
         <!-- /.card-body -->
+        <div class="card-footer">
+            {{$areas->links()}}
+        </div>
     </div>
 </div>
 @endsection

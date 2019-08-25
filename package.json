@@ -28,6 +28,7 @@
         "admin-lte": "^3.0.0-alpha.2",
         "bootstrap-vue": "^2.0.0-rc.24",
         "laravel-echo": "^1.5.4",
+        "laravel-vue-pagination": "^2.3.0",
         "pusher-js": "^4.4.0",
         "sweetalert2": "^8.15.3",
         "vform": "^1.0.1",

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Mesa;
-use App\Area;
+use App\Models\Mesa;
+use App\Models\Area;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Traits\SearchTrait;
 use App\Http\Requests\MesaRequest;
 

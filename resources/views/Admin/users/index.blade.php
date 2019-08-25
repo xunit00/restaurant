@@ -29,20 +29,21 @@
         <div class="card-header">
             <h3 class="card-title">Usuarios</h3>
 
-            @include('partials.success-alert')<!--mensaje de exito proceso-->
+            @include('partials.success-alert')
+            <!--mensaje de exito proceso-->
 
             <div class="card-tools">
-                    <form action="{{route('search.users')}}">
-                <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="value" class="form-control float-right" placeholder="Search">
+                <form action="{{route('search.users')}}">
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                        <input type="text" name="value" class="form-control float-right" placeholder="Search">
 
-                    <div class="input-group-append">
-                        <button type="submit" class="btn btn-default">
-                            <i class="fa fa-search"></i>
-                        </button>
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-default">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
-                    </form>
+                </form>
             </div>
         </div>
         <!-- /.card-header -->
@@ -85,9 +86,12 @@
                     @endforeach
                 </tbody>
             </table>
-            {{$users->links()}}
+
         </div>
         <!-- /.card-body -->
+        <div class="card-footer">
+            {{$users->links()}}
+        </div>
     </div>
 </div>
 @endsection

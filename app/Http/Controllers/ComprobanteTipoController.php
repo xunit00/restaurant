@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\ComprobanteTipo;
+use App\Models\ComprobanteTipo;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ComprobanteRequest;
 
 class ComprobanteTipoController extends Controller

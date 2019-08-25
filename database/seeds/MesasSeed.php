@@ -13,25 +13,25 @@ class MesasSeed extends Seeder
     public function run()
     {
         Mesa::create([
-            'nombre'=>'Mesa 1',
+            'nombre'=>'F 1',
             'cubiertos'=>'4',
             'area_id'=>'1'
         ]);
 
         Mesa::create([
-            'nombre'=>'Mesa 2',
+            'nombre'=>'F 2',
             'cubiertos'=>'4',
             'area_id'=>'1'
         ]);
 
         Mesa::create([
-            'nombre'=>'Mesa 3',
+            'nombre'=>'F 3',
             'cubiertos'=>'4',
             'area_id'=>'1'
         ]);
 
         Mesa::create([
-            'nombre'=>'Mesa 4',
+            'nombre'=>'F 4',
             'cubiertos'=>'4',
             'area_id'=>'1'
         ]);

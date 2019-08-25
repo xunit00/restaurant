@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Permission;
 
 class RolesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth',
+        $this->middleware(['api',
         'permission:update.role|create.role|delete.role|read.role']);
+        $this->middleware(['permission:read.role'])->only('index');
     }
 
     /**
@@ -21,9 +23,11 @@ class RolesController extends Controller
      */
     public function index()
     {
-        $roles= Role:: orderBy('id','ASC')->paginate(10);
+        $roles = Role::latest()->paginate(10);
 
-        return view('admin.roles.index', compact('roles'));
+        $permissions=Permission::all();
+
+        return view('admin.roles.index',compact('permissions','roles'));
     }
 
     /**
@@ -54,8 +58,6 @@ class RolesController extends Controller
 
         $rol->givePermissionTo($permission);
 
-        return redirect()->route('roles.index')
-        ->with('success', 'Rol Creado!');
     }
 
     /**
@@ -91,7 +93,7 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Role $role)
+    public function update(Request $request, Role $role)
     {
         $this->validate($request,['name'=>'required','permission'=>'required']);
 
@@ -113,12 +115,11 @@ class RolesController extends Controller
      */
     public function destroy(Role $role)
     {
-        $permissions=Permission::all();
+        $permissions = Permission::all();
 
         $role->revokePermissionTo($permissions)->delete();
 
-        return redirect()->route('roles.index')
-        ->with('success','Rol Eliminado Correctamente');
+        return ['message' => 'Informacion Borrado'];
     }
 
     /**
@@ -129,7 +130,7 @@ class RolesController extends Controller
      */
     public function search(Request $request)
     {
-        $roles=Role::search($request->value)->paginate(10);
+        $roles = Role::search($request->value)->paginate(10);
 
         return view('admin.roles.index', compact('roles'));
     }

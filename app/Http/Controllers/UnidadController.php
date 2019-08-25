@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Unidad;
+use App\Models\Unidad;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\UnidadRequest;
 
 
@@ -22,8 +23,8 @@ class UnidadController extends Controller
      */
     public function index()
     {
-        $unidades= Unidad::latest()->paginate(10);
-        return view('inventario.unidades.index',compact('unidades'));
+        return  Unidad::latest()->paginate(10);
+        // return view('inventario.unidades.index',compact('unidades'));
     }
 
     /**

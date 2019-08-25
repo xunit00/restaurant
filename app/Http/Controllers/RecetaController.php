@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Receta;
-use App\Producto;
-use App\DetalleReceta;
-use App\Plato;
+use App\Models\Receta;
+use App\Models\Insumo;
+use App\Models\DetalleReceta;
+use App\Models\Producto;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\RecetaRequest;
 

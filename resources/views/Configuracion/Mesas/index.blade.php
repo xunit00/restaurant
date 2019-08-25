@@ -100,9 +100,11 @@
                     @endforeach
                 </tbody>
             </table>
-            {{$mesas->links()}}
         </div>
         <!-- /.card-body -->
+        <div class="card-footer">
+            {{$mesas->links()}}
+        </div>
     </div>
 </div>
 @endsection

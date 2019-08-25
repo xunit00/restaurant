@@ -24,7 +24,7 @@ class CreateDetalleNotaVentasTable extends Migration
             $table->softDeletes();
 
             $table->foreign('nota_venta_id')->references('id')->on('nota_ventas')->onDelete('cascade');
-            $table->foreign('producto_id')->references('id')->on('platos')->onDelete('cascade');
+            $table->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade');
         });
     }
 

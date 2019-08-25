@@ -8,11 +8,13 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+window.Fire = new Vue();
+
+//paginacion vuejs
+Vue.component('pagination', require('laravel-vue-pagination'));
+
 import BootstrapVue from 'bootstrap-vue'
 Vue.use(BootstrapVue)
-
-import VueRouter from 'vue-router'
-Vue.use(VueRouter)
 
 //validaciones
 import { Form, HasError, AlertError } from 'vform';
@@ -51,11 +53,18 @@ const options = {
 }
 
 //rutas
+import VueRouter from 'vue-router'
+Vue.use(VueRouter)
+
+let routes = [
+    // { path: '/users', component: require('./components/Configuracion/Users.vue').default },
+    // { path: '/roles', component: require('./components/Configuracion/Roles.vue').default },
+]
+
 const router = new VueRouter({
     mode: 'history',
-    // routes // short for `routes: routes`
+    routes // short for `routes: routes`
 })
-
 
 /**
  * The following block of code may be used to automatically register your
@@ -70,7 +79,7 @@ const router = new VueRouter({
 
 
 // Vue.component('order-progress', require('./components/OrderProgress.vue').default);
-// Vue.component('order-alert', require('./components/OrderAlert.vue').default);
+Vue.component('not-found', require('./components/NotFound.vue').default);
 Vue.component('order-notifications', require('./components/OrderNotifications.vue').default);
 Vue.component('create-receta', require('./components/CreateReceta.vue').default);
 Vue.component('nota-venta', require('./components/NotaVenta.vue').default);

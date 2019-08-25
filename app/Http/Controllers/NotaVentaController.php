@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\Plato;
-use App\NotaVenta;
+use App\Models\User;
+use App\Models\Producto;
+use App\Models\NotaVenta;
 use Carbon\Carbon;
-use App\Categoria;
-use App\DetalleNotaVenta;
+use App\Models\CategoriasProducto;
+use App\Models\DetalleNotaVenta;
 use App\Traits\SearchTrait;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 

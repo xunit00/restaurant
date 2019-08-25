@@ -52,7 +52,7 @@
                         @if (Route::has('login'))
                         <li class="nav-item">
                             @auth
-                            <a class="nav-link js-scroll-trigger" href="{{ url('/dashboard') }}">Home</a>
+                            <a class="nav-link js-scroll-trigger" href="{{ url('/home') }}">Home</a>
                             @else
                             <a class="nav-link js-scroll-trigger" href="{{ route('login') }}">Login</a>
 

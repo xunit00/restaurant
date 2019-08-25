@@ -2,24 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Unidad;
-use App\Producto;
-use App\Categoria;
+use App\Models\Producto;
+use App\Models\CategoriasProducto;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Traits\ImageTrait;
-use App\Http\Requests\ProductoRequest;
-
+use App\Http\Requests\PlatoRequest;
 
 class ProductoController extends Controller
 {
-    use ImageTrait;
-
     public function __construct()
     {
-        $this->middleware([
-            'auth',
-            'permission:update.productos|create.productos|delete.productos|read.productos'
-        ]);
+        $this->middleware(['auth',
+        'permission:update.platos|create.platos|delete.platos|read.platos']);
     }
 
     /**
@@ -29,9 +23,9 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $productos = Producto::latest()->paginate(10);
+        $platos = Plato::latest()->paginate(10);
 
-        return view('inventario.productos.index', compact('productos'));
+        return view('configuracion.platos.index', compact('platos'));
     }
 
     /**
@@ -39,13 +33,11 @@ class ProductoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Producto $producto)
+    public function create(Plato $plato)
     {
         $categorias = Categoria::whereStatus(1)->pluck('nombre', 'id');
 
-        $unidades = Unidad::whereStatus(1)->pluck('nombre', 'id');
-
-        return view('inventario.productos.create', compact('categorias', 'unidades', 'producto'));
+        return view('configuracion.platos.create', compact('categorias','plato'));
     }
 
     /**
@@ -54,87 +46,87 @@ class ProductoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductoRequest $request)
+    public function store(PlatoRequest $request)
     {
-        $formInput = $request->all();
+        Plato::create($request->all());
 
-        $formInput['imagen'] = $this->storeImage($request, 'imagen', 'producto');
-
-        Producto::create($formInput);
-
-        return redirect()->route('productos.index')
-            ->with('success', 'Producto Creado!');
+        return redirect()->route('platos.index')
+        ->with('success', 'Plato Creado!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Plato  $plato
      * @return \Illuminate\Http\Response
      */
-    public function show(Producto $producto)
+    public function show(Plato $plato)
     {
-        return view('inventario.productos.show', compact('producto'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  object  $producto
+     * @param  \App\Plato  $plato
      * @return \Illuminate\Http\Response
      */
-    public function edit(Producto $producto)
+    public function edit(Plato $plato)
     {
         $categorias = Categoria::whereStatus(1)->pluck('nombre', 'id');
 
-        $unidades = Unidad::whereStatus(1)->pluck('nombre', 'id');
-
-        return view('inventario.productos.edit', compact('producto', 'categorias', 'unidades'));
+        return view('configuracion.platos.edit', compact('plato', 'categorias'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  object  $producto
+     * @param  \App\Plato  $plato
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductoRequest $request, Producto $producto)
+    public function update(PlatoRequest $request, Plato $plato)
     {
-        $formInput = $request->all();
+        $plato->update($request->all());
 
-        if ($request->hasFile('imagen')) {
+        return redirect()->route('platos.index')
+        ->with('success','Plato Actualizado Correctamente');
+    }
 
-            $currentImage = $producto->imagen;
-
-            $formInput['imagen'] = $this->updateImage($request, 'imagen', 'producto', $currentImage,'/storage/imagenes/producto/');
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Plato  $plato
+     * @return \Illuminate\Http\Response
+     */
+    public function update_status(Plato $plato)
+    {
+        if($plato->status==1){
+            $plato->update(['status'=>0]);
+        }
+        else{
+            $plato->update(['status'=>1]);
         }
 
-        $producto->update( $formInput);
-
-        return redirect()->route('productos.index')
-            ->with('success', 'Producto Actualizado Correctamente');
+        return redirect()->route('platos.index')
+        ->with('success','Plato Actualizado Correctamente');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Plato  $plato
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Plato $plato)
     {
-        $producto = Producto::findOrFail($id);
+        $plato->delete();
 
-        // $this->deleteImage('/storage/imagenes/producto/'.$producto->imagen);
-
-        $producto->delete();
-
-        return redirect()->route('productos.index')
-            ->with('success', 'Producto Eliminado Correctamente');
+        return redirect()->route('platos.index')
+        ->with('success','Plato Eliminado Correctamente');
     }
 
-    /**
+     /**
      * Search an item.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -142,8 +134,8 @@ class ProductoController extends Controller
      */
     public function search(Request $request)
     {
-        $productos = Producto::search($request->value)->paginate(10);
+        $platos=Plato::search($request->value)->paginate(10);
 
-        return view('inventario.productos.index', compact('productos'));
+        return view('configuracion.platos.index', compact('platos'));
     }
 }

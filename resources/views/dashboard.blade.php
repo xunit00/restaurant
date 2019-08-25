@@ -47,9 +47,9 @@
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
                     </div>
-                    <a href="{{route('platos.index')}}" class="small-box-footer">
+                    {{-- <a href="{{route('platos.index')}}" class="small-box-footer">
                         More info <i class="fa fa-arrow-circle-right"></i>
-                    </a>
+                    </a> --}}
                 </div>
             </div>
             <!-- ./col -->
@@ -64,9 +64,9 @@
                     <div class="icon">
                         <i class="ion ion-android-create"></i>
                     </div>
-                    <a href="{{route('productos.index')}}" class="small-box-footer">
+                    {{-- <a href="{{route('productos.index')}}" class="small-box-footer">
                         More info <i class="fa fa-arrow-circle-right"></i>
-                    </a>
+                    </a> --}}
                 </div>
             </div>
             <!-- ./col -->
@@ -81,9 +81,9 @@
                     <div class="icon">
                         <i class="ion ion-pie-graph"></i>
                     </div>
-                <a href="{{route('categorias.index')}}" class="small-box-footer">
+                {{-- <a href="{{route('categorias.index')}}" class="small-box-footer">
                         More info <i class="fa fa-arrow-circle-right"></i>
-                    </a>
+                    </a> --}}
                 </div>
             </div>
             <!-- ./col -->

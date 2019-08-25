@@ -24,20 +24,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::middleware('auth')->group(function () {
 
-    Route::resources([
+    Route::Resources([
         'users' => 'UserController',
         'permissions' => 'PermissionController',
         'roles' => 'RolesController',
         'dashboard' => 'DashboardController',
-        'categorias' => 'CategoriaController',
+        'catInsumo' => 'CategoriaInsumoController',
+        'catProducto' => 'CategoriaProductoController',
         'unidades' => 'UnidadController',
         'productos' => 'ProductoController',
         'comprobanteTipo' => 'ComprobanteTipoController',
         'comprobanteSecuencia'=>'ComprobanteSecuenciaController',
         'recetas'=>'RecetaController',
-        'platos'=>'PlatoController',
+        'insumos'=>'InsumoController',
         'areas'=>'AreaController',
         'mesas'=>'MesaController',
         'clientes'=>'ClienteController',
@@ -45,14 +47,16 @@ Route::middleware('auth')->group(function () {
     ]);
 
     //reportes
-    Route::get('/notaVentas/reportPDF', 'NotaVentaController@reportPDF')->name('notaVentaPDF');
-
-    Route::get('/home', 'HomeController@index')->name('home');
+    Route::prefix('reportes')->as('reportes.')->group(function () {
+        Route::get('/notaVentas/reportPDF', 'NotaVentaController@reportPDF')->name('notaVentaPDF');
+    });
 
     //rutas para actualizar status
     Route::prefix('status')->as('status.')->group(function () {
-        Route::put('/categoria/{categoria}', 'CategoriaController@update_status')->name('categoria');
-        Route::put('/plato/{plato}', 'PlatoController@update_status')->name('plato');
+        Route::put('/catInsumo/{categoria}', 'CategoriaInsumoController@update_status')->name('catInsumo');
+        Route::put('/catProducto/{categoria}', 'CategoriaProductoController@update_status')->name('catProducto');
+        Route::put('/producto/{producto}', 'ProductoController@update_status')->name('producto');
+        Route::put('/insumo/{insumo}', 'InsumoController@update_status')->name('insumo');
         Route::put('/unidad/{unidade}', 'UnidadController@update_status')->name('unidad');
         Route::put('/comprobanteTipo/{comprobanteTipo}', 'ComprobanteTipoController@update_status')->name('comprobanteTipo');
         Route::put('/comprobanteSecuencia/{comprobanteSecuencia}', 'ComprobanteSecuenciaController@update_status')->name('comprobanteSecuencia');
@@ -66,15 +70,16 @@ Route::middleware('auth')->group(function () {
 
     //rutas para trabajar con search
     Route::prefix('search')->as('search.')->group(function () {
-        Route::get('/categoria', 'CategoriaController@search')->name('categorias');
+        Route::get('/catInsumo', 'CategoriaInsumoController@search')->name('catInsumo');
+        Route::get('/catProducto', 'CategoriaProductoController@search')->name('catProducto');
         Route::get('/user', 'UserController@search')->name('users');
         Route::get('/unidad', 'UnidadController@search')->name('unidades');
         Route::get('/producto', 'ProductoController@search')->name('productos');
+        Route::get('/insumo', 'InsumoController@search')->name('insumos');
         Route::get('/rol', 'RolesController@search')->name('roles');
         Route::get('/permission', 'PermissionController@search')->name('permissions');
         Route::get('/comprobanteTipo', 'ComprobanteTipoController@search')->name('comprobanteTipos');
         Route::get('/comprobanteSecuencia', 'ComprobanteSecuenciaController@search')->name('comprobanteSecuencias');
-        Route::get('/plato', 'PlatoController@search')->name('platos');
         Route::get('/receta', 'RecetaController@search')->name('recetas');
         Route::get('/area', 'AreaController@search')->name('areas');
         Route::get('/mesa', 'MesaController@search')->name('mesas');
@@ -99,3 +104,4 @@ Route::prefix('admin')->group(function () {
 });
 
 Route::redirect('/admin', '/admin/orders');
+

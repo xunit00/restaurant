@@ -30,32 +30,18 @@ class ProductoRequest extends FormRequest
                 }
             case 'POST': {
                     return [
-                        'nombre' => 'required|string|min:4|max:191|unique:productos',
+                        'nombre' => 'required|string|min:4|max:50|unique:productos',
                         'descripcion' => 'nullable|string|min:4|max:191',
                         'categoria_id' => 'required|numeric',
-                        'unidad_id' => 'required|numeric',
-                        'existencia' => 'required|numeric',
-                        'maximo' => 'required|numeric',
-                        'reorden' => 'required|numeric',
-                        'minimo' => 'required|numeric',
-                        'precio_venta' => 'required|numeric',
-                        'costo' => 'required|numeric',
-                        'imagen'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+                        'precio'=>'required|numeric'
                     ];
                 }
             case 'PUT':{
                 return [
-                    'nombre' => 'required|string|min:4|max:191|unique:productos,nombre,'. $this->route('producto')->id,
+                    'nombre' => 'required|string|min:4|max:50|unique:productos,nombre,'. $this->route('producto')->id,
                     'descripcion' => 'nullable|string|min:4|max:191,',
                     'categoria_id' => 'required|numeric',
-                    'unidad_id' => 'required|numeric',
-                    'existencia' => 'required|numeric',
-                    'maximo' => 'required|numeric',
-                    'reorden' => 'required|numeric',
-                    'minimo' => 'required|numeric',
-                    'precio_venta' => 'required|numeric',
-                    'costo' => 'required|numeric',
-                    'imagen'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+                    'precio'=>'nullable|numeric'
                 ];
             }
             case 'PATCH':

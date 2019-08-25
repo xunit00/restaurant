@@ -13,7 +13,7 @@ class CreateCategoriasTable extends Migration
      */
     public function up()
     {
-        Schema::create('categorias', function (Blueprint $table) {
+        Schema::create('categorias_insumos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombre',50)->unique();
             $table->string('descripcion')->nullable();
@@ -30,6 +30,6 @@ class CreateCategoriasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categorias');
+        Schema::dropIfExists('categorias_insumos');
     }
 }

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Area;
+use App\Models\Area;
 use Illuminate\Http\Request;
 use App\Traits\SearchTrait;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\AreaRequest;
 
 class AreaController extends Controller
@@ -18,8 +19,8 @@ class AreaController extends Controller
      */
     public function index()
     {
-        $areas= Area::latest()->paginate(10);
-        return view('configuracion.areas.index',compact('areas'));
+        return Area::latest()->paginate(10);
+        // return view('configuracion.areas.index',compact('areas'));
     }
 
     /**

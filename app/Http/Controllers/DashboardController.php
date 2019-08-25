@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Categoria;
-use App\Producto;
-use App\Unidad;
-use App\Plato;
-use App\ComprobanteSecuencia;
+use App\Models\CategoriasProducto;
+use App\Models\Producto;
+use App\Models\Insumo;
+use App\Models\Unidad;
+use App\Http\Controllers\Controller;
+use App\Models\Plato;
+use App\Models\ComprobanteSecuencia;
 
 class DashboardController extends Controller
 {
@@ -23,10 +25,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $categoryCount = Categoria::count();
-        $productCount = Producto::count();
+        $categoryCount = CategoriasProducto::count();
+        $productCount = Insumo::count();
         $unidadCount = Unidad::count();
-        $platoCount = Plato::count();
+        $platoCount = Producto::count();
         $ncfConsumidor = ComprobanteSecuencia::whereStatus(1)->count();
         $ncfCreditoF = ComprobanteSecuencia::whereStatus(1)->count();
 

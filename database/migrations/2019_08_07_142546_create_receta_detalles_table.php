@@ -16,13 +16,13 @@ class CreateRecetaDetallesTable extends Migration
         Schema::create('receta_detalles', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('receta_id');
-            $table->unsignedBigInteger('producto_id');
+            $table->unsignedBigInteger('insumo_id');
             $table->decimal('cantidad');
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('receta_id')->references('id')->on('recetas')->onDelete('cascade');
-            $table->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade');
+            $table->foreign('insumo_id')->references('id')->on('insumos')->onDelete('cascade');
         });
     }
 

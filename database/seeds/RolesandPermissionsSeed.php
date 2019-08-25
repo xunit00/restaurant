@@ -62,10 +62,10 @@ class RolesandPermissionsSeed extends Seeder
         Permission::create(['name' => 'create.mesas']);
         Permission::create(['name' => 'read.mesas']);
 
-        Permission::create(['name' => 'update.platos']);
-        Permission::create(['name' => 'delete.platos']);
-        Permission::create(['name' => 'create.platos']);
-        Permission::create(['name' => 'read.platos']);
+        Permission::create(['name' => 'update.insumos']);
+        Permission::create(['name' => 'delete.insumos']);
+        Permission::create(['name' => 'create.insumos']);
+        Permission::create(['name' => 'read.insumos']);
 
         Permission::create(['name' => 'update.recetas']);
         Permission::create(['name' => 'delete.recetas']);
@@ -99,7 +99,7 @@ class RolesandPermissionsSeed extends Seeder
         'read.permissions','update.permissions','delete.permissions','create.permissions']);
 
         $role = Role::create(['name' => 'Cocinero'])
-        ->givePermissionTo(['create.platos', 'read.platos', 'update.platos', 'delete.platos',
+        ->givePermissionTo(['create.insumos', 'read.insumos', 'update.insumos', 'delete.insumos',
         'create.recetas', 'read.recetas', 'update.recetas', 'delete.recetas']);
 
         $role = Role::create(['name' => 'Super-Admin'])

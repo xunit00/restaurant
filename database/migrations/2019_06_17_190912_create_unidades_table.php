@@ -17,6 +17,7 @@ class CreateUnidadesTable extends Migration
             $table->bigIncrements('id');
             $table->string('nombre')->unique();
             $table->string('descripcion')->nullable();
+            $table->float('contenido')->nullable();
             $table->boolean('status')->default(1);
             $table->timestamps();
             $table->softDeletes();

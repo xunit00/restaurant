@@ -98,9 +98,11 @@
                     @endforeach
                 </tbody>
             </table>
-            {{$recetas->links()}}
         </div>
         <!-- /.card-body -->
+        <div class="card-footer">
+            {{$recetas->links()}}
+        </div>
     </div>
 </div>
 @endsection
