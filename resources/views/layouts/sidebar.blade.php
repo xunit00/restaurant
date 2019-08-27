@@ -79,7 +79,7 @@
                     @endrole
 
 
-                    @canany(['read.categorias','read.unidades','read.productos'])
+                    @canany(['read.categorias','read.unidades','read.productos','read.recetas','read.areas','read.mesas'])
                     <li class="nav-item has-treeview">
 
                         <a href="#" class="nav-link">
@@ -139,6 +139,36 @@
                             </li>
                             @endcan()
 
+                            @can('read.recetas')
+                            <li class="nav-item">
+                                <a href="{{ route('recetas.index') }}"
+                                class="nav-link {{ request()->is('recetas*') ? 'active' : '' }}">
+                                <i class="fas fa-circle-notch nav-icon"></i>
+                                <p>Recetas</p>
+                                <a>
+                            </li>
+                            @endcan
+
+                            @can('read.areas')
+                            <li class="nav-item">
+                                    <a href="{{ route('areas.index') }}"
+                                    class="nav-link {{ request()->is('areas*') ? 'active' : '' }}">
+                                    <i class="fas fa-circle-notch nav-icon"></i>
+                                    <p>Areas</p>
+                                    <a>
+                                </li>
+                                @endcan
+
+                                @can('read.mesas')
+                            <li class="nav-item">
+                                    <a href="{{ route('mesas.index') }}"
+                                    class="nav-link {{ request()->is('mesas*') ? 'active' : '' }}">
+                                    <i class="fas fa-circle-notch nav-icon"></i>
+                                    <p>Mesas</p>
+                                    <a>
+                                </li>
+                                @endcan
+
                             </ul>
                     </li>
                     @endcanany
@@ -175,57 +205,6 @@
                     </ul>
                 </li>
                 @endcan --}}
-
-
-                {{-- @canany(['read.recetas','read.areas','read.platos','read.mesas'])
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-cogs"></i>
-                        <p>Configuracion<i class="right fa fa-angle-left"></i></p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        @can('read.recetas')
-                        <li class="nav-item">
-                            <a href="{{ route('recetas.index') }}"
-                            class="nav-link {{ request()->is('recetas*') ? 'active' : '' }}">
-                            <i class="fas fa-circle-notch nav-icon"></i>
-                            <p>Recetas</p>
-                            <a>
-                        </li>
-                        @endcan
-
-                        @can('read.platos')
-                        <li class="nav-item">
-                            <a href="{{ route('platos.index') }}"
-                            class="nav-link {{ request()->is('platos*') ? 'active' : '' }}">
-                            <i class="fas fa-circle-notch nav-icon"></i>
-                            <p>Platos</p>
-                            <a>
-                        </li>
-                        @endcan
-
-                        @can('read.areas')
-                        <li class="nav-item">
-                                <a href="{{ route('areas.index') }}"
-                                class="nav-link {{ request()->is('areas*') ? 'active' : '' }}">
-                                <i class="fas fa-circle-notch nav-icon"></i>
-                                <p>Areas</p>
-                                <a>
-                            </li>
-                            @endcan
-
-                            @can('read.mesas')
-                        <li class="nav-item">
-                                <a href="{{ route('mesas.index') }}"
-                                class="nav-link {{ request()->is('mesas*') ? 'active' : '' }}">
-                                <i class="fas fa-circle-notch nav-icon"></i>
-                                <p>Mesas</p>
-                                <a>
-                            </li>
-                            @endcan
-                    </ul>
-                </li>
-                @endcanany --}}
 
                 {{-- @canany(['read.clientes','read.notaVenta'])
                 <li class="nav-item has-treeview">

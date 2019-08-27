@@ -23,8 +23,8 @@ class UnidadController extends Controller
      */
     public function index()
     {
-        return  Unidad::latest()->paginate(10);
-        // return view('inventario.unidades.index',compact('unidades'));
+        $unidades=  Unidad::latest()->paginate(10);
+        return view('configuracion.unidades.index',compact('unidades'));
     }
 
     /**
@@ -34,7 +34,7 @@ class UnidadController extends Controller
      */
     public function create(Unidad $unidad)
     {
-        return view('inventario.unidades.create',compact('unidad'));
+        return view('configuracion.unidades.create',compact('unidad'));
     }
 
     /**
@@ -71,7 +71,7 @@ class UnidadController extends Controller
     public function edit($id)
     {
         $unidad = Unidad::findOrFail($id);
-        return view('inventario.unidades.edit',compact('unidad'));
+        return view('configuracion.unidades.edit',compact('unidad'));
     }
 
     /**
@@ -132,6 +132,6 @@ class UnidadController extends Controller
     {
         $unidades=Unidad::search($request->value)->paginate(10);
 
-        return view('inventario.unidades.index',compact('unidades'));
+        return view('configuracion.unidades.index',compact('unidades'));
     }
 }

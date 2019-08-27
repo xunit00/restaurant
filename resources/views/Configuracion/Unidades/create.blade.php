@@ -27,7 +27,7 @@
             <form action="{{route('unidades.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
 
-                @include('inventario.unidades.form')
+                @include('configuracion.unidades.form')
 
                 <div class="form-group">
                     <input type="submit" class="btn btn-info" value="Save">

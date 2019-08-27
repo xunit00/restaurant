@@ -19,8 +19,8 @@ class AreaController extends Controller
      */
     public function index()
     {
-        return Area::latest()->paginate(10);
-        // return view('configuracion.areas.index',compact('areas'));
+        $areas = Area::latest()->paginate(10);
+        return view('configuracion.areas.index',compact('areas'));
     }
 
     /**

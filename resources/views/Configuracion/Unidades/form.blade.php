@@ -18,3 +18,13 @@
             <div class="clearfix"></div>
         </div>
     </div>
+
+    <div class="form-group">
+        <div class="row">
+            <label for="" class="col-md-3">Contenido</label>
+            <div class="col-md-6"><input type="text" name="contenido" value="{{$unidad->contenido}}"
+                    class="form-control @error('contenido') is-invalid @enderror"
+                    @error('contenido') placeholder="{{ $message }}"@enderror></div>
+            <div class="clearfix"></div>
+        </div>
+    </div>

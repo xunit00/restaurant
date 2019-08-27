@@ -28,7 +28,7 @@
                 @csrf
                 @method('PUT')
 
-                @include('inventario.unidades.form')
+                @include('configuracion.unidades.form')
 
                 <div class="form-group">
                     <input type="submit" class="btn btn-info" value="Save">
