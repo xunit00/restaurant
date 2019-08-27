@@ -18,6 +18,6 @@
     </div><!-- /.container-fluid -->
 </div>
 
-<create-receta :productos="{{$productos}}" :platos="{{$platos}}"></create-receta>
+<create-receta :productos="{{$productos}}" :insumos="{{$insumos}}"></create-receta>
 
 @endsection

@@ -1813,30 +1813,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['productos', 'platos'],
+  props: ['productos', 'insumos'],
   data: function data() {
     return {
       recetas: {},
       //object
       form: new Form({
-        plato: '',
+        producto: '',
         descripcion: '',
         porciones: '',
         detalles: [{
-          producto: '',
+          insumo: '',
           cantidad: ''
         }]
       })
     };
   },
   methods: {
-    addNewProduct: function addNewProduct() {
+    addNewIns: function addNewIns() {
       this.form.detalles.push({
-        producto: '',
+        insumo: '',
         cantidad: ''
       });
     },
-    removeProduct: function removeProduct(index) {
+    removeIns: function removeIns(index) {
       this.form.detalles.splice(index, 1);
     },
     createReceta: function createReceta() {
@@ -1862,7 +1862,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     clearForm: function clearForm() {
-      this.form.plato = '', this.form.descripcion = '', this.form.porciones = '', this.form.detalles.length = 0;
+      this.form.producto = '', this.form.descripcion = '', this.form.porciones = '', this.form.detalles.length = 0;
     }
   },
   mounted: function mounted() {
@@ -81873,7 +81873,7 @@ var render = function() {
                 { staticClass: "row" },
                 [
                   _c("label", { staticClass: "col-md-2", attrs: { for: "" } }, [
-                    _vm._v("Plato")
+                    _vm._v("Producto")
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-6" }, [
@@ -81884,12 +81884,14 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.form.plato,
-                            expression: "form.plato"
+                            value: _vm.form.producto,
+                            expression: "form.producto"
                           }
                         ],
                         staticClass: "form-control",
-                        class: { "is-invalid": _vm.form.errors.has("plato") },
+                        class: {
+                          "is-invalid": _vm.form.errors.has("producto")
+                        },
                         attrs: { required: "" },
                         on: {
                           change: function($event) {
@@ -81903,7 +81905,7 @@ var render = function() {
                               })
                             _vm.$set(
                               _vm.form,
-                              "plato",
+                              "producto",
                               $event.target.multiple
                                 ? $$selectedVal
                                 : $$selectedVal[0]
@@ -81913,14 +81915,17 @@ var render = function() {
                       },
                       [
                         _c("option", { attrs: { disabled: "", value: "" } }, [
-                          _vm._v("Seleccionar Plato")
+                          _vm._v("Seleccionar Producto")
                         ]),
                         _vm._v(" "),
-                        _vm._l(_vm.platos, function(plato) {
+                        _vm._l(_vm.productos, function(producto) {
                           return _c(
                             "option",
-                            { key: plato.id, domProps: { value: plato.id } },
-                            [_vm._v(_vm._s(plato.nombre))]
+                            {
+                              key: producto.id,
+                              domProps: { value: producto.id }
+                            },
+                            [_vm._v(_vm._s(producto.nombre))]
                           )
                         })
                       ],
@@ -81929,7 +81934,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("has-error", {
-                    attrs: { form: _vm.form, field: "plato" }
+                    attrs: { form: _vm.form, field: "producto" }
                   }),
                   _vm._v(" "),
                   _c("div", { staticClass: "clearfix" })
@@ -82040,7 +82045,7 @@ var render = function() {
             _c("div", { staticClass: "form-group" }, [
               _c("div", { staticClass: "row" }, [
                 _c("label", { staticClass: "col-md-2", attrs: { for: "" } }, [
-                  _vm._v("Agregar Producto")
+                  _vm._v("Agregar Insumo")
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-md-6" }, [
@@ -82048,7 +82053,7 @@ var render = function() {
                     "a",
                     {
                       staticClass: "btn btn-outline-primary",
-                      on: { click: _vm.addNewProduct }
+                      on: { click: _vm.addNewIns }
                     },
                     [_c("i", { staticClass: "fas fa-plus-square" })]
                   )
@@ -82064,7 +82069,7 @@ var render = function() {
               _vm._l(_vm.form.detalles, function(detalle, index) {
                 return _c("div", { key: index, staticClass: "row" }, [
                   _c("label", { staticClass: "col-md-2", attrs: { for: "" } }, [
-                    _vm._v("Producto (" + _vm._s(index + 1) + ")")
+                    _vm._v("Insumo (" + _vm._s(index + 1) + ")")
                   ]),
                   _vm._v(" "),
                   _c(
@@ -82078,8 +82083,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: detalle.producto,
-                              expression: "detalle.producto"
+                              value: detalle.insumo,
+                              expression: "detalle.insumo"
                             }
                           ],
                           staticClass: "form-control",
@@ -82096,7 +82101,7 @@ var render = function() {
                                 })
                               _vm.$set(
                                 detalle,
-                                "producto",
+                                "insumo",
                                 $event.target.multiple
                                   ? $$selectedVal
                                   : $$selectedVal[0]
@@ -82106,14 +82111,14 @@ var render = function() {
                         },
                         [
                           _c("option", { attrs: { disabled: "", value: "" } }, [
-                            _vm._v("Seleccionar Producto")
+                            _vm._v("Seleccionar Insumo")
                           ]),
                           _vm._v(" "),
-                          _vm._l(_vm.productos, function(prod) {
+                          _vm._l(_vm.insumos, function(insm) {
                             return _c(
                               "option",
-                              { key: prod.id, domProps: { value: prod.id } },
-                              [_vm._v(_vm._s(prod.nombre))]
+                              { key: insm.id, domProps: { value: insm.id } },
+                              [_vm._v(_vm._s(insm.nombre))]
                             )
                           })
                         ],
@@ -82121,7 +82126,7 @@ var render = function() {
                       ),
                       _vm._v(" "),
                       _c("has-error", {
-                        attrs: { form: _vm.form, field: "producto" }
+                        attrs: { form: _vm.form, field: "insumo" }
                       })
                     ],
                     1
@@ -82173,7 +82178,7 @@ var render = function() {
                           staticClass: "btn btn-outline-danger",
                           on: {
                             click: function($event) {
-                              return _vm.removeProduct(index)
+                              return _vm.removeIns(index)
                             }
                           }
                         },

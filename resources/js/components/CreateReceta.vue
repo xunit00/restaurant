@@ -7,16 +7,16 @@
 
              <div class="form-group">
         <div class="row">
-            <label for="" class="col-md-2">Plato</label>
+            <label for="" class="col-md-2">Producto</label>
             <div class="col-md-6">
-                 <select class="form-control" v-model="form.plato" required
-                  :class="{ 'is-invalid': form.errors.has('plato') }">
-                    <option disabled value="">Seleccionar Plato</option>
-                    <option v-for="plato in platos" v-bind:key="plato.id"
-                    v-bind:value="plato.id">{{plato.nombre}}</option>
+                 <select class="form-control" v-model="form.producto" required
+                  :class="{ 'is-invalid': form.errors.has('producto') }">
+                    <option disabled value="">Seleccionar Producto</option>
+                    <option v-for="producto in productos" v-bind:key="producto.id"
+                    v-bind:value="producto.id">{{producto.nombre}}</option>
                 </select>
             </div>
-                    <has-error :form="form" field="plato"></has-error>
+                    <has-error :form="form" field="producto"></has-error>
             <div class="clearfix"></div>
         </div>
     </div>
@@ -47,9 +47,9 @@
 
     <div class="form-group">
         <div class="row">
-            <label for="" class="col-md-2">Agregar Producto</label>
+            <label for="" class="col-md-2">Agregar Insumo</label>
             <div class="col-md-6">
-                 <a class="btn btn-outline-primary" @click="addNewProduct">
+                 <a class="btn btn-outline-primary" @click="addNewIns">
                         <i class="fas fa-plus-square"></i>
                     </a>
             </div>
@@ -59,15 +59,15 @@
 
       <div class="form-group">
         <div class="row" v-for="(detalle,index) in form.detalles" v-bind:key="index">
-            <label for="" class="col-md-2">Producto ({{index+1}})</label>
+            <label for="" class="col-md-2">Insumo ({{index+1}})</label>
 
             <div class="col-md-3">
-                <select class="form-control" v-model="detalle.producto" required>
-                    <option disabled value="">Seleccionar Producto</option>
-                    <option v-for="prod in productos" v-bind:key="prod.id"
-                    v-bind:value="prod.id">{{prod.nombre}}</option>
+                <select class="form-control" v-model="detalle.insumo" required>
+                    <option disabled value="">Seleccionar Insumo</option>
+                    <option v-for="insm in insumos" v-bind:key="insm.id"
+                    v-bind:value="insm.id">{{insm.nombre}}</option>
                 </select>
-                 <has-error :form="form" field="producto"></has-error>
+                 <has-error :form="form" field="insumo"></has-error>
             </div>
 
             <div class="col-md-3">
@@ -78,7 +78,7 @@
 
              <div class="col-md-2">
                 <div class="form-group">
-                    <a class="btn btn-outline-danger" @click="removeProduct(index)">
+                    <a class="btn btn-outline-danger" @click="removeIns(index)">
                         <i class="fas fa-minus-circle"></i>
                     </a>
                 </div>
@@ -98,29 +98,29 @@
 </template>
 <script>
 export default {
-    props: ['productos','platos'],
+    props: ['productos','insumos'],
     data(){
         return{
             recetas: {}, //object
             form: new Form({
-                plato:'',
+                producto:'',
                 descripcion:'',
                 porciones:'',
                 detalles:[{
-                    producto:'',
+                    insumo:'',
                     cantidad:''
                 }]
             })
         };
     },
     methods:{
-        addNewProduct(){
+        addNewIns(){
             this.form.detalles.push({
-                producto:'',
+                insumo:'',
                 cantidad:''
             })
         },
-        removeProduct(index){
+        removeIns(index){
             this.form.detalles.splice(index,1)
         },
         createReceta() {
@@ -143,7 +143,7 @@ export default {
         });
         },
         clearForm(){
-            this.form.plato='',
+            this.form.producto='',
                this.form. descripcion='',
                this.form. porciones='',
                this.form. detalles.length=0;

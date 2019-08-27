@@ -28,7 +28,7 @@ class RecetaController extends Controller
      */
     public function index()
     {
-        $recetas = Receta::with('plato')->latest()->paginate(10);
+        $recetas = Receta::with('producto')->latest()->paginate(10);
 
         return view('configuracion.recetas.index', compact('recetas'));
     }
@@ -40,9 +40,11 @@ class RecetaController extends Controller
      */
     public function create(Receta $receta)
     {
-        $platos = Plato::all();
+        $insumos = Insumo::all();
+
         $productos = Producto::all();
-        return view('configuracion.recetas.create', compact('receta', 'productos', 'platos'));
+
+        return view('configuracion.recetas.create', compact('receta', 'productos', 'insumos'));
     }
 
     /**
@@ -57,7 +59,7 @@ class RecetaController extends Controller
         try {
             $receta_id = DB::table('recetas')->insertGetId(
                 array(
-                    'plato_id' => $request->plato,
+                    'producto_id' => $request->producto,
                     'descripcion' => $request->descripcion,
                     'porciones' => $request->porciones,
                     'created_at' => Carbon::now(),
@@ -65,13 +67,13 @@ class RecetaController extends Controller
                 )
             );
 
-            $productos = $request->detalles;
+            $insumos = $request->detalles;
 
-            foreach ($productos as $prod) {
+            foreach ($insumos as $ins) {
                 DetalleReceta::create([
                     'receta_id' => $receta_id,
-                    'producto_id' => $prod['producto'],
-                    'cantidad' => $prod['cantidad']
+                    'insumo_id' => $ins['insumo'],
+                    'cantidad' => $ins['cantidad']
                 ]);
             }
             DB::commit();
