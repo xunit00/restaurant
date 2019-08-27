@@ -34,12 +34,12 @@ class InsumoRequest extends FormRequest
                         'descripcion' => 'nullable|string|min:4|max:191',
                         'categoria_id' => 'required|numeric',
                         'unidad_id' => 'required|numeric',
-                        'existencia' => 'required|numeric',
-                        'maximo' => 'required|numeric',
-                        'reorden' => 'required|numeric',
-                        'minimo' => 'required|numeric',
-                        'precio_venta' => 'required|numeric',
-                        'costo' => 'required|numeric',
+                        'existencia' => 'nullable|numeric',
+                        'maximo' => 'nullable|numeric',
+                        'reorden' => 'nullable|numeric',
+                        'minimo' => 'nullable|numeric',
+                        'precio_venta' => 'nullable|numeric',
+                        'costo' => 'nullable|numeric',
                         'imagen'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
                     ];
                 }
@@ -49,12 +49,12 @@ class InsumoRequest extends FormRequest
                     'descripcion' => 'nullable|string|min:4|max:191,',
                     'categoria_id' => 'required|numeric',
                     'unidad_id' => 'required|numeric',
-                    'existencia' => 'required|numeric',
-                    'maximo' => 'required|numeric',
-                    'reorden' => 'required|numeric',
-                    'minimo' => 'required|numeric',
-                    'precio_venta' => 'required|numeric',
-                    'costo' => 'required|numeric',
+                    'existencia' => 'nullable|numeric',
+                    'maximo' => 'nullable|numeric',
+                    'reorden' => 'nullable|numeric',
+                    'minimo' => 'nullable|numeric',
+                    'precio_venta' => 'nullable|numeric',
+                    'costo' => 'nullable|numeric',
                     'imagen'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
                 ];
             }

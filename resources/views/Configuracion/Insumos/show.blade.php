@@ -10,8 +10,8 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{route('productos.index')}}">Lista Producto</a></li>
-                    <li class="breadcrumb-item active">Ver Producto</li>
+                    <li class="breadcrumb-item"><a href="{{route('insumos.index')}}">Lista Insumos</a></li>
+                    <li class="breadcrumb-item active">Ver Insumo</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -25,54 +25,54 @@
             <div class="row">
                 <div class="col">
                     <div class="form-group">
-                        <strong>Nombre Producto:</strong>
-                        {{ $producto->nombre }}
+                        <strong>Nombre Insumo:</strong>
+                        {{ $insumo->nombre }}
                     </div>
                     <div class="form-group">
                         <strong>Unidad:</strong>
-                        {{$producto->unidad->nombre}}
+                        {{$insumo->unidad->nombre}}
                     </div>
                     <div class="form-group">
                         <strong>Descripcion:</strong>
-                        {{ $producto->descripcion }}
+                        {{ $insumo->descripcion }}
                     </div>
                     <div class="form-group">
                         <strong>Categoria:</strong>
-                        {{$producto->categoria->nombre}}
+                        {{$insumo->categoria->nombre}}
                     </div>
                     <div class="form-group">
                         <strong>Costo:</strong>
-                        {{$producto->costo}}
+                        {{$insumo->costo}}
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <strong>Stock Producto:</strong>
-                        {{ $producto->existencia }}
+                        <strong>Stock Insumo:</strong>
+                        {{ $insumo->existencia }}
                     </div>
                     <div class="form-group">
                         <strong>Stock Maximo:</strong>
-                        {{$producto->maximo}}
+                        {{$insumo->maximo}}
                     </div>
                     <div class="form-group">
                         <strong>Stock Reorden:</strong>
-                        {{ $producto->reorden }}
+                        {{ $insumo->reorden }}
                     </div>
                     <div class="form-group">
                         <strong>Stock Minimo:</strong>
-                        {{$producto->minimo}}
+                        {{$insumo->minimo}}
                     </div>
                     <div class="form-group">
                         <strong>Precio Venta:</strong>
-                        {{$producto->precio_venta}}
+                        {{$insumo->precio_venta}}
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        @if($producto->imagen==null)
+                        @if($insumo->imagen==null)
                         <h3>Sin Imagen</h3>
                         @else
-                        <img src="{{ asset('storage/imagenes/producto/'.$producto->imagen)}}" width="150" height="150">
+                        <img src="{{ asset('storage/imagenes/insumo/'.$insumo->imagen)}}" width="150" height="150">
                         @endif
                     </div>
                 </div>

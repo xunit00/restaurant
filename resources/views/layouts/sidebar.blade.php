@@ -83,8 +83,8 @@
                     <li class="nav-item has-treeview">
 
                         <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-boxes"></i>
-                            <p>Inventario
+                            <i class="nav-icon fas fa-cogs"></i>
+                            <p>Configuracion
                                 <i class="right fa fa-angle-left"></i>
                             </p>
                         </a>
@@ -121,10 +121,10 @@
 
                             @can('read.productos')
                             <li class="nav-item">
-                                <a href="{{route('productos.index')}}"
-                                class="nav-link {{ request()->is('productos*') ? 'active' : '' }}">
+                                <a href="{{route('insumos.index')}}"
+                                class="nav-link {{ request()->is('insumos*') ? 'active' : '' }}">
                                         <i class="nav-icon fas fa-circle-notch"></i>
-                                    <p>Productos</p>
+                                    <p>Insumos</p>
                                 </a>
                             </li>
                             @endcan()

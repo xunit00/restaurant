@@ -30,9 +30,9 @@ class InsumoController extends Controller
      */
     public function index()
     {
-        $productos = Producto::latest()->paginate(10);
+        $insumos = Insumo::latest()->paginate(10);
 
-        return view('inventario.productos.index', compact('productos'));
+        return view('configuracion.insumos.index', compact('insumos'));
     }
 
     /**
@@ -40,13 +40,13 @@ class InsumoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Producto $producto)
+    public function create(Insumo $insumo)
     {
-        $categorias = Categoria::whereStatus(1)->pluck('nombre', 'id');
+        $categorias = CategoriasInsumo::whereStatus(1)->pluck('nombre', 'id');
 
         $unidades = Unidad::whereStatus(1)->pluck('nombre', 'id');
 
-        return view('inventario.productos.create', compact('categorias', 'unidades', 'producto'));
+        return view('configuracion.insumos.create', compact('categorias', 'unidades', 'insumo'));
     }
 
     /**
@@ -59,12 +59,12 @@ class InsumoController extends Controller
     {
         $formInput = $request->all();
 
-        $formInput['imagen'] = $this->storeImage($request, 'imagen', 'producto');
+        $formInput['imagen'] = $this->storeImage($request, 'imagen', 'insumo');
 
-        Producto::create($formInput);
+        Insumo::create($formInput);
 
-        return redirect()->route('productos.index')
-            ->with('success', 'Producto Creado!');
+        return redirect()->route('insumos.index')
+            ->with('success', 'Insumo Creado!');
     }
 
     /**
@@ -73,9 +73,9 @@ class InsumoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Producto $producto)
+    public function show(Insumo $insumo)
     {
-        return view('inventario.productos.show', compact('producto'));
+        return view('configuracion.insumos.show', compact('insumo'));
     }
 
     /**
@@ -84,13 +84,13 @@ class InsumoController extends Controller
      * @param  object  $producto
      * @return \Illuminate\Http\Response
      */
-    public function edit(Producto $producto)
+    public function edit(Insumo $insumo)
     {
-        $categorias = Categoria::whereStatus(1)->pluck('nombre', 'id');
+        $categorias = CategoriasInsumo::whereStatus(1)->pluck('nombre', 'id');
 
         $unidades = Unidad::whereStatus(1)->pluck('nombre', 'id');
 
-        return view('inventario.productos.edit', compact('producto', 'categorias', 'unidades'));
+        return view('configuracion.insumos.edit', compact('insumo', 'categorias', 'unidades'));
     }
 
     /**
@@ -100,21 +100,21 @@ class InsumoController extends Controller
      * @param  object  $producto
      * @return \Illuminate\Http\Response
      */
-    public function update(InsumoRequest $request, Producto $producto)
+    public function update(InsumoRequest $request, Insumo $insumo)
     {
         $formInput = $request->all();
 
         if ($request->hasFile('imagen')) {
 
-            $currentImage = $producto->imagen;
+            $currentImage = $insumo->imagen;
 
-            $formInput['imagen'] = $this->updateImage($request, 'imagen', 'producto', $currentImage,'/storage/imagenes/producto/');
+            $formInput['imagen'] = $this->updateImage($request, 'imagen', 'insumo', $currentImage,'/storage/imagenes/insumo/');
         }
 
-        $producto->update( $formInput);
+        $insumo->update( $formInput);
 
-        return redirect()->route('productos.index')
-            ->with('success', 'Producto Actualizado Correctamente');
+        return redirect()->route('insumos.index')
+            ->with('success', 'Insumo Actualizado Correctamente');
     }
 
     /**
@@ -125,12 +125,12 @@ class InsumoController extends Controller
      */
     public function destroy($id)
     {
-        $producto = Producto::findOrFail($id);
+        $Insumo= Insumo::findOrFail($id);
 
-        $producto->delete();
+        $Insumo->delete();
 
-        return redirect()->route('productos.index')
-            ->with('success', 'Producto Eliminado Correctamente');
+        return redirect()->route('insumos.index')
+            ->with('success', 'Insumo Eliminado Correctamente');
     }
 
     /**
@@ -141,8 +141,8 @@ class InsumoController extends Controller
      */
     public function search(Request $request)
     {
-        $productos = Producto::search($request->value)->paginate(10);
+        $insumos = Insumo::search($request->value)->paginate(10);
 
-        return view('inventario.productos.index', compact('productos'));
+        return view('configuracion.insumos.index', compact('insumos'));
     }
 }
