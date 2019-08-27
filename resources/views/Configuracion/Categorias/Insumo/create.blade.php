@@ -10,7 +10,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-right">
-                    <li class="breadcrumb-item"><a href="{{route('categorias.index')}}">Lista Categoria</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('catInsumo.index')}}">Lista Categoria</a></li>
                     <li class="breadcrumb-item active">Agregar Categoria</li>
                 </ol>
             </div><!-- /.col -->
@@ -24,10 +24,10 @@
 <div class="card">
     <section class="content">
         <div class="container-fluid mt-3">
-            <form action="{{route('categorias.store')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('catInsumo.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
 
-                @include('inventario.categorias.form')
+                @include('configuracion.categorias.insumo.form')
 
                 <div class="form-group">
                     <input type="submit" class="btn btn-info" value="Save">

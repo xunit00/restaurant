@@ -30,13 +30,13 @@ class CategoriaInsumoRequest extends FormRequest
                 }
             case 'POST': {
                     return [
-                        'nombre' => 'required|string|min:4|max:50|unique:categorias',
+                        'nombre' => 'required|string|min:4|max:50|unique:categorias_insumos',
                         'descripcion' => 'nullable|string|min:4|max:191',
                     ];
                 }
             case 'PUT':{
                 return [
-                    'nombre' => 'required|string|min:4|max:50|unique:categorias,nombre,'. $this->route('catInsumo')->id,
+                    'nombre' => 'required|string|min:4|max:50|unique:categorias_insumos,nombre,'. $this->route('catInsumo')->id,
                     'descripcion' => 'nullable|string|min:4|max:191',
                 ];
             }

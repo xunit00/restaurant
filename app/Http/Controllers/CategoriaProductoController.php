@@ -23,8 +23,8 @@ class CategoriaProductoController extends Controller
      */
     public function index()
     {
-        $categorias= Categoria::latest()->paginate(10);
-        return view('inventario.categorias.index',compact('categorias'));
+        $catProductos= CategoriasProducto::latest()->paginate(10);
+        return view('configuracion.categorias.producto.index',compact('catProductos'));
     }
 
     /**
@@ -32,9 +32,9 @@ class CategoriaProductoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Categoria $categoria)
+    public function create(CategoriasProducto $catProducto)
     {
-        return view('inventario.categorias.create',compact('categoria'));
+        return view('configuracion.categorias.producto.create',compact('catProducto'));
     }
 
     /**
@@ -43,21 +43,21 @@ class CategoriaProductoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoriaRequest $request)
+    public function store(CategoriaProductoRequest $request)
     {
-        Categoria::create($request->all());
+        CategoriasProducto::create($request->all());
 
-        return redirect()->route('categorias.index')
+        return redirect()->route('catProductos.index')
         ->with('success', 'Categoria Creada!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Categoria  $categoria
+     * @param  \App\CategoriasProducto  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function show(Categoria $categoria)
+    public function show(CategoriasProducto $catProducto)
     {
         //
     }
@@ -65,59 +65,59 @@ class CategoriaProductoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Categoria  $categoria
+     * @param  \App\CategoriasProducto  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function edit(Categoria $categoria)
+    public function edit(CategoriasProducto $catProducto)
     {
-        return view('inventario.categorias.edit',compact('categoria'));
+        return view('configuracion.categorias.producto.edit',compact('catProducto'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Categoria  $categoria
+     * @param  \App\CategoriasProducto  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoriaRequest $request, Categoria $categoria)
+    public function update(CategoriaProductoRequest $request, CategoriasProducto $catProducto)
     {
-        $categoria->update($request->all());
+        $catProducto->update($request->all());
 
-        return redirect()->route('categorias.index')
+        return redirect()->route('catProductos.index')
         ->with('success','Categoria Actualizada Correctamente');
     }
 
      /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Categoria  $categoria
+     * @param  \App\CategoriasProducto  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function update_status(Categoria $categoria)
+    public function update_status(CategoriasProducto $catProducto)
     {
-        if($categoria->status==1){
-            $categoria->update(['status'=>0]);
+        if($catProducto->status==1){
+            $catProducto->update(['status'=>0]);
         }
         else{
-            $categoria->update(['status'=>1]);
+            $catProducto->update(['status'=>1]);
         }
 
-        return redirect()->route('categorias.index')
+        return redirect()->route('catProductos.index')
         ->with('success','Categoria Actualizada Correctamente');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Categoria  $categoria
+     * @param  \App\CategoriasProducto  $catProducto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Categoria $categoria)
+    public function destroy(CategoriasProducto $catProducto)
     {
-        $categoria->delete();
+        $catProducto->delete();
 
-        return redirect()->route('categorias.index')
+        return redirect()->route('catProductos.index')
         ->with('success','Categoria Eliminada Correctamente');
     }
 
@@ -129,8 +129,8 @@ class CategoriaProductoController extends Controller
      */
     public function search(Request $request)
     {
-        $categorias=Categoria::search($request->value)->paginate(10);
+        $catProducto=CategoriasProducto::search($request->value)->paginate(10);
 
-        return view('inventario.categorias.index',compact('categorias'));
+        return view('configuracion.categorias.producto.index',compact('catProducto'));
     }
 }

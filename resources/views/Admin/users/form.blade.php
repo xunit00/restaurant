@@ -74,7 +74,7 @@
         <div class="row">
             <label for="" class="col-md-3">Rol</label>
             <div class="col-md-6">
-                <select name="rol" id="" class="form-control @error('rol') is-invalid @enderror">
+                <select name="rol" id="roles" class="form-control @error('rol') is-invalid @enderror">
                     @foreach($roles as $rol=>$value)
                     @if($user->hasRole($value))
                     <option value="{{$rol}}" selected>{{$value}}</option>

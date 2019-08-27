@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
         'roles' => 'RolesController',
         'dashboard' => 'DashboardController',
         'catInsumo' => 'CategoriaInsumoController',
-        'catProducto' => 'CategoriaProductoController',
+        'catProductos' => 'CategoriaProductoController',
         'unidades' => 'UnidadController',
         'productos' => 'ProductoController',
         'comprobanteTipo' => 'ComprobanteTipoController',
@@ -71,7 +71,7 @@ Route::middleware('auth')->group(function () {
     //rutas para trabajar con search
     Route::prefix('search')->as('search.')->group(function () {
         Route::get('/catInsumo', 'CategoriaInsumoController@search')->name('catInsumo');
-        Route::get('/catProducto', 'CategoriaProductoController@search')->name('catProducto');
+        Route::get('/catProducto', 'CategoriaProductoController@search')->name('catProductos');
         Route::get('/user', 'UserController@search')->name('users');
         Route::get('/unidad', 'UnidadController@search')->name('unidades');
         Route::get('/producto', 'ProductoController@search')->name('productos');

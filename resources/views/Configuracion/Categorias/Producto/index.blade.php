@@ -6,7 +6,7 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 @can('create.categorias')
-                <a class="btn btn-success" href="{{route('categorias.create')}}">
+                <a class="btn btn-success" href="{{route('catProductos.create')}}">
                     Crear Categorias
                     <i class="fa fa-th-large"></i>
                     @endcan
@@ -33,7 +33,7 @@
 
 
             <div class="card-tools">
-                <form action="{{route('search.categorias')}}">
+                <form action="{{route('search.catProductos')}}">
                     <div class="input-group input-group-sm" style="width: 150px;">
                         <input type="text" name="value" class="form-control float-right" placeholder="Search">
 
@@ -56,7 +56,7 @@
                         <th>Status</th>
                         <th>Modyfy</th>
                     </tr>
-                    @foreach($productos as $prod)
+                    @foreach($catProductos as $prod)
                     <tr>
                         <td>{{$prod->nombre}}</td>
                         <td>{{$prod->descripcion}}</td>
@@ -64,7 +64,7 @@
                             <form action="{{route('status.catProducto',$prod->id)}}" method="POST">
                                 @csrf
                                 @method('PUT')
-                                @if($cat->status==1)
+                                @if($prod->status==1)
                                 <button type="submit" class="btn btn-outline-success btn-sm"
                                     onclick="return confirm('Quiere Actualizar este Registro?')">ACTIVO</button>
                                 @else
@@ -74,10 +74,10 @@
                             </form>
                         </td>
                         <td>
-                            <form action="{{route('categorias.destroy',$prod->id)}}" method="POST">
+                            <form action="{{route('catProductos.destroy',$prod->id)}}" method="POST">
                                 @can('update.categorias')
                                 <a class="btn btn-outline-secondary btn-sm"
-                                    href="{{route('categorias.edit',$prod->id)}}">
+                                    href="{{route('catProductos.edit',$prod->id)}}">
                                     <i class="fa fa-edit"></i>
                                 </a>
                                 @endcan
@@ -98,7 +98,7 @@
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
-            {{$productos->links()}}
+            {{$catProductos->links()}}
         </div>
     </div>
 </div>

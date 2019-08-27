@@ -10,7 +10,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{route('categorias.index')}}">Lista Categoria</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('catProductos.index')}}">Lista Categoria</a></li>
                     <li class="breadcrumb-item active">Actualizar Categoria</li>
                 </ol>
             </div><!-- /.col -->
@@ -24,11 +24,11 @@
 <div class="card">
     <section class="content">
         <div class="container-fluid mt-3">
-            <form action="{{route('categorias.update',$categoria->id)}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('catProductos.update',$catProducto->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
-                @include('inventario.categorias.form')
+                @include('configuracion.categorias.producto.form')
 
                 <div class="form-group">
                     <input type="submit" class="btn btn-info" value="Save">

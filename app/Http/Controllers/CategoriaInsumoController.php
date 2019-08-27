@@ -22,8 +22,8 @@ class CategoriaInsumoController extends Controller
      */
     public function index()
     {
-        return CategoriasInsumo::latest()->paginate(10);
-        // return view('inventario.categorias.index',compact('categorias'));
+        $catInsumo= CategoriasInsumo::latest()->paginate(10);
+        return view('configuracion.categorias.insumo.index',compact('catInsumo'));
     }
 
     /**
@@ -31,9 +31,9 @@ class CategoriaInsumoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Categoria $categoria)
+    public function create(CategoriasInsumo $catInsumo)
     {
-        return view('inventario.categorias.create',compact('categoria'));
+        return view('configuracion.categorias.insumo.create',compact('catInsumo'));
     }
 
     /**
@@ -42,21 +42,21 @@ class CategoriaInsumoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoriaRequest $request)
+    public function store(CategoriaInsumoRequest $request)
     {
-        Categoria::create($request->all());
+        CategoriasInsumo::create($request->all());
 
-        return redirect()->route('categorias.index')
+        return redirect()->route('catInsumo.index')
         ->with('success', 'Categoria Creada!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Categoria  $categoria
+     * @param  \App\CategoriasInsumo  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function show(Categoria $categoria)
+    public function show(CategoriasInsumo $catInsumo)
     {
         //
     }
@@ -64,59 +64,59 @@ class CategoriaInsumoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Categoria  $categoria
+     * @param  \App\CategoriasInsumo  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function edit(Categoria $categoria)
+    public function edit(CategoriasInsumo $catInsumo)
     {
-        return view('inventario.categorias.edit',compact('categoria'));
+        return view('configuracion.categorias.insumo.edit',compact('catInsumo'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Categoria  $categoria
+     * @param  \App\CategoriasInsumo  $catInsumo
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoriaRequest $request, Categoria $categoria)
+    public function update(CategoriaInsumoRequest $request, CategoriasInsumo $catInsumo)
     {
-        $categoria->update($request->all());
+        $catInsumo->update($request->all());
 
-        return redirect()->route('categorias.index')
+        return redirect()->route('catInsumo.index')
         ->with('success','Categoria Actualizada Correctamente');
     }
 
      /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Categoria  $categoria
+     * @param  \App\CategoriasInsumo  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function update_status(Categoria $categoria)
+    public function update_status(CategoriasInsumo $catInsumo)
     {
-        if($categoria->status==1){
-            $categoria->update(['status'=>0]);
+        if($catInsumo->status==1){
+            $catInsumo->update(['status'=>0]);
         }
         else{
-            $categoria->update(['status'=>1]);
+            $catInsumo->update(['status'=>1]);
         }
 
-        return redirect()->route('categorias.index')
+        return redirect()->route('catInsumo.index')
         ->with('success','Categoria Actualizada Correctamente');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Categoria  $categoria
+     * @param  \App\CategoriasInsumo  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Categoria $categoria)
+    public function destroy(CategoriasInsumo $catInsumo)
     {
-        $categoria->delete();
+        $catInsumo->delete();
 
-        return redirect()->route('categorias.index')
+        return redirect()->route('catInsumo.index')
         ->with('success','Categoria Eliminada Correctamente');
     }
 
@@ -128,9 +128,9 @@ class CategoriaInsumoController extends Controller
      */
     public function search(Request $request)
     {
-        $categorias=Categoria::search($request->value)->paginate(10);
+        $catInsumo=CategoriasInsumo::search($request->value)->paginate(10);
 
-        return view('inventario.categorias.index',compact('categorias'));
+        return view('configuracion.categorias.insumo.index',compact('catInsumo'));
     }
 
 }

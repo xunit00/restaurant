@@ -52,7 +52,7 @@
                         @if (Route::has('login'))
                         <li class="nav-item">
                             @auth
-                            <a class="nav-link js-scroll-trigger" href="{{ url('/home') }}">Home</a>
+                            <a class="nav-link js-scroll-trigger" href="{{ url('/dashboard') }}">Home</a>
                             @else
                             <a class="nav-link js-scroll-trigger" href="{{ route('login') }}">Login</a>
 
@@ -260,10 +260,6 @@
       <div class="small text-center text-muted">Copyright &copy; 2019 - Start Bootstrap</div>
     </div>
   </footer>
-
-  {{-- <!-- Bootstrap core JavaScript --> <!--esto esta en adminlte-->
-  <script src="{{asset('/storage/bootstrap_theme/vendor/jquery/jquery.min.js')}}"></script>
-  <script src="{{asset('/storage/bootstrap_theme/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script> --}}
  <script src="{{asset('js/app.js')}}"></script>
   <!-- Plugin JavaScript -->
   <script src="{{asset('/bootstrap_theme/vendor/jquery-easing/jquery.easing.min.js')}}"></script>

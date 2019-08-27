@@ -30,13 +30,13 @@ class CategoriaProductoRequest extends FormRequest
                 }
             case 'POST': {
                     return [
-                        'nombre' => 'required|string|min:4|max:50|unique:categorias',
+                        'nombre' => 'required|string|min:4|max:50|unique:categorias_productos',
                         'descripcion' => 'nullable|string|min:4|max:191',
                     ];
                 }
             case 'PUT':{
                 return [
-                    'nombre' => 'required|string|min:4|max:50|unique:categorias,nombre,'. $this->route('catProducto')->id,
+                    'nombre' => 'required|string|min:4|max:50|unique:categorias_productos,nombre,'. $this->route('catProducto')->id,
                     'descripcion' => 'nullable|string|min:4|max:191',
                 ];
             }

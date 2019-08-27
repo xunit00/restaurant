@@ -6,7 +6,7 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 @can('create.categorias')
-                <a class="btn btn-success" href="{{route('categorias.create')}}">
+                <a class="btn btn-success" href="{{route('catInsumo.create')}}">
                     Crear Categorias
                     <i class="fa fa-th-large"></i>
                     @endcan
@@ -33,7 +33,7 @@
 
 
             <div class="card-tools">
-                <form action="{{route('search.categorias')}}">
+                <form action="{{route('search.catInsumo')}}">
                     <div class="input-group input-group-sm" style="width: 150px;">
                         <input type="text" name="value" class="form-control float-right" placeholder="Search">
 
@@ -56,12 +56,12 @@
                         <th>Status</th>
                         <th>Modyfy</th>
                     </tr>
-                    @foreach($insumos as $ins)
+                    @foreach($catInsumo as $cat)
                     <tr>
-                        <td>{{$ins->nombre}}</td>
-                        <td>{{$ins->descripcion}}</td>
+                        <td>{{$cat->nombre}}</td>
+                        <td>{{$cat->descripcion}}</td>
                         <td>
-                            <form action="{{route('status.catInsumo',$ins->id)}}" method="POST">
+                            <form action="{{route('status.catInsumo',$cat->id)}}" method="POST">
                                 @csrf
                                 @method('PUT')
                                 @if($cat->status==1)
@@ -74,10 +74,10 @@
                             </form>
                         </td>
                         <td>
-                            <form action="{{route('categorias.destroy',$ins->id)}}" method="POST">
+                            <form action="{{route('catInsumo.destroy',$cat->id)}}" method="POST">
                                 @can('update.categorias')
                                 <a class="btn btn-outline-secondary btn-sm"
-                                    href="{{route('categorias.edit',$ins->id)}}">
+                                    href="{{route('catInsumo.edit',$cat->id)}}">
                                     <i class="fa fa-edit"></i>
                                 </a>
                                 @endcan
@@ -98,7 +98,7 @@
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
-            {{$insumos->links()}}
+            {{$catInsumo->links()}}
         </div>
     </div>
 </div>

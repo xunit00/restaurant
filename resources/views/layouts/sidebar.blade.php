@@ -79,7 +79,7 @@
                     @endrole
 
 
-                    {{-- @canany(['read.categorias','read.unidades','read.productos'])
+                    @canany(['read.categorias','read.unidades','read.productos'])
                     <li class="nav-item has-treeview">
 
                         <a href="#" class="nav-link">
@@ -91,10 +91,20 @@
                         <ul class="nav nav-treeview">
                             @can('read.categorias')
                             <li class="nav-item">
-                                <a href="{{route('categorias.index')}}"
+                                <a href="{{route('catInsumo.index')}}"
                                 class="nav-link {{ request()->is('categorias*') ? 'active' : '' }}">
                                 <i class="fas fa-circle-notch nav-icon"></i>
-                                    <p>Categorias</p>
+                                    <p>Categorias Insumos</p>
+                                <a>
+                            </li>
+                            @endcan
+
+                            @can('read.categorias')
+                            <li class="nav-item">
+                                <a href="{{route('catProductos.index')}}"
+                                class="nav-link {{ request()->is('categorias*') ? 'active' : '' }}">
+                                <i class="fas fa-circle-notch nav-icon"></i>
+                                    <p>Categorias Producto</p>
                                 <a>
                             </li>
                             @endcan
@@ -120,7 +130,7 @@
                             @endcan()
                             </ul>
                     </li>
-                    @endcanany --}}
+                    @endcanany
 
 
 
