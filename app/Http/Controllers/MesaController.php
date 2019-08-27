@@ -75,7 +75,9 @@ class MesaController extends Controller
      */
     public function edit(Mesa $mesa)
     {
-        return view('configuracion.mesas.edit',compact('mesa'));
+        $areas=Area::whereStatus(1)->pluck('nombre', 'id');
+
+        return view('configuracion.mesas.edit',compact('mesa','areas'));
     }
 
     /**
