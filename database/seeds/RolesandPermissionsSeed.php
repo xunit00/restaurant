@@ -27,9 +27,6 @@ class RolesandPermissionsSeed extends Seeder
         Permission::create(['name' => 'create.role']);
         Permission::create(['name' => 'read.role']);
 
-        Permission::create(['name' => 'update.permissions']);
-        Permission::create(['name' => 'delete.permissions']);
-        Permission::create(['name' => 'create.permissions']);
         Permission::create(['name' => 'read.permissions']);
 
         Permission::create(['name' => 'update.categorias']);
@@ -95,8 +92,7 @@ class RolesandPermissionsSeed extends Seeder
 
         $role = Role::create(['name' => 'Gerente'])
         ->givePermissionTo(Permission::all())
-        ->revokePermissionTo(['read.role','update.role','delete.role','create.role',
-        'read.permissions','update.permissions','delete.permissions','create.permissions']);
+        ->revokePermissionTo(['read.role','update.role','delete.role','create.role','read.permissions']);
 
         $role = Role::create(['name' => 'Cocinero'])
         ->givePermissionTo(['create.insumos', 'read.insumos', 'update.insumos', 'delete.insumos',

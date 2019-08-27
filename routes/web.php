@@ -28,30 +28,30 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
 
     Route::Resources([
-        // 'users' => 'UserController',
-        // 'permissions' => 'PermissionController',
-        // 'roles' => 'RolesController',
+        'users' => 'UserController',
+        'roles' => 'RolesController',
         'dashboard' => 'DashboardController',
         'catInsumo' => 'CategoriaInsumoController',
         'catProductos' => 'CategoriaProductoController',
         'unidades' => 'UnidadController',
         'productos' => 'ProductoController',
         'comprobanteTipo' => 'ComprobanteTipoController',
-        'comprobanteSecuencia'=>'ComprobanteSecuenciaController',
-        'recetas'=>'RecetaController',
-        'insumos'=>'InsumoController',
-        'areas'=>'AreaController',
-        'mesas'=>'MesaController',
-        'clientes'=>'ClienteController',
-        'notaVentas'=>'NotaVentaController',
+        'comprobanteSecuencia' => 'ComprobanteSecuenciaController',
+        'recetas' => 'RecetaController',
+        'insumos' => 'InsumoController',
+        'areas' => 'AreaController',
+        'mesas' => 'MesaController',
+        'clientes' => 'ClienteController',
+        'notaVentas' => 'NotaVentaController',
     ]);
 
-    Route::namespace('Admin')->prefix('admin')->as('admin.')->group(function ()  {
+    //rutas de admin
+    Route::namespace('Admin')->prefix('admin')->as('admin.')->group(function () {
         Route::Resources([
             'users' => 'UserController',
-            'permissions' => 'PermissionController',
             'roles' => 'RolesController',
-         ]);
+        ]);
+        Route::put('/managePermissions/{id}', 'UserController@managePermissions')->name('managePermissions');
     });
 
     //reportes
@@ -112,4 +112,3 @@ Route::prefix('admin')->group(function () {
 });
 
 Route::redirect('/admin', '/admin/orders');
-

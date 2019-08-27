@@ -19,7 +19,7 @@
 
 @include('partials.errors-update')
 
-<form action="{{route('managePermissions',$user->id)}}" method="POST" enctype="multipart/form-data">
+<form action="{{route('admin.managePermissions',$user->id)}}" method="POST" enctype="multipart/form-data">
     @method('PUT')
     @csrf
     <div class="card">

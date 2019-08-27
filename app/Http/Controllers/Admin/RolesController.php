@@ -25,9 +25,7 @@ class RolesController extends Controller
     {
         $roles = Role::latest()->paginate(10);
 
-        $permissions=Permission::all();
-
-        return view('admin.roles.index',compact('permissions','roles'));
+        return view('admin.roles.index',compact('roles'));
     }
 
     /**

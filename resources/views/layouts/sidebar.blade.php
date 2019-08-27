@@ -54,16 +54,6 @@
                             </li>
                             @endcan
 
-                            @can('read.permissions')
-                            <li class="nav-item">
-                                <a href="{{route('admin.permissions.index')}}"
-                                class="nav-link {{ request()->is('permissions*') ? 'active' : '' }}">
-                                        <i class="nav-icon fas fa-circle-notch"></i>
-                                    <p>Permisos</p>
-                                </a>
-                            </li>
-                            @endcan()
-
                             @can('read.role')
                             <li class="nav-item">
                                 <a href="{{route('admin.roles.index')}}"
