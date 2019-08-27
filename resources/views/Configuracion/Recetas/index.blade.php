@@ -56,7 +56,7 @@
                     </tr>
                     @foreach($recetas as $rct)
                     <tr>
-                        <td>{{$rct->plato->nombre}}</td>
+                        <td>{{$rct->producto->nombre}}</td>
                         <td>{{$rct->descripcion}}</td>
                         <td>
                             <form action="{{route('status.receta',$rct->id)}}" method="POST">

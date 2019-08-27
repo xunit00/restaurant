@@ -82170,22 +82170,24 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-md-2" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c(
-                        "a",
-                        {
-                          staticClass: "btn btn-outline-danger",
-                          on: {
-                            click: function($event) {
-                              return _vm.removeIns(index)
-                            }
-                          }
-                        },
-                        [_c("i", { staticClass: "fas fa-minus-circle" })]
-                      )
-                    ])
-                  ]),
+                  index > 0
+                    ? _c("div", { staticClass: "col-md-2" }, [
+                        _c("div", { staticClass: "form-group" }, [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "btn btn-outline-danger",
+                              on: {
+                                click: function($event) {
+                                  return _vm.removeIns(index)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fas fa-minus-circle" })]
+                          )
+                        ])
+                      ])
+                    : _vm._e(),
                   _vm._v(" "),
                   _c("div", { staticClass: "clearfix" })
                 ])

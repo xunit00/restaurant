@@ -30,14 +30,14 @@ class RecetaRequest extends FormRequest
                 }
             case 'POST': {
                     return [
-                        'plato' => 'required|numeric|unique:recetas,plato_id',
+                        'producto' => 'required|numeric|unique:recetas,producto_id',
                         'descripcion' => 'nullable|string|min:4|max:191',
                         'porciones' => 'required|numeric',
                     ];
                 }
             case 'PUT':{
                 return [
-                    'plato' => 'required|numeric|unique:recetas,plato_id,'. $this->route('receta')->id,
+                    'producto' => 'required|numeric|unique:recetas,producto_id,'. $this->route('receta')->id,
                     'descripcion' => 'nullable|string|min:4|max:191',
                     'porciones' => 'required|numeric',
                 ];

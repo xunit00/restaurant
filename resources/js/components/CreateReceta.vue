@@ -76,7 +76,7 @@
                 <has-error :form="form" field="cantidad"></has-error>
             </div>
 
-             <div class="col-md-2">
+             <div class="col-md-2" v-if="index>0">
                 <div class="form-group">
                     <a class="btn btn-outline-danger" @click="removeIns(index)">
                         <i class="fas fa-minus-circle"></i>
