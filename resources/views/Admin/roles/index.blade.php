@@ -6,7 +6,7 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 @can('create.role')
-                <a class="btn btn-success" href="{{route('roles.create')}}">
+                <a class="btn btn-success" href="{{route('admin.roles.create')}}">
                     Crear Rol
                     <i class="fa fa-user-plus"></i>
                 </a>
@@ -59,9 +59,9 @@
                         <td>{{$rol->id}}</td>
                         <td>{{$rol->name}}</td>
                         <td>
-                            <form action="{{route('roles.destroy',$rol->id)}}" method="POST">
+                            <form action="{{route('admin.roles.destroy',$rol->id)}}" method="POST">
                                 @can('update.role')
-                                <a class="btn btn-outline-secondary btn-sm" href="{{route('roles.edit',$rol->id)}}">
+                                <a class="btn btn-outline-secondary btn-sm" href="{{route('admin.roles.edit',$rol->id)}}">
                                     <i class="fa fa-edit"></i>
                                 </a>
                                 @endcan

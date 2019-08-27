@@ -5,9 +5,9 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                @can('create.permissions')
-                <a class="btn btn-success" href="{{route('admin.permissions.create')}}">
-                    Crear Permiso
+                @can('create.role')
+                <a class="btn btn-success" href="{{route('roles.create')}}">
+                    Crear Rol
                     <i class="fa fa-user-plus"></i>
                 </a>
                 @endcan
@@ -16,7 +16,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Dashboard</a></li>
-                    <li class="breadcrumb-item active">Lista de Permisos</li>
+                    <li class="breadcrumb-item active">Lista de Roles</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -26,13 +26,13 @@
 <div class="container">
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Permisos</h3>
+            <h3 class="card-title">Roles</h3>
 
             @include('partials.success-alert')
             <!--mensaje de exito proceso-->
 
             <div class="card-tools">
-                <form action="{{route('search.permissions')}}">
+                <form action="{{route('search.roles')}}">
                     <div class="input-group input-group-sm" style="width: 150px;">
                         <input type="text" name="value" class="form-control float-right" placeholder="Search">
 
@@ -42,6 +42,7 @@
                             </button>
                         </div>
                     </div>
+                </form>
             </div>
         </div>
         <!-- /.card-header -->
@@ -53,17 +54,26 @@
                         <th>Name</th>
                         <th>Modyfy</th>
                     </tr>
-                    @foreach($permissions as $permission)
+                    @foreach($roles as $rol)
                     <tr>
-                        <td>{{$permission->id}}</td>
-                        <td>{{$permission->name}}</td>
+                        <td>{{$rol->id}}</td>
+                        <td>{{$rol->name}}</td>
                         <td>
-                            @can('update.permissions')
-                            <a class="btn btn-outline-secondary btn-sm"
-                                href="{{route('admin.permissions.edit',$permission->id)}}">
-                                <i class="fa fa-edit"></i>
-                            </a>
-                            @endcan
+                            <form action="{{route('roles.destroy',$rol->id)}}" method="POST">
+                                @can('update.role')
+                                <a class="btn btn-outline-secondary btn-sm" href="{{route('roles.edit',$rol->id)}}">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                @endcan
+
+                                @csrf
+                                @method('DELETE')
+                                @can('delete.role')
+                                <button type="submit" class="btn btn-outline-danger btn-sm"
+                                    onclick="return confirm('Quiere Borrar este Registro?')">
+                                    <i class="fas fa-trash-alt"></i></button>
+                                @endcan
+                            </form>
                         </td>
                     </tr>
                     @endforeach
@@ -72,7 +82,7 @@
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
-            {{$permissions->links()}}
+            {{$roles->links()}}
         </div>
     </div>
 </div>

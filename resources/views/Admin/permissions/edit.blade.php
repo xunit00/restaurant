@@ -10,7 +10,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{route('permissions.index')}}">Lista Permiso</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('admin.permissions.index')}}">Lista Permiso</a></li>
                     <li class="breadcrumb-item active">Editar Permiso</li>
                 </ol>
             </div><!-- /.col -->
@@ -24,7 +24,7 @@
 <div class="card">
     <section class="content">
         <div class="container-fluid mt-3">
-            <form action="{{route('permissions.update',$permission->id)}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('admin.permissions.update',$permission->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 

@@ -9,7 +9,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{route('admin.users.index')}}">Lista Usuario</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('users.index')}}">Lista Usuario</a></li>
                     <li class="breadcrumb-item active">Detalle Usuario</li>
                 </ol>
             </div><!-- /.col -->

@@ -42,14 +42,14 @@
                     <div class="inner">
                         <h3>{{$platoCount}}</h3>
 
-                        <p>Platos</p>
+                        <p>Productos</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
                     </div>
-                    {{-- <a href="{{route('platos.index')}}" class="small-box-footer">
+                    <a href="{{route('productos.index')}}" class="small-box-footer">
                         More info <i class="fa fa-arrow-circle-right"></i>
-                    </a> --}}
+                    </a>
                 </div>
             </div>
             <!-- ./col -->
@@ -59,18 +59,18 @@
                     <div class="inner">
                     <h3>{{$productCount}}</h3>
 
-                        <p>Productos</p>
+                        <p>Insumos</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-android-create"></i>
                     </div>
-                    {{-- <a href="{{route('productos.index')}}" class="small-box-footer">
+                    <a href="{{route('insumos.index')}}" class="small-box-footer">
                         More info <i class="fa fa-arrow-circle-right"></i>
-                    </a> --}}
+                    </a>
                 </div>
             </div>
             <!-- ./col -->
-            <div class="col-lg-3 col-6">
+            {{-- <div class="col-lg-3 col-6">
                 <!-- small card -->
                 <div class="small-box bg-danger">
                     <div class="inner">

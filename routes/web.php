@@ -28,9 +28,9 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
 
     Route::Resources([
-        'users' => 'UserController',
-        'permissions' => 'PermissionController',
-        'roles' => 'RolesController',
+        // 'users' => 'UserController',
+        // 'permissions' => 'PermissionController',
+        // 'roles' => 'RolesController',
         'dashboard' => 'DashboardController',
         'catInsumo' => 'CategoriaInsumoController',
         'catProductos' => 'CategoriaProductoController',
@@ -45,6 +45,14 @@ Route::middleware('auth')->group(function () {
         'clientes'=>'ClienteController',
         'notaVentas'=>'NotaVentaController',
     ]);
+
+    Route::namespace('Admin')->prefix('admin')->as('admin.')->group(function ()  {
+        Route::Resources([
+            'users' => 'UserController',
+            'permissions' => 'PermissionController',
+            'roles' => 'RolesController',
+         ]);
+    });
 
     //reportes
     Route::prefix('reportes')->as('reportes.')->group(function () {

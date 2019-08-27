@@ -10,7 +10,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{route('roles.index')}}">Lista Roles</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('admin.roles.index')}}">Lista Roles</a></li>
                     <li class="breadcrumb-item active">Agregar Rol</li>
                 </ol>
             </div><!-- /.col -->
@@ -24,7 +24,7 @@
 <div class="card" id="app">
     <section class="content">
         <div class="container-fluid mt-3">
-            <form action="{{route('roles.store')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('admin.roles.store')}}" method="POST" enctype="multipart/form-data">
 
                 @csrf
 

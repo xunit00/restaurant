@@ -10,7 +10,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{route('admin.users.index')}}">Lista Usuario</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('users.index')}}">Lista Usuario</a></li>
                     <li class="breadcrumb-item active">Agregar Usuario</li>
                 </ol>
             </div><!-- /.col -->
@@ -24,7 +24,7 @@
 <div class="card">
     <section class="content">
         <div class="container-fluid mt-3">
-            <form action="{{route('admin.users.store')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('users.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 @include('admin.users.form')

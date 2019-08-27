@@ -7,7 +7,7 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 @can('create.users')
-                <a class="btn btn-success" href="{{route('users.create')}}">
+                <a class="btn btn-success" href="{{route('admin.users.create')}}">
                     Crear Usuario
                     <i class="fa fa-user-plus"></i>
                 </a>
@@ -60,15 +60,15 @@
                         <td>{{$user->name}}</td>
                         <td>{{$user->roles->implode('name',', ')}}</td>
                         <td>
-                            <form action="{{route('users.destroy',$user->id)}}" method="POST">
+                            <form action="{{route('admin.users.destroy',$user->id)}}" method="POST">
                                 @can('update.users')
-                                <a class="btn btn-outline-secondary btn-sm" href="{{route('users.edit',$user->id)}}">
+                                <a class="btn btn-outline-secondary btn-sm" href="{{route('admin.users.edit',$user->id)}}">
                                     <i class="fa fa-edit"></i>
                                 </a>
                                 @endcan
 
                                 @can('update.permissions')
-                                <a class="btn btn-outline-primary btn-sm" href="{{ route('users.show',$user->id) }}">
+                                <a class="btn btn-outline-primary btn-sm" href="{{ route('admin.users.show',$user->id) }}">
                                     <i class="fas fa-info-circle"></i>
                                 </a>
                                 @endcan

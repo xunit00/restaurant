@@ -10,7 +10,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{route('roles.index')}}">Lista Roles</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('admin.roles.index')}}">Lista Roles</a></li>
                     <li class="breadcrumb-item active">Actualizar Rol</li>
                 </ol>
             </div><!-- /.col -->
@@ -24,7 +24,7 @@
 <div class="card" id="app">
     <section class="content">
         <div class="container-fluid mt-3">
-            <form action="{{route('roles.update',$role->id)}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('admin.roles.update',$role->id)}}" method="POST" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
 

@@ -46,7 +46,7 @@
                         <ul class="nav nav-treeview">
                             @can('read.users')
                             <li class="nav-item">
-                                <a href="{{route('users.index')}}"
+                                <a href="{{route('admin.users.index')}}"
                                 class="nav-link {{ request()->is('users*') ? 'active' : '' }}">
                                         <i class="nav-icon fas fa-circle-notch"></i>
                                     <p>Users</p>
@@ -56,7 +56,7 @@
 
                             @can('read.permissions')
                             <li class="nav-item">
-                                <a href="{{route('permissions.index')}}"
+                                <a href="{{route('admin.permissions.index')}}"
                                 class="nav-link {{ request()->is('permissions*') ? 'active' : '' }}">
                                         <i class="nav-icon fas fa-circle-notch"></i>
                                     <p>Permisos</p>
@@ -66,7 +66,7 @@
 
                             @can('read.role')
                             <li class="nav-item">
-                                <a href="{{route('roles.index')}}"
+                                <a href="{{route('admin.roles.index')}}"
                                 class="nav-link {{ request()->is('roles*') ? 'active' : '' }}">
                                         <i class="nav-icon fas fa-circle-notch"></i>
                                     <p>Roles</p>
@@ -176,7 +176,7 @@
 
 
 
-                    {{-- @can(['read.comprobantes'])
+                    @can(['read.comprobantes'])
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-file-contract"></i>
@@ -204,25 +204,26 @@
                         @endcan
                     </ul>
                 </li>
-                @endcan --}}
+                @endcan
 
-                {{-- @canany(['read.clientes','read.notaVenta'])
+                @can('read.clientes')
+                <li class="nav-item">
+                    <a href="{{ route('clientes.index') }}"
+                    class="nav-link {{ request()->is('clientes*') ? 'active' : '' }}">
+                    <i class="fas fa-user-friends nav-icon"></i>
+                    <p>Cliente</p>
+                    <a>
+                </li>
+                @endcan
+
+
+                @canany(['read.clientes','read.notaVenta'])
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-shopping-cart"></i>
                         <p>Ventas<i class="right fa fa-angle-left"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
-                        @can('read.clientes')
-                        <li class="nav-item">
-                            <a href="{{ route('clientes.index') }}"
-                            class="nav-link {{ request()->is('clientes*') ? 'active' : '' }}">
-                            <i class="fas fa-circle-notch nav-icon"></i>
-                            <p>Cliente</p>
-                            <a>
-                        </li>
-                        @endcan
-
                         @can('read.comprobantes')
                         <li class="nav-item">
                             <a href="{{ route('notaVentas.index') }}"
@@ -244,7 +245,7 @@
                         @endcan
                     </ul>
                 </li>
-                @endcanany --}}
+                @endcanany
 
 
                 </ul>
