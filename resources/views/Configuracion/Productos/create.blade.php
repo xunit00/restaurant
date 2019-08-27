@@ -6,12 +6,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Agregar Plato</h1>
+                <h1 class="m-0 text-dark">Agregar Producto</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-right">
-                    <li class="breadcrumb-item"><a href="{{route('platos.index')}}">Lista Plato</a></li>
-                    <li class="breadcrumb-item active">Agregar Plato</li>
+                    <li class="breadcrumb-item"><a href="{{route('productos.index')}}">Lista Productos</a></li>
+                    <li class="breadcrumb-item active">Agregar Producto</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -24,10 +24,10 @@
 <div class="card">
     <section class="content">
         <div class="container-fluid mt-3">
-            <form action="{{route('platos.store')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('productos.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
 
-                @include('configuracion.platos.form')
+                @include('configuracion.productos.form')
 
                 <div class="form-group">
                     <input type="submit" class="btn btn-info" value="Save">

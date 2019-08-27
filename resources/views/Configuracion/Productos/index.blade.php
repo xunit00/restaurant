@@ -6,8 +6,8 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     @can('create.productos')
-                    <a class="btn btn-success" href="{{route('platos.create')}}">
-                        Crear Plato
+                    <a class="btn btn-success" href="{{route('productos.create')}}">
+                        Crear Producto
                         <i class="fa fa-th-large"></i>
                     @endcan
                     </a>
@@ -16,7 +16,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Lista de Platos</li>
+                        <li class="breadcrumb-item active">Lista de Productos</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -26,12 +26,12 @@
 <div class="container">
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Platos</h3>
+            <h3 class="card-title">Productos</h3>
 
             @include('partials.success-alert')<!--mensaje de exito proceso-->
 
             <div class="card-tools">
-                <form action="{{route('search.platos')}}">
+                <form action="{{route('search.productos')}}">
                 <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="value" class="form-control float-right" placeholder="Search">
 
@@ -56,17 +56,17 @@
                         <th>Status</th>
                         <th>Modyfy</th>
                     </tr>
-                    @foreach($platos as $plato)
+                    @foreach($productos as $prod)
                     <tr>
-                        <td>{{$plato->nombre}}</td>
-                        <td>{{$plato->descripcion}}</td>
-                        <td>{{$plato->categoria->nombre}}</td>
-                        <td>{{$plato->precio}}</td>
+                        <td>{{$prod->nombre}}</td>
+                        <td>{{$prod->descripcion}}</td>
+                        <td>{{$prod->categoria->nombre}}</td>
+                        <td>{{$prod->precio}}</td>
                         <td>
-                            <form action="{{route('status.plato',$plato->id)}}" method="POST">
+                            <form action="{{route('status.producto',$prod->id)}}" method="POST">
                                 @csrf
                                 @method('PUT')
-                                @if($plato->status==1)
+                                @if($prod->status==1)
                                 <button type="submit" class="btn btn-outline-success btn-sm"
                                 onclick="return confirm('Quiere Actualizar este Registro?')">ACTIVO</button>
                                 @else
@@ -76,18 +76,14 @@
                             </form>
                         </td>
                         <td>
-                            <form action="{{route('platos.destroy',$plato->id)}}" method="POST">
+                            <form action="{{route('productos.destroy',$prod->id)}}" method="POST">
                                 @can('update.productos')
                                 <a class="btn btn-outline-primary btn-sm"
-                                    href="{{route('platos.edit',$plato->id)}}">
+                                    href="{{route('productos.edit',$prod->id)}}">
                                     <i class="fa fa-edit"></i>
                                 </a>
                                 @endcan
 
-                                {{-- <a class="btn btn-outline-secondary btn-sm"
-                                href="{{route('platos.show',$plato->id)}}">
-                                <i class="fas fa-info-circle"></i>
-                                </a> --}}
 
                                 @csrf
                                 @method('DELETE')
@@ -105,7 +101,7 @@
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
-                {{$platos->links()}}
+                {{$productos->links()}}
         </div>
     </div>
 </div>
