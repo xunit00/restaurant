@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
+
     public function __construct()
     {
         $this->middleware(['auth',
@@ -85,7 +86,9 @@ class UserController extends Controller
         $my_perm=$user->permissions()->pluck('name','id');
 
         $permissions=Permission::all()->pluck('name','id');
+
         $roles= Role::all()->pluck('name','id');
+
         return view('admin.users.show',compact('user','roles','permissions','my_perm'));
     }
 

@@ -3,44 +3,32 @@
 <div class="card">
     <section class="content">
         <div class="container-fluid mt-3">
-            <form @submit.prevent="createReceta()">
+            <form @submit.prevent="createTransaccion()">
 
              <div class="form-group">
         <div class="row">
-            <label for="" class="col-md-2">Producto</label>
+            <label for="" class="col-md-2">Tipo Transaccion</label>
             <div class="col-md-6">
-                 <select class="form-control" v-model="form.producto" required
-                  :class="{ 'is-invalid': form.errors.has('producto') }">
+                 <select class="form-control" v-model="form.tipo_transaccion" required
+                  :class="{ 'is-invalid': form.errors.has('tipo_transaccion') }">
                     <option disabled value="">Seleccionar Producto</option>
-                    <option v-for="producto in productos" v-bind:key="producto.id"
-                    v-bind:value="producto.id">{{producto.nombre}}</option>
+                    <option value="ingreso">Ingreso</option>
+                    <option value="egreso">Egreso</option>
                 </select>
             </div>
-                    <has-error :form="form" field="producto"></has-error>
+                    <has-error :form="form" field="tipo_transaccion"></has-error>
             <div class="clearfix"></div>
         </div>
     </div>
 
     <div class="form-group">
         <div class="row">
-            <label for="" class="col-md-2">Descripcion</label>
-            <div class="col-md-6"><input type="text" name="descripcion"
-            v-model="form.descripcion" placeholder=""
-            :class="{ 'is-invalid': form.errors.has('descripcion') }"
+            <label for="" class="col-md-2">Concepto</label>
+            <div class="col-md-6"><input type="text" name="concepto"
+            v-model="form.concepto"
+            placeholder=""  :class="{ 'is-invalid': form.errors.has('concepto') }"
             class="form-control"></div>
-                <has-error :form="form" field="descripcion"></has-error>
-            <div class="clearfix"></div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="row">
-            <label for="" class="col-md-2">Porciones</label>
-            <div class="col-md-6"><input type="text" name="porciones"
-            v-model="form.porciones"
-            placeholder="" :class="{ 'is-invalid': form.errors.has('porciones') }"
-            class="form-control" required></div>
-                    <has-error :form="form" field="porciones"></has-error>
+                    <has-error :form="form" field="concepto"></has-error>
             <div class="clearfix"></div>
         </div>
     </div>
@@ -49,7 +37,7 @@
         <div class="row">
             <label for="" class="col-md-2">Agregar Insumo</label>
             <div class="col-md-6">
-                 <a class="btn btn-outline-primary" @click="addNewIns">
+                 <a class="btn btn-outline-primary" @click="addNewIng">
                         <i class="fas fa-plus-square"></i>
                     </a>
             </div>
@@ -78,7 +66,7 @@
 
              <div class="col-md-2">
                 <div class="form-group">
-                    <a class="btn btn-outline-danger" @click="removeIns(index)">
+                    <a class="btn btn-outline-danger" @click="removeIng(index)">
                         <i class="fas fa-minus-circle"></i>
                     </a>
                 </div>
@@ -98,14 +86,14 @@
 </template>
 <script>
 export default {
-    props: ['productos','insumos'],
+    props: ['usuario','insumos'],
     data(){
         return{
             recetas: {}, //object
             form: new Form({
-                producto:'',
-                descripcion:'',
-                porciones:'',
+                usuario:this.usuario,
+                tipo_transaccion:'',
+                concepto:'',
                 detalles:[{
                     insumo:'',
                     cantidad:''
@@ -114,13 +102,13 @@ export default {
         };
     },
     methods:{
-        addNewIns(){
+        addNewIng(){
             this.form.detalles.push({
                 insumo:'',
                 cantidad:''
             })
         },
-        removeIns(index){
+        removeIng(index){
             if(index>=1){
             this.form.detalles.splice(index,1)
             }else{
@@ -130,13 +118,13 @@ export default {
             });
             }
         },
-        createReceta() {
+        createTransaccion() {
             this.$Progress.start();
-            this.form.post('/recetas')
+            this.form.post('/transacciones')
             .then(() => {
             toast.fire({
                 type: "success",
-                title: "Receta Creada Exitosamente"
+                title: "Transaccion Creada Exitosamente"
             });
             this.$Progress.finish();
                 this.clearForm();
@@ -151,13 +139,13 @@ export default {
         },
         clearForm(){
             this.form.producto='',
-               this.form. descripcion='',
-               this.form. porciones='',
+               this.form. tipo_transaccion='',
+               this.form. concepto='',
                this.form. detalles.length=0;
         }
     },
     mounted(){
-        console.log("Create Receta Mounted");
+        console.log("Create Ingreso/Egreso Mounted");
     }
 };
 </script>

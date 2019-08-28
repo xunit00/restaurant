@@ -28,8 +28,6 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
 
     Route::Resources([
-        'users' => 'UserController',
-        'roles' => 'RolesController',
         'dashboard' => 'DashboardController',
         'catInsumo' => 'CategoriaInsumoController',
         'catProductos' => 'CategoriaProductoController',
@@ -43,6 +41,7 @@ Route::middleware('auth')->group(function () {
         'mesas' => 'MesaController',
         'clientes' => 'ClienteController',
         'notaVentas' => 'NotaVentaController',
+        'transacciones' => 'TransaccionInventarioController',
     ]);
 
     //rutas de admin
@@ -71,6 +70,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/receta/{receta}', 'RecetaController@update_status')->name('receta');
         Route::put('/area/{area}', 'AreaController@update_status')->name('area');
         Route::put('/mesa/{mesa}', 'MesaController@update_status')->name('mesa');
+        Route::put('/transaccion/{transaccione}', 'TransaccionInventarioController@update_status')->name('transaccion');
     });
 
     //vista de permisos por usuarios
@@ -92,6 +92,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/area', 'AreaController@search')->name('areas');
         Route::get('/mesa', 'MesaController@search')->name('mesas');
         Route::get('/cliente', 'ClienteController@search')->name('clientes');
+        Route::get('/transaccion', 'TransaccionInventarioController@search')->name('transacciones');
     });
 });
 

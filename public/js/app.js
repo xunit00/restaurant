@@ -1837,7 +1837,14 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     removeIns: function removeIns(index) {
-      this.form.detalles.splice(index, 1);
+      if (index >= 1) {
+        this.form.detalles.splice(index, 1);
+      } else {
+        toast.fire({
+          type: "warning",
+          title: "Necesita al menos un Insumo"
+        });
+      }
     },
     createReceta: function createReceta() {
       var _this = this;
@@ -1867,6 +1874,168 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     console.log("Create Receta Mounted");
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CreateTransaccion.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CreateTransaccion.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['usuario', 'insumos'],
+  data: function data() {
+    return {
+      recetas: {},
+      //object
+      form: new Form({
+        usuario: this.usuario,
+        tipo_transaccion: '',
+        concepto: '',
+        detalles: [{
+          insumo: '',
+          cantidad: ''
+        }]
+      })
+    };
+  },
+  methods: {
+    addNewIng: function addNewIng() {
+      this.form.detalles.push({
+        insumo: '',
+        cantidad: ''
+      });
+    },
+    removeIng: function removeIng(index) {
+      if (index >= 1) {
+        this.form.detalles.splice(index, 1);
+      } else {
+        toast.fire({
+          type: "warning",
+          title: "Necesita al menos un Insumo"
+        });
+      }
+    },
+    createTransaccion: function createTransaccion() {
+      var _this = this;
+
+      this.$Progress.start();
+      this.form.post('/transacciones').then(function () {
+        toast.fire({
+          type: "success",
+          title: "Transaccion Creada Exitosamente"
+        });
+
+        _this.$Progress.finish();
+
+        _this.clearForm();
+      })["catch"](function () {
+        _this.$Progress.fail();
+
+        toast.fire({
+          type: "error",
+          title: "Error en Insercion de Datos"
+        });
+      });
+    },
+    clearForm: function clearForm() {
+      this.form.producto = '', this.form.tipo_transaccion = '', this.form.concepto = '', this.form.detalles.length = 0;
+    }
+  },
+  mounted: function mounted() {
+    console.log("Create Ingreso/Egreso Mounted");
   }
 });
 
@@ -82170,24 +82339,348 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
-                  index > 0
-                    ? _c("div", { staticClass: "col-md-2" }, [
-                        _c("div", { staticClass: "form-group" }, [
-                          _c(
-                            "a",
-                            {
-                              staticClass: "btn btn-outline-danger",
-                              on: {
-                                click: function($event) {
-                                  return _vm.removeIns(index)
-                                }
-                              }
-                            },
-                            [_c("i", { staticClass: "fas fa-minus-circle" })]
-                          )
+                  _c("div", { staticClass: "col-md-2" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "btn btn-outline-danger",
+                          on: {
+                            click: function($event) {
+                              return _vm.removeIns(index)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fas fa-minus-circle" })]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "clearfix" })
+                ])
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _vm._m(0)
+          ]
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("input", {
+        staticClass: "btn btn-info",
+        attrs: { type: "submit", value: "Save" }
+      })
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CreateTransaccion.vue?vue&type=template&id=3da88598&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CreateTransaccion.vue?vue&type=template&id=3da88598& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "card" }, [
+    _c("section", { staticClass: "content" }, [
+      _c("div", { staticClass: "container-fluid mt-3" }, [
+        _c(
+          "form",
+          {
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.createTransaccion()
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "div",
+                { staticClass: "row" },
+                [
+                  _c("label", { staticClass: "col-md-2", attrs: { for: "" } }, [
+                    _vm._v("Tipo Transaccion")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.tipo_transaccion,
+                            expression: "form.tipo_transaccion"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        class: {
+                          "is-invalid": _vm.form.errors.has("tipo_transaccion")
+                        },
+                        attrs: { required: "" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.form,
+                              "tipo_transaccion",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { disabled: "", value: "" } }, [
+                          _vm._v("Seleccionar Producto")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "ingreso" } }, [
+                          _vm._v("Ingreso")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "egreso" } }, [
+                          _vm._v("Egreso")
                         ])
-                      ])
-                    : _vm._e(),
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("has-error", {
+                    attrs: { form: _vm.form, field: "tipo_transaccion" }
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "clearfix" })
+                ],
+                1
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "div",
+                { staticClass: "row" },
+                [
+                  _c("label", { staticClass: "col-md-2", attrs: { for: "" } }, [
+                    _vm._v("Concepto")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.concepto,
+                          expression: "form.concepto"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      class: { "is-invalid": _vm.form.errors.has("concepto") },
+                      attrs: {
+                        type: "text",
+                        name: "concepto",
+                        placeholder: ""
+                      },
+                      domProps: { value: _vm.form.concepto },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "concepto", $event.target.value)
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("has-error", {
+                    attrs: { form: _vm.form, field: "concepto" }
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "clearfix" })
+                ],
+                1
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("label", { staticClass: "col-md-2", attrs: { for: "" } }, [
+                  _vm._v("Agregar Insumo")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-outline-primary",
+                      on: { click: _vm.addNewIng }
+                    },
+                    [_c("i", { staticClass: "fas fa-plus-square" })]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "clearfix" })
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "form-group" },
+              _vm._l(_vm.form.detalles, function(detalle, index) {
+                return _c("div", { key: index, staticClass: "row" }, [
+                  _c("label", { staticClass: "col-md-2", attrs: { for: "" } }, [
+                    _vm._v("Insumo (" + _vm._s(index + 1) + ")")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "col-md-3" },
+                    [
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: detalle.insumo,
+                              expression: "detalle.insumo"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { required: "" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                detalle,
+                                "insumo",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { disabled: "", value: "" } }, [
+                            _vm._v("Seleccionar Insumo")
+                          ]),
+                          _vm._v(" "),
+                          _vm._l(_vm.insumos, function(insm) {
+                            return _c(
+                              "option",
+                              { key: insm.id, domProps: { value: insm.id } },
+                              [_vm._v(_vm._s(insm.nombre))]
+                            )
+                          })
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _c("has-error", {
+                        attrs: { form: _vm.form, field: "insumo" }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "col-md-3" },
+                    [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: detalle.cantidad,
+                            expression: "detalle.cantidad"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          name: "cantidad",
+                          placeholder: "cantidad",
+                          required: ""
+                        },
+                        domProps: { value: detalle.cantidad },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(detalle, "cantidad", $event.target.value)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("has-error", {
+                        attrs: { form: _vm.form, field: "cantidad" }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-2" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "btn btn-outline-danger",
+                          on: {
+                            click: function($event) {
+                              return _vm.removeIng(index)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fas fa-minus-circle" })]
+                      )
+                    ])
+                  ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "clearfix" })
                 ])
@@ -99060,6 +99553,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_4__["default"]({
 Vue.component('not-found', __webpack_require__(/*! ./components/NotFound.vue */ "./resources/js/components/NotFound.vue")["default"]);
 Vue.component('order-notifications', __webpack_require__(/*! ./components/OrderNotifications.vue */ "./resources/js/components/OrderNotifications.vue")["default"]);
 Vue.component('create-receta', __webpack_require__(/*! ./components/CreateReceta.vue */ "./resources/js/components/CreateReceta.vue")["default"]);
+Vue.component('create-transaccion', __webpack_require__(/*! ./components/CreateTransaccion.vue */ "./resources/js/components/CreateTransaccion.vue")["default"]);
 Vue.component('nota-venta', __webpack_require__(/*! ./components/NotaVenta.vue */ "./resources/js/components/NotaVenta.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -99208,6 +99702,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateReceta_vue_vue_type_template_id_14ac47ee___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateReceta_vue_vue_type_template_id_14ac47ee___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/CreateTransaccion.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/CreateTransaccion.vue ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _CreateTransaccion_vue_vue_type_template_id_3da88598___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateTransaccion.vue?vue&type=template&id=3da88598& */ "./resources/js/components/CreateTransaccion.vue?vue&type=template&id=3da88598&");
+/* harmony import */ var _CreateTransaccion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateTransaccion.vue?vue&type=script&lang=js& */ "./resources/js/components/CreateTransaccion.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _CreateTransaccion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _CreateTransaccion_vue_vue_type_template_id_3da88598___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _CreateTransaccion_vue_vue_type_template_id_3da88598___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/CreateTransaccion.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/CreateTransaccion.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/CreateTransaccion.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateTransaccion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./CreateTransaccion.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CreateTransaccion.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateTransaccion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/CreateTransaccion.vue?vue&type=template&id=3da88598&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/CreateTransaccion.vue?vue&type=template&id=3da88598& ***!
+  \**************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateTransaccion_vue_vue_type_template_id_3da88598___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./CreateTransaccion.vue?vue&type=template&id=3da88598& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CreateTransaccion.vue?vue&type=template&id=3da88598&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateTransaccion_vue_vue_type_template_id_3da88598___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateTransaccion_vue_vue_type_template_id_3da88598___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

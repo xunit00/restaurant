@@ -82,6 +82,7 @@ const router = new VueRouter({
 Vue.component('not-found', require('./components/NotFound.vue').default);
 Vue.component('order-notifications', require('./components/OrderNotifications.vue').default);
 Vue.component('create-receta', require('./components/CreateReceta.vue').default);
+Vue.component('create-transaccion', require('./components/CreateTransaccion.vue').default);
 Vue.component('nota-venta', require('./components/NotaVenta.vue').default);
 
 /**

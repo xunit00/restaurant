@@ -206,6 +206,26 @@
                 </li>
                 @endcan
 
+                @can(['read.comprobantes'])
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-boxes"></i>
+                        <p>Inventario<i class="right fa fa-angle-left"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        @can('read.comprobantes')
+                        <li class="nav-item">
+                            <a href="{{ route('transacciones.index') }}"
+                            class="nav-link {{ request()->is('comprobanteTipo*') ? 'active' : '' }}">
+                            <i class="fas fa-circle-notch nav-icon"></i>
+                            <p>Entrada/salida</p>
+                            <a>
+                        </li>
+                        @endcan
+                    </ul>
+                </li>
+                @endcan
+
 
                 @canany(['read.clientes','read.notaVenta'])
                 <li class="nav-item has-treeview">

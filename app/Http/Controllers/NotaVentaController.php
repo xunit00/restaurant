@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\User;
 use App\Models\Producto;
 use App\Models\NotaVenta;
 use Carbon\Carbon;
@@ -34,7 +34,7 @@ class NotaVentaController extends Controller
     public function index()
     {
         $clientes = User::role('Cliente')->get();
-        $categorias = Categoria::with('platos')->whereStatus(1)->get();
+        $categorias = CategoriasProducto::with('productos')->whereStatus(1)->get();
         return view('ventas.notaventa.index', compact('clientes', 'categorias'));
     }
 

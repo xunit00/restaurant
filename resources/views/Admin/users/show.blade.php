@@ -61,6 +61,7 @@
         </section>
     </div>
 
+    <h1>Propios de Usuario</h1>
     @include('layouts.permisos')
 
     <div class="form-group">
