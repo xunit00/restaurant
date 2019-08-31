@@ -19,7 +19,7 @@ class TransaccionInventarioController extends Controller
     public function index()
     {
         $transacciones=TransaccionInventario::latest()->paginate(10);
-        return view('inventario.entrada-salida.index', compact('transacciones'));
+        return view('inventario.transacciones.index', compact('transacciones'));
     }
 
     /**
@@ -31,7 +31,7 @@ class TransaccionInventarioController extends Controller
     {
         $insumos = Insumo::all();
 
-        return view('inventario.entrada-salida.create', compact('insumos'));
+        return view('inventario.transacciones.create', compact('insumos'));
     }
 
     /**

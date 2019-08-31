@@ -64,25 +64,13 @@
             </div>
           </div>
 
-          <!-- <div class="form-group">
-        <div class="row">
-            <label for="" class="col-md-2">Agregar Insumo</label>
-            <div class="col-md-6">
-                 <a class="btn btn-outline-primary" @click="addNewIns">
-                        <i class="fas fa-plus-square"></i>
-                    </a>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-          </div>-->
-
           <div class="form-group">
             <div class="row">
               <label for class="col-md-2">Insumo</label>
 
               <div class="col-md-3">
                 <select class="form-control" v-model="insumo" required>
-                  <option disabled value>Seleccionar Insumo</option>
+                  <option>Seleccionar Insumo</option>
                   <option
                     v-for="insm in insumos"
                     v-bind:key="insm.id"

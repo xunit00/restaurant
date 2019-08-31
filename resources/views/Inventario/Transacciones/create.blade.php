@@ -6,12 +6,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Agregar Entrada/Salida</h1>
+                <h1 class="m-0 text-dark">Agregar Transaccion</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-right">
-                    <li class="breadcrumb-item"><a href="{{route('recetas.index')}}">Lista Entrada/Salida</a></li>
-                    <li class="breadcrumb-item active">Agregar Entrada/Salida</li>
+                    <li class="breadcrumb-item"><a href="{{route('recetas.index')}}">Lista Transaccion</a></li>
+                    <li class="breadcrumb-item active">Agregar Transaccion</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->

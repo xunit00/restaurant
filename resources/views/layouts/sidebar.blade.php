@@ -218,7 +218,7 @@
                             <a href="{{ route('transacciones.index') }}"
                             class="nav-link {{ request()->is('comprobanteTipo*') ? 'active' : '' }}">
                             <i class="fas fa-circle-notch nav-icon"></i>
-                            <p>Entrada/salida</p>
+                            <p>Transacciones</p>
                             <a>
                         </li>
                         @endcan

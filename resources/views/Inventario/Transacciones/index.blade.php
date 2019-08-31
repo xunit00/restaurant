@@ -7,7 +7,7 @@
             <div class="col-sm-6">
                 @can('create.productos')
                 <a class="btn btn-success" href="{{route('transacciones.create')}}">
-                    Crear Entrada/Salida
+                    Crear Transaccion
                     <i class="fa fa-th-large"></i>
                     @endcan
                 </a>
@@ -16,7 +16,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Dashboard</a></li>
-                    <li class="breadcrumb-item active">Lista de Entrada/Salida</li>
+                    <li class="breadcrumb-item active">Lista de Transacciones</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -26,7 +26,7 @@
 <div class="container">
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Entrada/Salida</h3>
+            <h3 class="card-title">Transacciones</h3>
 
             @include('partials.success-alert')
             <!--mensaje de exito proceso-->
