@@ -89,6 +89,7 @@ export default {
     props: ['usuario','insumos'],
     data(){
         return{
+            insumo:'',
             recetas: {}, //object
             form: new Form({
                 usuario:this.usuario,

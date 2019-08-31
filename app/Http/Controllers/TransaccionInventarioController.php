@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Insumo;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use App\Models\TransaccionInventario;
-use App\TransaccionInventarioDetalle;
+use App\Models\TransaccionInventarioDetalle;
 use Illuminate\Http\Request;
 
 class TransaccionInventarioController extends Controller
@@ -40,7 +42,35 @@ class TransaccionInventarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $transaccion_id = DB::table('recetas')->insertGetId(
+                array(
+                    'tipo_transaccion' => $request->tipo_transaccion,
+                    'usuario_id' => $request->usuario,
+                    'concepto' => $request->concepto,
+                    'fecha' => Carbon::now(),
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                )
+            );
+
+            $insumos = $request->detalles;
+
+            foreach ($insumos as $ins) {
+                TransaccionInventarioDetalle::create([
+                    'transaccion_id' => $transaccion_id,
+                    'insumo_id' => $ins['insumo'],
+                    'cantidad' => $ins['cantidad']
+                ]);
+            }
+            DB::commit();
+
+            return ['message' => 'Transaccion Creada'];
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+        }
     }
 
     /**

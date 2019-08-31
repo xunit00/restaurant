@@ -1812,45 +1812,113 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['productos', 'insumos'],
+  props: ["productos", "insumos"],
   data: function data() {
     return {
+      insumo: "",
+      cantidad: "",
       recetas: {},
       //object
       form: new Form({
-        producto: '',
-        descripcion: '',
-        porciones: '',
+        producto: "",
+        descripcion: "",
+        porciones: "",
         detalles: [{
-          insumo: '',
-          cantidad: ''
+          insumo: "",
+          cantidad: ""
         }]
       })
     };
   },
   methods: {
-    addNewIns: function addNewIns() {
-      this.form.detalles.push({
-        insumo: '',
-        cantidad: ''
-      });
-    },
-    removeIns: function removeIns(index) {
-      if (index >= 1) {
-        this.form.detalles.splice(index, 1);
-      } else {
+    addNew: function addNew() {
+      if (this.find(this.insumo)) {
         toast.fire({
           type: "warning",
-          title: "Necesita al menos un Insumo"
+          title: "Insumo Repetido"
+        });
+      } else {
+        this.form.detalles.push({
+          insumo: this.insumo,
+          cantidad: this.cantidad
         });
       }
     },
-    createReceta: function createReceta() {
+    eliminarDetalle: function eliminarDetalle(index) {
+      this.form.detalles.splice(index, 1);
+    },
+    create: function create() {
       var _this = this;
 
       this.$Progress.start();
-      this.form.post('/recetas').then(function () {
+      this.form.post("/recetas").then(function () {
         toast.fire({
           type: "success",
           title: "Receta Creada Exitosamente"
@@ -1869,10 +1937,22 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     clearForm: function clearForm() {
-      this.form.producto = '', this.form.descripcion = '', this.form.porciones = '', this.form.detalles.length = 0;
+      this.form.producto = "", this.form.descripcion = "", this.form.porciones = "", this.form.detalles.length = 0;
+    },
+    find: function find(insumo) {
+      var sw = 0;
+
+      for (var i = 0; i < this.form.detalles.length; i++) {
+        if (this.form.detalles[i].insumo == insumo) {
+          sw = true;
+        }
+      }
+
+      return sw;
     }
   },
   mounted: function mounted() {
+    this.eliminarDetalle(0);
     console.log("Create Receta Mounted");
   }
 });
@@ -1978,6 +2058,7 @@ __webpack_require__.r(__webpack_exports__);
   props: ['usuario', 'insumos'],
   data: function data() {
     return {
+      insumo: '',
       recetas: {},
       //object
       form: new Form({
@@ -82031,7 +82112,7 @@ var render = function() {
             on: {
               submit: function($event) {
                 $event.preventDefault()
-                return _vm.createReceta()
+                return _vm.create()
               }
             }
           },
@@ -82211,34 +82292,13 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("div", { staticClass: "row" }, [
-                _c("label", { staticClass: "col-md-2", attrs: { for: "" } }, [
-                  _vm._v("Agregar Insumo")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-6" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-outline-primary",
-                      on: { click: _vm.addNewIns }
-                    },
-                    [_c("i", { staticClass: "fas fa-plus-square" })]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "clearfix" })
-              ])
-            ]),
-            _vm._v(" "),
             _c(
               "div",
               { staticClass: "form-group" },
-              _vm._l(_vm.form.detalles, function(detalle, index) {
-                return _c("div", { key: index, staticClass: "row" }, [
+              [
+                _c("div", { staticClass: "row" }, [
                   _c("label", { staticClass: "col-md-2", attrs: { for: "" } }, [
-                    _vm._v("Insumo (" + _vm._s(index + 1) + ")")
+                    _vm._v("Insumo")
                   ]),
                   _vm._v(" "),
                   _c(
@@ -82252,8 +82312,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: detalle.insumo,
-                              expression: "detalle.insumo"
+                              value: _vm.insumo,
+                              expression: "insumo"
                             }
                           ],
                           staticClass: "form-control",
@@ -82268,13 +82328,9 @@ var render = function() {
                                   var val = "_value" in o ? o._value : o.value
                                   return val
                                 })
-                              _vm.$set(
-                                detalle,
-                                "insumo",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              )
+                              _vm.insumo = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
                             }
                           }
                         },
@@ -82310,24 +82366,24 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: detalle.cantidad,
-                            expression: "detalle.cantidad"
+                            value: _vm.cantidad,
+                            expression: "cantidad"
                           }
                         ],
                         staticClass: "form-control",
                         attrs: {
-                          type: "text",
+                          type: "number",
                           name: "cantidad",
                           placeholder: "cantidad",
                           required: ""
                         },
-                        domProps: { value: detalle.cantidad },
+                        domProps: { value: _vm.cantidad },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.$set(detalle, "cantidad", $event.target.value)
+                            _vm.cantidad = $event.target.value
                           }
                         }
                       }),
@@ -82344,22 +82400,147 @@ var render = function() {
                       _c(
                         "a",
                         {
-                          staticClass: "btn btn-outline-danger",
-                          on: {
-                            click: function($event) {
-                              return _vm.removeIns(index)
-                            }
-                          }
+                          staticClass: "btn btn-outline-primary",
+                          on: { click: _vm.addNew }
                         },
-                        [_c("i", { staticClass: "fas fa-minus-circle" })]
+                        [_c("i", { staticClass: "fas fa-plus-circle" })]
                       )
                     ])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "clearfix" })
-                ])
-              }),
-              0
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.form.detalles, function(detalle, index) {
+                  return _c("div", { key: index, staticClass: "row" }, [
+                    _c(
+                      "label",
+                      { staticClass: "col-md-2", attrs: { for: "" } },
+                      [_vm._v("Insumo (" + _vm._s(index + 1) + ")")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-md-3" },
+                      [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: detalle.insumo,
+                                expression: "detalle.insumo"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { disabled: "" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  detalle,
+                                  "insumo",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              { attrs: { disabled: "", value: "" } },
+                              [_vm._v("Seleccionar Insumo")]
+                            ),
+                            _vm._v(" "),
+                            _vm._l(_vm.insumos, function(insm) {
+                              return _c(
+                                "option",
+                                { key: insm.id, domProps: { value: insm.id } },
+                                [_vm._v(_vm._s(insm.nombre))]
+                              )
+                            })
+                          ],
+                          2
+                        ),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "insumo" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-md-3" },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: detalle.cantidad,
+                              expression: "detalle.cantidad"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "number",
+                            name: "cantidad",
+                            placeholder: "cantidad",
+                            disabled: ""
+                          },
+                          domProps: { value: detalle.cantidad },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(detalle, "cantidad", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "cantidad" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-2" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "btn btn-outline-danger",
+                            on: {
+                              click: function($event) {
+                                return _vm.eliminarDetalle(index)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fas fa-minus-circle" })]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "clearfix" })
+                  ])
+                })
+              ],
+              2
             ),
             _vm._v(" "),
             _vm._m(0)
