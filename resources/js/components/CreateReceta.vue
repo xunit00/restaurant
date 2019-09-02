@@ -233,6 +233,8 @@ export default {
       (this.form.producto = ""),
         (this.form.descripcion = ""),
         (this.form.porciones = ""),
+        (this.insumo = ""),
+        (this.cantidad = ""),
         (this.form.detalles.length = 0);
     },
     find(insumo) {

@@ -1948,7 +1948,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     clearForm: function clearForm() {
-      this.form.producto = "", this.form.descripcion = "", this.form.porciones = "", this.form.detalles.length = 0;
+      this.form.producto = "", this.form.descripcion = "", this.form.porciones = "", this.insumo = "", this.cantidad = "", this.form.detalles.length = 0;
     },
     find: function find(insumo) {
       var sw = 0;

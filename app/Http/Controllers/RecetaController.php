@@ -53,13 +53,13 @@ class RecetaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(RecetaRequest $request)
+    public function store(Request $request)
     {
         DB::beginTransaction();
         try {
             $receta_id = DB::table('recetas')->insertGetId(
                 array(
-                    'producto_id' => $request->producto,
+                    'producto_id' => $request->producto['id'],
                     'descripcion' => $request->descripcion,
                     'porciones' => $request->porciones,
                     'created_at' => Carbon::now(),
@@ -70,9 +70,10 @@ class RecetaController extends Controller
             $insumos = $request->detalles;
 
             foreach ($insumos as $ins) {
+            $insumo_id = Insumo::where('nombre', $ins['insumo'])->first()->id;
                 DetalleReceta::create([
                     'receta_id' => $receta_id,
-                    'insumo_id' => $ins['insumo'],
+                    'insumo_id' => $insumo_id,
                     'cantidad' => $ins['cantidad']
                 ]);
             }
@@ -82,6 +83,7 @@ class RecetaController extends Controller
 
         } catch (\Throwable $th) {
             DB::rollBack();
+            return ['message' => $th];
         }
     }
 
