@@ -27,10 +27,9 @@
                 :options="productos"
                 track-by="nombre" label="nombre"
                 :close-on-select="true"
-                :show-labels="true"
+                :show-labels="false"
                 placeholder="Seleccione un Producto"
-                >
-                </multiselect>
+                ></multiselect>
 
 
               </div>
@@ -81,14 +80,22 @@
               <label for class="col-md-2">Insumo</label>
 
               <div class="col-md-3">
-                <select class="form-control" v-model="insumo" required>
+                <!-- <select class="form-control" v-model="insumo" required>
                   <option disabled value>Seleccionar Insumo</option>
                   <option
                     v-for="insm in insumos"
                     v-bind:key="insm.id"
                     v-bind:value="insm.id"
                   >{{insm.nombre}}</option>
-                </select>
+                </select> -->
+                 <multiselect
+                v-model="insumo"
+                :options="insumos"
+                track-by="nombre" label="nombre"
+                :close-on-select="true"
+                :show-labels="false"
+                placeholder="Seleccione un Insumo"
+                ></multiselect>
                 <has-error :form="form" field="insumo"></has-error>
               </div>
 
@@ -119,14 +126,21 @@
               <label for class="col-md-2">Insumo ({{index+1}})</label>
 
               <div class="col-md-3">
-                <select class="form-control" v-model="detalle.insumo" disabled>
+                <!-- <select class="form-control" v-model="detalle.insumo" disabled>
                   <option disabled value>Seleccionar Insumo</option>
                   <option
                     v-for="insm in insumos"
                     v-bind:key="insm.id"
                     v-bind:value="insm.id"
                   >{{insm.nombre}}</option>
-                </select>
+                </select> -->
+               <input
+                  type="text"
+                  name="insumo"
+                  v-model="detalle.insumo"
+                  class="form-control"
+                  disabled
+                />
                 <has-error :form="form" field="insumo"></has-error>
               </div>
 
@@ -135,7 +149,6 @@
                   type="number"
                   name="cantidad"
                   v-model="detalle.cantidad"
-                  placeholder="cantidad"
                   class="form-control"
                   disabled
                 />
@@ -167,7 +180,7 @@ export default {
   props: ["productos", "insumos"],
   data() {
     return {
-      insumo: "",
+      insumo: {},
       cantidad: "",
       form: new Form({
         producto: "",
@@ -184,11 +197,11 @@ export default {
   },
   methods: {
     addNew() {
-      if (this.find(this.insumo)) {
+      if (this.find(this.insumo.nombre)) {
         toast.fire({ type: "warning", title: "Insumo Repetido" });
       } else {
         this.form.detalles.push({
-          insumo: this.insumo,
+          insumo: this.insumo.nombre,
           cantidad: this.cantidad
         });
       }
@@ -238,3 +251,4 @@ export default {
   }
 };
 </script>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
