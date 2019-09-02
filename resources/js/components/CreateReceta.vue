@@ -8,7 +8,7 @@
             <div class="row">
               <label for class="col-md-2">Producto</label>
               <div class="col-md-6">
-                <select
+                <!-- <select
                   class="form-control"
                   v-model="form.producto"
                   required
@@ -20,7 +20,19 @@
                     v-bind:key="producto.id"
                     v-bind:value="producto.id"
                   >{{producto.nombre}}</option>
-                </select>
+                </select> -->
+
+                <multiselect
+                v-model="form.producto"
+                :options="productos"
+                track-by="nombre" label="nombre"
+                :close-on-select="true"
+                :show-labels="true"
+                placeholder="Seleccione un Producto"
+                >
+                </multiselect>
+
+
               </div>
               <has-error :form="form" field="producto"></has-error>
               <div class="clearfix"></div>
@@ -70,7 +82,7 @@
 
               <div class="col-md-3">
                 <select class="form-control" v-model="insumo" required>
-                  <option>Seleccionar Insumo</option>
+                  <option disabled value>Seleccionar Insumo</option>
                   <option
                     v-for="insm in insumos"
                     v-bind:key="insm.id"
@@ -157,7 +169,6 @@ export default {
     return {
       insumo: "",
       cantidad: "",
-      recetas: {}, //object
       form: new Form({
         producto: "",
         descripcion: "",
@@ -215,7 +226,7 @@ export default {
       var sw = 0;
       for (var i = 0; i < this.form.detalles.length; i++) {
         if (this.form.detalles[i].insumo == insumo) {
-        sw = true;
+          sw = true;
         }
       }
       return sw;

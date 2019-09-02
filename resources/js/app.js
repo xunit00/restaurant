@@ -10,6 +10,10 @@ window.Vue = require('vue');
 
 window.Fire = new Vue();
 
+//select
+import Multiselect from 'vue-multiselect'
+Vue.component('multiselect', Multiselect)
+
 //paginacion vuejs
 Vue.component('pagination', require('laravel-vue-pagination'));
 

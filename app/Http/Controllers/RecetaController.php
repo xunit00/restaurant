@@ -42,7 +42,7 @@ class RecetaController extends Controller
     {
         $insumos = Insumo::all();
 
-        $productos = Producto::all();
+        $productos = Producto::whereStatus(1)->get();
 
         return view('configuracion.recetas.create', compact('receta', 'productos', 'insumos'));
     }
