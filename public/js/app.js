@@ -1861,36 +1861,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["productos", "insumos"],
   data: function data() {
@@ -1938,7 +1908,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.$Progress.finish();
 
         _this.clearForm();
-      })["catch"](function () {
+      })["catch"](function (error) {
         _this.$Progress.fail();
 
         toast.fire({
@@ -82946,7 +82916,7 @@ var render = function() {
                       staticClass: "form-control",
                       class: { "is-invalid": _vm.form.errors.has("porciones") },
                       attrs: {
-                        type: "text",
+                        type: "number",
                         name: "porciones",
                         placeholder: "",
                         required: ""

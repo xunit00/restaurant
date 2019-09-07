@@ -70,7 +70,7 @@ class RecetaController extends Controller
             $insumos = $request->detalles;
 
             foreach ($insumos as $ins) {
-            $insumo_id = Insumo::where('nombre', $ins['insumo'])->first()->id;
+                $insumo_id = Insumo::where('nombre', $ins['insumo'])->first()->id;
                 DetalleReceta::create([
                     'receta_id' => $receta_id,
                     'insumo_id' => $insumo_id,
@@ -80,10 +80,9 @@ class RecetaController extends Controller
             DB::commit();
 
             return ['message' => 'Receta Creada'];
-
         } catch (\Throwable $th) {
             DB::rollBack();
-            return ['message' => $th];
+            return response()->json(['error' => $th], 422);
         }
     }
 

@@ -8,20 +8,6 @@
             <div class="row">
               <label for class="col-md-2">Producto</label>
               <div class="col-md-6">
-                <!-- <select
-                  class="form-control"
-                  v-model="form.producto"
-                  required
-                  :class="{ 'is-invalid': form.errors.has('producto') }"
-                >
-                  <option disabled value>Seleccionar Producto</option>
-                  <option
-                    v-for="producto in productos"
-                    v-bind:key="producto.id"
-                    v-bind:value="producto.id"
-                  >{{producto.nombre}}</option>
-                </select> -->
-
                 <multiselect
                 v-model="form.producto"
                 :options="productos"
@@ -61,7 +47,7 @@
               <label for class="col-md-2">Porciones</label>
               <div class="col-md-6">
                 <input
-                  type="text"
+                  type="number"
                   name="porciones"
                   v-model="form.porciones"
                   placeholder
@@ -80,14 +66,6 @@
               <label for class="col-md-2">Insumo</label>
 
               <div class="col-md-3">
-                <!-- <select class="form-control" v-model="insumo" required>
-                  <option disabled value>Seleccionar Insumo</option>
-                  <option
-                    v-for="insm in insumos"
-                    v-bind:key="insm.id"
-                    v-bind:value="insm.id"
-                  >{{insm.nombre}}</option>
-                </select> -->
                  <multiselect
                 v-model="insumo"
                 :options="insumos"
@@ -126,14 +104,6 @@
               <label for class="col-md-2">Insumo ({{index+1}})</label>
 
               <div class="col-md-3">
-                <!-- <select class="form-control" v-model="detalle.insumo" disabled>
-                  <option disabled value>Seleccionar Insumo</option>
-                  <option
-                    v-for="insm in insumos"
-                    v-bind:key="insm.id"
-                    v-bind:value="insm.id"
-                  >{{insm.nombre}}</option>
-                </select> -->
                <input
                   type="text"
                   name="insumo"
@@ -221,7 +191,7 @@ export default {
           this.$Progress.finish();
           this.clearForm();
         })
-        .catch(() => {
+        .catch((error) => {
           this.$Progress.fail();
           toast.fire({
             type: "error",
