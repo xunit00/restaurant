@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             UsersSeed::class,
             StatusesTable::class,
             CategoriasInsumoSeed::class,
+            CategoriasProductoSeed::class,
             UnidadesSeed::class,
             AreasSeed::class,
             MesasSeed::class

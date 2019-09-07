@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\CategoriasInsumo;
+use App\Models\CategoriasInsumo;
 
 class CategoriasInsumoSeed extends Seeder
 {
@@ -28,7 +28,7 @@ class CategoriasInsumoSeed extends Seeder
         ]);
 
         CategoriasInsumo::create([
-            'nombre'=>'Verduras y Vegetales',
+            'nombre'=>'Frutas y Vegetales',
             'descripcion'=>''
         ]);
 

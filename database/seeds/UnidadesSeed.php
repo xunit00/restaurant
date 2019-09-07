@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Unidad;
+use App\Models\Unidad;
 
 class UnidadesSeed extends Seeder
 {
