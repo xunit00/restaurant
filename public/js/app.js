@@ -1880,17 +1880,36 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     addNew: function addNew() {
-      if (this.find(this.insumo.nombre)) {
+      if (this.validateEmpty(this.insumo)) {
         toast.fire({
           type: "warning",
-          title: "Insumo Repetido"
+          title: "Insumo Vacio"
+        });
+      } else if (this.validateEmpty(this.cantidad)) {
+        toast.fire({
+          type: "warning",
+          title: "Cantidad Vacia"
         });
       } else {
-        this.form.detalles.push({
-          insumo: this.insumo.nombre,
-          cantidad: this.cantidad
-        });
+        if (this.find(this.insumo.nombre)) {
+          toast.fire({
+            type: "warning",
+            title: "Insumo Repetido"
+          });
+        } else {
+          this.form.detalles.push({
+            insumo: this.insumo.nombre,
+            cantidad: this.cantidad
+          });
+        }
       }
+    },
+    validateEmpty: function validateEmpty(obj) {
+      if (Object.keys(obj).length === 0) {
+        return true;
+      }
+
+      return false;
     },
     eliminarDetalle: function eliminarDetalle(index) {
       this.form.detalles.splice(index, 1);

@@ -9,15 +9,14 @@
               <label for class="col-md-2">Producto</label>
               <div class="col-md-6">
                 <multiselect
-                v-model="form.producto"
-                :options="productos"
-                track-by="nombre" label="nombre"
-                :close-on-select="true"
-                :show-labels="false"
-                placeholder="Seleccione un Producto"
+                  v-model="form.producto"
+                  :options="productos"
+                  track-by="nombre"
+                  label="nombre"
+                  :close-on-select="true"
+                  :show-labels="false"
+                  placeholder="Seleccione un Producto"
                 ></multiselect>
-
-
               </div>
               <has-error :form="form" field="producto"></has-error>
               <div class="clearfix"></div>
@@ -66,13 +65,14 @@
               <label for class="col-md-2">Insumo</label>
 
               <div class="col-md-3">
-                 <multiselect
-                v-model="insumo"
-                :options="insumos"
-                track-by="nombre" label="nombre"
-                :close-on-select="true"
-                :show-labels="false"
-                placeholder="Seleccione un Insumo"
+                <multiselect
+                  v-model="insumo"
+                  :options="insumos"
+                  track-by="nombre"
+                  label="nombre"
+                  :close-on-select="true"
+                  :show-labels="false"
+                  placeholder="Seleccione un Insumo"
                 ></multiselect>
                 <has-error :form="form" field="insumo"></has-error>
               </div>
@@ -104,7 +104,7 @@
               <label for class="col-md-2">Insumo ({{index+1}})</label>
 
               <div class="col-md-3">
-               <input
+                <input
                   type="text"
                   name="insumo"
                   v-model="detalle.insumo"
@@ -167,14 +167,27 @@ export default {
   },
   methods: {
     addNew() {
-      if (this.find(this.insumo.nombre)) {
-        toast.fire({ type: "warning", title: "Insumo Repetido" });
-      } else {
-        this.form.detalles.push({
-          insumo: this.insumo.nombre,
-          cantidad: this.cantidad
-        });
+      if (this.validateEmpty(this.insumo)) {
+        toast.fire({ type: "warning", title: "Insumo Vacio" });
       }
+      else if (this.validateEmpty(this.cantidad)) {
+        toast.fire({ type: "warning", title: "Cantidad Vacia" });
+      } else {
+        if (this.find(this.insumo.nombre)) {
+          toast.fire({ type: "warning", title: "Insumo Repetido" });
+        } else {
+          this.form.detalles.push({
+            insumo: this.insumo.nombre,
+            cantidad: this.cantidad
+          });
+        }
+      }
+    },
+    validateEmpty(obj) {
+      if (Object.keys(obj).length === 0) {
+        return true;
+      }
+      return false;
     },
     eliminarDetalle(index) {
       this.form.detalles.splice(index, 1);
@@ -191,7 +204,7 @@ export default {
           this.$Progress.finish();
           this.clearForm();
         })
-        .catch((error) => {
+        .catch(error => {
           this.$Progress.fail();
           toast.fire({
             type: "error",
