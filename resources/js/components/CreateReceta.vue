@@ -52,7 +52,6 @@
                   placeholder
                   :class="{ 'is-invalid': form.errors.has('porciones') }"
                   class="form-control"
-                  required
                 />
               </div>
               <has-error :form="form" field="porciones"></has-error>
@@ -84,7 +83,6 @@
                   v-model="cantidad"
                   placeholder="cantidad"
                   class="form-control"
-                  required
                 />
                 <has-error :form="form" field="cantidad"></has-error>
               </div>
@@ -169,8 +167,7 @@ export default {
     addNew() {
       if (this.validateEmpty(this.insumo)) {
         toast.fire({ type: "warning", title: "Insumo Vacio" });
-      }
-      else if (this.validateEmpty(this.cantidad)) {
+      } else if (this.validateEmpty(this.cantidad)) {
         toast.fire({ type: "warning", title: "Cantidad Vacia" });
       } else {
         if (this.find(this.insumo.nombre)) {
@@ -194,23 +191,25 @@ export default {
     },
     create() {
       this.$Progress.start();
-      this.form
-        .post("/recetas")
-        .then(() => {
-          toast.fire({
-            type: "success",
-            title: "Receta Creada Exitosamente"
+      this.form.producto=this.form.producto.id;
+        this.form
+          .post("/recetas")
+          .then(() => {
+            toast.fire({
+              type: "success",
+              title: "Receta Creada Exitosamente"
+            });
+            this.$Progress.finish();
+            this.clearForm();
+          })
+          .catch(error => {
+            this.$Progress.fail();
+            toast.fire({
+              type: "error",
+              title: "Error en Insercion de Datos"
+            });
           });
-          this.$Progress.finish();
-          this.clearForm();
-        })
-        .catch(error => {
-          this.$Progress.fail();
-          toast.fire({
-            type: "error",
-            title: "Error en Insercion de Datos"
-          });
-        });
+
     },
     clearForm() {
       (this.form.producto = ""),

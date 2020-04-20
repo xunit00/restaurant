@@ -42,6 +42,7 @@ Route::middleware('auth')->group(function () {
         'clientes' => 'ClienteController',
         'notaVentas' => 'NotaVentaController',
         'transacciones' => 'TransaccionInventarioController',
+        'ordenes'=>'OrdenController'
     ]);
 
     //rutas de admin

@@ -28,6 +28,7 @@
                     data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
+           <!--
                     <li class="nav-item">
                         <a href="{{route('dashboard.index')}}"
                         class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
@@ -35,7 +36,8 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
-
+                -->
+<!--
                      @role('Super-Admin')
                     <li class="nav-item has-treeview">
 
@@ -67,7 +69,14 @@
                         </ul>
                     </li>
                     @endrole
-
+-->
+<li class="nav-item">
+    <a href="{{route('ordenes.index')}}"
+    class="nav-link {{ request()->is('ordenes *') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-circle-notch"></i>
+        <p>Ordenes</p>
+    </a>
+</li>
 
                     @canany(['read.categorias','read.unidades','read.productos','read.recetas','read.areas','read.mesas'])
                     <li class="nav-item has-treeview">
@@ -129,6 +138,8 @@
                             </li>
                             @endcan()
 
+
+
                             @can('read.recetas')
                             <li class="nav-item">
                                 <a href="{{ route('recetas.index') }}"
@@ -164,7 +175,7 @@
                     @endcanany
 
 
-
+<!--
 
                     @can(['read.comprobantes'])
                 <li class="nav-item has-treeview">
@@ -256,7 +267,7 @@
                     </ul>
                 </li>
                 @endcanany
-
+            -->
 
                 </ul>
             </nav>

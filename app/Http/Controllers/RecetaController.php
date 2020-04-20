@@ -53,13 +53,13 @@ class RecetaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RecetaRequest $request)
     {
         DB::beginTransaction();
         try {
             $receta_id = DB::table('recetas')->insertGetId(
                 array(
-                    'producto_id' => $request->producto['id'],
+                    'producto_id' => $request->producto,
                     'descripcion' => $request->descripcion,
                     'porciones' => $request->porciones,
                     'created_at' => Carbon::now(),

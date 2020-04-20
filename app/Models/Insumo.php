@@ -21,7 +21,7 @@ class Insumo extends Model
     protected $softCascade=['receta'];
 
     protected $fillable = [
-        'nombre', 'descripcion','categoria_id',
+        'nombre', 'descripcion','calorias','categoria_id',
         'imagen','unidad_id','existencia','maximo',
         'reorden','minimo','precio_venta','costo'
     ];

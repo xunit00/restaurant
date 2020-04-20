@@ -20,6 +20,7 @@ class CreateInsumos extends Migration
             $table->string('nombre')->unique();
             $table->string('descripcion')->nullable();
             $table->decimal('existencia',8,2)->nullable();
+            $table->decimal('calorias',8,2)->nullable();
             $table->decimal('maximo',8,2)->nullable();
             $table->decimal('reorden',8,2)->nullable();
             $table->decimal('minimo',8,2)->nullable();
