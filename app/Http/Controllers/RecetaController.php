@@ -41,19 +41,14 @@ class RecetaController extends Controller
      */
     public function create(Receta $receta)
     {
-        // $insumos = DB::select( DB::raw("SELECT preparacions.id as preparacion_id,insumos.id as insumo_id,concat( insumos.nombre,' ',preparacions.tipo_preparacion) as Insumo
-        // FROM preparacions
-        // RIGHT JOIN insumos
-        // on preparacions.insumo_id=insumos.id
-        // ORDER BY `preparacions`.`id` ASC") );//Insumo::all();
-        $insumos=Preparacion::selectRaw("SELECT preparacions.id as preparacion_id,insumos.id as insumo_id,concat( insumos.nombre,' ',preparacions.tipo_preparacion) as Insumo")
-        ->rightJoin('insumos','preparacions.insumo_id','=','insumos.id')
+        $insumos = DB::table('insumos')
+        ->select('preparacions.id as preparacion_id', DB::raw("concat( insumos.nombre,' ',preparacions.tipo_preparacion) as descripcion"))
+        ->leftjoin('preparacions', 'preparacions.insumo_id','=','insumos.id')
         ->get();
 
+        // dd($insumos);
 
         $productos = Producto::whereStatus(1)->get();
-
-        dd($insumos);
 
         return view('configuracion.recetas.create',compact('insumos','productos'));
     }
@@ -81,15 +76,22 @@ class RecetaController extends Controller
             $insumos = $request->detalles;
 
             foreach ($insumos as $ins) {
-                $insumo_id = Insumo::where('nombre', $ins['insumo'])->first()->id;
-                DetalleReceta::create([
-                    'receta_id' => $receta_id,
-                    'insumo_id' => $insumo_id,
-                    'cantidad' => $ins['cantidad'],
-                    'tipo_preparacion' => $ins['tipo_preparacion']
-                ]);
+                $insumo_id = Preparacion::where('preparacion_id', $ins['id'])->first()->insumo_id;
+            dd($insumo_id);
+
+                // DB::table('insumos')
+                // ->select('insumos.id')
+                // ->where('preparacions.id','=',$ins->preparacion_id)
+                // ->get();
+
+                // DetalleReceta::create([
+                //     'receta_id' => $receta_id,
+                //     'insumo_id' => $insumo_id,
+                //     'cantidad' => $ins['cantidad'],
+                //     'tipo_preparacion' => $ins['tipo_preparacion']
+                // ]);
             }
-            DB::commit();
+            // DB::commit();
 
             return ['message' => 'Receta Creada'];
         } catch (\Throwable $th) {

@@ -67,7 +67,7 @@
                 <multiselect
                   v-model="insumo"
                   :options="insumos"
-                  track-by="descripcion"
+                  track-by="preparacion_id"
                   label="descripcion"
                   :close-on-select="true"
                   :show-labels="false"
@@ -125,16 +125,6 @@
                 <has-error :form="form" field="cantidad"></has-error>
               </div>
 
-                <!-- <div class="col-md-2">
-                <input
-                  type="text"
-                  name="preparacion"
-                  v-model="detalle.preparacion"
-                  class="form-control"
-                  disabled
-                />
-                <has-error :form="form" field="preparacion"></has-error>
-              </div> -->
 
               <div class="col-md-2">
                 <div class="form-group">
@@ -170,6 +160,7 @@ export default {
         porciones: "",
         detalles: [
           {
+            preparacion_id:"",
             insumo: "",
             cantidad: "",
             // preparacion:""
@@ -185,11 +176,12 @@ export default {
       } else if (this.validateEmpty(this.cantidad)) {
         toast.fire({ type: "warning", title: "Cantidad Vacia" });
       } else {
-        if (this.find(this.insumo.nombre)) {
+        if (this.find(this.insumo.descripcion)) {
           toast.fire({ type: "warning", title: "Insumo Repetido" });
         } else {
           this.form.detalles.push({
-            insumo: this.insumo.nombre,
+            preparacion_id:this.insumo.preparacion_id,
+            insumo: this.insumo.descripcion,
             cantidad: this.cantidad,
             // preparacion: this.preparacion
 

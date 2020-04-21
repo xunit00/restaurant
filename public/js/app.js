@@ -2032,16 +2032,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["productos", "insumos", "preparaciones"],
   data: function data() {
@@ -2054,6 +2044,7 @@ __webpack_require__.r(__webpack_exports__);
         descripcion: "",
         porciones: "",
         detalles: [{
+          preparacion_id: "",
           insumo: "",
           cantidad: "" // preparacion:""
 
@@ -2074,14 +2065,15 @@ __webpack_require__.r(__webpack_exports__);
           title: "Cantidad Vacia"
         });
       } else {
-        if (this.find(this.insumo.nombre)) {
+        if (this.find(this.insumo.descripcion)) {
           toast.fire({
             type: "warning",
             title: "Insumo Repetido"
           });
         } else {
           this.form.detalles.push({
-            insumo: this.insumo.nombre,
+            preparacion_id: this.insumo.preparacion_id,
+            insumo: this.insumo.descripcion,
             cantidad: this.cantidad // preparacion: this.preparacion
 
           });
@@ -83479,7 +83471,7 @@ var render = function() {
                       _c("multiselect", {
                         attrs: {
                           options: _vm.insumos,
-                          "track-by": "descripcion",
+                          "track-by": "preparacion_id",
                           label: "descripcion",
                           "close-on-select": true,
                           "show-labels": false,
