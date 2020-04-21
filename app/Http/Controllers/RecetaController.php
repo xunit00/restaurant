@@ -74,7 +74,8 @@ class RecetaController extends Controller
                 DetalleReceta::create([
                     'receta_id' => $receta_id,
                     'insumo_id' => $insumo_id,
-                    'cantidad' => $ins['cantidad']
+                    'cantidad' => $ins['cantidad'],
+                    'tipo_preparacion' => $ins['tipo_preparacion']
                 ]);
             }
             DB::commit();

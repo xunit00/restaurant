@@ -39,6 +39,16 @@
 
 <div class="form-group">
     <div class="row">
+        <label for="" class="col-md-3">Calorias/100gr</label>
+        <div class="col-md-6"><input type="text" name="calorias" value="{{$insumo->calorias}}"
+                class="form-control @error('calorias') is-invalid @enderror"
+                @error('calorias')placeholder="{{ $message }}" @enderror></div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="row">
         <label for="" class="col-md-3">Categoria</label>
         <div class="col-md-6">
             <select name="categoria_id" id="" class="form-control @error('categoria_id') is-invalid @enderror">

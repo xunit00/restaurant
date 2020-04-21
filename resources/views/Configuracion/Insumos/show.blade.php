@@ -33,6 +33,10 @@
                         {{$insumo->unidad->nombre}}
                     </div>
                     <div class="form-group">
+                        <strong>Calorias por cada 100gr:</strong>
+                        {{$insumo->calorias}}
+                    </div>
+                    <div class="form-group">
                         <strong>Descripcion:</strong>
                         {{ $insumo->descripcion }}
                     </div>

@@ -81,11 +81,21 @@
                   type="number"
                   name="cantidad"
                   v-model="cantidad"
-                  placeholder="cantidad"
+                  placeholder="cantidad(gr)"
                   class="form-control"
                 />
                 <has-error :form="form" field="cantidad"></has-error>
               </div>
+
+              <div class="col-md-2">
+                  <select  v-model="preparacion" class="form-control" >
+                          <option >N/A</option>
+                          <option >Freir</option>
+                          <option >Guisar</option>
+                          <option >Hervir</option>
+                        </select>
+              </div>
+
 
               <div class="col-md-2">
                 <div class="form-group">
@@ -123,6 +133,17 @@
                 <has-error :form="form" field="cantidad"></has-error>
               </div>
 
+                <div class="col-md-2">
+                <input
+                  type="text"
+                  name="preparacion"
+                  v-model="detalle.preparacion"
+                  class="form-control"
+                  disabled
+                />
+                <has-error :form="form" field="preparacion"></has-error>
+              </div>
+
               <div class="col-md-2">
                 <div class="form-group">
                   <a class="btn btn-outline-danger" @click="eliminarDetalle(index)">
@@ -157,7 +178,8 @@ export default {
         detalles: [
           {
             insumo: "",
-            cantidad: ""
+            cantidad: "",
+            preparacion:""
           }
         ]
       })
@@ -175,7 +197,9 @@ export default {
         } else {
           this.form.detalles.push({
             insumo: this.insumo.nombre,
-            cantidad: this.cantidad
+            cantidad: this.cantidad,
+            preparacion: this.preparacion
+
           });
         }
       }

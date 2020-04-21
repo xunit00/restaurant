@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             CategoriasProductoSeed::class,
             UnidadesSeed::class,
             AreasSeed::class,
-            MesasSeed::class
+            MesasSeed::class,
+            InsumoSeed::class
         ]);
     }
 }

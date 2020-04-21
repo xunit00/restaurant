@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOrdensTable extends Migration
+class CreatePreparacionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateOrdensTable extends Migration
      */
     public function up()
     {
-        Schema::create('ordens', function (Blueprint $table) {
+        Schema::create('preparacions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('cliente');
+            $table->unsignedBigInteger('insumo_id');//huevo
+            $table->string('tipo_preparacion');//guisado
+            $table->decimal('tiempo');//2.2
             $table->timestamps();
         });
     }
@@ -27,8 +29,6 @@ class CreateOrdensTable extends Migration
      */
     public function down()
     {
-        Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('ordens');
-        Schema::enableForeignKeyConstraints();
+        Schema::dropIfExists('preparacions');
     }
 }

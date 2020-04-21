@@ -88,6 +88,7 @@ Vue.component('order-notifications', require('./components/OrderNotifications.vu
 Vue.component('create-receta', require('./components/CreateReceta.vue').default);
 Vue.component('create-transaccion', require('./components/CreateTransaccion.vue').default);
 Vue.component('nota-venta', require('./components/NotaVenta.vue').default);
+Vue.component('create-orden', require('./components/CreateOrden.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

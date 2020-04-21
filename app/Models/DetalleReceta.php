@@ -14,7 +14,7 @@ class DetalleReceta extends Model
     protected $dates=['deleted_at'];
 
     protected $fillable = [
-        'receta_id', 'insumo_id','unidad_id','cantidad'
+        'receta_id', 'insumo_id','unidad_id','cantidad','tipo_preparacion'
     ];
 
     public function receta()
