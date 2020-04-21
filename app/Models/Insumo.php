@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Preparacion;
 use App\Traits\SearchTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -39,5 +40,10 @@ class Insumo extends Model
     function receta()
     {
         return $this->hasMany(DetalleReceta::class,'producto_id');
+    }
+
+    function preparaciones()
+    {
+        return $this->hasMany(Preparacion::class,'preparacion_id');
     }
 }

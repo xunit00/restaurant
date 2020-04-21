@@ -67,8 +67,8 @@
                 <multiselect
                   v-model="insumo"
                   :options="insumos"
-                  track-by="nombre"
-                  label="nombre"
+                  track-by="descripcion"
+                  label="descripcion"
                   :close-on-select="true"
                   :show-labels="false"
                   placeholder="Seleccione un Insumo"
@@ -87,14 +87,6 @@
                 <has-error :form="form" field="cantidad"></has-error>
               </div>
 
-              <div class="col-md-2">
-                  <select  v-model="preparacion" class="form-control" >
-                          <option >N/A</option>
-                          <option >Freir</option>
-                          <option >Guisar</option>
-                          <option >Hervir</option>
-                        </select>
-              </div>
 
 
               <div class="col-md-2">
@@ -133,7 +125,7 @@
                 <has-error :form="form" field="cantidad"></has-error>
               </div>
 
-                <div class="col-md-2">
+                <!-- <div class="col-md-2">
                 <input
                   type="text"
                   name="preparacion"
@@ -142,7 +134,7 @@
                   disabled
                 />
                 <has-error :form="form" field="preparacion"></has-error>
-              </div>
+              </div> -->
 
               <div class="col-md-2">
                 <div class="form-group">
@@ -166,11 +158,12 @@
 </template>
 <script>
 export default {
-  props: ["productos", "insumos"],
+  props: ["productos", "insumos","preparaciones"],
   data() {
     return {
       insumo: {},
       cantidad: "",
+      preparacion:{},
       form: new Form({
         producto: "",
         descripcion: "",
@@ -179,7 +172,7 @@ export default {
           {
             insumo: "",
             cantidad: "",
-            preparacion:""
+            // preparacion:""
           }
         ]
       })
@@ -198,7 +191,7 @@ export default {
           this.form.detalles.push({
             insumo: this.insumo.nombre,
             cantidad: this.cantidad,
-            preparacion: this.preparacion
+            // preparacion: this.preparacion
 
           });
         }

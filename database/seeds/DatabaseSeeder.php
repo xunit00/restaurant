@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
             UnidadesSeed::class,
             AreasSeed::class,
             MesasSeed::class,
-            InsumoSeed::class
+            InsumoSeed::class,
+            PreparacionesInsumosSeed::class
         ]);
     }
 }

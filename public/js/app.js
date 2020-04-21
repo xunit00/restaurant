@@ -2042,28 +2042,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["productos", "insumos"],
+  props: ["productos", "insumos", "preparaciones"],
   data: function data() {
     return {
       insumo: {},
       cantidad: "",
+      preparacion: {},
       form: new Form({
         producto: "",
         descripcion: "",
         porciones: "",
         detalles: [{
           insumo: "",
-          cantidad: "",
-          preparacion: ""
+          cantidad: "" // preparacion:""
+
         }]
       })
     };
@@ -2089,8 +2082,8 @@ __webpack_require__.r(__webpack_exports__);
         } else {
           this.form.detalles.push({
             insumo: this.insumo.nombre,
-            cantidad: this.cantidad,
-            preparacion: this.preparacion
+            cantidad: this.cantidad // preparacion: this.preparacion
+
           });
         }
       }
@@ -83486,8 +83479,8 @@ var render = function() {
                       _c("multiselect", {
                         attrs: {
                           options: _vm.insumos,
-                          "track-by": "nombre",
-                          label: "nombre",
+                          "track-by": "descripcion",
+                          label: "descripcion",
                           "close-on-select": true,
                           "show-labels": false,
                           placeholder: "Seleccione un Insumo"
@@ -83544,47 +83537,6 @@ var render = function() {
                     ],
                     1
                   ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-2" }, [
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.preparacion,
-                            expression: "preparacion"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.preparacion = $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          }
-                        }
-                      },
-                      [
-                        _c("option", [_vm._v("N/A")]),
-                        _vm._v(" "),
-                        _c("option", [_vm._v("Freir")]),
-                        _vm._v(" "),
-                        _c("option", [_vm._v("Guisar")]),
-                        _vm._v(" "),
-                        _c("option", [_vm._v("Hervir")])
-                      ]
-                    )
-                  ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-2" }, [
                     _c("div", { staticClass: "form-group" }, [
@@ -83675,47 +83627,6 @@ var render = function() {
                         _vm._v(" "),
                         _c("has-error", {
                           attrs: { form: _vm.form, field: "cantidad" }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "col-md-2" },
-                      [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: detalle.preparacion,
-                              expression: "detalle.preparacion"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            name: "preparacion",
-                            disabled: ""
-                          },
-                          domProps: { value: detalle.preparacion },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                detalle,
-                                "preparacion",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("has-error", {
-                          attrs: { form: _vm.form, field: "preparacion" }
                         })
                       ],
                       1
@@ -101158,15 +101069,14 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
 /*!*************************************************!*\
   !*** ./resources/js/components/CreateOrden.vue ***!
   \*************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CreateOrden_vue_vue_type_template_id_7bb7a793___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateOrden.vue?vue&type=template&id=7bb7a793& */ "./resources/js/components/CreateOrden.vue?vue&type=template&id=7bb7a793&");
 /* harmony import */ var _CreateOrden_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateOrden.vue?vue&type=script&lang=js& */ "./resources/js/components/CreateOrden.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _CreateOrden_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _CreateOrden_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -101196,7 +101106,7 @@ component.options.__file = "resources/js/components/CreateOrden.vue"
 /*!**************************************************************************!*\
   !*** ./resources/js/components/CreateOrden.vue?vue&type=script&lang=js& ***!
   \**************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

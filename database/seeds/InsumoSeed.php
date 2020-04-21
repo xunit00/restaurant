@@ -12,7 +12,8 @@ class InsumoSeed extends Seeder
      */
     public function run()
     {//calorias por cada 100g
-        Insumo::create([
+
+        Insumo::create([//1
             'nombre'=>'Sal',
             'descripcion'=>'',
             'calorias'=>'0',
@@ -20,7 +21,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//2
             'nombre'=>'Pimienta',
             'descripcion'=>'',
             'calorias'=>'251',
@@ -28,7 +29,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//3
             'nombre'=>'Oregano',
             'descripcion'=>'',
             'calorias'=>'308',//308kcal
@@ -36,7 +37,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//4
             'nombre'=>'Laurel',
             'descripcion'=>'',
             'calorias'=>'313',
@@ -44,7 +45,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//5
             'nombre'=>'Albahaca',
             'descripcion'=>'',
             'calorias'=>'22',
@@ -52,7 +53,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//6
             'nombre'=>'Romero',
             'descripcion'=>'',
             'calorias'=>'131',
@@ -60,7 +61,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//7
             'nombre'=>'Vainilla',
             'descripcion'=>'',
             'calorias'=>'288',
@@ -68,7 +69,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//8
             'nombre'=>'Canela molida',
             'descripcion'=>'',
             'calorias'=>'247',
@@ -76,7 +77,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//9
             'nombre'=>'Zanahoria',
             'descripcion'=>'',
             'calorias'=>'41',
@@ -84,7 +85,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//10
             'nombre'=>'Rabano',
             'descripcion'=>'',
             'calorias'=>'16',
@@ -92,7 +93,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//11
             'nombre'=>'Nabo',
             'descripcion'=>'',
             'calorias'=>'28',
@@ -100,7 +101,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//12
             'nombre'=>'Cebolla',
             'descripcion'=>'',
             'calorias'=>'40',
@@ -108,7 +109,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//13
             'nombre'=>'Ajo',
             'descripcion'=>'',
             'calorias'=>'149',
@@ -116,7 +117,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//14
             'nombre'=>'Remolacha',
             'descripcion'=>'',
             'calorias'=>'43',
@@ -124,7 +125,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//15
             'nombre'=>'Aguacate',
             'descripcion'=>'',
             'calorias'=>'160',
@@ -132,7 +133,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//16
             'nombre'=>'Esparrago',
             'descripcion'=>'',
             'calorias'=>'20',
@@ -140,7 +141,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//17
             'nombre'=>'Puerro',
             'descripcion'=>'',
             'calorias'=>'61',
@@ -148,7 +149,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//18
             'nombre'=>'Cilantro',
             'descripcion'=>'',
             'calorias'=>'23',
@@ -156,7 +157,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//19
             'nombre'=>'Apio',
             'descripcion'=>'',
             'calorias'=>'16',
@@ -164,7 +165,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//20
             'nombre'=>'Espinaca',
             'descripcion'=>'',
             'calorias'=>'22',//22kcal
@@ -172,7 +173,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//21
             'nombre'=>'Lechuga',
             'descripcion'=>'',
             'calorias'=>'15',
@@ -180,7 +181,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//22
             'nombre'=>'Coliflor',
             'descripcion'=>'',
             'calorias'=>'25',
@@ -188,7 +189,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//23
             'nombre'=>'Brocoli',
             'descripcion'=>'',
             'calorias'=>'34',
@@ -196,7 +197,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//24
             'nombre'=>'Alcachofa',
             'descripcion'=>'',
             'calorias'=>'47',
@@ -204,7 +205,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//25
             'nombre'=>'Pimiento Rojo',
             'descripcion'=>'',
             'calorias'=>'32.90',
@@ -212,7 +213,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//26
             'nombre'=>'Pimiento Verde',
             'descripcion'=>'',
             'calorias'=>'19.68',
@@ -220,7 +221,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//27
             'nombre'=>'Pimiento Amarillo',
             'descripcion'=>'',
             'calorias'=>'27',
@@ -228,7 +229,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//28
             'nombre'=>'Manzanas',
             'descripcion'=>'',
             'calorias'=>'52',
@@ -236,7 +237,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//29
             'nombre'=>'Aceite vegetal',
             'descripcion'=>'',
             'calorias'=>'884',
@@ -244,7 +245,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//30
             'nombre'=>'Arroz',
             'descripcion'=>'',
             'calorias'=>'130',
@@ -252,7 +253,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//31
             'nombre'=>'Habichuelas Negras',
             'descripcion'=>'',
             'calorias'=>'341',
@@ -260,7 +261,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//32
             'nombre'=>'Habichuelas Rojas',
             'descripcion'=>'',
             'calorias'=>'333',
@@ -268,7 +269,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//33
             'nombre'=>'Garbanzos',
             'descripcion'=>'',
             'calorias'=>'364',
@@ -276,7 +277,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//34
             'nombre'=>'Arvejas',
             'descripcion'=>'',
             'calorias'=>'81',
@@ -284,7 +285,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//35
             'nombre'=>'Habas',
             'descripcion'=>'',
             'calorias'=>'88',
@@ -292,7 +293,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//36
             'nombre'=>'Pollo',
             'descripcion'=>'',
             'calorias'=>'239',
@@ -300,7 +301,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//37
             'nombre'=>'Conejo',
             'descripcion'=>'',
             'calorias'=>'173',
@@ -308,7 +309,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//38
             'nombre'=>'Lomo de Cerdo',
             'descripcion'=>'',
             'calorias'=>'168',
@@ -316,7 +317,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//39
             'nombre'=>'Pavo',
             'descripcion'=>'',
             'calorias'=>'189',
@@ -324,7 +325,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//40
             'nombre'=>'Cordero',
             'descripcion'=>'',
             'calorias'=>'354',
@@ -332,7 +333,7 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//41
             'nombre'=>'Merluza',
             'descripcion'=>'',
             'calorias'=>'65',
@@ -340,11 +341,19 @@ class InsumoSeed extends Seeder
             'unidad_id'=>'6',
         ]);
 
-        Insumo::create([
+        Insumo::create([//42
             'nombre'=>'Pato',
             'descripcion'=>'',
             'calorias'=>'337',
             'categoria_id'=>'1',
+            'unidad_id'=>'6',
+        ]);
+
+        Insumo::create([//43
+            'nombre'=>'Huevo',
+            'descripcion'=>'',
+            'calorias'=>'155',
+            'categoria_id'=>'7',
             'unidad_id'=>'6',
         ]);
     }

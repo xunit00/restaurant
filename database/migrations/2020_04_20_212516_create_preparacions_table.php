@@ -19,6 +19,8 @@ class CreatePreparacionsTable extends Migration
             $table->string('tipo_preparacion');//guisado
             $table->decimal('tiempo');//2.2
             $table->timestamps();
+
+            $table->foreign('insumo_id')->references('id')->on('insumos');
         });
     }
 
@@ -29,6 +31,8 @@ class CreatePreparacionsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('preparacions');
+        Schema::enableForeignKeyConstraints();
     }
 }
