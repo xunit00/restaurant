@@ -1940,10 +1940,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (this.enfermedad == "NO") {
         if (this.genero == "m") {
           //[(66 + (13.7 x tu peso en kilos) + (5 x altura en cm) – (6.8 x tu edad)] x factor de actividad
-          this.calorias = (66 + 13.7 * (this.peso * 0.453592) + 5 * (this.altura * 30.48) - 6.8 * this.edad) * this.actividad; //   console.log(this.calorias);
+          this.calorias = (66 + 13.7 * (this.peso * 0.453592) + 5 * (this.altura * 30.48) - 6.8 * this.edad) * this.actividad / 3; //   console.log(this.calorias);
         } else if (this.genero == "f") {
           //[(655 + (9.6 x tu peso en kilos) + (1.8 x altura en cm) – (4.7 x tu edad)] x factor de actividad
-          this.calorias = (665 + 9.6 * (this.peso * 0.453592) + 1.8 * (this.altura * 30.48) - 4.7 * this.edad) * this.actividad; //   console.log(this.calorias);
+          this.calorias = (665 + 9.6 * (this.peso * 0.453592) + 1.8 * (this.altura * 30.48) - 4.7 * this.edad) * this.actividad / 3; //   console.log(this.calorias);
         } else {
           toast.fire({
             type: "error",
@@ -1953,9 +1953,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       } else if (this.enfermedad == "Diabetico") {
         //diabetico
         if (this.genero == "m") {
-          this.calorias = (30 + 13.7 * (this.peso * 0.453592) + 5 * (this.altura * 30.48) - 6.8 * this.edad) * this.actividad;
+          this.calorias = (10 + 13.7 * (this.peso * 0.453592) + 5 * (this.altura * 30.48) - 6.8 * this.edad) * this.actividad / 3;
         } else if (this.genero == "f") {
-          this.calorias = (540 + 9.6 * (this.peso * 0.453592) + 1.8 * (this.altura * 30.48) - 4.7 * this.edad) * this.actividad;
+          this.calorias = (420 + 9.6 * (this.peso * 0.453592) + 1.8 * (this.altura * 30.48) - 4.7 * this.edad) * this.actividad / 3;
         } else {
           toast.fire({
             type: "error",
