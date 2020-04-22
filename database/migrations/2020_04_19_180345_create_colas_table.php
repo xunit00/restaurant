@@ -18,6 +18,7 @@ class CreateColasTable extends Migration
             $table->integer('num_orden');
             $table->time('tiempo_preparacion');
             $table->time('descripcion_plato');
+            $table->string('estado');
             $table->integer('receta_id');
             $table->timestamps();
         });
