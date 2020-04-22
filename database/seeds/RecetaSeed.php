@@ -18,11 +18,11 @@ class RecetaSeed extends Seeder
             'porciones' => 1
         ]);
 
-        // Receta::create([
-        //     'producto_id' => '2',
-        //     'descripcion' => 'pollo frito con algo',
-        //     'porciones' => 1
-        // ]);
+        Receta::create([
+            'producto_id' => '2',
+            'descripcion' => 'pollo frito con algo',
+            'porciones' => 1
+        ]);
 
         // Receta::create([
         //     'producto_id' => '3',
