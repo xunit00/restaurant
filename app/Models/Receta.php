@@ -21,7 +21,7 @@ class Receta extends Model
     protected $softCascade=['detalles'];
 
     protected $fillable = [
-        'producto_id','descripcion','porciones', 'status'
+        'producto_id','descripcion','porciones', 'status','tiempo_preparacion'
     ];
 
     public function detalles()

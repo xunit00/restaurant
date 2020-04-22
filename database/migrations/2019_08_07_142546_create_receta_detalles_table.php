@@ -18,7 +18,6 @@ class CreateRecetaDetallesTable extends Migration
             $table->unsignedBigInteger('receta_id');
             $table->unsignedBigInteger('insumo_id');
             $table->decimal('cantidad');
-            $table->decimal('tiempo_preparacion')->nullable();
             $table->string('tipo_preparacion')->nullable();
             $table->timestamps();
             $table->softDeletes();

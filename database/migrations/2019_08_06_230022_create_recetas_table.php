@@ -18,6 +18,7 @@ class CreateRecetasTable extends Migration
             $table->unsignedBigInteger('producto_id')->unique();
             $table->string('descripcion')->nullable();
             $table->decimal('porciones');
+            $table->decimal('tiempo_preparacion')->nullable();
             $table->boolean('status')->default(1);
             $table->timestamps();
             $table->softDeletes();

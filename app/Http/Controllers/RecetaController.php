@@ -74,24 +74,21 @@ class RecetaController extends Controller
             );
 
             $insumos = $request->detalles;
+            // dd($insumos);
 
             foreach ($insumos as $ins) {
-                $insumo_id = Preparacion::where('preparacion_id', $ins['id'])->first()->insumo_id;
-            dd($insumo_id);
+                $insumo_id = Preparacion::where('id', $ins['preparacion_id'])->first()->insumo_id;
 
-                // DB::table('insumos')
-                // ->select('insumos.id')
-                // ->where('preparacions.id','=',$ins->preparacion_id)
-                // ->get();
+                // $tiempo_preparacion = Preparacion::where('id', $ins['preparacion_id'])->first()->insumo_id;
 
-                // DetalleReceta::create([
-                //     'receta_id' => $receta_id,
-                //     'insumo_id' => $insumo_id,
-                //     'cantidad' => $ins['cantidad'],
-                //     'tipo_preparacion' => $ins['tipo_preparacion']
-                // ]);
+                DetalleReceta::create([
+                    'receta_id' => $receta_id,
+                    'insumo_id' => $insumo_id,
+                    'cantidad' => $ins['cantidad'],
+                    'tipo_preparacion' => $ins['preparacion_id']
+                ]);
             }
-            // DB::commit();
+            DB::commit();
 
             return ['message' => 'Receta Creada'];
         } catch (\Throwable $th) {
