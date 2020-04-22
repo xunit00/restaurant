@@ -1714,6 +1714,16 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1838,7 +1848,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {
+    var _ref;
+
+    return _ref = {
       platosByCalorias: {},
       calorias: "",
       enfermedad: "",
@@ -1847,17 +1859,36 @@ __webpack_require__.r(__webpack_exports__);
       altura: "",
       peso: "",
       actividad: "",
-      form: new Form({
-        enfermedad: "",
-        genero: "",
-        edad: "",
-        actividad: "",
-        altura: ""
-      })
-    };
+      cantidad: "",
+      plato: 0
+    }, _defineProperty(_ref, "cantidad", 0), _defineProperty(_ref, "caloria", 0), _defineProperty(_ref, "form", new Form({
+      detalles: [{
+        plato: 0,
+        cantidad: 0,
+        caloria: 0
+      }]
+    })), _ref;
   },
   methods: {
     create: function create() {},
+    addPlato: function addPlato(pt) {
+      this.plato = pt.id;
+      this.cantidad = pt.cantidad;
+      this.calorias = pt.calorias; //     cantidad: me.cantidad,
+      // let me=this;
+
+      this.form.detalles.push({
+        plato: this.plato,
+        cantidad: this.cantidad,
+        caloria: this.calorias
+      });
+      this.clearValues(); // console.log(pt.id,pt.cantidad)
+    },
+    clearValues: function clearValues() {
+      this.plato = 0;
+      this.cantidad = 0;
+      this.calirias = 0;
+    },
     generar: function generar(cal) {
       var _this = this;
 
@@ -83329,16 +83360,73 @@ var render = function() {
                               _vm._l(_vm.platosByCalorias, function(plt) {
                                 return _c(
                                   "tr",
-                                  {
-                                    key: plt.nombre,
-                                    attrs: { value: plt.nombre }
-                                  },
+                                  { key: plt.id, attrs: { value: plt.id } },
                                   [
                                     _c("td", [_vm._v(_vm._s(plt.nombre))]),
                                     _vm._v(" "),
+                                    _c("td", [
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: plt.cantidad,
+                                            expression: "plt.cantidad"
+                                          }
+                                        ],
+                                        staticClass: "form-control",
+                                        attrs: {
+                                          type: "number",
+                                          placeholder: "Cantidad"
+                                        },
+                                        domProps: { value: plt.cantidad },
+                                        on: {
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              plt,
+                                              "cantidad",
+                                              $event.target.value
+                                            )
+                                          }
+                                        }
+                                      })
+                                    ]),
+                                    _vm._v(" "),
                                     _c("td", [_vm._v(_vm._s(plt.calorias))]),
                                     _vm._v(" "),
-                                    _vm._m(1, true)
+                                    _c("td", [
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass:
+                                            "btn btn-outline-success btn-sm",
+                                          attrs: { type: "submit" },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.addPlato(plt)
+                                            }
+                                          }
+                                        },
+                                        [_vm._v("Agregar")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass:
+                                            "btn btn-outline-danger btn-sm",
+                                          attrs: {
+                                            type: "submit",
+                                            onclick:
+                                              "return confirm('Quiere Actualizar este Registro?')"
+                                          }
+                                        },
+                                        [_vm._v("Modificar")]
+                                      )
+                                    ])
                                   ]
                                 )
                               })
@@ -83365,39 +83453,11 @@ var staticRenderFns = [
     return _c("tr", [
       _c("th", [_vm._v("Plato")]),
       _vm._v(" "),
+      _c("th", [_vm._v("Cantidad")]),
+      _vm._v(" "),
       _c("th", [_vm._v("Calorias")]),
       _vm._v(" "),
       _c("th", [_vm._v("Funcion")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-outline-success btn-sm",
-          attrs: {
-            type: "submit",
-            onclick: "return confirm('Quiere Actualizar este Registro?')"
-          }
-        },
-        [_vm._v("Agregar")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-outline-danger btn-sm",
-          attrs: {
-            type: "submit",
-            onclick: "return confirm('Quiere Actualizar este Registro?')"
-          }
-        },
-        [_vm._v("Modificar")]
-      )
     ])
   }
 ]

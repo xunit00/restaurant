@@ -88,17 +88,25 @@
               <tbody>
                 <tr>
                   <th>Plato</th>
+                  <th>Cantidad</th>
                   <th>Calorias</th>
                   <th>Funcion</th>
                 </tr>
-                <tr v-for="plt in platosByCalorias" v-bind:key="plt.nombre" v-bind:value="plt.nombre">
+                <tr v-for="plt in platosByCalorias" v-bind:key="plt.id" v-bind:value="plt.id">
                   <td>{{plt.nombre}}</td>
+                  <td>
+                    <input
+                  type="number"
+                    v-model="plt.cantidad"
+                  placeholder="Cantidad"
+                  class="form-control"/>
+                  </td>
                   <td>{{plt.calorias}}</td>
                   <td>
                     <button
                       type="submit"
                       class="btn btn-outline-success btn-sm"
-                      onclick="return confirm('Quiere Actualizar este Registro?')"
+                     @click="addPlato(plt)"
                     >Agregar</button>
                     <button
                       type="submit"
@@ -132,18 +140,44 @@ export default {
       altura: "",
       peso: "",
       actividad: "",
+      cantidad:"",
+            plato: 0,
+            cantidad: 0,
+            caloria:0,
       form: new Form({
-        enfermedad: "",
-        genero: "",
-        edad: "",
-        actividad: "",
-        altura: ""
+        detalles:[{
+            plato: 0,
+            cantidad: 0,
+            caloria:0,
+        }]
+
       })
     };
   },
   methods: {
     create() {
 
+    },
+    addPlato(pt){
+        this.plato=pt.id
+        this.cantidad=pt.cantidad
+        this.calorias=pt.calorias
+        //     cantidad: me.cantidad,
+        // let me=this;
+        this.form.detalles.push({
+            plato: this.plato,
+            cantidad: this.cantidad,
+            caloria: this.calorias
+        })
+        this.clearValues();
+    // console.log(pt.id,pt.cantidad)
+
+
+    },
+    clearValues(){
+        this.plato=0
+        this.cantidad=0
+        this.calirias=0
     },
     generar(cal){
         axios.get("/generar/" + cal).then(response => {
