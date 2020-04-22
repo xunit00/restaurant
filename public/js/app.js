@@ -1932,6 +1932,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       axios.get("/generar/" + cal).then(function (response) {
         _this2.platosByCalorias = response.data;
+
+        if (_this2.platosByCalorias.length == 0) {
+          toast.fire({
+            type: "error",
+            title: "No hay platos consumibles para usted"
+          });
+        }
       });
     },
     calculate: function calculate() {

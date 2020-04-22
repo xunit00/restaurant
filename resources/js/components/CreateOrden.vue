@@ -230,6 +230,12 @@ export default {
     generar(cal) {
       axios.get("/generar/" + cal).then(response => {
         this.platosByCalorias = response.data;
+        if(this.platosByCalorias.length==0){
+             toast.fire({
+            type: "error",
+            title: "No hay platos consumibles para usted"
+          });
+        }
       });
     },
     calculate() {
