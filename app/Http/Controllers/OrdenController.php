@@ -63,13 +63,15 @@ class OrdenController extends Controller
 
          $tiempo_preparacion =  DB::select($sql_total_preparacion_orden)[0]->total_preparacion;
 
+     
+
          if($tiempo_preparacion == 0){
             return array("status"=>"400",
              "message"=>"Error El tiempo de espera del plato es CERO, Insumos erroneos en recetas id= $receta_id",
              "data"=>0);
          }
 
-
+    
         $sql_get_insumos_cola = "
         SELECT 
             d.insumo_id,
@@ -88,7 +90,6 @@ class OrdenController extends Controller
             FROM receta_detalles AS d
             WHERE	d.receta_id = $receta_id";
 
-
     $rs_insumos_orden =  DB::select($sql_get_receta_orden);
     $rs_insumos_cola =  DB::select($sql_get_insumos_cola);
 
@@ -96,19 +97,19 @@ class OrdenController extends Controller
 
     //buscar en cola todos los insumos que no este listo
        foreach($rs_insumos_cola as $row){
-
+     
     // buscar todo lso insumos de la orden machearlos if equal less time
             foreach($rs_insumos_orden as $row_orden){
-
-                if($row_orden->tipo_preparacion_id == $row->tipo_preparacion_id){
+               
+                if($row_orden->tipo_preparacion == $row->tipo_preparacion){
 
                     //buscar el tiempo para hacer ese insumo
                     $sql_tipo_preparacin = "SELECT
                     t.tiempo
-                    FROM tipos_de_preparacion AS t
-                    WHERE t.tipo_preparacion_id =  $row_orden->tipo_preparacion_id";
+                    FROM preparacions AS t
+                    WHERE t.id =  $row_orden->tipo_preparacion";
 
-                    $rs_tipo_preparacion =  DB::select($sql_get_insumos_cola)[0]->tiempo;
+                    $rs_tipo_preparacion =  DB::select($sql_tipo_preparacin)[0]->tiempo;
 
                     $tiempo_menos_por_existencia_en_cola += $rs_tipo_preparacion;
 
@@ -267,8 +268,7 @@ class OrdenController extends Controller
                 $sql_receta_detalle = "SELECT * from receta_detalles where receta_id IN( SELECT id from recetas where producto_id = $plato_id)";
                 
                 $receta_id = $rs_receta_nueva_id = DB::select($sql_receta_detalle)[0]->receta_id;
-
-                
+ 
                 $result_preparacion_time = $this->get_tiempo_preparacion($receta_id);
                  
                 if($result_preparacion_time["status"] != "200"){
@@ -279,33 +279,19 @@ class OrdenController extends Controller
                 $tiempo_preparacion = $result_preparacion_time["data"];
                 
 
-                $nombre = DB::select("SELECT descripcion from recetas where producto_id = $plato_id")[0]->nombre;
-                
-                $sql_inset_cola = "INSERT INTO `colas`(`num_orden`, `tiempo_preparacion`, `estado`, `descripcion_plato`, `receta_id`, `created_at`) 
-                VALUES ($orden_id , '$tiempo_preparacion', 'Pendiente', '$nombre', $receta_id, 'now()'); SELECT LAST_INSERT_ID(); ";
 
-
-                DB::select($sql_inset_cola);
-
-                // DB::table('colas')->insert(
-                //     array('num_orden' => $orden_id, 
-                //     'tiempo_preparacion'=> $orden_id,
-                //     'estado'=> 'Pendiente',
-                //     'descripcion_plato'=> "$nombre",
-                //     'receta_id'=> $receta_id,
-                //     'created_at'=>"'now()'" )
-                // );
+                $nombre = DB::select("SELECT descripcion from recetas where producto_id = $plato_id")[0]->descripcion;
             
-            //    $colas=Colas::create([
-            //         'num_orden' => $orden_id, 
-            //         'tiempo_preparacion'=> $orden_id,
-            //         'estado'=> 'Pendiente',
-            //         'descripcion_plato'=> $nombre,
-            //         'receta_id'=> $receta_id
-            //     ]);
+
+                $sql_inset_cola = "INSERT INTO `colas`(`num_orden`, `tiempo_preparacion`, `estado`, `descripcion_plato`, `receta_id`, `created_at`) 
+                VALUES ($orden_id , '$tiempo_preparacion', 'Pendiente', '$nombre', $receta_id, now());  ";
+
+
+                DB::select($sql_inset_cola); 
 
                 //ejecutar cuando se meta en cola
                 $tiempo_servicio = $this->get_tiempo_servir();
+                // $tiempo_servicio = 0;
                 $tiempo_total =  $tiempo_preparacion + $tiempo_servicio;
 
                 array_push($message_cola, array("tiempo_servicio"=>$tiempo_total,"message_cola"=>$result_preparacion_time["message"]));

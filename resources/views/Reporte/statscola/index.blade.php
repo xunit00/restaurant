@@ -94,6 +94,8 @@ if(valor == 0){
     });
 
 }
+
+
 </script>
 
 @endsection
