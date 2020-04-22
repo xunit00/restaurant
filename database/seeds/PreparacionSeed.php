@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Preparacion;
 
-class PreparacionesInsumosSeed extends Seeder
+class PreparacionSeed extends Seeder
 {
     /**
      * Run the database seeds.

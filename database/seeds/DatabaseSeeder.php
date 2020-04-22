@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             AreasSeed::class,
             MesasSeed::class,
             InsumoSeed::class,
-            PreparacionesInsumosSeed::class,
+            PreparacionSeed::class,
             PlatosSeed::class,
         ]);
     }
