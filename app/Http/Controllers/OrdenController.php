@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Producto;
 use App\Models\DetalleReceta;
+use App\Orden_Detalle;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Orden;
-use DB;
+
 
 use Illuminate\Http\Request;
 
@@ -21,7 +22,7 @@ class OrdenController extends Controller
     public function index()
     {
        // $ordenes = Orden::latest()->paginate(10);
-             
+
         return view('configuracion.pedidos.index');//, compact('ordenes'));
     }
 
@@ -44,7 +45,7 @@ class OrdenController extends Controller
         $sql_get_tiempo_de_cola = "SELECT SUM(c.tiempo_preparacion) as total FROM colas AS c WHERE c.estado != 'Listo'";
 
         $rs_total = DB::select($sql_get_tiempo_de_cola)[0]->total;
-        
+
         return $rs_total;
 
     }
@@ -54,15 +55,15 @@ class OrdenController extends Controller
 
 
         $sql_total_preparacion_orden = "  SELECT COALESCE(SUM(t.tiempo), 0)  AS total_preparacion
-        FROM preparacions AS t 
-        WHERE t.id IN ( 
-            SELECT  d.tipo_preparacion FROM receta_detalles AS d WHERE	d.receta_id = $receta_id 
+        FROM preparacions AS t
+        WHERE t.id IN (
+            SELECT  d.tipo_preparacion FROM receta_detalles AS d WHERE	d.receta_id = $receta_id
             )";
- 
+
          $tiempo_preparacion =  DB::select($sql_total_preparacion_orden)[0]->total_preparacion;
 
          if($tiempo_preparacion == 0){
-            return array("status"=>"400", 
+            return array("status"=>"400",
              "message"=>"Error El tiempo de espera del plato es CERO, Insumos erroneos en recetas id= $receta_id",
              "data"=>0);
          }
@@ -81,14 +82,14 @@ class OrdenController extends Controller
         )";
 
         $sql_get_receta_orden ="
-        SELECT 
+        SELECT
             d.tipo_preparacion_id,
             d.insumo_id,
             d.tipo_preparacion
             FROM receta_detalles AS d
             WHERE	d.receta_id = $receta_id";
 
-          
+
     $rs_insumos_orden =  DB::select($sql_get_receta_orden);
     $rs_insumos_cola =  DB::select($sql_get_insumos_cola);
 
@@ -109,23 +110,23 @@ class OrdenController extends Controller
                     WHERE t.tipo_preparacion_id =  $row_orden->tipo_preparacion_id";
 
                     $rs_tipo_preparacion =  DB::select($sql_get_insumos_cola)[0]->tiempo;
-                    
+
                     $tiempo_menos_por_existencia_en_cola += $rs_tipo_preparacion;
-        
+
                 }
 
             }
 
-         
+
        }
 
        if($tiempo_menos_por_existencia_en_cola !=0){
-        return array("status"=>"200", 
+        return array("status"=>"200",
         "message"=>"Tiempo De Preparacion ".($tiempo_preparacion - $tiempo_menos_por_existencia_en_cola). ", este Tiempo fue resudio ".$tiempo_menos_por_existencia_en_cola,
         "data"=>($tiempo_preparacion - $tiempo_menos_por_existencia_en_cola));
        }
 
-       return array("status"=>"200", 
+       return array("status"=>"200",
        "message"=>"Tiempo De Preparacion ".($tiempo_preparacion - $tiempo_menos_por_existencia_en_cola),
        "data"=>($tiempo_preparacion - $tiempo_menos_por_existencia_en_cola));
 
@@ -134,7 +135,7 @@ class OrdenController extends Controller
 
 
 
-   
+
 
 
 
@@ -148,17 +149,17 @@ class OrdenController extends Controller
 
 //crear producto
         $sql_get_producto = "SELECT p.*  from productos as p where p.id = (SELECT r.producto_id from recetas as r where r.id = $id_receta limit 1)";
-        $rs_producto_original = DB::select($sql_get_producto); 
+        $rs_producto_original = DB::select($sql_get_producto);
         if( empty($rs_producto_original) ){
             return array("status"=>"400","message"=>"Error el producto Original no se encontro del plato modificado","data"=>[]);
-        } 
+        }
 
         $rs_producto_original = $rs_producto_original[0];
 
         $sql_crear_producto = "INSERT INTO `productos`(`nombre`, `descripcion`, `precio`, `categoria_id`, `created_at`)
          VALUES ('$rs_producto_original->nombre','$rs_producto_original->descripcion',$rs_producto_original->precio, $rs_producto_original->categoria_id, now());
          SELECT LAST_INSERT_ID() as id;";
-        
+
         $rs_producto_nuevo_id = DB::select($sql_crear_producto)[0]->id; //para recetas tabla
 //crear producto
 
@@ -170,8 +171,8 @@ class OrdenController extends Controller
 //crear receta
         $sql_receta_original = "SELECT * from recetas where id = $id_receta";
         $rs_receta_original = DB::select($sql_crear_producto)[0];
-        
-        $sql_receta_nueva = "INSERT INTO `recetas`(`producto_id`, `descripcion`, `porciones`, `tiempo_preparacion`, `created_at`) 
+
+        $sql_receta_nueva = "INSERT INTO `recetas`(`producto_id`, `descripcion`, `porciones`, `tiempo_preparacion`, `created_at`)
         VALUES ($rs_producto_nuevo_id, '$rs_receta_original->descripcion','$rs_receta_original->porciones',0,now());
         SELECT LAST_INSERT_ID() as id;";
         $rs_receta_nueva_id = DB::select($sql_receta_nueva)[0]->id;
@@ -247,32 +248,29 @@ class OrdenController extends Controller
         try {
             $orden_id = DB::table('ordens')->insertGetId(
                 array(
-                    'producto_id' => $request->producto,
-                    'descripcion' => $request->descripcion,
-                    'porciones' => $request->porciones,
+                    'cliente' => $request->cliente,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now()
                 )
             );
 
-            $insumos = $request->detalles;
+            $platos = $request->detalles;
             // dd($insumos);
 
-            foreach ($insumos as $ins) {
-                $insumo_id = Preparacion::where('id', $ins['preparacion_id'])->first()->insumo_id;
+            foreach ($platos as $pl) {
+                // $insumo_id = Orden::where('id', $pl['preparacion_id'])->first()->insumo_id;
 
                 // $tiempo_preparacion = Preparacion::where('id', $ins['preparacion_id'])->first()->insumo_id;
 
-                DetalleReceta::create([
-                    'receta_id' => $receta_id,
-                    'insumo_id' => $insumo_id,
-                    'cantidad' => $ins['cantidad'],
-                    'tipo_preparacion' => $ins['preparacion_id']
+                Orden_Detalle::create([
+                    'orden_id' => $orden_id,
+                    'plato_id' => $pl['plato'],
+                    'cantidad' => $pl['cantidad']
                 ]);
             }
             DB::commit();
 
-            return ['message' => 'Receta Creada'];
+            return ['message' => 'Orden Creada'];
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json(['error' => $th], 422);

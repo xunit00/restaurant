@@ -164,7 +164,7 @@ export default {
           {
             plato: 0,
             cantidad: 0,
-            caloria: 0
+            // caloria: 0
           }
         ]
       })
@@ -192,18 +192,32 @@ export default {
         });
     },
     clearForm() {
-      (this.form.cliente = ""), (this.form.detalles.length = 0);
+      (this.form.cliente = ""),
+      (this.form.detalles.length = 0),
+      (this.platosByCalorias.length=0),
+      (this.calorias= ""),
+      (this.enfermedad= ""),
+      (this.genero= ""),
+      (this.edad= ""),
+      (this.altura= ""),
+      (this.peso= ""),
+      (this.actividad= ""),
+      (this.cantidad= ""),
+      (this.cliente= ""),
+      (this.plato= 0),
+      (this.cantidad= 0),
+      (this.caloria= 0)
     },
     addPlato(pt) {
       this.plato = pt.id;
       this.cantidad = pt.cantidad;
-      this.calorias = pt.calorias;
+    //   this.calorias = pt.calorias;
       //     cantidad: me.cantidad,
       // let me=this;
       this.form.detalles.push({
         plato: this.plato,
         cantidad: this.cantidad,
-        caloria: this.calorias
+        // caloria: this.calorias
       });
       this.clearValues();
       // console.log(pt.id,pt.cantidad)
@@ -211,7 +225,7 @@ export default {
     clearValues() {
       this.plato = 0;
       this.cantidad = 0;
-      this.calirias = 0;
+    //   this.calirias = 0;
     },
     generar(cal) {
       axios.get("/generar/" + cal).then(response => {

@@ -18,6 +18,34 @@ class PlatosSeed extends Seeder
             'categoria_id'=>'5',
             'precio'=>'100'
         ]);
+
+        Producto::create([
+            'nombre'=>'Pollo Frito',
+            'descripcion'=>'con algo',
+            'categoria_id'=>'3',
+            'precio'=>'100'
+        ]);
+
+        Producto::create([
+            'nombre'=>'Pan con especias',
+            'descripcion'=>'con algo',
+            'categoria_id'=>'5',
+            'precio'=>'5'
+        ]);
+
+        Producto::create([
+            'nombre'=>'Chuletas de Cerdo al carbon',
+            'descripcion'=>'con algo',
+            'categoria_id'=>'2',
+            'precio'=>'150.5'
+        ]);
+
+        Producto::create([
+            'nombre'=>'Estofado de Bistec',
+            'descripcion'=>'con algo',
+            'categoria_id'=>'1',
+            'precio'=>'200.6'
+        ]);
     }
 }
-// 'nombre', 'descripcion','categoria_id','precio','status'
+

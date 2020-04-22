@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             InsumoSeed::class,
             PreparacionSeed::class,
             PlatosSeed::class,
+            RecetaSeed::class,
+            DetalleRecetaSeed::class
         ]);
     }
 }
