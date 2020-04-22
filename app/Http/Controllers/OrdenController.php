@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Producto;
 use App\Models\DetalleReceta;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use App\Orden;
 
 
@@ -63,10 +65,40 @@ class OrdenController extends Controller
      */
     public function store(Request $request)
     {
-        return "listo";
-        // Producto::create($request->all());
+        DB::beginTransaction();
+        try {
+            $orden_id = DB::table('ordens')->insertGetId(
+                array(
+                    'producto_id' => $request->producto,
+                    'descripcion' => $request->descripcion,
+                    'porciones' => $request->porciones,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                )
+            );
 
-        // return redirect()->route('productos.index')
-        // ->with('success', 'Producto Creado!');
+            $insumos = $request->detalles;
+            // dd($insumos);
+
+            foreach ($insumos as $ins) {
+                $insumo_id = Preparacion::where('id', $ins['preparacion_id'])->first()->insumo_id;
+
+                // $tiempo_preparacion = Preparacion::where('id', $ins['preparacion_id'])->first()->insumo_id;
+
+                DetalleReceta::create([
+                    'receta_id' => $receta_id,
+                    'insumo_id' => $insumo_id,
+                    'cantidad' => $ins['cantidad'],
+                    'tipo_preparacion' => $ins['preparacion_id']
+                ]);
+            }
+            DB::commit();
+
+            return ['message' => 'Receta Creada'];
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json(['error' => $th], 422);
+        }
+
     }
 }

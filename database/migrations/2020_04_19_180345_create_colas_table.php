@@ -17,7 +17,7 @@ class CreateColasTable extends Migration
             $table->bigIncrements('id');
             $table->integer('num_orden');
             $table->time('tiempo_preparacion');
-            $table->time('descripcion_plato');
+            $table->string('descripcion_plato');
             $table->integer('receta_id');
             $table->timestamps();
         });
