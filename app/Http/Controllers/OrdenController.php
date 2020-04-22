@@ -54,4 +54,19 @@ class OrdenController extends Controller
 
         return $platos;
     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        return "listo";
+        // Producto::create($request->all());
+
+        // return redirect()->route('productos.index')
+        // ->with('success', 'Producto Creado!');
+    }
 }

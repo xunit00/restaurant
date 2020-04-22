@@ -7,6 +7,18 @@
         <form @submit.prevent="create()">
           <div class="form-group">
             <div class="row">
+              <label for class="col-md-3">Cliente</label>
+              <div class="col-md-3">
+                <input
+                  type="text"
+                  v-model="form.cliente"
+                  placeholder="Cliente"
+                  class="form-control"
+                />
+              </div>
+            </div>
+
+            <div class="row mt-3">
               <label for class="col-md-3">Posee Enfermedad</label>
               <div class="col-md-6">
                 <select v-model="enfermedad" class="form-control">
@@ -82,47 +94,48 @@
             </div>
           </div>
 
-        <div class="container mt-3" id="platos" v-if="this.platosByCalorias.length > 0">
-     <div class="card-body table-responsive p-0">
-            <table class="table table-hover">
-              <tbody>
-                <tr>
-                  <th>Plato</th>
-                  <th>Cantidad</th>
-                  <th>Calorias</th>
-                  <th>Funcion</th>
-                </tr>
-                <tr v-for="plt in platosByCalorias" v-bind:key="plt.id" v-bind:value="plt.id">
-                  <td>{{plt.nombre}}</td>
-                  <td>
-                    <input
-                  type="number"
-                    v-model="plt.cantidad"
-                  placeholder="Cantidad"
-                  class="form-control"/>
-                  </td>
-                  <td>{{plt.calorias}}</td>
-                  <td>
-                    <button
-                      type="submit"
-                      class="btn btn-outline-success btn-sm"
-                     @click="addPlato(plt)"
-                    >Agregar</button>
-                    <button
-                      type="submit"
-                      class="btn btn-outline-danger btn-sm"
-                      onclick="return confirm('Quiere Actualizar este Registro?')"
-                    >Modificar</button>
-                  </td>
-                </tr>
-
-              </tbody>
-            </table>
+          <div class="container mt-3" id="platos" v-if="this.platosByCalorias.length > 0">
+            <div class="card-body table-responsive p-0">
+              <table class="table table-hover">
+                <tbody>
+                  <tr>
+                    <th>Plato</th>
+                    <th>Cantidad</th>
+                    <th>Calorias</th>
+                    <th>Funcion</th>
+                  </tr>
+                  <tr v-for="plt in platosByCalorias" v-bind:key="plt.id" v-bind:value="plt.id">
+                    <td>{{plt.nombre}}</td>
+                    <td>
+                      <input
+                        type="number"
+                        v-model="plt.cantidad"
+                        placeholder="Cantidad"
+                        class="form-control"
+                      />
+                    </td>
+                    <td>{{plt.calorias}}</td>
+                    <td>
+                      <button
+                        type="button"
+                        class="btn btn-outline-success btn-sm"
+                        @click="addPlato(plt)"
+                      >Agregar</button>
+                      <button
+                        type="button"
+                        class="btn btn-outline-danger btn-sm"
+                        onclick="return confirm('Quiere Actualizar este Registro?')"
+                      >Modificar</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+              <button type="submit" class="btn btn-outline-success btn-sm">procesar</button>
+            </div>
           </div>
-          <!-- /.card-body -->
-
-        </div>
-
         </form>
       </div>
     </section>
@@ -132,7 +145,7 @@
 export default {
   data() {
     return {
-        platosByCalorias:{},
+      platosByCalorias: {},
       calorias: "",
       enfermedad: "",
       genero: "",
@@ -140,47 +153,68 @@ export default {
       altura: "",
       peso: "",
       actividad: "",
-      cantidad:"",
-            plato: 0,
-            cantidad: 0,
-            caloria:0,
+      cantidad: "",
+      cliente: "",
+      plato: 0,
+      cantidad: 0,
+      caloria: 0,
       form: new Form({
-        detalles:[{
+        cliente: "",
+        detalles: [
+          {
             plato: 0,
             cantidad: 0,
-            caloria:0,
-        }]
-
+            caloria: 0
+          }
+        ]
       })
     };
   },
   methods: {
     create() {
-
-    },
-    addPlato(pt){
-        this.plato=pt.id
-        this.cantidad=pt.cantidad
-        this.calorias=pt.calorias
-        //     cantidad: me.cantidad,
-        // let me=this;
-        this.form.detalles.push({
-            plato: this.plato,
-            cantidad: this.cantidad,
-            caloria: this.calorias
+      this.$Progress.start();
+      this.form
+        .post("/ordenes")
+        .then(() => {
+          toast.fire({
+            type: "success",
+            title: "Orden Creada Exitosamente"
+          });
+          this.$Progress.finish();
+          this.clearForm();
         })
-        this.clearValues();
-    // console.log(pt.id,pt.cantidad)
-
-
+        .catch(error => {
+          this.$Progress.fail();
+          toast.fire({
+            type: "error",
+            title: "Error en Insercion de Datos"
+          });
+        });
     },
-    clearValues(){
-        this.plato=0
-        this.cantidad=0
-        this.calirias=0
+    clearForm() {
+      (this.form.cliente = ""), (this.form.detalles.length = 0);
     },
-    generar(cal){
-        axios.get("/generar/" + cal).then(response => {
+    addPlato(pt) {
+      this.plato = pt.id;
+      this.cantidad = pt.cantidad;
+      this.calorias = pt.calorias;
+      //     cantidad: me.cantidad,
+      // let me=this;
+      this.form.detalles.push({
+        plato: this.plato,
+        cantidad: this.cantidad,
+        caloria: this.calorias
+      });
+      this.clearValues();
+      // console.log(pt.id,pt.cantidad)
+    },
+    clearValues() {
+      this.plato = 0;
+      this.cantidad = 0;
+      this.calirias = 0;
+    },
+    generar(cal) {
+      axios.get("/generar/" + cal).then(response => {
         this.platosByCalorias = response.data;
       });
     },
@@ -212,7 +246,7 @@ export default {
             title: "Seleccione Datos"
           });
         }
-      } else if(this.enfermedad == "Diabetico") {
+      } else if (this.enfermedad == "Diabetico") {
         //diabetico
         if (this.genero == "m") {
           this.calorias =
@@ -236,7 +270,16 @@ export default {
         }
       }
       this.generar(this.calorias);
+    },
+    eliminarDetalle(index) {
+      // this.form.detalles.length = 0;
+      let me = this;
+      me.form.detalles.splice(index, 1);
     }
+  },
+  mounted() {
+    this.eliminarDetalle(0);
+    console.log("Create orden Mounted");
   }
 };
 </script>

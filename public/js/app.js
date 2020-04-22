@@ -1846,6 +1846,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     var _ref;
@@ -1860,8 +1873,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       peso: "",
       actividad: "",
       cantidad: "",
+      cliente: "",
       plato: 0
     }, _defineProperty(_ref, "cantidad", 0), _defineProperty(_ref, "caloria", 0), _defineProperty(_ref, "form", new Form({
+      cliente: "",
       detalles: [{
         plato: 0,
         cantidad: 0,
@@ -1870,7 +1885,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     })), _ref;
   },
   methods: {
-    create: function create() {},
+    create: function create() {
+      var _this = this;
+
+      this.$Progress.start();
+      this.form.post("/ordenes").then(function () {
+        toast.fire({
+          type: "success",
+          title: "Orden Creada Exitosamente"
+        });
+
+        _this.$Progress.finish();
+
+        _this.clearForm();
+      })["catch"](function (error) {
+        _this.$Progress.fail();
+
+        toast.fire({
+          type: "error",
+          title: "Error en Insercion de Datos"
+        });
+      });
+    },
+    clearForm: function clearForm() {
+      this.form.cliente = "", this.form.detalles.length = 0;
+    },
     addPlato: function addPlato(pt) {
       this.plato = pt.id;
       this.cantidad = pt.cantidad;
@@ -1890,10 +1929,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.calirias = 0;
     },
     generar: function generar(cal) {
-      var _this = this;
+      var _this2 = this;
 
       axios.get("/generar/" + cal).then(function (response) {
-        _this.platosByCalorias = response.data;
+        _this2.platosByCalorias = response.data;
       });
     },
     calculate: function calculate() {
@@ -1927,7 +1966,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       this.generar(this.calorias);
+    },
+    eliminarDetalle: function eliminarDetalle(index) {
+      // this.form.detalles.length = 0;
+      var me = this;
+      me.form.detalles.splice(index, 1);
     }
+  },
+  mounted: function mounted() {
+    this.eliminarDetalle(0);
+    console.log("Create orden Mounted");
   }
 });
 
@@ -83057,6 +83105,36 @@ var render = function() {
             _c("div", { staticClass: "form-group" }, [
               _c("div", { staticClass: "row" }, [
                 _c("label", { staticClass: "col-md-3", attrs: { for: "" } }, [
+                  _vm._v("Cliente")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-3" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.cliente,
+                        expression: "form.cliente"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", placeholder: "Cliente" },
+                    domProps: { value: _vm.form.cliente },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "cliente", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row mt-3" }, [
+                _c("label", { staticClass: "col-md-3", attrs: { for: "" } }, [
                   _vm._v("Posee Enfermedad")
                 ]),
                 _vm._v(" "),
@@ -83403,7 +83481,7 @@ var render = function() {
                                         {
                                           staticClass:
                                             "btn btn-outline-success btn-sm",
-                                          attrs: { type: "submit" },
+                                          attrs: { type: "button" },
                                           on: {
                                             click: function($event) {
                                               return _vm.addPlato(plt)
@@ -83419,7 +83497,7 @@ var render = function() {
                                           staticClass:
                                             "btn btn-outline-danger btn-sm",
                                           attrs: {
-                                            type: "submit",
+                                            type: "button",
                                             onclick:
                                               "return confirm('Quiere Actualizar este Registro?')"
                                           }
@@ -83435,7 +83513,9 @@ var render = function() {
                           )
                         ])
                       ]
-                    )
+                    ),
+                    _vm._v(" "),
+                    _vm._m(1)
                   ]
                 )
               : _vm._e()
@@ -83458,6 +83538,21 @@ var staticRenderFns = [
       _c("th", [_vm._v("Calorias")]),
       _vm._v(" "),
       _c("th", [_vm._v("Funcion")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-outline-success btn-sm",
+          attrs: { type: "submit" }
+        },
+        [_vm._v("procesar")]
+      )
     ])
   }
 ]
