@@ -8,6 +8,7 @@ use App\Orden_Detalle;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Orden;
+use App\Colas;
 
 
 use Illuminate\Http\Request;
@@ -54,7 +55,7 @@ class OrdenController extends Controller
     private function get_tiempo_preparacion($receta_id){
 
 
-        $sql_total_preparacion_orden = "  SELECT COALESCE(SUM(t.tiempo), 0)  AS total_preparacion
+        $sql_total_preparacion_orden = "SELECT COALESCE(SUM(t.tiempo), 0)  AS total_preparacion
         FROM preparacions AS t
         WHERE t.id IN (
             SELECT  d.tipo_preparacion FROM receta_detalles AS d WHERE	d.receta_id = $receta_id
@@ -70,8 +71,7 @@ class OrdenController extends Controller
 
 
         $sql_get_insumos_cola = "
-        SELECT
-        	d.tipo_preparacion_id,
+        SELECT 
             d.insumo_id,
             d.tipo_preparacion
         FROM receta_detalles AS d
@@ -83,7 +83,6 @@ class OrdenController extends Controller
 
         $sql_get_receta_orden ="
         SELECT
-            d.tipo_preparacion_id,
             d.insumo_id,
             d.tipo_preparacion
             FROM receta_detalles AS d
@@ -244,6 +243,7 @@ class OrdenController extends Controller
      */
     public function store(Request $request)
     {
+        $result = [];
         DB::beginTransaction();
         try {
             $orden_id = DB::table('ordens')->insertGetId(
@@ -256,21 +256,72 @@ class OrdenController extends Controller
 
             $platos = $request->detalles;
             // dd($insumos);
-
+            $message_cola = [];
             foreach ($platos as $pl) {
                 // $insumo_id = Orden::where('id', $pl['preparacion_id'])->first()->insumo_id;
 
                 // $tiempo_preparacion = Preparacion::where('id', $ins['preparacion_id'])->first()->insumo_id;
+            
+                //METER EN COLA
+                $plato_id = $pl['plato'];
+                $sql_receta_detalle = "SELECT * from receta_detalles where receta_id IN( SELECT id from recetas where producto_id = $plato_id)";
+                
+                $receta_id = $rs_receta_nueva_id = DB::select($sql_receta_detalle)[0]->receta_id;
 
+                
+                $result_preparacion_time = $this->get_tiempo_preparacion($receta_id);
+                 
+                if($result_preparacion_time["status"] != "200"){
+                    return ['message' => 'Orden No Creada '.$result_preparacion_time["message"] ];
+                }
+                
+               
+                $tiempo_preparacion = $result_preparacion_time["data"];
+                
+
+                $nombre = DB::select("SELECT descripcion from recetas where producto_id = $plato_id")[0]->nombre;
+                
+                $sql_inset_cola = "INSERT INTO `colas`(`num_orden`, `tiempo_preparacion`, `estado`, `descripcion_plato`, `receta_id`, `created_at`) 
+                VALUES ($orden_id , '$tiempo_preparacion', 'Pendiente', '$nombre', $receta_id, 'now()'); SELECT LAST_INSERT_ID(); ";
+
+
+                DB::select($sql_inset_cola);
+
+                // DB::table('colas')->insert(
+                //     array('num_orden' => $orden_id, 
+                //     'tiempo_preparacion'=> $orden_id,
+                //     'estado'=> 'Pendiente',
+                //     'descripcion_plato'=> "$nombre",
+                //     'receta_id'=> $receta_id,
+                //     'created_at'=>"'now()'" )
+                // );
+            
+            //    $colas=Colas::create([
+            //         'num_orden' => $orden_id, 
+            //         'tiempo_preparacion'=> $orden_id,
+            //         'estado'=> 'Pendiente',
+            //         'descripcion_plato'=> $nombre,
+            //         'receta_id'=> $receta_id
+            //     ]);
+
+                //ejecutar cuando se meta en cola
+                $tiempo_servicio = $this->get_tiempo_servir();
+                $tiempo_total =  $tiempo_preparacion + $tiempo_servicio;
+
+                array_push($message_cola, array("tiempo_servicio"=>$tiempo_total,"message_cola"=>$result_preparacion_time["message"]));
+                //METER EN COLA
+                
                 Orden_Detalle::create([
                     'orden_id' => $orden_id,
                     'plato_id' => $pl['plato'],
                     'cantidad' => $pl['cantidad']
                 ]);
+
+                
             }
             DB::commit();
 
-            return ['message' => 'Orden Creada'];
+            return ['message' => 'Orden Creada',"example"=>$message_cola];
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json(['error' => $th], 422);
