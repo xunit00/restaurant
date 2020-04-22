@@ -24,22 +24,16 @@ class RecetaSeed extends Seeder
             'porciones' => 1
         ]);
 
-        // Receta::create([
-        //     'producto_id' => '3',
-        //     'descripcion' => 'pan tradicional',
-        //     'porciones' => 1
-        // ]);
+        Receta::create([
+            'producto_id' => '3',
+            'descripcion' => 'chuletas picadas',
+            'porciones' => 1
+        ]);
 
-        // Receta::create([
-        //     'producto_id' => '4',
-        //     'descripcion' => 'chiletas picadas',
-        //     'porciones' => 1
-        // ]);
-
-        // Receta::create([
-        //     'producto_id' => '5',
-        //     'descripcion' => 'estofado de bistec',
-        //     'porciones' => 1
-        // ]);
+        Receta::create([
+            'producto_id' => '4',
+            'descripcion' => 'estofado de bistec con vegetales',
+            'porciones' => 1
+        ]);
     }
 }

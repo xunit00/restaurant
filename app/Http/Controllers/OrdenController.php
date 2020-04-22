@@ -222,7 +222,7 @@ class OrdenController extends Controller
      */
     public function generar(Request $request)
     {
-        $calorias_porcomida =($request->cal)/3;//dividar la cantidad de calorias por dias en 3 partes
+        $calorias_porcomida =($request->cal);//dividar la cantidad de calorias por dias en 3 partes
 
         $platos = DetalleReceta::selectRaw('productos.id,productos.nombre,0 as cantidad, sum((insumos.calorias * receta_detalles.cantidad)/100) calorias')
         ->leftjoin('recetas', 'receta_detalles.receta_id', '=', 'recetas.id')

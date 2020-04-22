@@ -27,13 +27,6 @@ class PlatosSeed extends Seeder
         ]);
 
         Producto::create([
-            'nombre'=>'Pan con especias',
-            'descripcion'=>'con algo',
-            'categoria_id'=>'5',
-            'precio'=>'5'
-        ]);
-
-        Producto::create([
             'nombre'=>'Chuletas de Cerdo al carbon',
             'descripcion'=>'con algo',
             'categoria_id'=>'2',

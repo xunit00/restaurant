@@ -82,5 +82,61 @@ class DetalleRecetaSeed extends Seeder
             'cantidad'=>'1',
             'tipo_preparacion'=>'1'
         ]);
+
+        //receta 3
+        DetalleReceta::create([
+            'receta_id'=>'3',
+            'insumo_id'=>'40',
+            'cantidad'=>'150',
+            'tipo_preparacion'=>'80'
+        ]);DetalleReceta::create([
+            'receta_id'=>'3',
+            'insumo_id'=>'13',
+            'cantidad'=>'3',
+            'tipo_preparacion'=>'17'
+        ]);DetalleReceta::create([
+            'receta_id'=>'3',
+            'insumo_id'=>'25',
+            'cantidad'=>'10',
+            'tipo_preparacion'=>'38'
+        ]);
+
+        //receta 4
+        DetalleReceta::create([
+            'receta_id'=>'4',
+            'insumo_id'=>'40',
+            'cantidad'=>'100',
+            'tipo_preparacion'=>'78'
+        ]); DetalleReceta::create([
+            'receta_id'=>'4',
+            'insumo_id'=>'37',
+            'cantidad'=>'80',
+            'tipo_preparacion'=>'66'
+        ]);DetalleReceta::create([
+            'receta_id'=>'4',
+            'insumo_id'=>'29',
+            'cantidad'=>'2',
+            'tipo_preparacion'=>'49'
+        ]); DetalleReceta::create([
+            'receta_id'=>'4',
+            'insumo_id'=>'5',
+            'cantidad'=>'1',
+            'tipo_preparacion'=>'5'
+        ]); DetalleReceta::create([
+            'receta_id'=>'4',
+            'insumo_id'=>'13',
+            'cantidad'=>'1',
+            'tipo_preparacion'=>'18'
+        ]); DetalleReceta::create([
+            'receta_id'=>'4',
+            'insumo_id'=>'23',
+            'cantidad'=>'30',
+            'tipo_preparacion'=>'34'
+        ]);DetalleReceta::create([
+            'receta_id'=>'4',
+            'insumo_id'=>'4',
+            'cantidad'=>'1',
+            'tipo_preparacion'=>'4'
+        ]);
     }
 }
