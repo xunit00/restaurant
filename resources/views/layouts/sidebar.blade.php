@@ -78,6 +78,15 @@
     </a>
 </li>
 
+<!-- MAYCOL -->
+<li class="nav-item">
+    <a href="{{route('statsCola.index')}}"
+    class="nav-link {{ request()->is('ordenes *') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-circle-notch"></i>
+        <p>Estadisticas De Cola</p>
+    </a>
+</li>
+
                     @canany(['read.categorias','read.unidades','read.productos','read.recetas','read.areas','read.mesas'])
                     <li class="nav-item has-treeview">
 

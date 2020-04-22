@@ -42,6 +42,7 @@ Route::middleware('auth')->group(function () {
         'clientes' => 'ClienteController',
         'notaVentas' => 'NotaVentaController',
         'transacciones' => 'TransaccionInventarioController',
+        'statsCola' => 'EstadisticasColaController',
         'ordenes'=>'OrdenController'
     ]);
 
@@ -56,8 +57,10 @@ Route::middleware('auth')->group(function () {
 
     //reportes
     Route::prefix('reportes')->as('reportes.')->group(function () {
-        Route::get('/notaVentas/reportPDF', 'NotaVentaController@reportPDF')->name('notaVentaPDF');
+        Route::get('/notaVentas/reportPDF', 'NotaVentaController@reportPDF')->name('notaVentaPDF'); 
     });
+    
+    Route::post('statsCola/get_data', 'EstadisticasColaController@get_data');
 
     //rutas para actualizar status
     Route::prefix('status')->as('status.')->group(function () {
