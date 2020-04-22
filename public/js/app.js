@@ -1714,8 +1714,8 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -1861,15 +1861,121 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {
-      form: new Form({
-        enfermedad: "",
-        genero: "",
-        edad: "",
-        actividad: "",
-        altura: ""
-      })
-    };
+    var _ref;
+
+    return _ref = {
+      platosByCalorias: {},
+      calorias: "",
+      enfermedad: "",
+      genero: "",
+      edad: "",
+      altura: "",
+      peso: "",
+      actividad: "",
+      cantidad: "",
+      cliente: "",
+      plato: 0
+    }, _defineProperty(_ref, "cantidad", 0), _defineProperty(_ref, "caloria", 0), _defineProperty(_ref, "form", new Form({
+      cliente: "",
+      detalles: [{
+        plato: 0,
+        cantidad: 0,
+        caloria: 0
+      }]
+    })), _ref;
+  },
+  methods: {
+    create: function create() {
+      var _this = this;
+
+      this.$Progress.start();
+      this.form.post("/ordenes").then(function () {
+        toast.fire({
+          type: "success",
+          title: "Orden Creada Exitosamente"
+        });
+
+        _this.$Progress.finish();
+
+        _this.clearForm();
+      })["catch"](function (error) {
+        _this.$Progress.fail();
+
+        toast.fire({
+          type: "error",
+          title: "Error en Insercion de Datos"
+        });
+      });
+    },
+    clearForm: function clearForm() {
+      this.form.cliente = "", this.form.detalles.length = 0;
+    },
+    addPlato: function addPlato(pt) {
+      this.plato = pt.id;
+      this.cantidad = pt.cantidad;
+      this.calorias = pt.calorias; //     cantidad: me.cantidad,
+      // let me=this;
+
+      this.form.detalles.push({
+        plato: this.plato,
+        cantidad: this.cantidad,
+        caloria: this.calorias
+      });
+      this.clearValues(); // console.log(pt.id,pt.cantidad)
+    },
+    clearValues: function clearValues() {
+      this.plato = 0;
+      this.cantidad = 0;
+      this.calirias = 0;
+    },
+    generar: function generar(cal) {
+      var _this2 = this;
+
+      axios.get("/generar/" + cal).then(function (response) {
+        _this2.platosByCalorias = response.data;
+      });
+    },
+    calculate: function calculate() {
+      //pie a cm 30.48
+      //lb a kg 0.453592
+      if (this.enfermedad == "NO") {
+        if (this.genero == "m") {
+          //[(66 + (13.7 x tu peso en kilos) + (5 x altura en cm) – (6.8 x tu edad)] x factor de actividad
+          this.calorias = (66 + 13.7 * (this.peso * 0.453592) + 5 * (this.altura * 30.48) - 6.8 * this.edad) * this.actividad; //   console.log(this.calorias);
+        } else if (this.genero == "f") {
+          //[(655 + (9.6 x tu peso en kilos) + (1.8 x altura en cm) – (4.7 x tu edad)] x factor de actividad
+          this.calorias = (665 + 9.6 * (this.peso * 0.453592) + 1.8 * (this.altura * 30.48) - 4.7 * this.edad) * this.actividad; //   console.log(this.calorias);
+        } else {
+          toast.fire({
+            type: "error",
+            title: "Seleccione Datos"
+          });
+        }
+      } else if (this.enfermedad == "Diabetico") {
+        //diabetico
+        if (this.genero == "m") {
+          this.calorias = (30 + 13.7 * (this.peso * 0.453592) + 5 * (this.altura * 30.48) - 6.8 * this.edad) * this.actividad;
+        } else if (this.genero == "f") {
+          this.calorias = (540 + 9.6 * (this.peso * 0.453592) + 1.8 * (this.altura * 30.48) - 4.7 * this.edad) * this.actividad;
+        } else {
+          toast.fire({
+            type: "error",
+            title: "Seleccione Datos"
+          });
+        }
+      }
+
+      this.generar(this.calorias);
+    },
+    eliminarDetalle: function eliminarDetalle(index) {
+      // this.form.detalles.length = 0;
+      var me = this;
+      me.form.detalles.splice(index, 1);
+    }
+  },
+  mounted: function mounted() {
+    this.eliminarDetalle(0);
+    console.log("Create orden Mounted");
   }
 });
 
@@ -82982,299 +83088,471 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "card" }, [
+    _c("section", { staticClass: "content" }, [
+      _c("div", { staticClass: "container-fluid mt-3" }, [
+        _c(
+          "form",
+          {
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.create()
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "form-group" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("label", { staticClass: "col-md-3", attrs: { for: "" } }, [
+                  _vm._v("Cliente")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-3" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.cliente,
+                        expression: "form.cliente"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", placeholder: "Cliente" },
+                    domProps: { value: _vm.form.cliente },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "cliente", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row mt-3" }, [
+                _c("label", { staticClass: "col-md-3", attrs: { for: "" } }, [
+                  _vm._v("Posee Enfermedad")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.enfermedad,
+                          expression: "enfermedad"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.enfermedad = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "", selected: "" } }, [
+                        _vm._v("Seleccionar Enfermedad")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "NO" } }, [_vm._v("No")]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "Diabetico" } }, [
+                        _vm._v("Diabetico")
+                      ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "clearfix" }),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-3" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-info",
+                      on: { click: _vm.calculate }
+                    },
+                    [_c("i", { staticClass: "fas fa-plus-circle" })]
+                  )
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("label", { staticClass: "col-md-3", attrs: { for: "" } }, [
+                  _vm._v("Informacion Extra")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-3" }, [
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.genero,
+                          expression: "genero"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.genero = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "", selected: "" } }, [
+                        _vm._v("Seleccionar Genero")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "m" } }, [
+                        _vm._v("Masculino")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "f" } }, [
+                        _vm._v("Femenino")
+                      ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "clearfix" }),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-3" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.edad,
+                        expression: "edad"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "number", placeholder: "Edad" },
+                    domProps: { value: _vm.edad },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.edad = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-3" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.peso,
+                        expression: "peso"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "number", placeholder: "Peso(lb)" },
+                    domProps: { value: _vm.peso },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.peso = $event.target.value
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-3" }),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-3" }, [
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.actividad,
+                          expression: "actividad"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.actividad = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "", selected: "" } }, [
+                        _vm._v("Factor de Actividad")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "1" } }, [
+                        _vm._v("Sedentario")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "1.2" } }, [
+                        _vm._v("Muy baja")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "1.4" } }, [
+                        _vm._v("Baja")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "1.6" } }, [
+                        _vm._v("Moderado")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "1.8" } }, [
+                        _vm._v("Activo")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "2" } }, [
+                        _vm._v("Muy Activo")
+                      ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "clearfix" }),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-3" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.altura,
+                        expression: "altura"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "number", placeholder: "Altura(pies)" },
+                    domProps: { value: _vm.altura },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.altura = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-3" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.calorias,
+                        expression: "calorias"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "number",
+                      placeholder: "Calorias",
+                      disabled: ""
+                    },
+                    domProps: { value: _vm.calorias },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.calorias = $event.target.value
+                      }
+                    }
+                  })
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            this.platosByCalorias.length > 0
+              ? _c(
+                  "div",
+                  { staticClass: "container mt-3", attrs: { id: "platos" } },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "card-body table-responsive p-0" },
+                      [
+                        _c("table", { staticClass: "table table-hover" }, [
+                          _c(
+                            "tbody",
+                            [
+                              _vm._m(0),
+                              _vm._v(" "),
+                              _vm._l(_vm.platosByCalorias, function(plt) {
+                                return _c(
+                                  "tr",
+                                  { key: plt.id, attrs: { value: plt.id } },
+                                  [
+                                    _c("td", [_vm._v(_vm._s(plt.nombre))]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: plt.cantidad,
+                                            expression: "plt.cantidad"
+                                          }
+                                        ],
+                                        staticClass: "form-control",
+                                        attrs: {
+                                          type: "number",
+                                          placeholder: "Cantidad"
+                                        },
+                                        domProps: { value: plt.cantidad },
+                                        on: {
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              plt,
+                                              "cantidad",
+                                              $event.target.value
+                                            )
+                                          }
+                                        }
+                                      })
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [_vm._v(_vm._s(plt.calorias))]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass:
+                                            "btn btn-outline-success btn-sm",
+                                          attrs: { type: "button" },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.addPlato(plt)
+                                            }
+                                          }
+                                        },
+                                        [_vm._v("Agregar")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass:
+                                            "btn btn-outline-danger btn-sm",
+                                          attrs: {
+                                            type: "button",
+                                            onclick:
+                                              "return confirm('Quiere Actualizar este Registro?')"
+                                          }
+                                        },
+                                        [_vm._v("Modificar")]
+                                      )
+                                    ])
+                                  ]
+                                )
+                              })
+                            ],
+                            2
+                          )
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _vm._m(1)
+                  ]
+                )
+              : _vm._e()
+          ]
+        )
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card" }, [
-      _c("section", { staticClass: "content" }, [
-        _c("div", { staticClass: "container-fluid mt-3" }, [
-          _c(
-            "form",
-            {
-              attrs: {
-                action: "",
-                method: "POST",
-                enctype: "multipart/form-data"
-              }
-            },
-            [
-              _c("div", { staticClass: "form-group" }, [
-                _c("div", { staticClass: "row" }, [
-                  _c("label", { staticClass: "col-md-3", attrs: { for: "" } }, [
-                    _vm._v("Posee Enfermedad")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c(
-                      "select",
-                      {
-                        staticClass: "form-control",
-                        attrs: { name: "unidad_id", id: "" }
-                      },
-                      [
-                        _c("option", { attrs: { value: "", selected: "" } }, [
-                          _vm._v("Seleccionar Enfermedad")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "NO" } }, [
-                          _vm._v("No")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "PreDiabetico" } }, [
-                          _vm._v("Pre-Diabetico")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "Diabetico" } }, [
-                          _vm._v("Diabetico")
-                        ])
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "clearfix" }),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-3" }, [
-                    _c("input", {
-                      staticClass: "btn btn-info",
-                      attrs: { type: "submit", value: "Generar" }
-                    })
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("div", { staticClass: "row" }, [
-                  _c("label", { staticClass: "col-md-3", attrs: { for: "" } }, [
-                    _vm._v("Informacion Extra")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-3" }, [
-                    _c(
-                      "select",
-                      {
-                        staticClass: "form-control",
-                        attrs: { name: "unidad_id", id: "" }
-                      },
-                      [
-                        _c("option", { attrs: { value: "", selected: "" } }, [
-                          _vm._v("Seleccionar Genero")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "m" } }, [
-                          _vm._v("Masculino")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "f" } }, [
-                          _vm._v("Femenino")
-                        ])
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "clearfix" }),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-3" }, [
-                    _c("input", {
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "number",
-                        name: "porciones",
-                        placeholder: "Edad"
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-md-3" }),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-3" }, [
-                    _c(
-                      "select",
-                      {
-                        staticClass: "form-control",
-                        attrs: { name: "unidad_id", id: "" }
-                      },
-                      [
-                        _c("option", { attrs: { value: "", selected: "" } }, [
-                          _vm._v("Factor de Actividad")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "1" } }, [
-                          _vm._v("Sedentario")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "1.2" } }, [
-                          _vm._v("Muy baja")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "1.4" } }, [
-                          _vm._v("Baja")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "1.6" } }, [
-                          _vm._v("Moderado")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "1.8" } }, [
-                          _vm._v("Activo")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "2" } }, [
-                          _vm._v("Muy Activo")
-                        ])
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "clearfix" }),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-3" }, [
-                    _c("input", {
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "number",
-                        name: "altura",
-                        placeholder: "Altura"
-                      }
-                    })
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-body table-responsive p-0" }, [
-                _c("table", { staticClass: "table table-hover" }, [
-                  _c("tbody", [
-                    _c("tr", [
-                      _c("th", [_vm._v("Plato")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Descripcion")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Calorias")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Funcion")])
-                    ]),
-                    _vm._v(" "),
-                    _c("tr", [
-                      _c("td", [_vm._v("Arroz con guandules")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("Doe")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("100")]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-outline-success btn-sm",
-                            attrs: {
-                              type: "submit",
-                              onclick:
-                                "return confirm('Quiere Actualizar este Registro?')"
-                            }
-                          },
-                          [_vm._v("Agregar")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-outline-danger btn-sm",
-                            attrs: {
-                              type: "submit",
-                              onclick:
-                                "return confirm('Quiere Actualizar este Registro?')"
-                            }
-                          },
-                          [_vm._v("Modificar")]
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("tr", [
-                      _c("td", [_vm._v("Pechuga a la Plancha")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("una pieza")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("200")]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-outline-success btn-sm",
-                            attrs: {
-                              type: "submit",
-                              onclick:
-                                "return confirm('Quiere Actualizar este Registro?')"
-                            }
-                          },
-                          [_vm._v("Agregar")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-outline-danger btn-sm",
-                            attrs: {
-                              type: "submit",
-                              onclick:
-                                "return confirm('Quiere Actualizar este Registro?')"
-                            }
-                          },
-                          [_vm._v("Modificar")]
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("tr", [
-                      _c("td", [_vm._v("Bistec de Cerdo")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("2 piezas")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("500")]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-outline-success btn-sm",
-                            attrs: {
-                              type: "submit",
-                              onclick:
-                                "return confirm('Quiere Actualizar este Registro?')"
-                            }
-                          },
-                          [_vm._v("Agregar")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-outline-danger btn-sm",
-                            attrs: {
-                              type: "submit",
-                              onclick:
-                                "return confirm('Quiere Actualizar este Registro?')"
-                            }
-                          },
-                          [_vm._v("Modificar")]
-                        )
-                      ])
-                    ])
-                  ])
-                ])
-              ])
-            ]
-          )
-        ])
-      ])
+    return _c("tr", [
+      _c("th", [_vm._v("Plato")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Cantidad")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Calorias")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Funcion")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-outline-success btn-sm",
+          attrs: { type: "submit" }
+        },
+        [_vm._v("procesar")]
+      )
     ])
   }
 ]

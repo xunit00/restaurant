@@ -114,3 +114,6 @@ Route::prefix('admin')->group(function () {
 });
 
 Route::redirect('/admin', '/admin/orders');
+
+Route::get('/generar/{cal}', 'OrdenController@generar')->name('generar');
+
